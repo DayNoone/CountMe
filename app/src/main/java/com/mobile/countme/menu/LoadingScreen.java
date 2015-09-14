@@ -15,7 +15,7 @@ public class LoadingScreen extends AppMenu {
         //LOAD SHIT
 
         //AFTER DONE LOADING
-
+        goToNoAnimation(InformationMenu.class);
     }
 
 }

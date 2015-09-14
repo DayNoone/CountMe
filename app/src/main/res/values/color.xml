@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="Primary">#3D97FF</color> <!-- BLUE -->
+    <color name="Secondary">#82BCFF</color> <!-- Lighter BLUE -->
+    <color name="TabScroller">#FFFFFF</color> <!-- Find a color scheme -->
+</resources>
