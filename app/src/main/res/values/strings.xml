@@ -26,7 +26,6 @@
     <string name="environment_train">km med tog</string>
 
     <!-- Statistics -->
-
     <string name="co2_spart">CO&#8322; spart</string>
     <string name="distance_traveled">Distanse:</string>
     <string name="avg_speed">Gj.fart: </string>
