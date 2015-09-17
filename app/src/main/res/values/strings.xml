@@ -1,6 +1,42 @@
 <resources>
-    <string name="app_name">CountMe</string>
+    <string name="app_name">Din Sykkelvei</string>
 
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings"><strike>Innstillinger</strike></string>
+    <string name="lang_norwegian">Norsk BO</string>
+    <string name="lang_english">English</string>
+
+    <string name="biking_idle">Start</string>
+    <string name="environment_page">Miljø</string>
+    <string name="statistics_page">Tall</string>
+    <string name="info_page">Info</string>
+
+    <string name="intro_page1">All bruk av GPS er anonym. Første og siste 100 metrene av din reiserute fjernes. Svada svada</string>
+    <string name="intro_page2">Denne appen brukes til å [...] osv osv</string>
+    <string name="intro_page3">Ting og tang vet ikke</string>
+    <string name="intro_page4">Ved å trykke på mobilens <i>optionsknapp</i>, kan du velge språk. </string>
+
+    <!-- Biking idle -->
+    <string name="start_trip">START TUR</string>
+
+    <!-- Environment -->
+    <string name="environment_title">CO&#8322; spart i dag</string>
+    <string name="environment_comparement">Hvilket er det samme som: </string>
+    <string name="environment_car">km med bil</string>
+    <string name="environment_airplane">km med fly</string>
+    <string name="environment_train">km med tog</string>
+
+    <!-- Statistics -->
+
+    <string name="co2_spart">CO&#8322; spart</string>
+    <string name="distance_traveled">Distanse:</string>
+    <string name="avg_speed">Gj.fart: </string>
+    <string name="weekly_display">1 uke</string>
+    <string name="monthhly_display">1 mnd</string>
+
+    <!-- Information -->
+    <string name="information_title">Informasjon</string>
+    <string name="contact">Kontakt oss: DinSykkelvei@sykkelmail.no</string>
+    <string name="rewatch_intro">Se om igjen introduksjon</string>
+
+
 </resources>

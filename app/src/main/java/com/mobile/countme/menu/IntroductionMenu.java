@@ -2,26 +2,26 @@ package com.mobile.countme.menu;
 
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.mobile.countme.framework.AppMenu;
 import com.mobile.countme.R;
 import com.mobile.countme.framework.SlidingTabLayout;
-import com.mobile.countme.framework.ViewPagerAdapter;
+import com.mobile.countme.framework.IntroductionViewPagerAdapter;
 
 /**
  * Created by Kristian on 11/09/2015.
  */
-public class IntroductionMenu extends AppCompatActivity {
+public class IntroductionMenu extends AppMenu {
 
     Toolbar toolbar;
     ViewPager pager;
-    ViewPagerAdapter adapter;
+    IntroductionViewPagerAdapter adapter;
     SlidingTabLayout tabs;
-    CharSequence Titles[]={"Home","Events", "Side 3", "Side 4"};
+    CharSequence Titles[]={"1","2","3","4"};
     int Numboftabs =4;
 
 
@@ -35,7 +35,7 @@ public class IntroductionMenu extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         // Creating The ViewPagerAdapter and Passing Fragment Manager, Titles fot the Tabs and Number Of Tabs.
-        adapter =  new ViewPagerAdapter(getSupportFragmentManager(),Titles,Numboftabs);
+        adapter =  new IntroductionViewPagerAdapter(getSupportFragmentManager(),Titles,Numboftabs);
 
         // Assigning ViewPager View and setting the adapter
         pager = (ViewPager) findViewById(R.id.pager);
@@ -79,5 +79,8 @@ public class IntroductionMenu extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void goToMainApp(View view) {
+        goTo(MainPages.class);
+    }
 
 }

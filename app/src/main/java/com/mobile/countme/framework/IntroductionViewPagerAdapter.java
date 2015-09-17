@@ -9,7 +9,7 @@ import com.mobile.countme.menu.introduction_pages.*;
 /**
  * Created by Kristian on 11/09/2015.
  */
-public class ViewPagerAdapter extends FragmentPagerAdapter {
+public class IntroductionViewPagerAdapter extends FragmentPagerAdapter {
 
 
     CharSequence Titles[]; // This will Store the Titles of the Tabs which are Going to be passed when ViewPagerAdapter is created
@@ -17,7 +17,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
 
 
     // Build a Constructor and assign the passed Values to appropriate values in the class
-    public ViewPagerAdapter(FragmentManager fm,CharSequence mTitles[], int mNumbOfTabsumb) {
+    public IntroductionViewPagerAdapter(FragmentManager fm, CharSequence mTitles[], int mNumbOfTabsumb) {
         super(fm);
 
         this.Titles = mTitles;
@@ -34,10 +34,20 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
             Page1 page1 = new Page1();
             return page1;
         }
-        else             // As we are having 2 tabs if the position is now 0 it must be 1 so we are returning second tab
+        else if(position == 1)             // As we are having 2 tabs if the position is now 0 it must be 1 so we are returning second tab
         {
-            Page1 page2 = new Page1();
+            Page2 page2 = new Page2();
             return page2;
+        }
+        else if(position == 2)             // As we are having 2 tabs if the position is now 0 it must be 1 so we are returning second tab
+        {
+            Page3 page3 = new Page3();
+            return page3;
+        }
+        else         // As we are having 2 tabs if the position is now 0 it must be 1 so we are returning second tab
+        {
+            Page4 page4 = new Page4();
+            return page4;
         }
 
 

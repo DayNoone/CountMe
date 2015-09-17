@@ -17,16 +17,23 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.mobile.countme.R;
+import com.mobile.countme.storage_and_memory.Assets;
 
 /**
  * Created by Kristian on 11/09/2015.
  */
 public abstract class AppMenu extends AppCompatActivity {
 
+    public static Assets assets;
+
     @Override
     public void onCreate(Bundle savedInstanceBundle){
         super.onCreate(savedInstanceBundle);
+        assets = new Assets();
     }
+
+
+
 
 
     public void goToNoAnimation(Class javaClass) {
@@ -41,6 +48,12 @@ public abstract class AppMenu extends AppCompatActivity {
         Intent intent = new Intent(this, javaClass);
         startActivity(intent);
         finish();
+    }
+
+    private String getStringResourceByName(String aString) {
+        String packageName = getPackageName();
+        int resId = getResources().getIdentifier(aString, "string", packageName);
+        return getString(resId);
     }
 
 }

@@ -17,6 +17,7 @@ package com.mobile.countme.framework;
  */
 
         import android.content.Context;
+        import android.graphics.Color;
         import android.graphics.Typeface;
         import android.os.Build;
         import android.support.v4.view.PagerAdapter;
@@ -31,6 +32,8 @@ package com.mobile.countme.framework;
         import android.widget.HorizontalScrollView;
         import android.widget.LinearLayout;
         import android.widget.TextView;
+
+        import com.mobile.countme.R;
 
 /**
  * To be used with ViewPager to provide a tab indicator component which give constant feedback as to
@@ -223,6 +226,8 @@ public class SlidingTabLayout extends HorizontalScrollView {
             if (i == mViewPager.getCurrentItem()) {
                 tabView.setSelected(true);
             }
+            tabTitleView.setTextSize(14);
+            tabTitleView.setTextColor(Color.WHITE);
         }
     }
 

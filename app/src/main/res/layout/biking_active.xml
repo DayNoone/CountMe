@@ -1,6 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-</LinearLayout>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button6"
+        android:background="@drawable/stopbtn"
+        android:layout_marginBottom="72dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:onClick="stopBiking" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="0 min"
+        android:id="@+id/textView17"
+        android:textSize="25dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="114dp"
+        android:layout_centerHorizontal="true"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="0 km"
+        android:id="@+id/textView18"
+        android:textSize="25dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/textView17"
+        android:layout_alignStart="@+id/textView17" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="0 m/s"
+        android:id="@+id/textView19"
+        android:textSize="25dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/textView18"
+        android:layout_alignStart="@+id/textView18" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Gmaps"
+        android:id="@+id/button7"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        />
+
+</RelativeLayout>
