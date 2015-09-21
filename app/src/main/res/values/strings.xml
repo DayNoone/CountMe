@@ -19,13 +19,14 @@
     <string name="start_trip">START TUR</string>
 
     <!-- Environment -->
-    <string name="environment_title">CO&#8322; spart i dag</string>
+    <string name="environment_title"><u>CO&#8322; spart i dag</u></string>
     <string name="environment_comparement">Hvilket er det samme som: </string>
     <string name="environment_car">km med bil</string>
     <string name="environment_airplane">km med fly</string>
     <string name="environment_train">km med tog</string>
 
     <!-- Statistics -->
+    <string name="stats_header"><u>Tall</u></string>
     <string name="co2_spart">CO&#8322; spart</string>
     <string name="distance_traveled">Distanse:</string>
     <string name="avg_speed">Gj.fart: </string>
@@ -33,9 +34,16 @@
     <string name="monthhly_display">1 mnd</string>
 
     <!-- Information -->
-    <string name="information_title">Informasjon</string>
+    <string name="information_title"><u>Informasjon</u></string>
     <string name="contact">Kontakt oss: DinSykkelvei@sykkelmail.no</string>
     <string name="rewatch_intro">Se om igjen introduksjon</string>
 
+    <!--Confirmation -->
+    <string name="stop_biking">Avslutt tur?</string>
+    <string name="yes">Ja</string>
+    <string name="no">Nei</string>
+
+    <!-- Biking active -->
+    <string name="biking_active"><u>Sykling pågår</u></string>
 
 </resources>

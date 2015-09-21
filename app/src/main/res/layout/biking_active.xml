@@ -13,49 +13,72 @@
         android:layout_centerHorizontal="true"
         android:onClick="stopBiking" />
 
-    <TextView
+    <com.mobile.countme.custom_views.CustomTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="0 min"
         android:id="@+id/textView17"
-        android:textSize="25dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="114dp"
-        android:layout_centerHorizontal="true"
-        />
+        android:textSize="30sp"
+        android:layout_marginTop="76dp"
+        android:layout_below="@+id/button7"
+        android:layout_centerHorizontal="true" />
 
-    <TextView
+    <com.mobile.countme.custom_views.CustomTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="0 km"
         android:id="@+id/textView18"
-        android:textSize="25dp"
+        android:textSize="30sp"
         android:layout_marginTop="10dp"
         android:layout_below="@+id/textView17"
         android:layout_alignStart="@+id/textView17" />
 
-    <TextView
+    <com.mobile.countme.custom_views.CustomTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="0 m/s"
         android:id="@+id/textView19"
-        android:textSize="25dp"
+        android:textSize="30sp"
         android:layout_marginTop="10dp"
         android:layout_below="@+id/textView18"
         android:layout_alignStart="@+id/textView18" />
 
-    <Button
+    <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Gmaps"
         android:id="@+id/button7"
+        android:onClick="goToMaps"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="10dp"
+        android:background="@drawable/map_icon"
         android:layout_marginRight="10dp"
+        android:layout_marginEnd="10dp"
         />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button8"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/cam_icon"
+        android:layout_marginRight="10dp"
+        android:layout_marginStart="10dp"
+        />
+
+    <com.mobile.countme.custom_views.CustomTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/biking_active"
+        android:textSize="30sp"
+        android:id="@+id/textView20"
+        android:layout_below="@+id/button7"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

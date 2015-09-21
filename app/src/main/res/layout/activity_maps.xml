@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical">
+
+    <!-- MAP -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.15">
+
+        <fragment
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/map"
+            tools:context=".MapsActivity"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            tools:layout="@layout/activity_maps">
+        </fragment>
+
+    </LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.85"
+        android:background="#3D97FF">
+
+
+
+       <TableLayout
+           android:layout_width="match_parent"
+           android:layout_height="fill_parent"
+           android:padding="5dp"
+           android:background="#3D97FF"
+           android:showDividers="middle"
+           android:divider="#FF0000"
+           android:dividerPadding="5dp"
+           android:layout_weight="0.3">
+            <TableRow>
+                <com.mobile.countme.custom_views.CustomTextView
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="31"
+                    android:gravity="center"
+                    android:textSize="24sp"
+                    android:layout_gravity="fill_horizontal"
+                    android:id="@+id/textView1"/>
+                <com.mobile.countme.custom_views.CustomTextView
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="2.3"
+                    android:textSize="24sp"
+                    android:layout_gravity="fill_horizontal"
+                    android:id="@+id/textView2"
+                    />
+                <com.mobile.countme.custom_views.CustomTextView
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="6.2"
+                    android:layout_gravity="fill_horizontal"
+                    android:textSize="24sp"
+                    android:id="@+id/textView3"
+                    />
+            </TableRow>
+
+
+
+            <!-- UNITS -->
+           <TableRow android:layout_gravity="center">
+                <com.mobile.countme.custom_views.CustomTextView
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="min"
+                    android:textSize="24sp"
+                    android:id="@+id/textView4"
+                    />
+                <com.mobile.countme.custom_views.CustomTextView
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="km"
+                    android:textSize="24sp"
+                    android:id="@+id/textView5"
+                    />
+                <com.mobile.countme.custom_views.CustomTextView
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="m/s"
+                    android:textSize="24sp"
+                    android:id="@+id/textView6"
+                    />
+           </TableRow>
+       </TableLayout>
+
+        <Button
+            android:id="@+id/back_btn"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.7"
+            android:textSize="24sp"
+            android:textColor="#FFFFFF"
+            android:text="BACK"
+            android:onClick="goBack"
+            />
+
+
+    </LinearLayout>
+</LinearLayout>

@@ -14,7 +14,7 @@ public class Assets {
     private static Typeface[] fonts;
 
     // To add more fonts, simply add them to the fonts folder, and add their path here
-    private static final String[] fontPath = {
+    public static final String[] fontPath = {
             "fonts/bakserville-old-face-regular.ttf"
     };
 
