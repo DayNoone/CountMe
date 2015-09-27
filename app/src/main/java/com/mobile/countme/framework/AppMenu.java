@@ -1,22 +1,11 @@
 package com.mobile.countme.framework;
 
-import android.app.ActionBar;
-import android.app.Activity;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.mobile.countme.R;
+import com.mobile.countme.implementation.AndroidFileIO;
+import com.mobile.countme.implementation.User;
 import com.mobile.countme.storage_and_memory.Assets;
 
 /**
@@ -24,12 +13,14 @@ import com.mobile.countme.storage_and_memory.Assets;
  */
 public abstract class AppMenu extends AppCompatActivity {
 
-    public static Assets assets;
+    //These values persists through the game.
+    private static Assets appAssets;
+    private static AndroidFileIO fileIO;
+    private static User user;
 
     @Override
     public void onCreate(Bundle savedInstanceBundle){
         super.onCreate(savedInstanceBundle);
-        assets = new Assets();
     }
 
 
@@ -56,4 +47,26 @@ public abstract class AppMenu extends AppCompatActivity {
         return getString(resId);
     }
 
+    public static User getUser() {
+        return user;
+    }
+
+    public static AndroidFileIO getFileIO() {
+        return fileIO;
+    }
+
+    public static Assets getAppAssets(){
+        return appAssets;
+    }
+
+    public static void setUser(User user) {
+        AppMenu.user = user;
+    }
+
+    public static void setAppAssets(Assets assets) {
+        AppMenu.appAssets = assets;
+    }
+    public static void setFileIO(AndroidFileIO fileIO) {
+        AppMenu.fileIO = fileIO;
+    }
 }

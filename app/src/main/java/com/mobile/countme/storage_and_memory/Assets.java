@@ -3,6 +3,8 @@ package com.mobile.countme.storage_and_memory;
 import android.content.Context;
 import android.graphics.Typeface;
 
+import com.mobile.countme.framework.AppMenu;
+
 /**
  * Created by Kristian on 11/09/2015.
  */
@@ -12,6 +14,11 @@ public class Assets {
 
     private static boolean fontsLoaded;
     private static Typeface[] fonts;
+    private AppMenu menu;
+
+    public Assets (AppMenu menu){
+        this.menu = menu;
+    }
 
     // To add more fonts, simply add them to the fonts folder, and add their path here
     public static final String[] fontPath = {

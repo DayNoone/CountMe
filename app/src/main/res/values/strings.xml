@@ -46,4 +46,9 @@
     <!-- Biking active -->
     <string name="biking_active"><u>Sykling pågår</u></string>
 
+    <!--PUBLIC FINAL STRINGS-->
+    <!--Consider making these strings unreadable-->
+    <string name="environmentStatisticsData">environmentStatistics</string>
+    <string name="profile_preferences">UserPrefsFile</string>
+
 </resources>

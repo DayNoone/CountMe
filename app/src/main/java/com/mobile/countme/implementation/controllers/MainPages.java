@@ -1,4 +1,4 @@
-package com.mobile.countme.menu;
+package com.mobile.countme.implementation.controllers;
 
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -11,14 +11,14 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 
 import com.mobile.countme.R;
 import com.mobile.countme.framework.AppMenu;
 import com.mobile.countme.framework.MainViewPagerAdapter;
 import com.mobile.countme.framework.SlidingTabLayout;
-import com.mobile.countme.framework.IntroductionViewPagerAdapter;
-import com.mobile.countme.storage_and_memory.Assets;
+import com.mobile.countme.implementation.AndroidFileIO;
+import com.mobile.countme.implementation.menus.BikingActive;
+import com.mobile.countme.implementation.models.EnvironmentModel;
 
 import java.util.Locale;
 
@@ -33,6 +33,14 @@ public class MainPages extends AppMenu {
     SlidingTabLayout tabs;
     CharSequence Titles[];
     int Numboftabs =4;
+
+    AndroidFileIO fileIO; // File IO to save and get internally saved statistics.
+    private int[] places = new int[]{1 , 10, 100, 1000, 10000, 100000, 1000000};
+
+    /**
+     * The models in the MVC architecture.
+     */
+    EnvironmentModel environmentModel;
 
     public void onCreate(Bundle savedInstanceBundle){
         super.onCreate(savedInstanceBundle);
@@ -71,6 +79,12 @@ public class MainPages extends AppMenu {
 
         //Not functional ( view is not made yet)
         //((TextView) findViewById(R.id.start_tur)).setTypeface(Assets.getTypeface(this, Assets.baskerville_old_face_regular));
+
+        //Instantiate the models and load the internal statistics
+        environmentModel = new EnvironmentModel(this);
+        loadStatistics();
+
+        getUser().setMainPages(this);
     }
 
     @Override
@@ -124,4 +138,54 @@ public class MainPages extends AppMenu {
         finish();
     }
 
+    /**
+     * Loads the environmental statistics of the user from phones internal storage
+     */
+    public void loadStatistics(){
+        String environmentStatistics = fileIO.readEnvironmentSaveFile();
+        Log.w("User","loadStatistics: " + environmentStatistics);
+        Character charAt;
+        int positionInList = 0;
+        int tempValue = 0;
+        String tempString = "";
+        //For every char in statistics
+        for (int i = 0; i < environmentStatistics.length(); i++){
+
+            charAt = environmentStatistics.charAt(i);
+            if(charAt == '@'){
+                break;
+            }
+            //If the charAt pos i is the separation char '#' then
+            // add current temp value to the statList and move on to the next stat.
+            if(charAt == '#'){
+                for (int l=0; l < tempString.length(); l++) {
+                    tempValue += Character.getNumericValue(tempString.charAt(l)) * places[(tempString.length() - 1) - l];
+                }
+
+                environmentModel.setStat(positionInList, tempValue);
+                positionInList += 1;
+                tempValue = 0;
+                tempString = "";
+                continue;
+            }else{
+                tempString += charAt;
+            }
+        }
+
+    }
+
+    //Saves all game statistics to internal storage
+    //Current solution puts all statistics as a long string with the @ as an end char.
+    public void saveEnvironmentStatistics(){
+        String environmentStatistics = ""+ environmentModel.getCo2_savedToday() +'#'+ environmentModel.getCo2_carDistance() + '@';
+        fileIO.writeEnvironmentSaveFile(environmentStatistics);
+    }
+
+    public EnvironmentModel getEnvironmentModel() {
+        return environmentModel;
+    }
+
+    public void setEnvironmentGain(){
+        adapter.getEnvironmentMenu().setEnvironmentGain(environmentModel.getCo2_savedToday());
+    }
 }

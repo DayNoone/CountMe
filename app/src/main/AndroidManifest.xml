@@ -28,7 +28,7 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".menu.IntroductionMenu"
+            android:name=".implementation.controllers.IntroductionMenu"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -36,12 +36,12 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".menu.MainPages">
+        <activity android:name=".implementation.controllers.MainPages">
 
         </activity>
 
         <activity
-            android:name=".menu.BikingActive"
+            android:name=".implementation.menus.BikingActive"
             android:label="@string/app_name" >
         </activity>
 
