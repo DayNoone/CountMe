@@ -188,4 +188,6 @@ public class MainPages extends AppMenu {
     public void setEnvironmentGain(){
         adapter.getEnvironmentMenu().setEnvironmentGain(environmentModel.getCo2_savedToday());
     }
+
+    //TODO: MOVE THIS CODE TO USER.JAVA
 }
