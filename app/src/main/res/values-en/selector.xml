@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+<!--
+    <item name="tSel" android:state_selected="true" android:color="@android:color/white" />
+    <item name="tFoc" android:state_focused="true" android:color="@android:color/white" />
+    <item name="tPress" android:state_pressed="true" android:color="@android:color/white" />
+    <item name="tHighlight" android:color="#FFFFFF" />
+-->
+
+</resources>

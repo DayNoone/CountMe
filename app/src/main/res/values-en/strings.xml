@@ -1,0 +1,41 @@
+<resources>
+    <string name="app_name">Din Sykkelvei</string>
+
+    <string name="action_settings"><strike>Settings</strike></string>
+    <string name="lang_norwegian">Norsk BO</string>
+    <string name="lang_english">English</string>
+
+    <string name="biking_idle">Start</string>
+    <string name="environment_page">Environment</string>
+    <string name="statistics_page">Statistics</string>
+    <string name="info_page">Info</string>
+
+    <!-- Introduction pages -->
+    <string name="intro_page1">All usage of this app is anonYmous. The first and last 100 metres of your path gets deleted.</string>
+    <string name="intro_page2">The purpose of this app is to [...]</string>
+    <string name="intro_page3">This is some text explaining something of importance</string>
+    <string name="intro_page4">And with that, you may start the app.</string>
+
+    <!-- Biking idle -->
+    <string name="start_trip">START TRIP</string>
+
+    <!-- Environment -->
+    <string name="environment_title">CO&#8322; saved today</string>
+    <string name="environment_comparement">Which is the same as: </string>
+    <string name="environment_car">km with car</string>
+    <string name="environment_airplane">km with plane</string>
+    <string name="environment_train">km with train</string>
+
+    <!-- Statistics -->
+    <string name="co2_spart">CO&#8322; saved:</string>
+    <string name="distance_traveled">Distance:</string>
+    <string name="avg_speed">Avg.speed: </string>
+    <string name="weekly_display">1 week</string>
+    <string name="monthhly_display">1 mo</string>
+
+    <!-- Information -->
+    <string name="information_title">Information</string>
+    <string name="contact">Contact us: DinSykkelvei@sykkelmail.no</string>
+    <string name="rewatch_intro">Rewatch introduction</string>
+
+</resources>
