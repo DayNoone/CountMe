@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.mobile.countme.implementation.AndroidFileIO;
-import com.mobile.countme.implementation.User;
+import com.mobile.countme.implementation.controllers.User;
 import com.mobile.countme.storage_and_memory.Assets;
 
 /**
@@ -46,6 +46,8 @@ public abstract class AppMenu extends AppCompatActivity {
         int resId = getResources().getIdentifier(aString, "string", packageName);
         return getString(resId);
     }
+
+
 
     public static User getUser() {
         return user;

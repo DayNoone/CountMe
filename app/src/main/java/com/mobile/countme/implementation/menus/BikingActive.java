@@ -3,6 +3,7 @@ package com.mobile.countme.implementation.menus;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.View;
 
 import com.mobile.countme.R;
@@ -27,7 +28,7 @@ public class BikingActive extends AppMenu {
                 .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface arg0, int arg1) {
-                        getUser().getMainPages().getEnvironmentModel().addCo2_savedTrip(123123);
+                        getUser().getEnvironmentModel().addCo2_savedTrip(123123);
                         goTo(MainPages.class);
                     }
                 }).create().show();

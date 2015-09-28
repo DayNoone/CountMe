@@ -10,10 +10,8 @@ public class EnvironmentModel {
 
     private int co2_savedToday;
     private int co2_carDistance;
-    private MainPages mainPages;
 
-    public EnvironmentModel(MainPages mainPages){
-        this.mainPages = mainPages;
+    public EnvironmentModel(){
     }
 
     /**

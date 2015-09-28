@@ -35,6 +35,11 @@ public class MainViewPagerAdapter extends FragmentPagerAdapter{
         this.Titles = mTitles;
         this.NumbOfTabs = mNumbOfTabsumb;
 
+        bikingMenu = new BikingMenu();
+        environmentMenu = new EnvironmentMenu();
+        statisticsMenu = new StatisticsMenu();
+        informationMenu = new InformationMenu();
+
 
     }
 
@@ -44,22 +49,18 @@ public class MainViewPagerAdapter extends FragmentPagerAdapter{
 
         if(position == 0) // if the position is 0 we are returning the First tab
         {
-            bikingMenu = new BikingMenu();
             return bikingMenu;
         }
         else if(position == 1)             // As we are having 2 tabs if the position is now 0 it must be 1 so we are returning second tab
         {
-            environmentMenu = new EnvironmentMenu();
             return environmentMenu;
         }
         else if(position == 2)             // As we are having 2 tabs if the position is now 0 it must be 1 so we are returning second tab
         {
-            statisticsMenu = new StatisticsMenu();
             return statisticsMenu;
         }
         else         // As we are having 2 tabs if the position is now 0 it must be 1 so we are returning second tab
         {
-            informationMenu = new InformationMenu();
             return informationMenu;
         }
 
