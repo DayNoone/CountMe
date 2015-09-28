@@ -1,4 +1,4 @@
-package com.mobile.countme.menu;
+package com.mobile.countme.implementation.controllers;
 
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -11,14 +11,14 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 
 import com.mobile.countme.R;
 import com.mobile.countme.framework.AppMenu;
 import com.mobile.countme.framework.MainViewPagerAdapter;
 import com.mobile.countme.framework.SlidingTabLayout;
-import com.mobile.countme.framework.IntroductionViewPagerAdapter;
-import com.mobile.countme.storage_and_memory.Assets;
+import com.mobile.countme.implementation.AndroidFileIO;
+import com.mobile.countme.implementation.menus.BikingActive;
+import com.mobile.countme.implementation.models.EnvironmentModel;
 
 import java.util.Locale;
 
@@ -71,6 +71,10 @@ public class MainPages extends AppMenu {
 
         //Not functional ( view is not made yet)
         //((TextView) findViewById(R.id.start_tur)).setTypeface(Assets.getTypeface(this, Assets.baskerville_old_face_regular));
+
+
+        getUser().setMainPages(this);
+//        getUser().setEnvironmentGain();
     }
 
     @Override
@@ -124,4 +128,7 @@ public class MainPages extends AppMenu {
         finish();
     }
 
+    public MainViewPagerAdapter getAdapter() {
+        return adapter;
+    }
 }
