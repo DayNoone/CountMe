@@ -1,4 +1,4 @@
-package com.mobile.countme.menu;
+package com.mobile.countme.implementation.controllers;
 
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;

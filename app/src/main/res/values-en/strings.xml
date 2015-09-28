@@ -10,6 +10,9 @@
     <string name="statistics_page">Statistics</string>
     <string name="info_page">Info</string>
 
+    <!--Load Screen-->
+    <string name="no_progress">No Progress</string>
+
     <!-- Introduction pages -->
     <string name="intro_page1">All usage of this app is anonYmous. The first and last 100 metres of your path gets deleted.</string>
     <string name="intro_page2">The purpose of this app is to [...]</string>
@@ -37,5 +40,22 @@
     <string name="information_title">Information</string>
     <string name="contact">Contact us: DinSykkelvei@sykkelmail.no</string>
     <string name="rewatch_intro">Rewatch introduction</string>
+
+    <!--Confirmation -->
+    <string name="stop_biking">Stop ride?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
+    <!-- Biking active -->
+    <string name="biking_active"><u>Biking active</u></string>
+
+    <!--Profile strings-->
+    <string name="isLoggedInn">isLoggedInn</string>
+
+    <!--PUBLIC FINAL STRINGS-->
+    <!--Consider making these strings unreadable-->
+    <string name="environmentStatisticsData">environmentStatistics</string>
+    <string name="profile_preferences">UserPrefsFile</string>
+
 
 </resources>

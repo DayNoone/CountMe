@@ -15,6 +15,9 @@
     <string name="intro_page3">Ting og tang vet ikke</string>
     <string name="intro_page4">Ved å trykke på mobilens <i>optionsknapp</i>, kan du velge språk. </string>
 
+    <!--Load Screen-->
+    <string name="no_progress">No Progress</string>
+
     <!-- Biking idle -->
     <string name="start_trip">START TUR</string>
 
@@ -45,5 +48,13 @@
 
     <!-- Biking active -->
     <string name="biking_active"><u>Sykling pågår</u></string>
+
+    <!--Profile strings-->
+    <string name="isLoggedInn">isLoggedInn</string>
+
+    <!--PUBLIC FINAL STRINGS-->
+    <!--Consider making these strings unreadable-->
+    <string name="environmentStatisticsData">environmentStatistics</string>
+    <string name="profile_preferences">UserPrefsFile</string>
 
 </resources>
