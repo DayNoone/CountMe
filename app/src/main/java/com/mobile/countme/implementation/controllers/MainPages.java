@@ -11,16 +11,16 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.mobile.countme.R;
 import com.mobile.countme.framework.AppMenu;
 import com.mobile.countme.framework.MainViewPagerAdapter;
 import com.mobile.countme.framework.SlidingTabLayout;
-import com.mobile.countme.implementation.AndroidFileIO;
 import com.mobile.countme.implementation.menus.BikingActive;
-import com.mobile.countme.implementation.models.EnvironmentModel;
 
 import java.util.Locale;
+
 
 /**
  * Created by Kristian on 16/09/2015.
@@ -74,7 +74,7 @@ public class MainPages extends AppMenu {
 
 
         getUser().setMainPages(this);
-//        getUser().setEnvironmentGain();
+//        setEnvironmentGain(); TODO: Find out why this creates a nullpointerexception.
     }
 
     @Override
@@ -104,7 +104,6 @@ public class MainPages extends AppMenu {
             setLocale("en");
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -131,4 +130,12 @@ public class MainPages extends AppMenu {
     public MainViewPagerAdapter getAdapter() {
         return adapter;
     }
+
+    /**
+     * Sets the environmental gain in the EnvironmentMenu.
+     */
+    public void setEnvironmentGain(){
+        adapter.getEnvironmentMenu().setEnvironmentGain(getUser().getEnvironmentModel().getCo2_savedToday());
+    }
+
 }

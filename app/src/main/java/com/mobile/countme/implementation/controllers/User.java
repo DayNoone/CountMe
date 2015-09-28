@@ -10,6 +10,7 @@ import com.mobile.countme.implementation.models.EnvironmentModel;
 
 /**
  * Created by Robin on 27.09.2015.
+ * This is the main controller in the application.
  */
 public class User {
 
@@ -78,10 +79,6 @@ public class User {
 
     public EnvironmentModel getEnvironmentModel() {
         return environmentModel;
-    }
-
-    public void setEnvironmentGain(){
-        mainPages.getAdapter().getEnvironmentMenu().setEnvironmentGain(environmentModel.getCo2_savedToday());
     }
 
     public void setMainPages(MainPages mainPages) {

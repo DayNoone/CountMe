@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.mobile.countme.R;
 import com.mobile.countme.custom_views.CustomTextView;
@@ -22,13 +21,10 @@ public class EnvironmentMenu extends Fragment{
         return v;
     }
 
-    /**
-     * Displays the environmental gain.
-     * @param co2_savedToday
-     */
     public void setEnvironmentGain(int co2_savedToday){
-        Log.e("Environment Menu","view" + getView());
         CustomTextView environmentView = (CustomTextView) getView().findViewById(R.id.co2_display);
         environmentView.setText(Integer.toString(co2_savedToday));
+        Log.e("MainPages", "view: " + environmentView + "text: " + environmentView.getText());
     }
+
 }
