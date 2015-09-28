@@ -74,7 +74,7 @@ public class MainPages extends AppMenu {
 
 
         getUser().setMainPages(this);
-        getUser().setEnvironmentGain();
+//        getUser().setEnvironmentGain();
     }
 
     @Override
