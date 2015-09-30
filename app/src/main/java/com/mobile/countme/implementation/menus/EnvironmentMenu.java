@@ -21,10 +21,11 @@ public class EnvironmentMenu extends Fragment{
         return v;
     }
 
-    public void setEnvironmentGain(int co2_savedToday){
-        CustomTextView environmentView = (CustomTextView) getView().findViewById(R.id.co2_display);
-        environmentView.setText(Integer.toString(co2_savedToday));
-        Log.e("MainPages", "view: " + environmentView + "text: " + environmentView.getText());
+    public void setEnvironmentGain(int co2_savedToday, int co2_carDistance){
+        CustomTextView co2_display = (CustomTextView) getView().findViewById(R.id.co2_display);
+        CustomTextView carDistance = (CustomTextView) getView().findViewById(R.id.car_km);
+        co2_display.setText(Integer.toString(co2_savedToday) + " g");
+        carDistance.setText(Integer.toString(co2_carDistance) + " km med bil");
     }
 
 }

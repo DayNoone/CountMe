@@ -74,13 +74,14 @@ public class MainPages extends AppMenu {
 
 
         getUser().setMainPages(this);
-//        setEnvironmentGain(); TODO: Find out why this creates a nullpointerexception.
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        // Sets the environmental gains based on the end-users trip at the given day.
+        setEnvironmentGain();
         return true;
     }
 
@@ -135,7 +136,7 @@ public class MainPages extends AppMenu {
      * Sets the environmental gain in the EnvironmentMenu.
      */
     public void setEnvironmentGain(){
-        adapter.getEnvironmentMenu().setEnvironmentGain(getUser().getEnvironmentModel().getCo2_savedToday());
+        adapter.getEnvironmentMenu().setEnvironmentGain(getUser().getEnvironmentModel().getCo2_savedToday(), getUser().getEnvironmentModel().getCo2_carDistance());
     }
 
 }

@@ -25,7 +25,12 @@ public class LoadingScreen extends AppMenu {
     public void onCreate(Bundle savedInstanceBundle){
         super.onCreate(savedInstanceBundle);
 
-        //LOAD SHIT
+        //TODO: ALPHA CODE, REMOVE AT LAUNCH:
+//        This clears the sharedPref for userPrefrences (clear username).
+//        SharedPreferences sharedPref = getSharedPreferences(getString(R.string.profile_preferences), Context.MODE_PRIVATE);
+//        sharedPref.edit().clear().commit();
+
+        //Load things
         //Sets all the static classes for the game
         setAppAssets(new Assets(this));
         setFileIO(new AndroidFileIO(this));
@@ -33,7 +38,7 @@ public class LoadingScreen extends AppMenu {
         Log.e("LoadingScreen", "Load done");
 
 
-        //AFTER DONE LOADING
+        //After done loading
         new LoadViewTask().execute();
     }
 
@@ -98,7 +103,7 @@ public class LoadingScreen extends AppMenu {
 //                getAppAssets().loadNonGameGraphicalAssets();
 //                publishProgress(2*25);
 
-                //Loads all the games Audio assets (Sound, Music, ...)
+                //Loads all the games Audio assets (Sound, Music, ...) -- I dont think we are going to have any audio assets.
 //                getGameAssets().loadNoneGameAudioAssets();
 //                publishProgress(4*25);
 
@@ -134,11 +139,14 @@ public class LoadingScreen extends AppMenu {
         // Checks if the user is logged inn, if the user is logged inn it skips the LaunchMenu and continues to MainMenuActivity
         SharedPreferences sharedPref = getSharedPreferences(getString(R.string.profile_preferences), Context.MODE_PRIVATE);
         boolean isLoggedInn = sharedPref.getBoolean(getString(R.string.isLoggedInn), false);
+        Log.e("LoadingScreen", "isloggedin: " + isLoggedInn);
         if(isLoggedInn) {
-            Log.w("LoadScreen", "HAS USERNAME");
             goTo(MainPages.class);
         }else{
-            //initialize the next Activity if not logged inn
+            //Initialize the next Activity if not logged inn and set the logged inn boolean to true, so that the next time the user starts the application he/she will not go to the introduction menu.
+            SharedPreferences.Editor edit = sharedPref.edit();
+            edit.putBoolean(getString(R.string.isLoggedInn), Boolean.TRUE);
+            edit.commit();
             goTo(IntroductionMenu.class);
         }
     }
