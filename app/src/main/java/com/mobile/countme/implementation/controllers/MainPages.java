@@ -1,6 +1,8 @@
 package com.mobile.countme.implementation.controllers;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -137,6 +139,7 @@ public class MainPages extends AppMenu {
      */
     public void setEnvironmentGain(){
         adapter.getEnvironmentMenu().setEnvironmentGain(getUser().getEnvironmentModel().getCo2_savedToday(), getUser().getEnvironmentModel().getCo2_carDistance());
+        getUser().saveEnvironmentStatistics();
     }
 
 }

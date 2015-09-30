@@ -77,6 +77,14 @@ public class User {
         fileIO.writeEnvironmentSaveFile(environmentStatistics);
     }
 
+    /**
+     * Resets the environmental statistics file. This should be done every day.
+     */
+    public void resetEnvironmentalStatistics(){
+        String environmentalStatistics = "" + 0 + "#" + 0 + "@";
+        fileIO.writeEnvironmentSaveFile(environmentalStatistics);
+    }
+
     public EnvironmentModel getEnvironmentModel() {
         return environmentModel;
     }
