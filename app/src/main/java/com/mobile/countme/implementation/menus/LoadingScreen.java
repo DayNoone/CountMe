@@ -27,8 +27,8 @@ public class LoadingScreen extends AppMenu {
 
         //TODO: ALPHA CODE, REMOVE AT LAUNCH:
 //        This clears the sharedPref for userPrefrences (clear username).
-        SharedPreferences sharedPref = getSharedPreferences(getString(R.string.profile_preferences), Context.MODE_PRIVATE);
-        sharedPref.edit().clear().commit();
+//        SharedPreferences sharedPref = getSharedPreferences(getString(R.string.profile_preferences), Context.MODE_PRIVATE);
+//        sharedPref.edit().clear().commit();
 
         //Load things
         //Sets all the static classes for the game
@@ -37,11 +37,9 @@ public class LoadingScreen extends AppMenu {
         setUser(new User(getFileIO(), this));
         Log.e("LoadingScreen", "Load done");
 
-        // TODO: ALPHA CODE, REMOVE AT LAUNCH:
-        // This code resets all the statistics.
-        //TODO: FIX THIS
-        getUser().resetEnvironmentalStatistics();
-
+//        // TODO: ALPHA CODE, REMOVE AT LAUNCH:
+//        // This code resets all the statistics.
+//        getUser().resetEnvironmentalStatistics();
 
         //After done loading
         new LoadViewTask().execute();
@@ -58,23 +56,14 @@ public class LoadingScreen extends AppMenu {
         @Override
         protected void onPreExecute(){
 
-            //Sets the content view to access its views and progress bar
-//            setContentView(R.layout.activity_loadscreen);
-//
-//            txtViewProgress = (TextView)findViewById(R.id.txtViewProgress);
-//            progressBar = (ProgressBar) findViewById(R.id.progressBarLoadScreen);
-//
-//            //Sets the maximum value of the progress bar to 100
-//            progressBar.setMax(100);
-
         }
 
     //The code to be executed in a background thread.
     @Override
     protected Void doInBackground(Void... params) {
-             /* This code creates/saves the user data and loads all the game assets
-              * The publish progress is set in 4 parts:
-              * "Saved Data And preferences" , "Load Graphical Assets", "Load Audio Assets", "empty"
+             /* This code creates/saves the user data and loads all the application assets
+              * The publish progress is set in 2 parts:
+              * "Saved Data", "Saved preferences" and
 .             */
         try
         {
@@ -84,7 +73,7 @@ public class LoadingScreen extends AppMenu {
 
                 getFileIO().getEnvironmentSaveFile(); //IMPORTANT, needs to be done first
 
-                //If the user already logged inn
+                //If the user already "logged" inn
                 SharedPreferences sharedPref = getSharedPreferences(getString(R.string.profile_preferences), Context.MODE_PRIVATE);
                 boolean isLoggedInn = sharedPref.getBoolean(getString(R.string.isLoggedInn), false);
                 if(!isLoggedInn) {
@@ -92,10 +81,10 @@ public class LoadingScreen extends AppMenu {
                     getUser().saveEnvironmentStatistics(); //ONLY DONE THE FIRST TIME THE GAME IS CREATED
                 }
 
-//                getUser().setUserPref(sharedPref);
-                getUser().loadEnvironmentalStatistics(); //Loads the statistics from the phone internal storage
+//                getUser().setUserPref(sharedPref); - Should be here if we are to have options like language selection.
 
-//                publishProgress(2*25); // Divide the loading bar into the appropriate amount of pieces
+                //Loads the statistics from the phone internal storage
+                getUser().loadEnvironmentalStatistics();
 
                 //Connecting client -- This should be here if we have to make our own application from scratch
 //                if(!getUser().getUsername().equals("DefaultUser")){
@@ -106,11 +95,9 @@ public class LoadingScreen extends AppMenu {
 
                 //Loads all the games graphical assets (Img, Bitmap, ...) -- This should be here.
 //                getAppAssets().loadNonGameGraphicalAssets();
-//                publishProgress(2*25);
 
                 //Loads all the games Audio assets (Sound, Music, ...) -- I dont think we are going to have any audio assets.
 //                getGameAssets().loadNoneGameAudioAssets();
-//                publishProgress(4*25);
 
 
             }
@@ -124,23 +111,11 @@ public class LoadingScreen extends AppMenu {
         return null;
     }
 
-    //Update the progress
-    @Override
-    protected void onProgressUpdate(Integer... values)
-    {
-        //Update the progress at the UI if progress value is smaller than 100
-//        if(values[0] <= 100)
-//        {
-//            txtViewProgress.setText("Progress: " + Integer.toString(values[0]) + "%");
-//            progressBar.setProgress(values[0]);
-//        }
-
-    }
-
     //after executing the code in the thread
     @Override
     protected void onPostExecute(Void result)
     {
+
         // Checks if the user is logged inn, if the user is logged inn it skips the LaunchMenu and continues to MainMenuActivity
         SharedPreferences sharedPref = getSharedPreferences(getString(R.string.profile_preferences), Context.MODE_PRIVATE);
         boolean isLoggedInn = sharedPref.getBoolean(getString(R.string.isLoggedInn), false);

@@ -45,4 +45,9 @@ public class EnvironmentModel {
             co2_carDistance = stat;
         }
     }
+
+    public void resetStatistics(){
+        co2_carDistance = 0;
+        co2_savedToday = 0;
+    }
 }

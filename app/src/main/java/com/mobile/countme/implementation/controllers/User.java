@@ -82,6 +82,7 @@ public class User {
      */
     public void resetEnvironmentalStatistics(){
         String environmentalStatistics = "" + 0 + "#" + 0 + "@";
+        getEnvironmentModel().resetStatistics();
         fileIO.writeEnvironmentSaveFile(environmentalStatistics);
     }
 
