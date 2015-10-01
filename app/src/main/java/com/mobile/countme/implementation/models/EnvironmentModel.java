@@ -10,6 +10,7 @@ public class EnvironmentModel {
 
     private int co2_savedToday;
     private int co2_carDistance;
+    private final int avgCar_co2_per_kilometer = 271;
 
     public EnvironmentModel(){
     }
@@ -26,7 +27,13 @@ public class EnvironmentModel {
         return co2_savedToday;
     }
 
+    /**
+     * This value is derived from the co2 saved today value and is given in kilometers.
+     * It uses the calculator from here: http://www.ecf.com/resources/co2-calculator/
+     * @return
+     */
     public int getCo2_carDistance() {
+        co2_carDistance = co2_savedToday/avgCar_co2_per_kilometer;
         return co2_carDistance;
     }
 
@@ -37,5 +44,10 @@ public class EnvironmentModel {
         else if(index == 1){
             co2_carDistance = stat;
         }
+    }
+
+    public void resetStatistics(){
+        co2_carDistance = 0;
+        co2_savedToday = 0;
     }
 }

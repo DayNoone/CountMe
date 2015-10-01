@@ -1,6 +1,8 @@
 package com.mobile.countme.implementation.controllers;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -11,16 +13,16 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.mobile.countme.R;
 import com.mobile.countme.framework.AppMenu;
 import com.mobile.countme.framework.MainViewPagerAdapter;
 import com.mobile.countme.framework.SlidingTabLayout;
-import com.mobile.countme.implementation.AndroidFileIO;
 import com.mobile.countme.implementation.menus.BikingActive;
-import com.mobile.countme.implementation.models.EnvironmentModel;
 
 import java.util.Locale;
+
 
 /**
  * Created by Kristian on 16/09/2015.
@@ -74,13 +76,14 @@ public class MainPages extends AppMenu {
 
 
         getUser().setMainPages(this);
-//        getUser().setEnvironmentGain();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        // Sets the environmental gains based on the end-users trip at the given day.
+        setEnvironmentGain();
         return true;
     }
 
@@ -104,7 +107,6 @@ public class MainPages extends AppMenu {
             setLocale("en");
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -131,4 +133,13 @@ public class MainPages extends AppMenu {
     public MainViewPagerAdapter getAdapter() {
         return adapter;
     }
+
+    /**
+     * Sets the environmental gain in the EnvironmentMenu.
+     */
+    public void setEnvironmentGain(){
+        adapter.getEnvironmentMenu().setEnvironmentGain(getUser().getEnvironmentModel().getCo2_savedToday(), getUser().getEnvironmentModel().getCo2_carDistance());
+        getUser().saveEnvironmentStatistics();
+    }
+
 }
