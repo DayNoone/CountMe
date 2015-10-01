@@ -25,6 +25,9 @@ public class AndroidFileIO {
     private static File savedData;
     private AppMenu context;
 
+    private String old_environmentalStats;
+    private String old_tripsStats;
+
     public AndroidFileIO(AppMenu context){
         this.context = context;
     }
@@ -33,13 +36,16 @@ public class AndroidFileIO {
 
     public void writeEnvironmentSaveFile(String string){
         try{
-           FileOutputStream outputStream = context.openFileOutput(context.getString(R.string.environmentStatisticsData), Context.MODE_PRIVATE);
-            outputStream.write(string.getBytes());
-            outputStream.close();
-            Log.e("FileIO", "FileSaved: " + string);
+            if(!string.equals(old_environmentalStats)) {
+                old_environmentalStats = string;
+                FileOutputStream outputStream = context.openFileOutput(context.getString(R.string.environmentStatisticsData), Context.MODE_PRIVATE);
+                outputStream.write(string.getBytes());
+                outputStream.close();
+                Log.e("FileIO", "EnvironmentalFileSaved: " + string);
+            }
         } catch (Exception e){
             e.printStackTrace();
-            Log.e("FileIO", "FileNotFound!");
+            Log.e("FileIO", "EnvironmentalFileNotFound!");
         }
     }
 
@@ -53,9 +59,9 @@ public class AndroidFileIO {
             }
         }catch (Exception e){
             e.printStackTrace();
-            Log.e("FileIO", "UnableToReadSaveFile!");
+            Log.e("FileIO", "UnableToReadEnvironmentalFile!");
         }
-        Log.e("FileIO", "ReadSaveFile:" + temp);
+        Log.e("FileIO", "ReadEnvironmentalFile:" + temp);
         return temp;
     }
 
@@ -65,9 +71,53 @@ public class AndroidFileIO {
         File file = new File(context.getFilesDir(), context.getString(R.string.environmentStatisticsData));
         if(!file.exists()){
             savedData = file;
-            Log.e("FileIO", "savedDataCreated");
+            Log.e("FileIO", "EnvironmentalDataCreated");
         }else{
-            Log.e("FileIO", "savedDataExists");
+            Log.e("FileIO", "EnvironmentalDataExists");
+        }
+        return savedData;
+    }
+
+    public void writeTripsSaveFile(String string){
+        try{
+            if(!string.equals(old_tripsStats)) {
+                old_tripsStats = string;
+                FileOutputStream outputStream = context.openFileOutput(context.getString(R.string.tripsStatisticsData), Context.MODE_PRIVATE);
+                outputStream.write(string.getBytes());
+                outputStream.close();
+                Log.e("FileIO", "TripFileSaved: " + string);
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+            Log.e("FileIO", "TripFileNotFound!");
+        }
+    }
+
+    public String readTripsSaveFile(){
+        String temp="";
+        try{
+            FileInputStream inputStream = context.openFileInput(context.getString(R.string.tripsStatisticsData));
+            int c;
+            while ( (c= inputStream.read()) != -1){
+                temp = temp + Character.toString((char) c);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            Log.e("FileIO", "UnableToReadTripsStatisticsFile!");
+        }
+        Log.e("FileIO", "ReadTripsStatisticsFile:" + temp);
+        return temp;
+    }
+
+    //Only used once the first time the game starts up
+    //If a file is already present it gives you the present file.
+    public File getTripsSaveFile(){
+        File file = new File(context.getFilesDir(), context.getString(R.string.tripsStatisticsData));
+        if(!file.exists()){
+            savedData = file;
+            Log.e("FileIO", "TripStatisticsDataCreated");
+        }else{
+            Log.e("FileIO", "TripsStatisticsDataExists");
         }
         return savedData;
     }

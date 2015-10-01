@@ -55,6 +55,7 @@
     <!--PUBLIC FINAL STRINGS-->
     <!--Consider making these strings unreadable-->
     <string name="environmentStatisticsData">environmentStatistics</string>
+    <string name="tripsStatisticsData">tripsStatistics</string>
     <string name="profile_preferences">UserPrefsFile</string>
 
 

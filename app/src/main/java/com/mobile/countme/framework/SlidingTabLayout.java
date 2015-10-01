@@ -23,6 +23,7 @@ package com.mobile.countme.framework;
         import android.support.v4.view.PagerAdapter;
         import android.support.v4.view.ViewPager;
         import android.util.AttributeSet;
+        import android.util.Log;
         import android.util.SparseArray;
         import android.util.TypedValue;
         import android.view.Gravity;
@@ -34,6 +35,7 @@ package com.mobile.countme.framework;
         import android.widget.TextView;
 
         import com.mobile.countme.R;
+        import com.mobile.countme.implementation.controllers.MainPages;
 
 /**
  * To be used with ViewPager to provide a tab indicator component which give constant feedback as to
@@ -80,6 +82,10 @@ public class SlidingTabLayout extends HorizontalScrollView {
     private ViewPager.OnPageChangeListener mViewPagerPageChangeListener;
 
     private final SlidingTabStrip mTabStrip;
+
+    //Created
+    private MainPages mainPages;
+    private boolean mainPagesInitialized;
 
     public SlidingTabLayout(Context context) {
         this(context, null);
@@ -285,6 +291,15 @@ public class SlidingTabLayout extends HorizontalScrollView {
                 mViewPagerPageChangeListener.onPageScrolled(position, positionOffset,
                         positionOffsetPixels);
             }
+//            Log.e("SlidingTabLayout","OnPageScrolled, pos: " + position);
+//            Log.e("SlidingTabLayout", "initialized: " + mainPagesInitialized);
+            if(mainPagesInitialized){
+                if(position == 0){
+                    mainPages.setEnvironmentGain();
+                }else if(position == 1){
+                    mainPages.setTripsStatistics();
+                }
+            }
         }
 
         @Override
@@ -324,4 +339,15 @@ public class SlidingTabLayout extends HorizontalScrollView {
         }
     }
 
+    public ViewPager getmViewPager() {
+        return mViewPager;
+    }
+
+    public void setMainPages(MainPages mainPages){
+        this.mainPages = mainPages;
+    }
+
+    public void setMainPagesInitialized(boolean mainPagesInitialized) {
+        this.mainPagesInitialized = mainPagesInitialized;
+    }
 }

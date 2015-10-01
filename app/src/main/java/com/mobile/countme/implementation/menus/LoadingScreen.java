@@ -27,8 +27,8 @@ public class LoadingScreen extends AppMenu {
 
         //TODO: ALPHA CODE, REMOVE AT LAUNCH:
 //        This clears the sharedPref for userPrefrences (clear username).
-//        SharedPreferences sharedPref = getSharedPreferences(getString(R.string.profile_preferences), Context.MODE_PRIVATE);
-//        sharedPref.edit().clear().commit();
+        SharedPreferences sharedPref = getSharedPreferences(getString(R.string.profile_preferences), Context.MODE_PRIVATE);
+        sharedPref.edit().clear().commit();
 
         //Load things
         //Sets all the static classes for the game
@@ -39,7 +39,8 @@ public class LoadingScreen extends AppMenu {
 
 //        // TODO: ALPHA CODE, REMOVE AT LAUNCH:
 //        // This code resets all the statistics.
-//        getUser().resetEnvironmentalStatistics();
+        getUser().resetEnvironmentalStatistics();
+        getUser().resetTripsStatistics();
 
         //After done loading
         new LoadViewTask().execute();
@@ -78,13 +79,16 @@ public class LoadingScreen extends AppMenu {
                 boolean isLoggedInn = sharedPref.getBoolean(getString(R.string.isLoggedInn), false);
                 if(!isLoggedInn) {
                     Log.e("LoadScreen", "UserData Not present, creating new saveStatistics");
-                    getUser().saveEnvironmentStatistics(); //ONLY DONE THE FIRST TIME THE GAME IS CREATED
+                    //ONLY DONE THE FIRST TIME THE GAME IS CREATED
+                    getUser().saveEnvironmentStatistics();
+                    getUser().saveTripsStatistics();
                 }
 
 //                getUser().setUserPref(sharedPref); - Should be here if we are to have options like language selection.
 
                 //Loads the statistics from the phone internal storage
                 getUser().loadEnvironmentalStatistics();
+                getUser().loadTripsStatistics();
 
                 //Connecting client -- This should be here if we have to make our own application from scratch
 //                if(!getUser().getUsername().equals("DefaultUser")){
