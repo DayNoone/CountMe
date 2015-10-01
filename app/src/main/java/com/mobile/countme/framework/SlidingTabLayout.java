@@ -291,8 +291,8 @@ public class SlidingTabLayout extends HorizontalScrollView {
                 mViewPagerPageChangeListener.onPageScrolled(position, positionOffset,
                         positionOffsetPixels);
             }
-//            Log.e("SlidingTabLayout","OnPageScrolled, pos: " + position);
-//            Log.e("SlidingTabLayout", "initialized: " + mainPagesInitialized);
+
+            //Always updates the views based on the models.
             if(mainPagesInitialized){
                 mainPages.setEnvironmentGain();
                 mainPages.setTripsStatistics();

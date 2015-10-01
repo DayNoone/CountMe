@@ -21,6 +21,11 @@ public class EnvironmentMenu extends Fragment{
         return v;
     }
 
+    /**
+     * Updates this view based on the model values sent by the controller.
+     * @param co2_savedToday
+     * @param co2_carDistance
+     */
     public void setEnvironmentGain(int co2_savedToday, int co2_carDistance){
         if(getView() == null) return;
         CustomTextView co2_display = (CustomTextView) getView().findViewById(R.id.co2_display);

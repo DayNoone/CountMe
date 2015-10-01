@@ -13,7 +13,7 @@ import com.mobile.countme.storage_and_memory.Assets;
  */
 public abstract class AppMenu extends AppCompatActivity {
 
-    //These values persists through the game.
+    //These values persists through the application lifetime.
     private static Assets appAssets;
     private static AndroidFileIO fileIO;
     private static User user;
@@ -22,9 +22,6 @@ public abstract class AppMenu extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceBundle){
         super.onCreate(savedInstanceBundle);
     }
-
-
-
 
 
     public void goToNoAnimation(Class javaClass) {

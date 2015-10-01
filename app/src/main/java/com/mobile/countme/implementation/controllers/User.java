@@ -25,6 +25,7 @@ public class User {
     private EnvironmentModel environmentModel;
     private StatisticsModel statisticsModel;
 
+    // This are the places in numbers. It is used to multiply with the single integers stored in memory to get the correct and complete number.
     private int[] places = new int[]{1 , 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000, 1000000000};
 
     public User (AndroidFileIO io, AppMenu context) {
@@ -92,7 +93,7 @@ public class User {
     }
 
     /**
-     * Loads the environmental statistics of the user from phones internal storage
+     * Loads the trips statistics of the user from phones internal storage
      */
     public void loadTripsStatistics(){
         String tripsStatistics = fileIO.readTripsSaveFile();
@@ -139,7 +140,7 @@ public class User {
     }
 
     /**
-     * Resets the environmental statistics file. This should be done every day.
+     * Resets the trips statistics file. This should be done every day.
      */
     public void resetTripsStatistics(){
         String tripsStatistics = "" + 0 + "#" + 0 + "#" + 0 + "@";

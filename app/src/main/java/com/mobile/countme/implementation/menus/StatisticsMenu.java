@@ -20,6 +20,12 @@ public class StatisticsMenu extends Fragment {
         return v;
     }
 
+    /**
+     * Updates this view based on the model values sent by the controller.
+     * @param co2_saved
+     * @param distance
+     * @param avg_speed
+     */
     public void setTripsStatistics(int co2_saved, int distance, int avg_speed){
         if(getView() == null) return;
         CustomTextView co2_display = (CustomTextView) getView().findViewById(R.id.co2_saved_statistics);
