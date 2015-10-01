@@ -105,24 +105,20 @@ public class User {
         for (int i = 0; i < tripsStatistics.length(); i++){
 
             charAt = tripsStatistics.charAt(i);
-            Log.e("User", "char: " + charAt);
             if(charAt == '@'){
                 for (int l=0; l < tempString.length() - 1; l++) {
                     tempValue += Character.getNumericValue(tempString.charAt(l)) * places[(tempString.length() - 1) - l];
                 }
-                Log.e("User", "value: " + tempValue);
                 statisticsModel.setStat(positionInList, tempValue);
                 break;
             }
             //If the charAt pos i is the separation char '#' then
             // add current temp value to the statList and move on to the next stat.
             if(charAt == '#'){
-                    Log.e("User", "Tempstring: " + tempString);
                 for (int l=0; l < tempString.length(); l++) {
                     tempValue += Character.getNumericValue(tempString.charAt(l)) * places[(tempString.length() - 1) - l];
                 }
 
-                Log.e("User", "value: " + tempValue);
                 statisticsModel.setStat(positionInList, tempValue);
                 positionInList += 1;
                 tempValue = 0;
