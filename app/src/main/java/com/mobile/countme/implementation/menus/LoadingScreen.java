@@ -27,8 +27,8 @@ public class LoadingScreen extends AppMenu {
 
         //TODO: ALPHA CODE, REMOVE AT LAUNCH:
 //        This clears the sharedPref for userPrefrences (clear username).
-        SharedPreferences sharedPref = getSharedPreferences(getString(R.string.profile_preferences), Context.MODE_PRIVATE);
-        sharedPref.edit().clear().commit();
+//        SharedPreferences sharedPref = getSharedPreferences(getString(R.string.profile_preferences), Context.MODE_PRIVATE);
+//        sharedPref.edit().clear().commit();
 
         //Load things
         //Sets all the static classes for the game
@@ -39,8 +39,8 @@ public class LoadingScreen extends AppMenu {
 
 //        // TODO: ALPHA CODE, REMOVE AT LAUNCH:
 //        // This code resets all the statistics.
-        getUser().resetEnvironmentalStatistics();
-        getUser().resetTripsStatistics();
+//        getUser().resetEnvironmentalStatistics();
+//        getUser().resetTripsStatistics();
 
         //After done loading
         new LoadViewTask().execute();
@@ -73,7 +73,7 @@ public class LoadingScreen extends AppMenu {
             {
 
                 getFileIO().getEnvironmentSaveFile(); //IMPORTANT, needs to be done first
-
+                getFileIO().getTripsSaveFile();
                 //If the user already "logged" inn
                 SharedPreferences sharedPref = getSharedPreferences(getString(R.string.profile_preferences), Context.MODE_PRIVATE);
                 boolean isLoggedInn = sharedPref.getBoolean(getString(R.string.isLoggedInn), false);

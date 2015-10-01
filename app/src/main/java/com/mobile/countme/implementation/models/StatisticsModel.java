@@ -23,7 +23,7 @@ public class StatisticsModel {
      * @param distance
      */
     public void addDistance(int distance){
-        this.distance = distance;
+        this.distance += distance;
     }
 
     /**

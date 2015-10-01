@@ -294,11 +294,8 @@ public class SlidingTabLayout extends HorizontalScrollView {
 //            Log.e("SlidingTabLayout","OnPageScrolled, pos: " + position);
 //            Log.e("SlidingTabLayout", "initialized: " + mainPagesInitialized);
             if(mainPagesInitialized){
-                if(position == 0){
-                    mainPages.setEnvironmentGain();
-                }else if(position == 1){
-                    mainPages.setTripsStatistics();
-                }
+                mainPages.setEnvironmentGain();
+                mainPages.setTripsStatistics();
             }
         }
 

@@ -25,7 +25,7 @@ public class User {
     private EnvironmentModel environmentModel;
     private StatisticsModel statisticsModel;
 
-    private int[] places = new int[]{1 , 10, 100, 1000, 10000, 100000, 1000000};
+    private int[] places = new int[]{1 , 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000, 1000000000};
 
     public User (AndroidFileIO io, AppMenu context) {
         this.fileIO = io;
@@ -78,7 +78,7 @@ public class User {
     //Saves all environmental statistics to internal storage
     //Current solution puts all statistics as a long string with the @ as an end char.
     public void saveEnvironmentStatistics(){
-        String environmentStatistics = ""+ environmentModel.getCo2_savedToday() +'#'+ environmentModel.getCo2_carDistance() + '@';
+        String environmentStatistics = ""+ environmentModel.getCo2_savedToday() +'#'+ environmentModel.getCo2_carDistance() +'@';
         fileIO.writeEnvironmentSaveFile(environmentStatistics);
     }
 
@@ -86,7 +86,7 @@ public class User {
      * Resets the environmental statistics file. This should be done every day.
      */
     public void resetEnvironmentalStatistics(){
-        String environmentalStatistics = "" + 0 + "#" + 0 + "@";
+        String environmentalStatistics = "" + 0 + "#" + 0 +"@";
         environmentModel.resetStatistics();
         fileIO.writeEnvironmentSaveFile(environmentalStatistics);
     }
@@ -105,16 +105,24 @@ public class User {
         for (int i = 0; i < tripsStatistics.length(); i++){
 
             charAt = tripsStatistics.charAt(i);
+            Log.e("User", "char: " + charAt);
             if(charAt == '@'){
+                for (int l=0; l < tempString.length() - 1; l++) {
+                    tempValue += Character.getNumericValue(tempString.charAt(l)) * places[(tempString.length() - 1) - l];
+                }
+                Log.e("User", "value: " + tempValue);
+                statisticsModel.setStat(positionInList, tempValue);
                 break;
             }
             //If the charAt pos i is the separation char '#' then
             // add current temp value to the statList and move on to the next stat.
             if(charAt == '#'){
+                    Log.e("User", "Tempstring: " + tempString);
                 for (int l=0; l < tempString.length(); l++) {
                     tempValue += Character.getNumericValue(tempString.charAt(l)) * places[(tempString.length() - 1) - l];
                 }
 
+                Log.e("User", "value: " + tempValue);
                 statisticsModel.setStat(positionInList, tempValue);
                 positionInList += 1;
                 tempValue = 0;
@@ -130,7 +138,7 @@ public class User {
     //Saves all trips statistics to internal storage
     //Current solution puts all statistics as a long string with the @ as an end char.
     public void saveTripsStatistics(){
-        String tripsStatistics = ""+ statisticsModel.getCo2_saved() +'#'+ statisticsModel.getDistance() + "#" + statisticsModel.getAvg_speed() + '@';
+        String tripsStatistics = ""+ statisticsModel.getCo2_saved() +'#'+ statisticsModel.getDistance() + "#" + statisticsModel.getAvg_speed() + "@";
         fileIO.writeTripsSaveFile(tripsStatistics);
     }
 
