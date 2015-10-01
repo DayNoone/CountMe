@@ -127,10 +127,6 @@ public class MainPages extends AppMenu {
         finish();
     }
 
-    public MainViewPagerAdapter getAdapter() {
-        return adapter;
-    }
-
     /**
      * Sets the environmental gain in the EnvironmentMenu.
      */

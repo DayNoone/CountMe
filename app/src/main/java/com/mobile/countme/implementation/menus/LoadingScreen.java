@@ -35,7 +35,6 @@ public class LoadingScreen extends AppMenu {
         setAppAssets(new Assets(this));
         setFileIO(new AndroidFileIO(this));
         setUser(new User(getFileIO(), this));
-        Log.e("LoadingScreen", "Load done");
 
 //        // TODO: ALPHA CODE, REMOVE AT LAUNCH:
 //        // This code resets all the statistics.
@@ -51,28 +50,21 @@ public class LoadingScreen extends AppMenu {
     private class LoadViewTask extends AsyncTask<Void, Integer, Void> {
 
 
-        private TextView txtViewProgress;
-        private ProgressBar progressBar;
-
-        @Override
-        protected void onPreExecute(){
-
-        }
 
     //The code to be executed in a background thread.
     @Override
     protected Void doInBackground(Void... params) {
              /* This code creates/saves the user data and loads all the application assets
               * The publish progress is set in 2 parts:
-              * "Saved Data", "Saved preferences" and
+              * "Saved Data", "Saved preferences" and "GUI?"
 .             */
         try
         {
             //Get the current thread's token
             synchronized (this)
             {
-
-                getFileIO().getEnvironmentSaveFile(); //IMPORTANT, needs to be done first
+                //IMPORTANT, needs to be done first
+                getFileIO().getEnvironmentSaveFile();
                 getFileIO().getTripsSaveFile();
                 //If the user already "logged" inn
                 SharedPreferences sharedPref = getSharedPreferences(getString(R.string.profile_preferences), Context.MODE_PRIVATE);
@@ -120,7 +112,7 @@ public class LoadingScreen extends AppMenu {
     protected void onPostExecute(Void result)
     {
 
-        // Checks if the user is logged inn, if the user is logged inn it skips the LaunchMenu and continues to MainMenuActivity
+        // Checks if the user is logged inn, if the user is logged inn it skips the IntroductionMenu and continues to MainPagesActivity.
         SharedPreferences sharedPref = getSharedPreferences(getString(R.string.profile_preferences), Context.MODE_PRIVATE);
         boolean isLoggedInn = sharedPref.getBoolean(getString(R.string.isLoggedInn), false);
         Log.e("LoadingScreen", "isloggedin: " + isLoggedInn);
