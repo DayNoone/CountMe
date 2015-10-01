@@ -22,6 +22,7 @@ public class EnvironmentMenu extends Fragment{
     }
 
     public void setEnvironmentGain(int co2_savedToday, int co2_carDistance){
+        if(getView() == null) return;
         CustomTextView co2_display = (CustomTextView) getView().findViewById(R.id.co2_display);
         CustomTextView carDistance = (CustomTextView) getView().findViewById(R.id.car_km);
         co2_display.setText(Integer.toString(co2_savedToday) + " g");

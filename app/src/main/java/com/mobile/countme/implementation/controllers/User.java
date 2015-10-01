@@ -7,6 +7,7 @@ import com.mobile.countme.framework.MainViewPagerAdapter;
 import com.mobile.countme.implementation.AndroidFileIO;
 import com.mobile.countme.implementation.controllers.MainPages;
 import com.mobile.countme.implementation.models.EnvironmentModel;
+import com.mobile.countme.implementation.models.StatisticsModel;
 
 /**
  * Created by Robin on 27.09.2015.
@@ -22,8 +23,9 @@ public class User {
      * The models of the MVC structure.
      */
     private EnvironmentModel environmentModel;
+    private StatisticsModel statisticsModel;
 
-    private int[] places = new int[]{1 , 10, 100, 1000, 10000, 100000, 1000000};
+    private int[] places = new int[]{1 , 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000, 1000000000};
 
     public User (AndroidFileIO io, AppMenu context) {
         this.fileIO = io;
@@ -31,7 +33,10 @@ public class User {
 
         //Instantiate the models and load the internal statistics
         environmentModel = new EnvironmentModel();
-        loadEnvironmentalStatistics();
+//        loadEnvironmentalStatistics();
+        statisticsModel = new StatisticsModel();
+//        loadTripsStatistics();
+
     }
 
     /**
@@ -70,10 +75,10 @@ public class User {
 
     }
 
-    //Saves all game statistics to internal storage
+    //Saves all environmental statistics to internal storage
     //Current solution puts all statistics as a long string with the @ as an end char.
     public void saveEnvironmentStatistics(){
-        String environmentStatistics = ""+ environmentModel.getCo2_savedToday() +'#'+ environmentModel.getCo2_carDistance() + '@';
+        String environmentStatistics = ""+ environmentModel.getCo2_savedToday() +'#'+ environmentModel.getCo2_carDistance() +'@';
         fileIO.writeEnvironmentSaveFile(environmentStatistics);
     }
 
@@ -81,13 +86,73 @@ public class User {
      * Resets the environmental statistics file. This should be done every day.
      */
     public void resetEnvironmentalStatistics(){
-        String environmentalStatistics = "" + 0 + "#" + 0 + "@";
-        getEnvironmentModel().resetStatistics();
+        String environmentalStatistics = "" + 0 + "#" + 0 +"@";
+        environmentModel.resetStatistics();
         fileIO.writeEnvironmentSaveFile(environmentalStatistics);
+    }
+
+    /**
+     * Loads the environmental statistics of the user from phones internal storage
+     */
+    public void loadTripsStatistics(){
+        String tripsStatistics = fileIO.readTripsSaveFile();
+        Log.w("User", "loadTripsStatistics: " + tripsStatistics);
+        Character charAt;
+        int positionInList = 0;
+        int tempValue = 0;
+        String tempString = "";
+        //For every char in statistics
+        for (int i = 0; i < tripsStatistics.length(); i++){
+
+            charAt = tripsStatistics.charAt(i);
+            if(charAt == '@'){
+                for (int l=0; l < tempString.length() - 1; l++) {
+                    tempValue += Character.getNumericValue(tempString.charAt(l)) * places[(tempString.length() - 1) - l];
+                }
+                statisticsModel.setStat(positionInList, tempValue);
+                break;
+            }
+            //If the charAt pos i is the separation char '#' then
+            // add current temp value to the statList and move on to the next stat.
+            if(charAt == '#'){
+                for (int l=0; l < tempString.length(); l++) {
+                    tempValue += Character.getNumericValue(tempString.charAt(l)) * places[(tempString.length() - 1) - l];
+                }
+
+                statisticsModel.setStat(positionInList, tempValue);
+                positionInList += 1;
+                tempValue = 0;
+                tempString = "";
+                continue;
+            }else{
+                tempString += charAt;
+            }
+        }
+
+    }
+
+    //Saves all trips statistics to internal storage
+    //Current solution puts all statistics as a long string with the @ as an end char.
+    public void saveTripsStatistics(){
+        String tripsStatistics = ""+ statisticsModel.getCo2_saved() +'#'+ statisticsModel.getDistance() + "#" + statisticsModel.getAvg_speed() + "@";
+        fileIO.writeTripsSaveFile(tripsStatistics);
+    }
+
+    /**
+     * Resets the environmental statistics file. This should be done every day.
+     */
+    public void resetTripsStatistics(){
+        String tripsStatistics = "" + 0 + "#" + 0 + "#" + 0 + "@";
+        statisticsModel.resetStatistics();
+        fileIO.writeTripsSaveFile(tripsStatistics);
     }
 
     public EnvironmentModel getEnvironmentModel() {
         return environmentModel;
+    }
+
+    public StatisticsModel getStatisticsModel() {
+        return statisticsModel;
     }
 
     public void setMainPages(MainPages mainPages) {

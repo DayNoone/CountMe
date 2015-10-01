@@ -22,10 +22,10 @@ public class MainViewPagerAdapter extends FragmentPagerAdapter{
     /**
      * Different menus.
      */
-    BikingMenu bikingMenu;
-    EnvironmentMenu environmentMenu;
-    StatisticsMenu statisticsMenu;
-    InformationMenu informationMenu;
+    private BikingMenu bikingMenu;
+    private EnvironmentMenu environmentMenu;
+    private StatisticsMenu statisticsMenu;
+    private InformationMenu informationMenu;
 
 
     // Build a Constructor and assign the passed Values to appropriate values in the class

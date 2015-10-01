@@ -40,6 +40,7 @@ public class LoadingScreen extends AppMenu {
 //        // TODO: ALPHA CODE, REMOVE AT LAUNCH:
 //        // This code resets all the statistics.
 //        getUser().resetEnvironmentalStatistics();
+//        getUser().resetTripsStatistics();
 
         //After done loading
         new LoadViewTask().execute();
@@ -72,19 +73,22 @@ public class LoadingScreen extends AppMenu {
             {
 
                 getFileIO().getEnvironmentSaveFile(); //IMPORTANT, needs to be done first
-
+                getFileIO().getTripsSaveFile();
                 //If the user already "logged" inn
                 SharedPreferences sharedPref = getSharedPreferences(getString(R.string.profile_preferences), Context.MODE_PRIVATE);
                 boolean isLoggedInn = sharedPref.getBoolean(getString(R.string.isLoggedInn), false);
                 if(!isLoggedInn) {
                     Log.e("LoadScreen", "UserData Not present, creating new saveStatistics");
-                    getUser().saveEnvironmentStatistics(); //ONLY DONE THE FIRST TIME THE GAME IS CREATED
+                    //ONLY DONE THE FIRST TIME THE GAME IS CREATED
+                    getUser().saveEnvironmentStatistics();
+                    getUser().saveTripsStatistics();
                 }
 
 //                getUser().setUserPref(sharedPref); - Should be here if we are to have options like language selection.
 
                 //Loads the statistics from the phone internal storage
                 getUser().loadEnvironmentalStatistics();
+                getUser().loadTripsStatistics();
 
                 //Connecting client -- This should be here if we have to make our own application from scratch
 //                if(!getUser().getUsername().equals("DefaultUser")){

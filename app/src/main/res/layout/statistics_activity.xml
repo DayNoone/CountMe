@@ -50,7 +50,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="0 g"
-        android:id="@+id/textView11"
+        android:id="@+id/co2_saved_statistics"
         android:layout_alignTop="@+id/textView8"
         android:layout_marginRight="30dp"
         android:layout_alignParentEnd="true" />
@@ -60,18 +60,18 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="0 m"
-        android:id="@+id/textView12"
+        android:id="@+id/distance_statistics"
         android:layout_alignTop="@+id/textView9"
-        android:layout_alignEnd="@+id/textView11" />
+        android:layout_alignEnd="@+id/co2_saved_statistics" />
 
     <com.mobile.countme.custom_views.CustomTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="0 m/s"
-        android:id="@+id/textView13"
+        android:id="@+id/avgSpeed_statistics"
         android:layout_alignTop="@+id/textView10"
-        android:layout_alignEnd="@+id/textView12" />
+        android:layout_alignEnd="@+id/distance_statistics" />
 
     <Button
         android:layout_width="wrap_content"
@@ -92,5 +92,5 @@
         android:background="@drawable/btn_stroke"
         android:id="@+id/button4"
         android:layout_alignBottom="@+id/button3"
-        android:layout_alignEnd="@+id/textView13" />
+        android:layout_alignEnd="@+id/avgSpeed_statistics" />
 </RelativeLayout>

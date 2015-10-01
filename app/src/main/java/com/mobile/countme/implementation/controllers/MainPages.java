@@ -1,10 +1,9 @@
 package com.mobile.countme.implementation.controllers;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
@@ -13,7 +12,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.mobile.countme.R;
 import com.mobile.countme.framework.AppMenu;
@@ -34,7 +32,7 @@ public class MainPages extends AppMenu {
     MainViewPagerAdapter adapter;
     SlidingTabLayout tabs;
     CharSequence Titles[];
-    int Numboftabs =4;
+    int numboftabs =4;
 
     public void onCreate(Bundle savedInstanceBundle){
         super.onCreate(savedInstanceBundle);
@@ -50,7 +48,7 @@ public class MainPages extends AppMenu {
         setSupportActionBar(toolbar);
 
         // Creating The ViewPagerAdapter and Passing Fragment Manager, Titles fot the Tabs and Number Of Tabs.
-        adapter =  new MainViewPagerAdapter(getSupportFragmentManager(),Titles,Numboftabs);
+        adapter =  new MainViewPagerAdapter(getSupportFragmentManager(),Titles, numboftabs);
 
         // Assigning ViewPager View and setting the adapter
         pager = (ViewPager) findViewById(R.id.main_pager);
@@ -58,6 +56,8 @@ public class MainPages extends AppMenu {
 
         // Assiging the Sliding Tab Layout View
         tabs = (SlidingTabLayout) findViewById(R.id.main_tabs);
+        tabs.setMainPages(this);
+        tabs.setMainPagesInitialized(true);
         tabs.setDistributeEvenly(true); // To make the Tabs Fixed set this true, This makes the tabs Space Evenly in Available width
 
         // Setting Custom Color for the Scroll bar indicator of the Tab View
@@ -74,7 +74,6 @@ public class MainPages extends AppMenu {
         //Not functional ( view is not made yet)
         //((TextView) findViewById(R.id.start_tur)).setTypeface(Assets.getTypeface(this, Assets.baskerville_old_face_regular));
 
-
         getUser().setMainPages(this);
     }
 
@@ -82,8 +81,6 @@ public class MainPages extends AppMenu {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        // Sets the environmental gains based on the end-users trip at the given day.
-        setEnvironmentGain();
         return true;
     }
 
@@ -141,5 +138,12 @@ public class MainPages extends AppMenu {
         adapter.getEnvironmentMenu().setEnvironmentGain(getUser().getEnvironmentModel().getCo2_savedToday(), getUser().getEnvironmentModel().getCo2_carDistance());
         getUser().saveEnvironmentStatistics();
     }
+
+    public void setTripsStatistics(){
+        adapter.getStatisticsMenu().setTripsStatistics(getUser().getStatisticsModel().getCo2_saved(), getUser().getStatisticsModel().getDistance(), getUser().getStatisticsModel().getAvg_speed());
+        getUser().saveTripsStatistics();
+    }
+
+
 
 }

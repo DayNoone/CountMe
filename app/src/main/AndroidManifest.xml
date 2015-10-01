@@ -29,29 +29,35 @@
 
         <!--Menu Activities-->
         <activity
-        android:name=".implementation.menus.LoadingScreen"
-        android:label="@string/app_name">
-        <intent-filter>
+            android:name=".implementation.menus.LoadingScreen"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
+            <intent-filter>
             <action android:name="android.intent.action.MAIN" />
 
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
         </activity>
+
         <activity
-            android:name=".implementation.controllers.IntroductionMenu">
+            android:name=".implementation.controllers.IntroductionMenu"
+            android:screenOrientation="portrait">
         </activity>
 
-        <activity android:name=".implementation.controllers.MainPages">
-
+        <activity
+            android:name=".implementation.controllers.MainPages"
+            android:screenOrientation="portrait">
         </activity>
 
         <activity
             android:name=".implementation.menus.BikingActive"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
         </activity>
 
         <activity
             android:name=".framework.MapsActivity"
+            android:screenOrientation="portrait"
             />
 
     </application>
