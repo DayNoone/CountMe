@@ -2,7 +2,7 @@ package com.mobile.countme.implementation.models;
 
 /**
  * Created by Robin on 01.10.2015.
- * This class contains all the information the StatisticsMenu will display.
+ * This class contains all the information(from today) the StatisticsMenu will display.
  */
 public class StatisticsModel {
 
@@ -59,15 +59,15 @@ public class StatisticsModel {
         avg_speed = 0;
     }
 
-    public void setStat(int index, int stat){
-        if(index == 0){
-            co2_saved = stat;
-        }
-        else if(index == 1){
-            distance = stat;
-        }
-        else if(index == 2){
-            avg_speed = stat;
-        }
+    public void setAvg_speed(int avg_speed) {
+        this.avg_speed = avg_speed;
+    }
+
+    public void setCo2_saved(int co2_saved) {
+        this.co2_saved = co2_saved;
+    }
+
+    public void setDistance(int distance) {
+        this.distance = distance;
     }
 }

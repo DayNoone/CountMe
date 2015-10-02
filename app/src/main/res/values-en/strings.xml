@@ -33,6 +33,7 @@
     <string name="co2_spart">CO&#8322; saved:</string>
     <string name="distance_traveled">Distance:</string>
     <string name="avg_speed">Avg.speed: </string>
+    <string name="daily_display">1 day</string>
     <string name="weekly_display">1 week</string>
     <string name="monthhly_display">1 mo</string>
 
