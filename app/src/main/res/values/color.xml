@@ -4,4 +4,5 @@
     <color name="Secondary">#277ddf</color> <!-- Lighter BLUE -->
     <color name="TabScroller">#FFFFFF</color> <!-- Find a color scheme -->
     <color name="DefaultTextColor">#FFFFFF</color>
+    <color name="Transparrent">#0000FFFF</color>
 </resources>
