@@ -166,15 +166,12 @@ public class MainPages extends AppMenu {
         finish();
     }
 
-    /**
-     * Sets the environmental gain in the EnvironmentMenu.
-     */
-    public void setEnvironmentGain(){
-        adapter.getEnvironmentMenu().setEnvironmentGain(getUser().getEnvironmentModel().getCo2_savedToday(), getUser().getEnvironmentModel().getCo2_carDistance());
-        getUser().saveEnvironmentStatistics();
-    }
 
-    public void setTripsStatistics(){
+    /**
+     * Sets the statistics both in the models and the internal storage based on the newest trip.
+     */
+    public void setStatistics(){
+        adapter.getEnvironmentMenu().setEnvironmentGain(getUser().getEnvironmentModel().getCo2_savedToday(), getUser().getEnvironmentModel().getCo2_carDistance());
         adapter.getStatisticsMenu().setTripsStatistics(getUser().getStatisticsModel().getCo2_saved(), getUser().getStatisticsModel().getDistance(), getUser().getStatisticsModel().getAvg_speed());
         getUser().saveTripsStatistics();
     }

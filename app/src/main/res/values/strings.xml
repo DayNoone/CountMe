@@ -27,6 +27,7 @@
     <string name="environment_car">km med bil</string>
     <string name="environment_airplane">km med fly</string>
     <string name="environment_train">km med tog</string>
+    <string name="environment_bus">km med buss</string>
 
     <!-- Statistics -->
     <string name="stats_header"><u>Tall</u></string>
@@ -55,8 +56,7 @@
 
     <!--PUBLIC FINAL STRINGS-->
     <!--Consider making these strings unreadable-->
-    <string name="environmentStatisticsData">environmentStatistics</string>
-    <string name="tripsStatisticsData">tripsStatistics</string>
+    <string name="statisticsData">statisticsData</string>
     <string name="profile_preferences">UserPrefsFile</string>
 
 </resources>

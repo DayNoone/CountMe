@@ -28,6 +28,7 @@
     <string name="environment_car">km with car</string>
     <string name="environment_airplane">km with plane</string>
     <string name="environment_train">km with train</string>
+    <string name="environment_bus">km med bus</string>
 
     <!-- Statistics -->
     <string name="co2_spart">CO&#8322; saved:</string>
@@ -55,8 +56,7 @@
 
     <!--PUBLIC FINAL STRINGS-->
     <!--Consider making these strings unreadable-->
-    <string name="environmentStatisticsData">environmentStatistics</string>
-    <string name="tripsStatisticsData">tripsStatistics</string>
+    <string name="statisticsData">statisticsData</string>
     <string name="profile_preferences">UserPrefsFile</string>
 
 

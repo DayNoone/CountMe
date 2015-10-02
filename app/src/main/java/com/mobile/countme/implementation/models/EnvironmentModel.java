@@ -10,7 +10,10 @@ public class EnvironmentModel {
 
     private int co2_savedToday;
     private int co2_carDistance;
-    private final int avgCar_co2_per_kilometer = 271;
+    private final int avgCar_co2_per_kilometer = 160;
+    private final int avgBus_co2_per_kilometer = 101;
+    private final int avgTrain_co2_per_kilometer = 56;
+    private final int avgPlain_co2_per_kilometer = 259;
 
     public EnvironmentModel(){
     }
@@ -37,13 +40,8 @@ public class EnvironmentModel {
         return co2_carDistance;
     }
 
-    public void setStat(int index, int stat){
-        if(index == 0){
-            co2_savedToday = stat;
-        }
-        else if(index == 1){
-            co2_carDistance = stat;
-        }
+    public void setCo2_savedToday(int co2_savedToday) {
+        this.co2_savedToday = co2_savedToday;
     }
 
     public void resetStatistics(){

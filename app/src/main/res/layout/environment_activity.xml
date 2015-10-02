@@ -42,7 +42,7 @@
         android:id="@+id/textView3"
         android:layout_below="@+id/imageView"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="69dp" />
+        android:layout_marginTop="45dp" />
 
     <com.mobile.countme.custom_views.CustomTextView
         android:layout_width="wrap_content"
@@ -60,8 +60,8 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/environment_airplane"
         android:id="@+id/plain_km"
-        android:layout_below="@+id/textView4"
-        android:layout_alignStart="@+id/textView4"
+        android:layout_below="@+id/car_km"
+        android:layout_alignStart="@+id/car_km"
         android:layout_marginTop="27dp" />
 
     <com.mobile.countme.custom_views.CustomTextView
@@ -70,7 +70,18 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/environment_train"
         android:id="@+id/train_km"
-        android:layout_below="@+id/textView5"
-        android:layout_alignStart="@+id/textView5"
+        android:layout_below="@+id/plain_km"
+        android:layout_alignStart="@+id/plain_km"
         android:layout_marginTop="26dp" />
+
+    <com.mobile.countme.custom_views.CustomTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/environment_bus"
+        android:id="@+id/bus_km"
+        android:layout_marginTop="26dp"
+        android:layout_below="@+id/train_km"
+        android:layout_alignStart="@+id/train_km" />
+
 </RelativeLayout>
