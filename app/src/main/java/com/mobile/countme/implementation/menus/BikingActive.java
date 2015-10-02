@@ -28,6 +28,7 @@ public class BikingActive extends AppMenu {
                 .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface arg0, int arg1) {
+//                        getUser().getStatisticsModel().addCo2_saved(1232); TODO: Testing code - Remove.
                         goTo(MainPages.class);
                     }
                 }).create().show();

@@ -76,9 +76,9 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/weekly_display"
+        android:text="@string/daily_display"
         android:id="@+id/button3"
-
+        android:onClick="viewOneDayStats"
         android:background="@drawable/btn_stroke"
 
         android:layout_alignParentBottom="true"
@@ -88,9 +88,22 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/monthhly_display"
-        android:background="@drawable/btn_stroke"
+        android:text="@string/weekly_display"
         android:id="@+id/button4"
+        android:onClick="viewOneWeekStats"
+        android:background="@drawable/btn_stroke"
+
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="115dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/monthhly_display"
+        android:onClick="viewOneMonthStatistics"
+        android:background="@drawable/btn_stroke"
+        android:id="@+id/button5"
         android:layout_alignBottom="@+id/button3"
         android:layout_alignEnd="@+id/avgSpeed_statistics" />
 </RelativeLayout>

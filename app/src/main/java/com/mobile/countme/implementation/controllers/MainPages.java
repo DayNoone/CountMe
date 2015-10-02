@@ -3,7 +3,6 @@ package com.mobile.countme.implementation.controllers;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
@@ -18,6 +17,9 @@ import com.mobile.countme.framework.AppMenu;
 import com.mobile.countme.framework.MainViewPagerAdapter;
 import com.mobile.countme.framework.SlidingTabLayout;
 import com.mobile.countme.implementation.menus.BikingActive;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Locale;
 
@@ -113,6 +115,43 @@ public class MainPages extends AppMenu {
 
     public void startBiking(View view) {
         goTo(BikingActive.class);
+    }
+
+    /**
+     * Updates the statistics view to show this weeks statistics.
+     * @param view
+     */
+    public void viewOneDayStats(View view) {
+        adapter.getStatisticsMenu().setTripsStatistics(getUser().getStatisticsModel().getCo2_saved(), getUser().getStatisticsModel().getDistance(), getUser().getStatisticsModel().getAvg_speed());
+    }
+
+    /**
+     * Updates the statistics view to show this weeks statistics.
+     * @param view
+     */
+    public void viewOneWeekStats(View view) {
+        JSONObject lastWeekTrips = getUser().getLastPeriodTrips(7);
+        try {
+            adapter.getStatisticsMenu().setTripsStatistics(Integer.parseInt(lastWeekTrips.getString("co2Saved")), Integer.parseInt(lastWeekTrips.getString("distance")), Integer.parseInt(lastWeekTrips.getString("avgSpeed")));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    /**
+     * Updates the statistics view to show this month statistics.
+     * @param view
+     */
+    public void viewOneMonthStatistics(View view){
+        JSONObject lastMonthTrips = getUser().getLastPeriodTrips(30);
+        try {
+            adapter.getStatisticsMenu().setTripsStatistics(Integer.parseInt(lastMonthTrips.getString("co2Saved")), Integer.parseInt(lastMonthTrips.getString("distance")), Integer.parseInt(lastMonthTrips.getString("avgSpeed")));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
     public void setLocale(String lang) {

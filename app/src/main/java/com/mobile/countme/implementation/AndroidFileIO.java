@@ -10,6 +10,10 @@ import android.util.Log;
 import com.mobile.countme.R;
 import com.mobile.countme.framework.AppMenu;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -78,35 +82,56 @@ public class AndroidFileIO {
         return savedData;
     }
 
-    public void writeTripsSaveFile(String string){
-        try{
-            if(!string.equals(old_tripsStats)) {
-                old_tripsStats = string;
-                FileOutputStream outputStream = context.openFileOutput(context.getString(R.string.tripsStatisticsData), Context.MODE_PRIVATE);
-                outputStream.write(string.getBytes());
-                outputStream.close();
-                Log.e("FileIO", "TripFileSaved: " + string);
+    /**
+     * Update the trip statistics in the internal storage.
+     * @param todaysTrips
+     */
+    public void writeTripsSaveFile(JSONObject todaysTrips){
+        SharedPreferences sharedPreferences = context.getSharedPreferences(context.getString(R.string.tripsStatisticsData), Context.MODE_PRIVATE);
+        String tripsString = sharedPreferences.getString(context.getString(R.string.tripsStatisticsData), null);
+        SharedPreferences.Editor prefEditor = sharedPreferences.edit();
+        try {
+            JSONArray trips = new JSONArray(tripsString);
+            JSONObject lastDayTrips = (JSONObject)trips.get(trips.length() - 1);
+            if(lastDayTrips.getString("TimeStamp").equals(todaysTrips.getString("TimeStamp"))){
+                lastDayTrips.put("co2Saved", todaysTrips.get("co2Saved"));
+                lastDayTrips.put("distance", todaysTrips.get("distance"));
+                lastDayTrips.put("avgSpeed", todaysTrips.get("avgSpeed"));
+            }else {
+                trips.put(todaysTrips);
             }
-        } catch (Exception e){
+            prefEditor.putString(context.getString(R.string.tripsStatisticsData), trips.toString());
+            prefEditor.commit();
+            Log.e("AndroidFileIO", "co2Saved: " + sharedPreferences.getString(context.getString(R.string.tripsStatisticsData), null));
+        } catch (JSONException e) {
             e.printStackTrace();
-            Log.e("FileIO", "TripFileNotFound!");
         }
     }
 
-    public String readTripsSaveFile(){
-        String temp="";
-        try{
-            FileInputStream inputStream = context.openFileInput(context.getString(R.string.tripsStatisticsData));
-            int c;
-            while ( (c= inputStream.read()) != -1){
-                temp = temp + Character.toString((char) c);
-            }
-        }catch (Exception e){
+    /**
+     * Writes the initial trips statistics on first start of application.
+     * @param jsonArray
+     */
+    public void writeInitialTripsSaveFile(JSONArray jsonArray){
+        String string = jsonArray.toString();
+        SharedPreferences sharedPreferences = context.getSharedPreferences(context.getString(R.string.tripsStatisticsData), Context.MODE_PRIVATE);
+        SharedPreferences.Editor prefEditor = sharedPreferences.edit();
+        prefEditor.putString( context.getString(R.string.tripsStatisticsData), string );
+        prefEditor.commit();
+        Log.e("AndroidFileIO", "tripsStatistics: " + sharedPreferences.getString(context.getString(R.string.tripsStatisticsData), null));
+    }
+
+    public JSONArray readTripsSaveFile(){
+        SharedPreferences sharedPreferences = context.getSharedPreferences(context.getString(R.string.tripsStatisticsData), Context.MODE_PRIVATE);
+        String tripsString = sharedPreferences.getString(context.getString(R.string.tripsStatisticsData), null);
+        JSONArray trips = null;
+        try {
+            trips = new JSONArray(tripsString);
+        } catch (JSONException e) {
             e.printStackTrace();
-            Log.e("FileIO", "UnableToReadTripsStatisticsFile!");
         }
-        Log.e("FileIO", "ReadTripsStatisticsFile:" + temp);
-        return temp;
+
+        return trips;
     }
 
     //Only used once the first time the game starts up
