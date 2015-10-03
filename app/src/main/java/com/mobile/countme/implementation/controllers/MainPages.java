@@ -171,7 +171,7 @@ public class MainPages extends AppMenu {
      * Sets the statistics both in the models and the internal storage based on the newest trip.
      */
     public void setStatistics(){
-        adapter.getEnvironmentMenu().setEnvironmentGain(getUser().getEnvironmentModel().getCo2_savedToday(), getUser().getEnvironmentModel().getCo2_carDistance());
+        adapter.getEnvironmentMenu().setEnvironmentGain(getUser().getEnvironmentModel().getCo2_savedToday(), getUser().getEnvironmentModel().getCo2_carDistance(), getUser().getEnvironmentModel().getCo2_busDistance(),getUser().getEnvironmentModel().getCo2_trainDistance(),getUser().getEnvironmentModel().getCo2_plainDistance());
         adapter.getStatisticsMenu().setTripsStatistics(getUser().getStatisticsModel().getCo2_saved(), getUser().getStatisticsModel().getDistance(), getUser().getStatisticsModel().getAvg_speed());
         getUser().saveTripsStatistics();
     }

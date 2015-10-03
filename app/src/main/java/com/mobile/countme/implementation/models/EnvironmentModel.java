@@ -10,6 +10,9 @@ public class EnvironmentModel {
 
     private int co2_savedToday;
     private int co2_carDistance;
+    private int co2_busDistance;
+    private int co2_trainDistance;
+    private int co2_plainDistance;
     private final int avgCar_co2_per_kilometer = 160;
     private final int avgBus_co2_per_kilometer = 101;
     private final int avgTrain_co2_per_kilometer = 56;
@@ -38,6 +41,36 @@ public class EnvironmentModel {
     public int getCo2_carDistance() {
         co2_carDistance = co2_savedToday/avgCar_co2_per_kilometer;
         return co2_carDistance;
+    }
+
+    /**
+     * This value is derived from the co2 saved today value and is given in kilometers.
+     * It uses the calculator from here: http://www.ecf.com/resources/co2-calculator/
+     * @return
+     */
+    public int getCo2_busDistance() {
+        co2_busDistance = co2_savedToday/avgBus_co2_per_kilometer;
+        return co2_busDistance;
+    }
+
+    /**
+     * This value is derived from the co2 saved today value and is given in kilometers.
+     * It uses the calculator from here: http://www.ecf.com/resources/co2-calculator/
+     * @return
+     */
+    public int getCo2_trainDistance() {
+        co2_trainDistance = co2_savedToday/avgTrain_co2_per_kilometer;
+        return co2_trainDistance;
+    }
+
+    /**
+     * This value is derived from the co2 saved today value and is given in kilometers.
+     * It uses the calculator from here: http://www.ecf.com/resources/co2-calculator/
+     * @return
+     */
+    public int getCo2_plainDistance() {
+        co2_plainDistance = co2_savedToday/avgPlain_co2_per_kilometer;
+        return co2_plainDistance;
     }
 
     public void setCo2_savedToday(int co2_savedToday) {
