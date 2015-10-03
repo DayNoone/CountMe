@@ -39,9 +39,6 @@ public class User {
     private EnvironmentModel environmentModel;
     private StatisticsModel statisticsModel;
 
-    // This are the places in numbers. It is used to multiply with the single integers stored in memory to get the correct and complete number.
-    private int[] places = new int[]{1 , 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000, 1000000000};
-
     public User (AndroidFileIO io, AppMenu context) {
         this.fileIO = io;
         this.context = context;
@@ -105,17 +102,20 @@ public class User {
             lastPeriodTrips.put("co2Saved", 0);
             lastPeriodTrips.put("distance", 0);
             lastPeriodTrips.put("avgSpeed", 0);
+            int numOfTrips = 1;
             for (int i = allDaysTrips.length() - 1; i >= 0; i--) {
 
                 JSONObject dayTrips = allDaysTrips.getJSONObject(i);
 
                 Date date = simpleDateFormat.parse((dayTrips.getString("TimeStamp")));
                 if (date.after(calendar.getTime())) {
-
+                    numOfTrips++;
                     lastPeriodTrips.put("co2Saved", Integer.toString(Integer.parseInt(lastPeriodTrips.getString("co2Saved")) + Integer.parseInt(dayTrips.getString("co2Saved"))));
                     lastPeriodTrips.put("distance", Integer.toString(Integer.parseInt(lastPeriodTrips.getString("distance")) + Integer.parseInt(dayTrips.getString("distance"))));
                     lastPeriodTrips.put("avgSpeed", Integer.toString(Integer.parseInt(lastPeriodTrips.getString("avgSpeed")) + Integer.parseInt(dayTrips.getString("avgSpeed"))));
                 }else {
+                    Log.e("User", "numoftrips: " + numOfTrips + "avgSpeed: " + lastPeriodTrips.getString("avgSpeed"));
+                    lastPeriodTrips.put("avgSpeed", Integer.toString(Integer.parseInt(lastPeriodTrips.getString("avgSpeed"))/numOfTrips));
                     break;
                 }
             }
