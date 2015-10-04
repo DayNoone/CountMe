@@ -29,9 +29,10 @@ public class BikingActive extends AppMenu {
 
                     public void onClick(DialogInterface arg0, int arg1) {
                          // TODO: Testing code - Remove.
-//                        getUser().getStatisticsModel().addCo2_saved(1232);
-//                        getUser().getEnvironmentModel().addCo2_savedTrip(1232);
-                        goTo(MainPages.class);
+                        getUser().addTripCo2(1232);
+                        getUser().addTripDistance(32.412312);
+                        getUser().addTripAvgSpeed(2.231231);
+                        goTo(ResultMenu.class);
                     }
                 }).create().show();
     }
@@ -40,4 +41,20 @@ public class BikingActive extends AppMenu {
         goTo(MapsActivity.class);
     }
 
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setMessage(R.string.stop_biking)
+                .setNegativeButton(R.string.no, null)
+                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        // TODO: Testing code - Remove.
+                        getUser().addTripCo2(1232);
+                        getUser().addTripDistance(32.412312);
+                        getUser().addTripAvgSpeed(2.231231);
+                        goTo(ResultMenu.class);
+                    }
+                }).create().show();
+    }
 }

@@ -7,8 +7,8 @@ package com.mobile.countme.implementation.models;
 public class StatisticsModel {
 
     private int co2_saved;
-    private int distance;
-    private int avg_speed;
+    private double distance;
+    private double avg_speed;
 
     /**
      * Adds the co2 saved this trip to the co2 saved so far(this week or month).
@@ -22,7 +22,7 @@ public class StatisticsModel {
      * Adds the distance travelled on this trip to the distance travelled so far(this week or month) in kilometers.
      * @param distance
      */
-    public void addDistance(int distance){
+    public void addDistance(double distance){
         this.distance += distance;
     }
 
@@ -30,7 +30,7 @@ public class StatisticsModel {
      * Calculates the new average speed based on the current average speed and the average speed from the last trip.
      * @param avg_speed
      */
-    public void calc_new_avgSpeed(int avg_speed){
+    public void calc_new_avgSpeed(double avg_speed){
         if(this.avg_speed != 0) {
             this.avg_speed = (this.avg_speed + avg_speed) / 2;
         }else {
@@ -38,7 +38,7 @@ public class StatisticsModel {
         }
     }
 
-    public int getAvg_speed() {
+    public double getAvg_speed() {
         return avg_speed;
     }
 
@@ -46,7 +46,7 @@ public class StatisticsModel {
         return co2_saved;
     }
 
-    public int getDistance() {
+    public double getDistance() {
         return distance;
     }
 
@@ -59,7 +59,7 @@ public class StatisticsModel {
         avg_speed = 0;
     }
 
-    public void setAvg_speed(int avg_speed) {
+    public void setAvg_speed(double avg_speed) {
         this.avg_speed = avg_speed;
     }
 
@@ -67,7 +67,7 @@ public class StatisticsModel {
         this.co2_saved = co2_saved;
     }
 
-    public void setDistance(int distance) {
+    public void setDistance(double distance) {
         this.distance = distance;
     }
 }

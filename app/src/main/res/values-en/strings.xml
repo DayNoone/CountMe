@@ -22,6 +22,10 @@
     <!-- Biking idle -->
     <string name="start_trip">START TRIP</string>
 
+    <!--Result Screen -->
+    <string name="result_page">Resultat</string>
+    <string name="mainScreen">Mainscreen</string>
+
     <!-- Environment -->
     <string name="environment_title">CO&#8322; saved today</string>
     <string name="environment_comparement">Which is the same as: </string>

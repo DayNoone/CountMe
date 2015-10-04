@@ -8,6 +8,7 @@ import com.mobile.countme.R;
 import com.mobile.countme.framework.AppMenu;
 import com.mobile.countme.implementation.AndroidFileIO;
 import com.mobile.countme.implementation.models.EnvironmentModel;
+import com.mobile.countme.implementation.models.ResultModel;
 import com.mobile.countme.implementation.models.StatisticsModel;
 
 import org.json.JSONArray;
@@ -38,6 +39,7 @@ public class User {
      */
     private EnvironmentModel environmentModel;
     private StatisticsModel statisticsModel;
+    private ResultModel resultModel;
 
     public User (AndroidFileIO io, AppMenu context) {
         this.fileIO = io;
@@ -46,6 +48,8 @@ public class User {
         //Instantiate the models and load the internal statistics
         environmentModel = new EnvironmentModel();
         statisticsModel = new StatisticsModel();
+        resultModel = new ResultModel();
+
 
 
     }
@@ -204,6 +208,10 @@ public class User {
         return statisticsModel;
     }
 
+    public ResultModel getResultModel() {
+        return resultModel;
+    }
+
     public void setMainPages(MainPages mainPages) {
         this.mainPages = mainPages;
     }
@@ -218,5 +226,21 @@ public class User {
 
     public AppMenu getContext() {
         return context;
+    }
+
+    public void addTripCo2(int tripCo2){
+        environmentModel.addCo2_savedTrip(tripCo2);
+        statisticsModel.addCo2_saved(tripCo2);
+        resultModel.setCo2_saved(tripCo2);
+    }
+
+    public void addTripDistance(double tripDistance){
+        statisticsModel.addDistance(tripDistance);
+        resultModel.setDistance(tripDistance);
+    }
+
+    public void addTripAvgSpeed(double tripAvgSpeed){
+        statisticsModel.calc_new_avgSpeed(tripAvgSpeed);
+        resultModel.setAvg_speed(tripAvgSpeed);
     }
 }

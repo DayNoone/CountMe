@@ -21,6 +21,10 @@
     <!-- Biking idle -->
     <string name="start_trip">START TUR</string>
 
+    <!--Result Screen -->
+    <string name="result_page">Resultat</string>
+    <string name="mainScreen">Hovedside</string>
+
     <!-- Environment -->
     <string name="environment_title"><u>CO&#8322; spart i dag</u></string>
     <string name="environment_comparement">Hvilket er det samme som: </string>
