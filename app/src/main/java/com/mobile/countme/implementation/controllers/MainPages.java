@@ -3,7 +3,6 @@ package com.mobile.countme.implementation.controllers;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
@@ -18,6 +17,9 @@ import com.mobile.countme.framework.AppMenu;
 import com.mobile.countme.framework.MainViewPagerAdapter;
 import com.mobile.countme.framework.SlidingTabLayout;
 import com.mobile.countme.implementation.menus.BikingActive;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Locale;
 
@@ -115,6 +117,43 @@ public class MainPages extends AppMenu {
         goTo(BikingActive.class);
     }
 
+    /**
+     * Updates the statistics view to show this weeks statistics.
+     * @param view
+     */
+    public void viewOneDayStats(View view) {
+        adapter.getStatisticsMenu().setTripsStatistics(getUser().getStatisticsModel().getCo2_saved(), getUser().getStatisticsModel().getDistance(), getUser().getStatisticsModel().getAvg_speed());
+    }
+
+    /**
+     * Updates the statistics view to show this weeks statistics.
+     * @param view
+     */
+    public void viewOneWeekStats(View view) {
+        JSONObject lastWeekTrips = getUser().getLastPeriodTrips(7);
+        try {
+            adapter.getStatisticsMenu().setTripsStatistics(Integer.parseInt(lastWeekTrips.getString("co2Saved")), Double.parseDouble(lastWeekTrips.getString("distance")), Double.parseDouble(lastWeekTrips.getString("avgSpeed")));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    /**
+     * Updates the statistics view to show this month statistics.
+     * @param view
+     */
+    public void viewOneMonthStatistics(View view){
+        JSONObject lastMonthTrips = getUser().getLastPeriodTrips(30);
+        try {
+            adapter.getStatisticsMenu().setTripsStatistics(Integer.parseInt(lastMonthTrips.getString("co2Saved")), Double.parseDouble(lastMonthTrips.getString("distance")), Double.parseDouble(lastMonthTrips.getString("avgSpeed")));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
     public void setLocale(String lang) {
         Locale locale = new Locale(lang);
         Resources res = getResources();
@@ -127,15 +166,12 @@ public class MainPages extends AppMenu {
         finish();
     }
 
-    /**
-     * Sets the environmental gain in the EnvironmentMenu.
-     */
-    public void setEnvironmentGain(){
-        adapter.getEnvironmentMenu().setEnvironmentGain(getUser().getEnvironmentModel().getCo2_savedToday(), getUser().getEnvironmentModel().getCo2_carDistance());
-        getUser().saveEnvironmentStatistics();
-    }
 
-    public void setTripsStatistics(){
+    /**
+     * Sets the statistics both in the models and the internal storage based on the newest trip.
+     */
+    public void setStatistics(){
+        adapter.getEnvironmentMenu().setEnvironmentGain(getUser().getEnvironmentModel().getCo2_savedToday(), getUser().getEnvironmentModel().getCo2_carDistance(), getUser().getEnvironmentModel().getCo2_busDistance(),getUser().getEnvironmentModel().getCo2_trainDistance(),getUser().getEnvironmentModel().getCo2_plainDistance());
         adapter.getStatisticsMenu().setTripsStatistics(getUser().getStatisticsModel().getCo2_saved(), getUser().getStatisticsModel().getDistance(), getUser().getStatisticsModel().getAvg_speed());
         getUser().saveTripsStatistics();
     }

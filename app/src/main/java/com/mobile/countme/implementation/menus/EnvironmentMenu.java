@@ -26,12 +26,18 @@ public class EnvironmentMenu extends Fragment{
      * @param co2_savedToday
      * @param co2_carDistance
      */
-    public void setEnvironmentGain(int co2_savedToday, int co2_carDistance){
+    public void setEnvironmentGain(int co2_savedToday, int co2_carDistance, int co2_busDistance, int co2_trainDistance, int co2_plainDistance){
         if(getView() == null) return;
         CustomTextView co2_display = (CustomTextView) getView().findViewById(R.id.co2_display);
         CustomTextView carDistance = (CustomTextView) getView().findViewById(R.id.car_km);
+        CustomTextView busDistance = (CustomTextView) getView().findViewById(R.id.bus_km);
+        CustomTextView trainDistance = (CustomTextView) getView().findViewById(R.id.train_km);
+        CustomTextView plainDistance = (CustomTextView) getView().findViewById(R.id.plain_km);
         co2_display.setText(Integer.toString(co2_savedToday) + " g");
         carDistance.setText(Integer.toString(co2_carDistance) + " km med bil");
+        busDistance.setText(Integer.toString(co2_busDistance) + " km med buss");
+        trainDistance.setText(Integer.toString(co2_trainDistance) + " km med tog");
+        plainDistance.setText(Integer.toString(co2_plainDistance) + " km med fly");
     }
 
 }

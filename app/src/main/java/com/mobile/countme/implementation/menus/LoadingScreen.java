@@ -16,6 +16,8 @@ import com.mobile.countme.implementation.controllers.IntroductionMenu;
 import com.mobile.countme.implementation.controllers.MainPages;
 import com.mobile.countme.storage_and_memory.Assets;
 
+import org.json.JSONException;
+
 /**
  * Created by Kristian on 11/09/2015.
  */
@@ -27,14 +29,15 @@ public class LoadingScreen extends AppMenu {
 
         //TODO: ALPHA CODE, REMOVE AT LAUNCH:
 //        This clears the sharedPref for userPrefrences (clear username).
-//        SharedPreferences sharedPref = getSharedPreferences(getString(R.string.profile_preferences), Context.MODE_PRIVATE);
-//        sharedPref.edit().clear().commit();
+        SharedPreferences sharedPref = getSharedPreferences(getString(R.string.profile_preferences), Context.MODE_PRIVATE);
+        sharedPref.edit().clear().commit();
 
         //Load things
-        //Sets all the static classes for the game
+        //Sets all the static classes for the application
         setAppAssets(new Assets(this));
         setFileIO(new AndroidFileIO(this));
         setUser(new User(getFileIO(), this));
+
 
 //        // TODO: ALPHA CODE, REMOVE AT LAUNCH:
 //        // This code resets all the statistics.
@@ -64,19 +67,22 @@ public class LoadingScreen extends AppMenu {
             synchronized (this)
             {
                 //IMPORTANT, needs to be done first
-                getFileIO().getEnvironmentSaveFile();
-                getFileIO().getTripsSaveFile();
+//                getFileIO().getEnvironmentSaveFile();
+//                getFileIO().getTripsSaveFile();
                 //If the user already "logged" inn
                 SharedPreferences sharedPref = getSharedPreferences(getString(R.string.profile_preferences), Context.MODE_PRIVATE);
                 boolean isLoggedInn = sharedPref.getBoolean(getString(R.string.isLoggedInn), false);
                 if(!isLoggedInn) {
                     Log.e("LoadScreen", "UserData Not present, creating new saveStatistics");
-                    //ONLY DONE THE FIRST TIME THE GAME IS CREATED
-                    getUser().saveEnvironmentStatistics();
-                    getUser().saveTripsStatistics();
+                    //ONLY DONE THE FIRST TIME THE APPLICATION IS CREATED
+//                    getUser().saveEnvironmentStatistics();
+//                    getUser().saveTripsStatistics();
+                    getUser().createTripsStatistics();
                 }
 
 //                getUser().setUserPref(sharedPref); - Should be here if we are to have options like language selection.
+                //TODO: Testing code - Remove
+//                getUser().addRandomShit();
 
                 //Loads the statistics from the phone internal storage
                 getUser().loadEnvironmentalStatistics();
@@ -89,7 +95,7 @@ public class LoadingScreen extends AppMenu {
 //                    getUser().setAndroidClient(androidClient);
 //                }
 
-                //Loads all the games graphical assets (Img, Bitmap, ...) -- This should be here.
+                //Loads all the applications graphical assets (Img, Bitmap, ...) -- This should be here.
 //                getAppAssets().loadNonGameGraphicalAssets();
 
                 //Loads all the games Audio assets (Sound, Music, ...) -- I dont think we are going to have any audio assets.
@@ -100,7 +106,7 @@ public class LoadingScreen extends AppMenu {
         }
         catch (Exception e)
         {
-            Log.e("LoadScreen", "LOADING GAME DATA FAILED");
+            Log.e("LoadScreen", "LOADING APPLICATION DATA FAILED");
             e.printStackTrace();
         }
 
