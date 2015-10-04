@@ -29,8 +29,8 @@ public class BikingActive extends AppMenu {
 
                     public void onClick(DialogInterface arg0, int arg1) {
                          // TODO: Testing code - Remove.
-                        getUser().getStatisticsModel().addCo2_saved(1232);
-                        getUser().getEnvironmentModel().addCo2_savedTrip(1232);
+//                        getUser().getStatisticsModel().addCo2_saved(1232);
+//                        getUser().getEnvironmentModel().addCo2_savedTrip(1232);
                         goTo(MainPages.class);
                     }
                 }).create().show();

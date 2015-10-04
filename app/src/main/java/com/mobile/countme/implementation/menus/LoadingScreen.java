@@ -82,7 +82,7 @@ public class LoadingScreen extends AppMenu {
 
 //                getUser().setUserPref(sharedPref); - Should be here if we are to have options like language selection.
                 //TODO: Testing code - Remove
-                getUser().addRandomShit();
+//                getUser().addRandomShit();
 
                 //Loads the statistics from the phone internal storage
                 getUser().loadEnvironmentalStatistics();
