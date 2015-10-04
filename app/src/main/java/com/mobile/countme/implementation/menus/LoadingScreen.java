@@ -67,15 +67,15 @@ public class LoadingScreen extends AppMenu {
             synchronized (this)
             {
                 //IMPORTANT, needs to be done first
-                getFileIO().getEnvironmentSaveFile();
-                getFileIO().getTripsSaveFile();
+//                getFileIO().getEnvironmentSaveFile();
+//                getFileIO().getTripsSaveFile();
                 //If the user already "logged" inn
                 SharedPreferences sharedPref = getSharedPreferences(getString(R.string.profile_preferences), Context.MODE_PRIVATE);
                 boolean isLoggedInn = sharedPref.getBoolean(getString(R.string.isLoggedInn), false);
                 if(!isLoggedInn) {
                     Log.e("LoadScreen", "UserData Not present, creating new saveStatistics");
                     //ONLY DONE THE FIRST TIME THE APPLICATION IS CREATED
-                    getUser().saveEnvironmentStatistics();
+//                    getUser().saveEnvironmentStatistics();
 //                    getUser().saveTripsStatistics();
                     getUser().createTripsStatistics();
                 }

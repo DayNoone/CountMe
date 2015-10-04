@@ -132,7 +132,7 @@ public class MainPages extends AppMenu {
     public void viewOneWeekStats(View view) {
         JSONObject lastWeekTrips = getUser().getLastPeriodTrips(7);
         try {
-            adapter.getStatisticsMenu().setTripsStatistics(Integer.parseInt(lastWeekTrips.getString("co2Saved")), Integer.parseInt(lastWeekTrips.getString("distance")), Integer.parseInt(lastWeekTrips.getString("avgSpeed")));
+            adapter.getStatisticsMenu().setTripsStatistics(Integer.parseInt(lastWeekTrips.getString("co2Saved")), Double.parseDouble(lastWeekTrips.getString("distance")), Double.parseDouble(lastWeekTrips.getString("avgSpeed")));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -146,7 +146,7 @@ public class MainPages extends AppMenu {
     public void viewOneMonthStatistics(View view){
         JSONObject lastMonthTrips = getUser().getLastPeriodTrips(30);
         try {
-            adapter.getStatisticsMenu().setTripsStatistics(Integer.parseInt(lastMonthTrips.getString("co2Saved")), Integer.parseInt(lastMonthTrips.getString("distance")), Integer.parseInt(lastMonthTrips.getString("avgSpeed")));
+            adapter.getStatisticsMenu().setTripsStatistics(Integer.parseInt(lastMonthTrips.getString("co2Saved")), Double.parseDouble(lastMonthTrips.getString("distance")), Double.parseDouble(lastMonthTrips.getString("avgSpeed")));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -166,15 +166,12 @@ public class MainPages extends AppMenu {
         finish();
     }
 
-    /**
-     * Sets the environmental gain in the EnvironmentMenu.
-     */
-    public void setEnvironmentGain(){
-        adapter.getEnvironmentMenu().setEnvironmentGain(getUser().getEnvironmentModel().getCo2_savedToday(), getUser().getEnvironmentModel().getCo2_carDistance());
-        getUser().saveEnvironmentStatistics();
-    }
 
-    public void setTripsStatistics(){
+    /**
+     * Sets the statistics both in the models and the internal storage based on the newest trip.
+     */
+    public void setStatistics(){
+        adapter.getEnvironmentMenu().setEnvironmentGain(getUser().getEnvironmentModel().getCo2_savedToday(), getUser().getEnvironmentModel().getCo2_carDistance(), getUser().getEnvironmentModel().getCo2_busDistance(),getUser().getEnvironmentModel().getCo2_trainDistance(),getUser().getEnvironmentModel().getCo2_plainDistance());
         adapter.getStatisticsMenu().setTripsStatistics(getUser().getStatisticsModel().getCo2_saved(), getUser().getStatisticsModel().getDistance(), getUser().getStatisticsModel().getAvg_speed());
         getUser().saveTripsStatistics();
     }

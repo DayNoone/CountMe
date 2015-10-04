@@ -19,11 +19,9 @@ package com.mobile.countme.framework;
         import android.content.Context;
         import android.graphics.Color;
         import android.graphics.Typeface;
-        import android.os.Build;
         import android.support.v4.view.PagerAdapter;
         import android.support.v4.view.ViewPager;
         import android.util.AttributeSet;
-        import android.util.Log;
         import android.util.SparseArray;
         import android.util.TypedValue;
         import android.view.Gravity;
@@ -34,7 +32,6 @@ package com.mobile.countme.framework;
         import android.widget.LinearLayout;
         import android.widget.TextView;
 
-        import com.mobile.countme.R;
         import com.mobile.countme.implementation.controllers.MainPages;
 
 /**
@@ -294,8 +291,7 @@ public class SlidingTabLayout extends HorizontalScrollView {
 
             //Always updates the views based on the models.
             if(mainPagesInitialized){
-                mainPages.setEnvironmentGain();
-                mainPages.setTripsStatistics();
+                mainPages.setStatistics();
             }
         }
 

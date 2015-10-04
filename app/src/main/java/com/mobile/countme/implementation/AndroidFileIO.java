@@ -14,10 +14,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-
 /**
  * Created by Anders Lunde on 22.01.2015.
  * Saves the user data as a string, or as shared pref data
@@ -26,11 +22,8 @@ import java.io.FileOutputStream;
 public class AndroidFileIO {
 
 
-    private static File savedData;
+//    private static File savedData;
     private AppMenu context;
-
-    private String old_environmentalStats;
-    private String old_tripsStats;
 
     public AndroidFileIO(AppMenu context){
         this.context = context;
@@ -38,57 +31,57 @@ public class AndroidFileIO {
 
 
 
-    public void writeEnvironmentSaveFile(String string){
-        try{
-            if(!string.equals(old_environmentalStats)) {
-                old_environmentalStats = string;
-                FileOutputStream outputStream = context.openFileOutput(context.getString(R.string.environmentStatisticsData), Context.MODE_PRIVATE);
-                outputStream.write(string.getBytes());
-                outputStream.close();
-                Log.e("FileIO", "EnvironmentalFileSaved: " + string);
-            }
-        } catch (Exception e){
-            e.printStackTrace();
-            Log.e("FileIO", "EnvironmentalFileNotFound!");
-        }
-    }
+//    public void writeEnvironmentSaveFile(String string){
+//        try{
+//            if(!string.equals(old_environmentalStats)) {
+//                old_environmentalStats = string;
+//                FileOutputStream outputStream = context.openFileOutput(context.getString(R.string.environmentStatisticsData), Context.MODE_PRIVATE);
+//                outputStream.write(string.getBytes());
+//                outputStream.close();
+//                Log.e("FileIO", "EnvironmentalFileSaved: " + string);
+//            }
+//        } catch (Exception e){
+//            e.printStackTrace();
+//            Log.e("FileIO", "EnvironmentalFileNotFound!");
+//        }
+//    }
 
-    public String readEnvironmentSaveFile(){
-        String temp="";
-        try{
-            FileInputStream inputStream = context.openFileInput(context.getString(R.string.environmentStatisticsData));
-            int c;
-            while ( (c= inputStream.read()) != -1){
-                temp = temp + Character.toString((char) c);
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-            Log.e("FileIO", "UnableToReadEnvironmentalFile!");
-        }
-        Log.e("FileIO", "ReadEnvironmentalFile:" + temp);
-        return temp;
-    }
+//    public String readEnvironmentSaveFile(){
+//        String temp="";
+//        try{
+//            FileInputStream inputStream = context.openFileInput(context.getString(R.string.environmentStatisticsData));
+//            int c;
+//            while ( (c= inputStream.read()) != -1){
+//                temp = temp + Character.toString((char) c);
+//            }
+//        }catch (Exception e){
+//            e.printStackTrace();
+//            Log.e("FileIO", "UnableToReadEnvironmentalFile!");
+//        }
+//        Log.e("FileIO", "ReadEnvironmentalFile:" + temp);
+//        return temp;
+//    }
 
-    //Only used once the first time the game starts up
-    //If a file is already present it gives you the present file.
-    public File getEnvironmentSaveFile(){
-        File file = new File(context.getFilesDir(), context.getString(R.string.environmentStatisticsData));
-        if(!file.exists()){
-            savedData = file;
-            Log.e("FileIO", "EnvironmentalDataCreated");
-        }else{
-            Log.e("FileIO", "EnvironmentalDataExists");
-        }
-        return savedData;
-    }
+//    //Only used once the first time the game starts up
+//    //If a file is already present it gives you the present file.
+//    public File getEnvironmentSaveFile(){
+//        File file = new File(context.getFilesDir(), context.getString(R.string.environmentStatisticsData));
+//        if(!file.exists()){
+//            savedData = file;
+//            Log.e("FileIO", "EnvironmentalDataCreated");
+//        }else{
+//            Log.e("FileIO", "EnvironmentalDataExists");
+//        }
+//        return savedData;
+//    }
 
     /**
      * Update the trip statistics in the internal storage.
      * @param todaysTrips
      */
-    public void writeTripsSaveFile(JSONObject todaysTrips){
-        SharedPreferences sharedPreferences = context.getSharedPreferences(context.getString(R.string.tripsStatisticsData), Context.MODE_PRIVATE);
-        String tripsString = sharedPreferences.getString(context.getString(R.string.tripsStatisticsData), null);
+    public void writeStatisticSaveFile(JSONObject todaysTrips){
+        SharedPreferences sharedPreferences = context.getSharedPreferences(context.getString(R.string.statisticsData), Context.MODE_PRIVATE);
+        String tripsString = sharedPreferences.getString(context.getString(R.string.statisticsData), null);
         SharedPreferences.Editor prefEditor = sharedPreferences.edit();
         try {
             JSONArray trips = new JSONArray(tripsString);
@@ -100,9 +93,9 @@ public class AndroidFileIO {
             }else {
                 trips.put(todaysTrips);
             }
-            prefEditor.putString(context.getString(R.string.tripsStatisticsData), trips.toString());
+            prefEditor.putString(context.getString(R.string.statisticsData), trips.toString());
             prefEditor.commit();
-            Log.e("AndroidFileIO", "co2Saved: " + sharedPreferences.getString(context.getString(R.string.tripsStatisticsData), null));
+            Log.e("AndroidFileIO", "co2Saved: " + sharedPreferences.getString(context.getString(R.string.statisticsData), null));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -112,18 +105,18 @@ public class AndroidFileIO {
      * Writes the initial trips statistics on first start of application.
      * @param jsonArray
      */
-    public void writeInitialTripsSaveFile(JSONArray jsonArray){
+    public void writeInitialStatisticsSaveFile(JSONArray jsonArray){
         String string = jsonArray.toString();
-        SharedPreferences sharedPreferences = context.getSharedPreferences(context.getString(R.string.tripsStatisticsData), Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = context.getSharedPreferences(context.getString(R.string.statisticsData), Context.MODE_PRIVATE);
         SharedPreferences.Editor prefEditor = sharedPreferences.edit();
-        prefEditor.putString( context.getString(R.string.tripsStatisticsData), string );
+        prefEditor.putString( context.getString(R.string.statisticsData), string );
         prefEditor.commit();
-        Log.e("AndroidFileIO", "tripsStatistics: " + sharedPreferences.getString(context.getString(R.string.tripsStatisticsData), null));
+        Log.e("AndroidFileIO", "tripsStatistics: " + sharedPreferences.getString(context.getString(R.string.statisticsData), null));
     }
 
-    public JSONArray readTripsSaveFile(){
-        SharedPreferences sharedPreferences = context.getSharedPreferences(context.getString(R.string.tripsStatisticsData), Context.MODE_PRIVATE);
-        String tripsString = sharedPreferences.getString(context.getString(R.string.tripsStatisticsData), null);
+    public JSONArray readStatisticsSaveFile(){
+        SharedPreferences sharedPreferences = context.getSharedPreferences(context.getString(R.string.statisticsData), Context.MODE_PRIVATE);
+        String tripsString = sharedPreferences.getString(context.getString(R.string.statisticsData), null);
         JSONArray trips = null;
         try {
             trips = new JSONArray(tripsString);
@@ -134,27 +127,21 @@ public class AndroidFileIO {
         return trips;
     }
 
-    //Only used once the first time the game starts up
-    //If a file is already present it gives you the present file.
-    public File getTripsSaveFile(){
-        File file = new File(context.getFilesDir(), context.getString(R.string.tripsStatisticsData));
-        if(!file.exists()){
-            savedData = file;
-            Log.e("FileIO", "TripStatisticsDataCreated");
-        }else{
-            Log.e("FileIO", "TripsStatisticsDataExists");
-        }
-        return savedData;
-    }
+//    //Only used once the first time the game starts up
+//    //If a file is already present it gives you the present file.
+//    public File getTripsSaveFile(){
+//        File file = new File(context.getFilesDir(), context.getString(R.string.tripsStatisticsData));
+//        if(!file.exists()){
+//            savedData = file;
+//            Log.e("FileIO", "TripStatisticsDataCreated");
+//        }else{
+//            Log.e("FileIO", "TripsStatisticsDataExists");
+//        }
+//        return savedData;
+//    }
 
     public void removeSaveFile(){
 
     }
-
-    public SharedPreferences getSharedPref(){
-        SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.profile_preferences), Context.MODE_PRIVATE);
-        return sharedPref;
-    }
-
 
 }
