@@ -77,12 +77,12 @@ public class User {
         JSONObject dummyObjectLastMonth = new JSONObject();
         dummyObjectLastWeek.put("TimeStamp","01-10-2015");
         dummyObjectLastWeek.put("co2Saved",1);
-        dummyObjectLastWeek.put("distance", 1);
-        dummyObjectLastWeek.put("avgSpeed",1);
+        dummyObjectLastWeek.put("distance", 2.255512321);
+        dummyObjectLastWeek.put("avgSpeed",1.32);
         dummyObjectLastMonth.put("TimeStamp", "08-09-2015");
         dummyObjectLastMonth.put("co2Saved", 1);
-        dummyObjectLastMonth.put("distance",1);
-        dummyObjectLastMonth.put("avgSpeed", 1);
+        dummyObjectLastMonth.put("distance",1.2314123123123);
+        dummyObjectLastMonth.put("avgSpeed", 1.54);
         trips.put(dummyObjectLastMonth);
         trips.put(dummyObjectLastWeek);
         prefEditor.putString(context.getString(R.string.statisticsData), trips.toString());
@@ -102,7 +102,7 @@ public class User {
             lastPeriodTrips.put("co2Saved", 0);
             lastPeriodTrips.put("distance", 0);
             lastPeriodTrips.put("avgSpeed", 0);
-            int numOfTrips = 1;
+            int numOfTrips = 0;
             for (int i = allDaysTrips.length() - 1; i >= 0; i--) {
 
                 JSONObject dayTrips = allDaysTrips.getJSONObject(i);
@@ -111,13 +111,15 @@ public class User {
                 if (date.after(calendar.getTime())) {
                     numOfTrips++;
                     lastPeriodTrips.put("co2Saved", Integer.toString(Integer.parseInt(lastPeriodTrips.getString("co2Saved")) + Integer.parseInt(dayTrips.getString("co2Saved"))));
-                    lastPeriodTrips.put("distance", Integer.toString(Integer.parseInt(lastPeriodTrips.getString("distance")) + Integer.parseInt(dayTrips.getString("distance"))));
-                    lastPeriodTrips.put("avgSpeed", Integer.toString(Integer.parseInt(lastPeriodTrips.getString("avgSpeed")) + Integer.parseInt(dayTrips.getString("avgSpeed"))));
+                    lastPeriodTrips.put("distance", Double.toString(Double.parseDouble(lastPeriodTrips.getString("distance")) + Double.parseDouble(dayTrips.getString("distance"))));
+                    lastPeriodTrips.put("avgSpeed", Double.toString(Double.parseDouble(lastPeriodTrips.getString("avgSpeed")) + Double.parseDouble(dayTrips.getString("avgSpeed"))));
                 }else {
-                    Log.e("User", "numoftrips: " + numOfTrips + "avgSpeed: " + lastPeriodTrips.getString("avgSpeed"));
-                    lastPeriodTrips.put("avgSpeed", Integer.toString(Integer.parseInt(lastPeriodTrips.getString("avgSpeed"))/numOfTrips));
                     break;
                 }
+            }
+            if(numOfTrips > 0) {
+                Log.e("User", "numoftrips: " + numOfTrips + "avgSpeed: " + lastPeriodTrips.getString("avgSpeed"));
+                lastPeriodTrips.put("avgSpeed", Double.toString(Double.parseDouble(lastPeriodTrips.getString("avgSpeed")) / numOfTrips));
             }
 
         } catch (ParseException e) {

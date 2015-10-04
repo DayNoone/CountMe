@@ -132,7 +132,7 @@ public class MainPages extends AppMenu {
     public void viewOneWeekStats(View view) {
         JSONObject lastWeekTrips = getUser().getLastPeriodTrips(7);
         try {
-            adapter.getStatisticsMenu().setTripsStatistics(Integer.parseInt(lastWeekTrips.getString("co2Saved")), Integer.parseInt(lastWeekTrips.getString("distance")), Integer.parseInt(lastWeekTrips.getString("avgSpeed")));
+            adapter.getStatisticsMenu().setTripsStatistics(Integer.parseInt(lastWeekTrips.getString("co2Saved")), Double.parseDouble(lastWeekTrips.getString("distance")), Double.parseDouble(lastWeekTrips.getString("avgSpeed")));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -146,7 +146,7 @@ public class MainPages extends AppMenu {
     public void viewOneMonthStatistics(View view){
         JSONObject lastMonthTrips = getUser().getLastPeriodTrips(30);
         try {
-            adapter.getStatisticsMenu().setTripsStatistics(Integer.parseInt(lastMonthTrips.getString("co2Saved")), Integer.parseInt(lastMonthTrips.getString("distance")), Integer.parseInt(lastMonthTrips.getString("avgSpeed")));
+            adapter.getStatisticsMenu().setTripsStatistics(Integer.parseInt(lastMonthTrips.getString("co2Saved")), Double.parseDouble(lastMonthTrips.getString("distance")), Double.parseDouble(lastMonthTrips.getString("avgSpeed")));
         } catch (JSONException e) {
             e.printStackTrace();
         }
