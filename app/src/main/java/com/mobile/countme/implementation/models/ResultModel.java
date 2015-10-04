@@ -22,7 +22,7 @@ public class ResultModel {
         return distance;
     }
 
-    public void setAvg_speed(int avg_speed) {
+    public void setAvg_speed(double avg_speed) {
         this.avg_speed = avg_speed;
     }
 
@@ -30,7 +30,7 @@ public class ResultModel {
         this.co2_saved = co2_saved;
     }
 
-    public void setDistance(int distance) {
+    public void setDistance(double distance) {
         this.distance = distance;
     }
 }

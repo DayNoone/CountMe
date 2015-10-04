@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.mobile.countme.custom_views.CustomTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/result_page"
+        android:textSize="30dp"
+        android:id="@+id/titleResult"
+        android:layout_marginTop="93dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <com.mobile.countme.custom_views.CustomTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/co2_spart"
+        android:id="@+id/textView8"
+        android:layout_marginTop="70dp"
+        android:layout_marginLeft="30dp"
+        android:layout_below="@+id/titleResult"
+        android:layout_alignParentStart="true" />
+
+    <com.mobile.countme.custom_views.CustomTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/distance_traveled"
+        android:id="@+id/textView9"
+        android:layout_marginTop="23dp"
+        android:layout_below="@+id/textView8"
+        android:layout_alignStart="@+id/textView8" />
+
+    <com.mobile.countme.custom_views.CustomTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/avg_speed"
+        android:id="@+id/textView10"
+        android:layout_below="@+id/textView9"
+        android:layout_alignStart="@+id/textView9"
+        android:layout_marginTop="23dp" />
+
+    <com.mobile.countme.custom_views.CustomTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="0 g"
+        android:id="@+id/co2_saved_result"
+        android:layout_alignTop="@+id/textView8"
+        android:layout_marginRight="30dp"
+        android:layout_alignParentEnd="true" />
+
+    <com.mobile.countme.custom_views.CustomTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="0 m"
+        android:id="@+id/distance_result"
+        android:layout_alignTop="@+id/textView9"
+        android:layout_alignEnd="@+id/co2_saved_result" />
+
+    <com.mobile.countme.custom_views.CustomTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="0 m/s"
+        android:id="@+id/avgSpeed_result"
+        android:layout_alignTop="@+id/textView10"
+        android:layout_alignEnd="@+id/distance_result" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/mainScreen"
+        android:onClick="goToMainScreen"
+        android:background="@drawable/btn_stroke"
+        android:id="@+id/goToMainScreen"
+        android:layout_marginTop="152dp"
+        android:layout_alignTop="@+id/avgSpeed_result"
+        android:layout_alignEnd="@+id/titleResult" />
+</RelativeLayout>
