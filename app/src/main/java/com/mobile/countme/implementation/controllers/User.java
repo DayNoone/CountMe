@@ -2,7 +2,9 @@ package com.mobile.countme.implementation.controllers;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.util.Log;
+import android.widget.ImageView;
 
 import com.mobile.countme.R;
 import com.mobile.countme.framework.AppMenu;
@@ -263,5 +265,9 @@ public class User {
 
     public void addDescription(String description){
         errorModel.setDescprition(description);
+    }
+
+    public void addPhoto(Bitmap photo){
+        errorModel.setPhotoTaken(photo);
     }
 }
