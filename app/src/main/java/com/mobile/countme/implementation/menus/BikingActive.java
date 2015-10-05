@@ -10,31 +10,18 @@ import com.mobile.countme.R;
 import com.mobile.countme.framework.AppMenu;
 import com.mobile.countme.framework.MapsActivity;
 import com.mobile.countme.implementation.controllers.MainPages;
+import com.mobile.countme.implementation.models.GPSTracker;
 
 /**
  * Created by Kristian on 16/09/2015.
  */
 public class BikingActive extends AppMenu {
 
+    private GPSTracker tracker;
     public void onCreate(Bundle savedInstanceBundle) {
         super.onCreate(savedInstanceBundle);
         setContentView(R.layout.biking_active);
-    }
-
-    public void stopBiking(View view) {
-        new AlertDialog.Builder(this)
-                .setMessage(R.string.stop_biking)
-                .setNegativeButton(R.string.no, null)
-                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-
-                    public void onClick(DialogInterface arg0, int arg1) {
-                         // TODO: Testing code - Remove.
-                        getUser().addTripCo2(1232);
-                        getUser().addTripDistance(32.412312);
-                        getUser().addTripAvgSpeed(2.231231);
-                        goTo(ResultMenu.class);
-                    }
-                }).create().show();
+        tracker = new GPSTracker(getApplicationContext());
     }
 
     public void goToMaps(View view) {
@@ -49,6 +36,26 @@ public class BikingActive extends AppMenu {
                 .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface arg0, int arg1) {
+                        // TODO: Testing code - Remove.
+                        getUser().addTripCo2(1232);
+                        getUser().addTripDistance(32.412312);
+                        getUser().addTripAvgSpeed(2.231231);
+                        goTo(ResultMenu.class);
+                    }
+                }).create().show();
+    }
+
+    public void stopBiking(View view) {
+        new AlertDialog.Builder(this)
+                .setMessage(R.string.stop_biking)
+                .setNegativeButton(R.string.no, null)
+                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface arg0, int arg1) {
+
+                        tracker.stopUsingGPS();
+                        //TODO send data from tracker.getTrip() here
+
                         // TODO: Testing code - Remove.
                         getUser().addTripCo2(1232);
                         getUser().addTripDistance(32.412312);

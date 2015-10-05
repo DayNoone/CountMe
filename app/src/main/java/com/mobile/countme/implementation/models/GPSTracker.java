@@ -17,6 +17,8 @@ import android.os.IBinder;
 import android.provider.Settings;
 import android.util.Log;
 
+import java.util.ArrayList;
+
 /**
  * Created by Sondre on 02.10.2015.
  */
@@ -46,9 +48,13 @@ public class GPSTracker extends Service implements LocationListener {
     // Declaring a Location Manager
     protected LocationManager locationManager;
 
+    private ArrayList<Location> trip;
+
     public GPSTracker(Context context) {
         this.mContext = context;
-        getLocation();
+        trip = new ArrayList<Location>();
+        trip.add(getLocation());
+
     }
 
     public Location getLocation() {
@@ -197,7 +203,7 @@ public class GPSTracker extends Service implements LocationListener {
 
         @Override
         public void onLocationChanged(Location location) {
-
+            trip.add(location);
         }
 
         @Override
@@ -216,4 +222,8 @@ public class GPSTracker extends Service implements LocationListener {
         public IBinder onBind(Intent arg0) {
             return null;
         }
+
+    public ArrayList<Location> getTrip(){
+        return trip;
+    }
 }
