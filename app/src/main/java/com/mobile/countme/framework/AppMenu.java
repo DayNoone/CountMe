@@ -3,9 +3,13 @@ package com.mobile.countme.framework;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.mobile.countme.implementation.AndroidFileIO;
 import com.mobile.countme.implementation.controllers.User;
+import com.mobile.countme.implementation.menus.BikingActive;
 import com.mobile.countme.storage_and_memory.Assets;
 
 /**
@@ -17,6 +21,8 @@ public abstract class AppMenu extends AppCompatActivity {
     private static Assets appAssets;
     private static AndroidFileIO fileIO;
     private static User user;
+
+    protected boolean onCreateViewCalled = false;
 
     @Override
     public void onCreate(Bundle savedInstanceBundle){
@@ -68,4 +74,5 @@ public abstract class AppMenu extends AppCompatActivity {
     public static void setFileIO(AndroidFileIO fileIO) {
         AppMenu.fileIO = fileIO;
     }
+
 }

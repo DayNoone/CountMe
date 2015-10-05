@@ -4,11 +4,13 @@ package com.mobile.countme.implementation.models;
  * Created by Robin on 01.10.2015.
  * This class contains all the information(from today) the StatisticsMenu will display.
  */
-public class ResultModel {
+public class SingleTripModel {
 
     private int co2_saved;
     private double distance;
     private double avg_speed;
+
+    //TODO: Create ArrayList with errors reported this trip. May need to create an ErrorModel that contains both a description and a picture.
 
     public double getAvg_speed() {
         return avg_speed;

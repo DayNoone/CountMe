@@ -41,6 +41,26 @@ public class BikingActive extends AppMenu {
         goTo(MapsActivity.class);
     }
 
+    public void sendError(View view){
+        new AlertDialog.Builder(this)
+                .setMessage(R.string.report_error)
+                .setNegativeButton(R.string.later, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //Her må det sendes inn koordinater eller noe slikt, sånn at brukeren kan identifisere problemet etter turen, hvis han/hun vil legge til beskrivelse i ettertid.
+//                        getUser().addErrorToTrip();
+                    }
+                })
+                .setPositiveButton(R.string.now, new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        //Add description and/or take picture.
+                        goTo(ErrorMenu.class);
+
+                    }
+                }).create().show();
+    }
+
     @Override
     public void onBackPressed() {
         new AlertDialog.Builder(this)
@@ -57,4 +77,5 @@ public class BikingActive extends AppMenu {
                     }
                 }).create().show();
     }
+
 }

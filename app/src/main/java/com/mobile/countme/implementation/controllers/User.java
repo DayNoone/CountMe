@@ -8,7 +8,8 @@ import com.mobile.countme.R;
 import com.mobile.countme.framework.AppMenu;
 import com.mobile.countme.implementation.AndroidFileIO;
 import com.mobile.countme.implementation.models.EnvironmentModel;
-import com.mobile.countme.implementation.models.ResultModel;
+import com.mobile.countme.implementation.models.ErrorModel;
+import com.mobile.countme.implementation.models.SingleTripModel;
 import com.mobile.countme.implementation.models.StatisticsModel;
 
 import org.json.JSONArray;
@@ -34,12 +35,15 @@ public class User {
     private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-M-yyyy");
     private Calendar calendar = new GregorianCalendar();
 
+    private boolean tripInitialized;
+
     /**
      * The models of the MVC structure.
      */
     private EnvironmentModel environmentModel;
     private StatisticsModel statisticsModel;
-    private ResultModel resultModel;
+    private SingleTripModel singleTripModel;
+    private ErrorModel errorModel;
 
     public User (AndroidFileIO io, AppMenu context) {
         this.fileIO = io;
@@ -48,7 +52,8 @@ public class User {
         //Instantiate the models and load the internal statistics
         environmentModel = new EnvironmentModel();
         statisticsModel = new StatisticsModel();
-        resultModel = new ResultModel();
+        singleTripModel = new SingleTripModel();
+        errorModel = new ErrorModel();
 
 
 
@@ -208,8 +213,12 @@ public class User {
         return statisticsModel;
     }
 
-    public ResultModel getResultModel() {
-        return resultModel;
+    public ErrorModel getErrorModel() {
+        return errorModel;
+    }
+
+    public SingleTripModel getSingleTripModel() {
+        return singleTripModel;
     }
 
     public void setMainPages(MainPages mainPages) {
@@ -231,16 +240,28 @@ public class User {
     public void addTripCo2(int tripCo2){
         environmentModel.addCo2_savedTrip(tripCo2);
         statisticsModel.addCo2_saved(tripCo2);
-        resultModel.setCo2_saved(tripCo2);
+        singleTripModel.setCo2_saved(tripCo2);
     }
 
     public void addTripDistance(double tripDistance){
         statisticsModel.addDistance(tripDistance);
-        resultModel.setDistance(tripDistance);
+        singleTripModel.setDistance(tripDistance);
     }
 
     public void addTripAvgSpeed(double tripAvgSpeed){
         statisticsModel.calc_new_avgSpeed(tripAvgSpeed);
-        resultModel.setAvg_speed(tripAvgSpeed);
+        singleTripModel.setAvg_speed(tripAvgSpeed);
+    }
+
+    public boolean isTripInitialized() {
+        return tripInitialized;
+    }
+
+    public void setTripInitialized(boolean tripInitialized) {
+        this.tripInitialized = tripInitialized;
+    }
+
+    public void addDescription(String description){
+        errorModel.setDescprition(description);
     }
 }
