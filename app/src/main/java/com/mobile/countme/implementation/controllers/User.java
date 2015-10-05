@@ -20,6 +20,7 @@ import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -39,6 +40,8 @@ public class User {
 
     private boolean tripInitialized;
 
+    private ArrayList<ErrorModel> tripErrors;
+
     /**
      * The models of the MVC structure.
      */
@@ -55,8 +58,8 @@ public class User {
         environmentModel = new EnvironmentModel();
         statisticsModel = new StatisticsModel();
         singleTripModel = new SingleTripModel();
-        errorModel = new ErrorModel();
 
+        tripErrors = new ArrayList<>();
 
 
     }
@@ -269,5 +272,14 @@ public class User {
 
     public void addPhoto(Bitmap photo){
         errorModel.setPhotoTaken(photo);
+    }
+
+    public void addError(){
+        tripErrors.add(errorModel);
+    }
+
+    //TODO: Fix this, it will only add one errormodel every time.
+    public void createError(ErrorModel error){
+        errorModel = error;
     }
 }

@@ -10,6 +10,9 @@ import com.mobile.countme.R;
 import com.mobile.countme.framework.AppMenu;
 import com.mobile.countme.framework.MapsActivity;
 import com.mobile.countme.implementation.controllers.MainPages;
+import com.mobile.countme.implementation.models.ErrorModel;
+
+import java.util.ArrayList;
 
 /**
  * Created by Kristian on 16/09/2015.
@@ -19,6 +22,7 @@ public class BikingActive extends AppMenu {
     public void onCreate(Bundle savedInstanceBundle) {
         super.onCreate(savedInstanceBundle);
         setContentView(R.layout.biking_active);
+        getUser().setTripInitialized(true);
     }
 
     public void stopBiking(View view) {

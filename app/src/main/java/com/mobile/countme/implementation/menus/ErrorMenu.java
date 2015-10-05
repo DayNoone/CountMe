@@ -5,6 +5,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.text.Editable;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,19 +17,22 @@ import android.widget.ImageView;
 import com.mobile.countme.R;
 import com.mobile.countme.framework.AppMenu;
 import com.mobile.countme.implementation.controllers.MainPages;
+import com.mobile.countme.implementation.models.ErrorModel;
 
 /**
  * Created by Kristian on 16/09/2015.
  */
 public class ErrorMenu extends AppMenu {
 
-    ImageView photoTaken;
+    private ImageView photoTaken;
+    private String description = "";
 
     public void onCreate(Bundle savedInstanceBundle) {
         super.onCreate(savedInstanceBundle);
         setContentView(R.layout.error_activity);
 
         photoTaken = (ImageView)findViewById(R.id.pictureTaken);
+        getUser().createError(new ErrorModel());
     }
 
     public void sendReport(View view){
@@ -37,7 +42,6 @@ public class ErrorMenu extends AppMenu {
         }else {
             goTo(ResultMenu.class);
         }
-        goTo(MainPages.class);
     }
 
     public void createDescription(View view){
@@ -45,16 +49,18 @@ public class ErrorMenu extends AppMenu {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
         alert.setTitle("Legg til beskrivelse");
-        alert.setMessage("Beskrivelse.....");
 
 // Set an EditText view to get user input
         final EditText input = new EditText(this);
+        input.setText(description);
         alert.setView(input);
 
         alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
-
                 // Do something with value!
+                Editable editable = input.getText();
+                description = editable.toString();
+                getUser().addDescription(description);
             }
         });
 
@@ -77,9 +83,11 @@ public class ErrorMenu extends AppMenu {
         // TODO Auto-generated method stub
         super.onActivityResult(requestCode, resultCode, data);
 
-        Bitmap bp = (Bitmap) data.getExtras().get("data");
-        getUser().addPhoto(bp);
-        photoTaken.setImageBitmap(bp);
+        if(data != null) {
+            Bitmap bp = (Bitmap) data.getExtras().get("data");
+            getUser().addPhoto(bp);
+            photoTaken.setImageBitmap(bp);
+        }
     }
 
     @Override
