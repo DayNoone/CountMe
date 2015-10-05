@@ -1,5 +1,7 @@
 package com.mobile.countme.implementation.menus;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -7,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.mobile.countme.R;
@@ -28,6 +31,7 @@ public class ErrorMenu extends AppMenu {
     }
 
     public void sendReport(View view){
+        //TODO: Set trip init when starting trip track.
         if(getUser().isTripInitialized()){
             goTo(BikingActive.class);
         }else {
@@ -36,8 +40,31 @@ public class ErrorMenu extends AppMenu {
         goTo(MainPages.class);
     }
 
-    public void createDescription(){
+    public void createDescription(View view){
         //TODO: Pop up to add description.
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+
+        alert.setTitle("Legg til beskrivelse");
+        alert.setMessage("Beskrivelse.....");
+
+// Set an EditText view to get user input
+        final EditText input = new EditText(this);
+        alert.setView(input);
+
+        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+
+                // Do something with value!
+            }
+        });
+
+        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                // Canceled.
+            }
+        });
+
+        alert.show();
 //        getUser().addDescription();
     }
 
