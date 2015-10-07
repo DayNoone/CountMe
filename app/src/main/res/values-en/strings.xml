@@ -14,7 +14,7 @@
     <string name="no_progress">No Progress</string>
 
     <!-- Introduction pages -->
-    <string name="intro_page1">All usage of this app is anonYmous. The first and last 100 metres of your path gets deleted.</string>
+    <string name="intro_page1">All usage of this app is anonymous. The first and last 100 metres of your path gets deleted.</string>
     <string name="intro_page2">The purpose of this app is to [...]</string>
     <string name="intro_page3">This is some text explaining something of importance</string>
     <string name="intro_page4">And with that, you may start the app.</string>
@@ -23,7 +23,7 @@
     <string name="start_trip">START TRIP</string>
 
     <!--Result Screen -->
-    <string name="result_page">Resultat</string>
+    <string name="result_page">Result</string>
     <string name="mainScreen">Mainscreen</string>
 
     <!-- Environment -->
@@ -48,7 +48,7 @@
     <string name="rewatch_intro">Rewatch introduction</string>
 
     <!--Confirmation -->
-    <string name="stop_biking">Stop ride?</string>
+    <string name="stop_biking">Stop trip?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
 
@@ -56,7 +56,7 @@
     <string name="biking_active"><u>Biking active</u></string>
 
     <!--Profile strings-->
-    <string name="isLoggedInn">isLoggedInn</string>
+    <string name="isLoggedInn">isLoggedIn</string>
 
     <!--PUBLIC FINAL STRINGS-->
     <!--Consider making these strings unreadable-->
