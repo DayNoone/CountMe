@@ -1,10 +1,8 @@
 package com.mobile.countme.implementation.models;
 
-import com.mobile.countme.implementation.controllers.MainPages;
-
 /**
  * Created by Robin on 27.09.2015.
- * This class contains all the information the EnvironmentMenu will display.
+ * This class contains all the information the EnvironmentTab will display.
  */
 public class EnvironmentModel {
 

@@ -3,13 +3,9 @@ package com.mobile.countme.framework;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.mobile.countme.implementation.AndroidFileIO;
 import com.mobile.countme.implementation.controllers.User;
-import com.mobile.countme.implementation.menus.BikingActive;
 import com.mobile.countme.storage_and_memory.Assets;
 
 /**

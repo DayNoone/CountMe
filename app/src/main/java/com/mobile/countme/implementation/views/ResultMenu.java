@@ -1,19 +1,15 @@
-package com.mobile.countme.implementation.menus;
+package com.mobile.countme.implementation.views;
 
 import android.os.Bundle;
-import android.view.ContextMenu;
-import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
-import android.widget.Toast;
 
 import com.mobile.countme.R;
 import com.mobile.countme.custom_views.CustomTextView;
 import com.mobile.countme.framework.AppMenu;
 import com.mobile.countme.framework.PopUpMenuEventHandle;
-import com.mobile.countme.implementation.controllers.MainPages;
+import com.mobile.countme.implementation.controllers.MainMenu;
 import com.mobile.countme.implementation.models.ErrorModel;
 
 import java.math.BigDecimal;
@@ -32,16 +28,16 @@ public class ResultMenu extends AppMenu {
         CustomTextView co2_saved = (CustomTextView) findViewById(R.id.co2_saved_result);
         CustomTextView distance = (CustomTextView) findViewById(R.id.distance_result);
         CustomTextView avgSpeed = (CustomTextView) findViewById(R.id.avgSpeed_result);
-        co2_saved.setText(getUser().getSingleTripModel().getCo2_saved() + " g");
-        Double transformedDistance = new BigDecimal(getUser().getSingleTripModel().getDistance()).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+        co2_saved.setText(getUser().getTripModel().getCo2_saved() + " g");
+        Double transformedDistance = new BigDecimal(getUser().getTripModel().getDistance()).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
         distance.setText(transformedDistance + " km");
-        Double transformedAvgSpeed = new BigDecimal(getUser().getSingleTripModel().getAvg_speed()).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+        Double transformedAvgSpeed = new BigDecimal(getUser().getTripModel().getAvg_speed()).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
         avgSpeed.setText(transformedAvgSpeed + " m/s");
         getUser().setTripInitialized(false);
     }
 
-    public void goToMainScreen(View view){
-        goTo(MainPages.class);
+    public void goToMainMenu(View view){
+        goTo(MainMenu.class);
     }
 
     public void showErrorList(View view){

@@ -1,18 +1,13 @@
-package com.mobile.countme.implementation.menus;
+package com.mobile.countme.implementation.views;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.View;
 
 import com.mobile.countme.R;
 import com.mobile.countme.framework.AppMenu;
 import com.mobile.countme.framework.MapsActivity;
-import com.mobile.countme.implementation.controllers.MainPages;
-import com.mobile.countme.implementation.models.ErrorModel;
-
-import java.util.ArrayList;
 
 /**
  * Created by Kristian on 16/09/2015.

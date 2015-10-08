@@ -4,14 +4,13 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.util.Log;
-import android.widget.ImageView;
 
 import com.mobile.countme.R;
 import com.mobile.countme.framework.AppMenu;
 import com.mobile.countme.implementation.AndroidFileIO;
 import com.mobile.countme.implementation.models.EnvironmentModel;
 import com.mobile.countme.implementation.models.ErrorModel;
-import com.mobile.countme.implementation.models.SingleTripModel;
+import com.mobile.countme.implementation.models.TripModel;
 import com.mobile.countme.implementation.models.StatisticsModel;
 
 import org.json.JSONArray;
@@ -33,7 +32,7 @@ public class User {
 
     private AndroidFileIO fileIO;
     private AppMenu context;
-    private MainPages mainPages;
+    private MainMenu mainMenu;
 
     private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-M-yyyy");
     private Calendar calendar = new GregorianCalendar();
@@ -47,7 +46,7 @@ public class User {
      */
     private EnvironmentModel environmentModel;
     private StatisticsModel statisticsModel;
-    private SingleTripModel singleTripModel;
+    private TripModel tripModel;
     private ErrorModel errorModel;
 
     public User (AndroidFileIO io, AppMenu context) {
@@ -57,7 +56,7 @@ public class User {
         //Instantiate the models and load the internal statistics
         environmentModel = new EnvironmentModel();
         statisticsModel = new StatisticsModel();
-        singleTripModel = new SingleTripModel();
+        tripModel = new TripModel();
 
         tripErrors = new ArrayList<>();
 
@@ -222,16 +221,16 @@ public class User {
         return errorModel;
     }
 
-    public SingleTripModel getSingleTripModel() {
-        return singleTripModel;
+    public TripModel getTripModel() {
+        return tripModel;
     }
 
-    public void setMainPages(MainPages mainPages) {
-        this.mainPages = mainPages;
+    public void setMainMenu(MainMenu mainMenu) {
+        this.mainMenu = mainMenu;
     }
 
-    public MainPages getMainPages() {
-        return mainPages;
+    public MainMenu getMainMenu() {
+        return mainMenu;
     }
 
     public AndroidFileIO getFileIO() {
@@ -245,17 +244,17 @@ public class User {
     public void addTripCo2(int tripCo2){
         environmentModel.addCo2_savedTrip(tripCo2);
         statisticsModel.addCo2_saved(tripCo2);
-        singleTripModel.setCo2_saved(tripCo2);
+        tripModel.setCo2_saved(tripCo2);
     }
 
     public void addTripDistance(double tripDistance){
         statisticsModel.addDistance(tripDistance);
-        singleTripModel.setDistance(tripDistance);
+        tripModel.setDistance(tripDistance);
     }
 
     public void addTripAvgSpeed(double tripAvgSpeed){
         statisticsModel.calc_new_avgSpeed(tripAvgSpeed);
-        singleTripModel.setAvg_speed(tripAvgSpeed);
+        tripModel.setAvg_speed(tripAvgSpeed);
     }
 
     public boolean isTripInitialized() {

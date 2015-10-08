@@ -1,22 +1,18 @@
-package com.mobile.countme.implementation.menus;
+package com.mobile.countme.implementation.views;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.mobile.countme.R;
 import com.mobile.countme.framework.AppMenu;
 import com.mobile.countme.implementation.AndroidFileIO;
 import com.mobile.countme.implementation.controllers.User;
 import com.mobile.countme.implementation.controllers.IntroductionMenu;
-import com.mobile.countme.implementation.controllers.MainPages;
+import com.mobile.countme.implementation.controllers.MainMenu;
 import com.mobile.countme.storage_and_memory.Assets;
-
-import org.json.JSONException;
 
 /**
  * Created by Kristian on 11/09/2015.
@@ -123,7 +119,7 @@ public class LoadingScreen extends AppMenu {
         boolean isLoggedInn = sharedPref.getBoolean(getString(R.string.isLoggedInn), false);
         Log.e("LoadingScreen", "isloggedin: " + isLoggedInn);
         if(isLoggedInn) {
-            goTo(MainPages.class);
+            goTo(MainMenu.class);
         }else{
             //Initialize the next Activity if not logged inn and set the logged inn boolean to true, so that the next time the user starts the application he/she will not go to the introduction menu.
             SharedPreferences.Editor edit = sharedPref.edit();

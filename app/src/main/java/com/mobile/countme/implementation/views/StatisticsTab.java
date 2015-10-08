@@ -1,4 +1,4 @@
-package com.mobile.countme.implementation.menus;
+package com.mobile.countme.implementation.views;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,7 +15,7 @@ import java.math.BigDecimal;
 /**
  * Created by Kristian on 11/09/2015.
  */
-public class StatisticsMenu extends Fragment {
+public class StatisticsTab extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v =inflater.inflate(R.layout.statistics_activity,container,false);

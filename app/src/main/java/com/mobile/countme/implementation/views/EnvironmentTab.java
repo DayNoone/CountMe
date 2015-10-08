@@ -1,9 +1,8 @@
-package com.mobile.countme.implementation.menus;
+package com.mobile.countme.implementation.views;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,7 @@ import com.mobile.countme.custom_views.CustomTextView;
 /**
  * Created by Kristian on 11/09/2015.
  */
-public class EnvironmentMenu extends Fragment{
+public class EnvironmentTab extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v =inflater.inflate(R.layout.environment_activity,container,false);

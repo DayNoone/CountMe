@@ -1,4 +1,4 @@
-package com.mobile.countme.implementation.menus;
+package com.mobile.countme.implementation.views.introduction_pages;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,11 +12,11 @@ import com.mobile.countme.R;
 /**
  * Created by Kristian on 11/09/2015.
  */
-public class BikingMenu extends Fragment {
+public class Page1 extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v =inflater.inflate(R.layout.biking_idle,container,false);
+        View v =inflater.inflate(R.layout.page_1,container,false);
         return v;
     }
 

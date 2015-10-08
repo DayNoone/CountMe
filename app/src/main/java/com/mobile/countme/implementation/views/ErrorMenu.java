@@ -1,4 +1,4 @@
-package com.mobile.countme.implementation.menus;
+package com.mobile.countme.implementation.views;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -6,17 +6,14 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.Editable;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.mobile.countme.R;
 import com.mobile.countme.framework.AppMenu;
-import com.mobile.countme.implementation.controllers.MainPages;
 import com.mobile.countme.implementation.models.ErrorModel;
 
 /**

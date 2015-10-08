@@ -88,7 +88,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/mainScreen"
-        android:onClick="goToMainScreen"
+        android:onClick="goToMainMenu"
         android:background="@drawable/btn_stroke"
         android:id="@+id/goToMainScreen"
         android:layout_marginTop="152dp"
