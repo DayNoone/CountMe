@@ -38,6 +38,8 @@ public class GPSTracker extends Service implements LocationListener {
     Location location; // location
     double latitude; // latitude
     double longitude; // longitude
+    float speed;
+
 
     // The minimum distance to change Updates in meters
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 5; // 5 meters
@@ -75,7 +77,7 @@ public class GPSTracker extends Service implements LocationListener {
             } else {
                 this.canGetLocation = true;
                 // First get location from Network Provider
-                if (isNetworkEnabled) {
+                if (isNetworkEnabled && !isGPSEnabled) {
                     if(android.os.Build.VERSION.SDK_INT >22) {
                         if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                             return null;
@@ -97,7 +99,6 @@ public class GPSTracker extends Service implements LocationListener {
                 }
                 // if GPS Enabled get lat/long using GPS Services
                 if (isGPSEnabled) {
-                    if (location == null) {
                         locationManager.requestLocationUpdates(
                                 LocationManager.GPS_PROVIDER,
                                 MIN_TIME_BW_UPDATES,
@@ -111,8 +112,9 @@ public class GPSTracker extends Service implements LocationListener {
                                 longitude = location.getLongitude();
                             }
                         }
+
                     }
-                }
+
             }
 
         } catch (Exception e) {
@@ -134,6 +136,16 @@ public class GPSTracker extends Service implements LocationListener {
                 }
             }
             locationManager.removeUpdates(GPSTracker.this);
+            System.out.println("GPS data:");
+            for(int i=0; i<trip.size(); i++){
+                System.out.println("Speed: ");
+                System.out.println(trip.get(i).getSpeed());
+                System.out.println("Coordinates: ");
+                System.out.println(trip.get(i).getLatitude());
+                System.out.println(trip.get(i).getLongitude());
+                System.out.println("Accuracy: ");
+                System.out.println(trip.get(i).getAccuracy());
+            }
             }
         }
 
