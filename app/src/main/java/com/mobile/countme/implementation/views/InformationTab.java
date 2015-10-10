@@ -1,8 +1,5 @@
-package com.mobile.countme.implementation.menus.introduction_pages;
+package com.mobile.countme.implementation.views;
 
-/**
- * Created by Kristian on 11/09/2015.
- */
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,10 +9,13 @@ import android.view.ViewGroup;
 
 import com.mobile.countme.R;
 
-public class Page3 extends Fragment  {
+/**
+ * Created by Kristian on 11/09/2015.
+ */
+public class InformationTab extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v =inflater.inflate(R.layout.page_3,container,false);
+        View v =inflater.inflate(R.layout.information_activity,container,false);
         return v;
     }
 }

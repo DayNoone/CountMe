@@ -32,7 +32,7 @@ package com.mobile.countme.framework;
         import android.widget.LinearLayout;
         import android.widget.TextView;
 
-        import com.mobile.countme.implementation.controllers.MainPages;
+        import com.mobile.countme.implementation.controllers.MainMenu;
 
 /**
  * To be used with ViewPager to provide a tab indicator component which give constant feedback as to
@@ -81,7 +81,7 @@ public class SlidingTabLayout extends HorizontalScrollView {
     private final SlidingTabStrip mTabStrip;
 
     //Created
-    private MainPages mainPages;
+    private MainMenu mainMenu;
     private boolean mainPagesInitialized;
 
     public SlidingTabLayout(Context context) {
@@ -291,7 +291,7 @@ public class SlidingTabLayout extends HorizontalScrollView {
 
             //Always updates the views based on the models.
             if(mainPagesInitialized){
-                mainPages.setStatistics();
+                mainMenu.setStatistics();
             }
         }
 
@@ -336,8 +336,8 @@ public class SlidingTabLayout extends HorizontalScrollView {
         return mViewPager;
     }
 
-    public void setMainPages(MainPages mainPages){
-        this.mainPages = mainPages;
+    public void setMainMenu(MainMenu mainMenu){
+        this.mainMenu = mainMenu;
     }
 
     public void setMainPagesInitialized(boolean mainPagesInitialized) {

@@ -8,7 +8,7 @@ import android.view.View;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.mobile.countme.R;
-import com.mobile.countme.implementation.menus.BikingActive;
+import com.mobile.countme.implementation.views.BikingActive;
 
 public class MapsActivity extends FragmentActivity {
 

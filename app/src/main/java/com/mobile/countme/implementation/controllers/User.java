@@ -2,13 +2,15 @@ package com.mobile.countme.implementation.controllers;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.util.Log;
 
 import com.mobile.countme.R;
 import com.mobile.countme.framework.AppMenu;
 import com.mobile.countme.implementation.AndroidFileIO;
 import com.mobile.countme.implementation.models.EnvironmentModel;
-import com.mobile.countme.implementation.models.ResultModel;
+import com.mobile.countme.implementation.models.ErrorModel;
+import com.mobile.countme.implementation.models.TripModel;
 import com.mobile.countme.implementation.models.StatisticsModel;
 
 import org.json.JSONArray;
@@ -20,6 +22,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Robin on 27.09.2015.
@@ -29,17 +33,24 @@ public class User {
 
     private AndroidFileIO fileIO;
     private AppMenu context;
-    private MainPages mainPages;
+    private MainMenu mainMenu;
 
     private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-M-yyyy");
     private Calendar calendar = new GregorianCalendar();
+
+    private boolean tripInitialized;
+    private boolean errorClicked;
+    private long time;
+
+    private Map<String, ErrorModel> tripErrors;
 
     /**
      * The models of the MVC structure.
      */
     private EnvironmentModel environmentModel;
     private StatisticsModel statisticsModel;
-    private ResultModel resultModel;
+    private TripModel tripModel;
+    private ErrorModel errorModel;
 
     public User (AndroidFileIO io, AppMenu context) {
         this.fileIO = io;
@@ -48,8 +59,9 @@ public class User {
         //Instantiate the models and load the internal statistics
         environmentModel = new EnvironmentModel();
         statisticsModel = new StatisticsModel();
-        resultModel = new ResultModel();
+        tripModel = new TripModel();
 
+        tripErrors = new HashMap<>();
 
 
     }
@@ -144,8 +156,8 @@ public class User {
             JSONObject todaysTrips = tripsStatistics.getJSONObject(tripsStatistics.length()-1);
             if(todaysTrips.getString("TimeStamp").equals(simpleDateFormat.format(calendar.getTime()))){
                 statisticsModel.setCo2_saved(Integer.parseInt(todaysTrips.getString("co2Saved")));
-                statisticsModel.setDistance(Integer.parseInt(todaysTrips.getString("distance")));
-                statisticsModel.setAvg_speed(Integer.parseInt(todaysTrips.getString("avgSpeed")));
+                statisticsModel.setDistance(Double.parseDouble(todaysTrips.getString("distance")));
+                statisticsModel.setAvg_speed(Double.parseDouble(todaysTrips.getString("avgSpeed")));
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -208,16 +220,24 @@ public class User {
         return statisticsModel;
     }
 
-    public ResultModel getResultModel() {
-        return resultModel;
+    public ErrorModel getErrorModel() {
+        return errorModel;
     }
 
-    public void setMainPages(MainPages mainPages) {
-        this.mainPages = mainPages;
+    public TripModel getTripModel() {
+        return tripModel;
     }
 
-    public MainPages getMainPages() {
-        return mainPages;
+    public Map<String,ErrorModel> getTripErrors() {
+        return tripErrors;
+    }
+
+    public void setMainMenu(MainMenu mainMenu) {
+        this.mainMenu = mainMenu;
+    }
+
+    public MainMenu getMainMenu() {
+        return mainMenu;
     }
 
     public AndroidFileIO getFileIO() {
@@ -231,16 +251,77 @@ public class User {
     public void addTripCo2(int tripCo2){
         environmentModel.addCo2_savedTrip(tripCo2);
         statisticsModel.addCo2_saved(tripCo2);
-        resultModel.setCo2_saved(tripCo2);
+        tripModel.setCo2_saved(tripCo2);
     }
 
     public void addTripDistance(double tripDistance){
         statisticsModel.addDistance(tripDistance);
-        resultModel.setDistance(tripDistance);
+        tripModel.setDistance(tripDistance);
     }
 
     public void addTripAvgSpeed(double tripAvgSpeed){
         statisticsModel.calc_new_avgSpeed(tripAvgSpeed);
-        resultModel.setAvg_speed(tripAvgSpeed);
+        tripModel.setAvg_speed(tripAvgSpeed);
+    }
+
+    public boolean isTripInitialized() {
+        return tripInitialized;
+    }
+
+    public void setTripInitialized(boolean tripInitialized) {
+        this.tripInitialized = tripInitialized;
+    }
+
+    public void addDescription(String description){
+        errorModel.setDescprition(description);
+    }
+
+    public void addPhoto(Bitmap photo){
+        errorModel.setPhotoTaken(photo);
+    }
+
+    public void addError(ErrorModel errorModel){
+        tripErrors.put(errorModel.toString(),errorModel);
+    }
+
+    public void setErrorModel(ErrorModel error){
+        errorModel = error;
+    }
+
+    public void setErrorClicked(boolean errorClicked) {
+        this.errorClicked = errorClicked;
+    }
+
+    public boolean isErrorClicked() {
+        return errorClicked;
+    }
+
+    public void setTime() {
+        this.time = System.currentTimeMillis();
+    }
+
+    public String getTimeDifference() {
+        String seconds = "";
+        String minutes = "";
+        String hours = "";
+        long difference = System.currentTimeMillis() - time;
+        Integer numSeconds = (int) (difference/1000);
+        Integer numMinutes = numSeconds/60;
+        Integer numHours = numMinutes/60;
+        numSeconds = numSeconds - numMinutes*60;
+        numMinutes = numMinutes - numHours*60;
+        seconds = numSeconds.toString();
+        minutes = numMinutes.toString();
+        hours = numHours.toString();
+        if(numSeconds < 10){
+            seconds = "0" + seconds;
+        }
+        if(numMinutes < 10){
+            minutes = "0" + minutes;
+        }
+        if(numHours < 10){
+            hours = "0" + hours;
+        }
+        return "" + hours + ":"  + minutes + ":"+ seconds;
     }
 }

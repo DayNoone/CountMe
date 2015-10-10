@@ -80,7 +80,7 @@ public class IntroductionMenu extends AppMenu {
     }
 
     public void goToMainApp(View view) {
-        goTo(MainPages.class);
+        goTo(MainMenu.class);
     }
 
 }

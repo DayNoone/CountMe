@@ -4,11 +4,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.mobile.countme.implementation.controllers.MainPages;
-import com.mobile.countme.implementation.menus.BikingMenu;
-import com.mobile.countme.implementation.menus.EnvironmentMenu;
-import com.mobile.countme.implementation.menus.InformationMenu;
-import com.mobile.countme.implementation.menus.StatisticsMenu;
+import com.mobile.countme.implementation.views.BikingTab;
+import com.mobile.countme.implementation.views.EnvironmentTab;
+import com.mobile.countme.implementation.views.InformationTab;
+import com.mobile.countme.implementation.views.StatisticsTab;
 
 /**
  * Created by Kristian on 16/09/2015.
@@ -22,10 +21,10 @@ public class MainViewPagerAdapter extends FragmentPagerAdapter{
     /**
      * Different menus.
      */
-    private BikingMenu bikingMenu;
-    private EnvironmentMenu environmentMenu;
-    private StatisticsMenu statisticsMenu;
-    private InformationMenu informationMenu;
+    private BikingTab bikingTab;
+    private EnvironmentTab environmentTab;
+    private StatisticsTab statisticsTab;
+    private InformationTab informationTab;
 
 
     // Build a Constructor and assign the passed Values to appropriate values in the class
@@ -35,10 +34,10 @@ public class MainViewPagerAdapter extends FragmentPagerAdapter{
         this.Titles = mTitles;
         this.NumbOfTabs = mNumbOfTabsumb;
 
-        bikingMenu = new BikingMenu();
-        environmentMenu = new EnvironmentMenu();
-        statisticsMenu = new StatisticsMenu();
-        informationMenu = new InformationMenu();
+        bikingTab = new BikingTab();
+        environmentTab = new EnvironmentTab();
+        statisticsTab = new StatisticsTab();
+        informationTab = new InformationTab();
 
 
     }
@@ -49,19 +48,19 @@ public class MainViewPagerAdapter extends FragmentPagerAdapter{
 
         if(position == 0) // if the position is 0 we are returning the First tab
         {
-            return bikingMenu;
+            return bikingTab;
         }
         else if(position == 1)             // As we are having 2 tabs if the position is now 0 it must be 1 so we are returning second tab
         {
-            return environmentMenu;
+            return environmentTab;
         }
         else if(position == 2)             // As we are having 2 tabs if the position is now 0 it must be 1 so we are returning second tab
         {
-            return statisticsMenu;
+            return statisticsTab;
         }
         else         // As we are having 2 tabs if the position is now 0 it must be 1 so we are returning second tab
         {
-            return informationMenu;
+            return informationTab;
         }
 
 
@@ -85,20 +84,20 @@ public class MainViewPagerAdapter extends FragmentPagerAdapter{
         return Titles;
     }
 
-    public InformationMenu getInformationMenu() {
-        return informationMenu;
+    public InformationTab getInformationTab() {
+        return informationTab;
     }
 
-    public StatisticsMenu getStatisticsMenu() {
-        return statisticsMenu;
+    public StatisticsTab getStatisticsTab() {
+        return statisticsTab;
     }
 
-    public EnvironmentMenu getEnvironmentMenu() {
-        return environmentMenu;
+    public EnvironmentTab getEnvironmentTab() {
+        return environmentTab;
     }
 
-    public BikingMenu getBikingMenu() {
-        return bikingMenu;
+    public BikingTab getBikingTab() {
+        return bikingTab;
     }
 }
 

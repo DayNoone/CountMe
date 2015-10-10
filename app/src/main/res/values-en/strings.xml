@@ -22,6 +22,10 @@
     <!-- Biking idle -->
     <string name="start_trip">START TRIP</string>
 
+    <!--Error Screen -->
+    <string name="error_page">Error report</string>
+    <string name="finished_editing">Ok</string>
+
     <!--Result Screen -->
     <string name="result_page">Result</string>
     <string name="mainScreen">Mainscreen</string>
@@ -46,6 +50,11 @@
     <string name="information_title">Information</string>
     <string name="contact">Contact us: DinSykkelvei@sykkelmail.no</string>
     <string name="rewatch_intro">Rewatch introduction</string>
+
+    <!--Error handler -->
+    <string name="report_error">Describe problem?</string>
+    <string name="later">Later</string>
+    <string name="now">Now</string>
 
     <!--Confirmation -->
     <string name="stop_biking">Stop trip?</string>
