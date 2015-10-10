@@ -23,7 +23,7 @@
 
     <!--Error Screen -->
     <string name="error_page">Feilrapport</string>
-    <string name="send_error">Send</string>
+    <string name="finished_editing">Ok</string>
 
     <!--Result Screen -->
     <string name="result_page">Resultat</string>
@@ -43,6 +43,7 @@
     <string name="co2_spart">CO&#8322; spart</string>
     <string name="distance_traveled">Distanse:</string>
     <string name="avg_speed">Gj.fart: </string>
+    <string name="Time">Tid: </string>
     <string name="daily_display">1 dag</string>
     <string name="weekly_display">1 uke</string>
     <string name="monthhly_display">1 mnd</string>

@@ -24,7 +24,7 @@
 
     <!--Error Screen -->
     <string name="error_page">Error report</string>
-    <string name="send_error">Send</string>
+    <string name="finished_editing">Ok</string>
 
     <!--Result Screen -->
     <string name="result_page">Resultat</string>

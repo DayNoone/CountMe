@@ -38,5 +38,6 @@ public class StatisticsTab extends Fragment {
         carDistance.setText(Double.toString(transformedDistance) + " km");
         Double transformedAvgSpeed = new BigDecimal(avg_speed).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
         avgSpeed.setText(Double.toString(transformedAvgSpeed) + " m/s");
+
     }
 }

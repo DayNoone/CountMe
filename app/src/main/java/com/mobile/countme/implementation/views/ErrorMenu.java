@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.mobile.countme.R;
 import com.mobile.countme.framework.AppMenu;
@@ -29,10 +30,13 @@ public class ErrorMenu extends AppMenu {
         setContentView(R.layout.error_activity);
 
         photoTaken = (ImageView)findViewById(R.id.pictureTaken);
-        getUser().createError(new ErrorModel());
+        if(getUser().getErrorModel().getPhotoTaken() != null) {
+            photoTaken.setImageBitmap(getUser().getErrorModel().getPhotoTaken());
+        }
+        description = getUser().getErrorModel().getDescprition();
     }
 
-    public void sendReport(View view){
+    public void finishEditing(View view){
         //TODO: Set trip init when starting trip track.
         if(getUser().isTripInitialized()){
             goTo(BikingActive.class);
@@ -68,12 +72,16 @@ public class ErrorMenu extends AppMenu {
         });
 
         alert.show();
-//        getUser().addDescription();
     }
 
     public void startCamera(View view){
-        Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(intent, 0);
+        if(getUser().getErrorModel().isEditedWhenReported()) {
+            Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+            startActivityForResult(intent, 0);
+            getUser().getErrorModel().setEditedWhenReported(false);
+        }else {
+            Toast.makeText(getApplicationContext(),"Du kan ikke laste opp bilde i ettertid", Toast.LENGTH_SHORT).show();
+        }
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -112,6 +120,17 @@ public class ErrorMenu extends AppMenu {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        if(getUser().isTripInitialized()){
+            goTo(BikingActive.class);
+        }else {
+            goTo(ResultMenu.class);
+        }
     }
 
 }

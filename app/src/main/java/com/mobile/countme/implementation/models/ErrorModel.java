@@ -3,14 +3,23 @@ package com.mobile.countme.implementation.models;
 
 import android.graphics.Bitmap;
 
+import com.mobile.countme.implementation.controllers.User;
+
 /**
  * Created by Robin on 05.10.2015.
  */
 public class ErrorModel {
 
-    private String descprition;
+    private String descprition = "";
     private String coordinates;
     private Bitmap photoTaken;
+    private boolean editedWhenReported;
+
+    private User user;
+
+    public ErrorModel(User user){
+        this.user = user;
+    }
 
     public String getDescprition() {
         return descprition;
@@ -35,4 +44,20 @@ public class ErrorModel {
         this.photoTaken = photoTaken;
     }
 
+    public void setThisError(){
+        user.setErrorModel(this);
+    }
+
+    public boolean isEditedWhenReported() {
+        return editedWhenReported;
+    }
+
+    public void setEditedWhenReported(boolean editedWhenReported) {
+        this.editedWhenReported = editedWhenReported;
+    }
+
+    @Override
+    public String toString() {
+        return coordinates;
+    }
 }

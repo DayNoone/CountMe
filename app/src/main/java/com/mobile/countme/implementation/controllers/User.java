@@ -19,10 +19,11 @@ import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Robin on 27.09.2015.
@@ -38,8 +39,10 @@ public class User {
     private Calendar calendar = new GregorianCalendar();
 
     private boolean tripInitialized;
+    private boolean errorClicked;
+    private long time;
 
-    private ArrayList<ErrorModel> tripErrors;
+    private Map<String, ErrorModel> tripErrors;
 
     /**
      * The models of the MVC structure.
@@ -58,7 +61,7 @@ public class User {
         statisticsModel = new StatisticsModel();
         tripModel = new TripModel();
 
-        tripErrors = new ArrayList<>();
+        tripErrors = new HashMap<>();
 
 
     }
@@ -153,8 +156,8 @@ public class User {
             JSONObject todaysTrips = tripsStatistics.getJSONObject(tripsStatistics.length()-1);
             if(todaysTrips.getString("TimeStamp").equals(simpleDateFormat.format(calendar.getTime()))){
                 statisticsModel.setCo2_saved(Integer.parseInt(todaysTrips.getString("co2Saved")));
-                statisticsModel.setDistance(Integer.parseInt(todaysTrips.getString("distance")));
-                statisticsModel.setAvg_speed(Integer.parseInt(todaysTrips.getString("avgSpeed")));
+                statisticsModel.setDistance(Double.parseDouble(todaysTrips.getString("distance")));
+                statisticsModel.setAvg_speed(Double.parseDouble(todaysTrips.getString("avgSpeed")));
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -225,6 +228,10 @@ public class User {
         return tripModel;
     }
 
+    public Map<String,ErrorModel> getTripErrors() {
+        return tripErrors;
+    }
+
     public void setMainMenu(MainMenu mainMenu) {
         this.mainMenu = mainMenu;
     }
@@ -273,12 +280,48 @@ public class User {
         errorModel.setPhotoTaken(photo);
     }
 
-    public void addError(){
-        tripErrors.add(errorModel);
+    public void addError(ErrorModel errorModel){
+        tripErrors.put(errorModel.toString(),errorModel);
     }
 
-    //TODO: Fix this, it will only add one errormodel every time.
-    public void createError(ErrorModel error){
+    public void setErrorModel(ErrorModel error){
         errorModel = error;
+    }
+
+    public void setErrorClicked(boolean errorClicked) {
+        this.errorClicked = errorClicked;
+    }
+
+    public boolean isErrorClicked() {
+        return errorClicked;
+    }
+
+    public void setTime() {
+        this.time = System.currentTimeMillis();
+    }
+
+    public String getTimeDifference() {
+        String seconds = "";
+        String minutes = "";
+        String hours = "";
+        long difference = System.currentTimeMillis() - time;
+        Integer numSeconds = (int) (difference/1000);
+        Integer numMinutes = numSeconds/60;
+        Integer numHours = numMinutes/60;
+        numSeconds = numSeconds - numMinutes*60;
+        numMinutes = numMinutes - numHours*60;
+        seconds = numSeconds.toString();
+        minutes = numMinutes.toString();
+        hours = numHours.toString();
+        if(numSeconds < 10){
+            seconds = "0" + seconds;
+        }
+        if(numMinutes < 10){
+            minutes = "0" + minutes;
+        }
+        if(numHours < 10){
+            hours = "0" + hours;
+        }
+        return "" + hours + ":"  + minutes + ":"+ seconds;
     }
 }

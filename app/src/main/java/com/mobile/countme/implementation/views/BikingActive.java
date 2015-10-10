@@ -8,11 +8,15 @@ import android.view.View;
 import com.mobile.countme.R;
 import com.mobile.countme.framework.AppMenu;
 import com.mobile.countme.framework.MapsActivity;
+import com.mobile.countme.implementation.models.ErrorModel;
+
+import java.util.Random;
 
 /**
  * Created by Kristian on 16/09/2015.
  */
 public class BikingActive extends AppMenu {
+
 
     public void onCreate(Bundle savedInstanceBundle) {
         super.onCreate(savedInstanceBundle);
@@ -41,19 +45,25 @@ public class BikingActive extends AppMenu {
     }
 
     public void sendError(View view){
+        final ErrorModel newErrorModel = new ErrorModel(getUser());
+        Random random = new Random();
+        newErrorModel.setCoordinates("test" + random.nextInt(100));
         new AlertDialog.Builder(this)
                 .setMessage(R.string.report_error)
                 .setNegativeButton(R.string.later, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //Her må det sendes inn koordinater eller noe slikt, sånn at brukeren kan identifisere problemet etter turen, hvis han/hun vil legge til beskrivelse i ettertid.
-//                        getUser().addErrorToTrip();
+                        getUser().addError(newErrorModel);
                     }
                 })
                 .setPositiveButton(R.string.now, new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface arg0, int arg1) {
                         //Add description and/or take picture.
+                        newErrorModel.setEditedWhenReported(true);
+                        getUser().addError(newErrorModel);
+                        getUser().setErrorModel(newErrorModel);
                         goTo(ErrorMenu.class);
 
                     }
