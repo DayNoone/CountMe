@@ -13,9 +13,7 @@ import com.mobile.countme.framework.PopUpMenuEventHandle;
 import com.mobile.countme.implementation.controllers.MainMenu;
 import com.mobile.countme.implementation.models.ErrorModel;
 
-import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 
 /**
  * Created by Kristian on 16/09/2015.
@@ -36,12 +34,13 @@ public class ResultMenu extends AppMenu {
         distance.setText(transformedDistance + " km");
         Double transformedAvgSpeed = new BigDecimal(getUser().getTripModel().getAvg_speed()).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
         avgSpeed.setText(transformedAvgSpeed + " m/s");
-        time_used.setText(getUser().getTimeDifference());
+        time_used.setText(getUser().getTimeInFormat(-1));
         getUser().setTripInitialized(false);
 
     }
 
     public void goToMainMenu(View view){
+        getUser().resetErrors();
         goTo(MainMenu.class);
     }
 
