@@ -3,7 +3,9 @@ package com.mobile.countme.implementation.controllers;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.os.Handler;
 import android.util.Log;
+import android.view.View;
 
 import com.mobile.countme.R;
 import com.mobile.countme.framework.AppMenu;
@@ -12,6 +14,7 @@ import com.mobile.countme.implementation.models.EnvironmentModel;
 import com.mobile.countme.implementation.models.ErrorModel;
 import com.mobile.countme.implementation.models.TripModel;
 import com.mobile.countme.implementation.models.StatisticsModel;
+import com.mobile.countme.implementation.views.BikingActive;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -24,6 +27,10 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import static com.google.android.gms.internal.zzhu.runOnUiThread;
 
 /**
  * Created by Robin on 27.09.2015.
@@ -39,10 +46,23 @@ public class User {
     private Calendar calendar = new GregorianCalendar();
 
     private boolean tripInitialized;
+    //Used in the result menu
     private boolean errorClicked;
+    //Current time
     private long time;
 
+    //Errors reported during trip
     private Map<String, ErrorModel> tripErrors;
+
+    //Timer during trip with a Timertask that will update the bikingactive view
+    private Timer timer;
+    private TimerTask timerTask;
+    private int counter;
+    //we are going to use a handler to be able to run in our TimerTask
+    final Handler handler = new Handler();
+
+
+    private BikingActive bikingActive;
 
     /**
      * The models of the MVC structure.
@@ -236,12 +256,8 @@ public class User {
         this.mainMenu = mainMenu;
     }
 
-    public MainMenu getMainMenu() {
-        return mainMenu;
-    }
-
-    public AndroidFileIO getFileIO() {
-        return fileIO;
+    public void setBikingActive(BikingActive bikingActive) {
+        this.bikingActive = bikingActive;
     }
 
     public AppMenu getContext() {
@@ -281,11 +297,15 @@ public class User {
     }
 
     public void addError(ErrorModel errorModel){
-        tripErrors.put(errorModel.toString(),errorModel);
+        tripErrors.put(errorModel.toString(), errorModel);
     }
 
     public void setErrorModel(ErrorModel error){
         errorModel = error;
+    }
+
+    public void resetErrors(){
+        tripErrors = new HashMap<>();
     }
 
     public void setErrorClicked(boolean errorClicked) {
@@ -300,12 +320,15 @@ public class User {
         this.time = System.currentTimeMillis();
     }
 
-    public String getTimeDifference() {
+    public String getTimeInFormat(Integer time_used) {
         String seconds = "";
         String minutes = "";
         String hours = "";
         long difference = System.currentTimeMillis() - time;
         Integer numSeconds = (int) (difference/1000);
+        if(time_used > 0){
+            numSeconds = time_used;
+        }
         Integer numMinutes = numSeconds/60;
         Integer numHours = numMinutes/60;
         numSeconds = numSeconds - numMinutes*60;
@@ -324,4 +347,45 @@ public class User {
         }
         return "" + hours + ":"  + minutes + ":"+ seconds;
     }
+
+    public void startTimer() {
+        //set a new Timer
+        timer = new Timer();
+
+        //initialize the TimerTask's job
+        initializeTimerTask();
+
+        //schedule the timer, after the first 5000ms the TimerTask will run every 10000ms
+        timer.schedule(timerTask, 1000, 1000); //
+    }
+
+    public void stoptimertask() {
+        //stop the timer, if it's not already null
+        if (timer != null) {
+            counter = 0;
+            timer.cancel();
+            timer = null;
+        }
+    }
+
+    public void initializeTimerTask() {
+        timerTask = new TimerTask() {
+            @Override
+            public void run() {
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(bikingActive != null) {
+                            counter++;
+                            bikingActive.updateTime(getTimeInFormat(counter));
+                        }
+                    }
+                });
+
+            }
+        };
+    }
+
+
 }

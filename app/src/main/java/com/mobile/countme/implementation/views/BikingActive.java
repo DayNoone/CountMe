@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.mobile.countme.R;
+import com.mobile.countme.custom_views.CustomTextView;
 import com.mobile.countme.framework.AppMenu;
 import com.mobile.countme.framework.MapsActivity;
 import com.mobile.countme.implementation.models.ErrorModel;
@@ -25,6 +26,7 @@ public class BikingActive extends AppMenu {
         setContentView(R.layout.biking_active);
         tracker = new GPSTracker(getApplicationContext());
         getUser().setTripInitialized(true);
+        getUser().setBikingActive(this);
     }
 
     public void stopBiking(View view) {
@@ -41,6 +43,7 @@ public class BikingActive extends AppMenu {
                         getUser().addTripCo2(1232);
                         getUser().addTripDistance(32.412312);
                         getUser().addTripAvgSpeed(2.231231);
+                        getUser().stoptimertask();
                         goTo(ResultMenu.class);
                     }
                 }).create().show();
@@ -92,4 +95,12 @@ public class BikingActive extends AppMenu {
                     }
                 }).create().show();
     }
+
+    public void updateTime(String time_used){
+        CustomTextView time = (CustomTextView) findViewById(R.id.tracking_time);
+        if(time != null) {
+            time.setText(time_used);
+        }
+    }
+
 }
