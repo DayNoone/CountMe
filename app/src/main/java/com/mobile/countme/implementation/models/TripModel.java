@@ -21,7 +21,7 @@ public class TripModel {
     }
 
     public double getDistance() {
-        return distance/1000;
+        return distance;
     }
 
     public void setAvg_speed(double avg_speed) {
@@ -33,6 +33,6 @@ public class TripModel {
     }
 
     public void setDistance(double distance) {
-        this.distance = distance;
+        this.distance = distance/1000;
     }
 }

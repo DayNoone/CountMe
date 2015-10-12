@@ -23,7 +23,7 @@ public class StatisticsModel {
      * @param distance
      */
     public void addDistance(double distance){
-        this.distance += distance;
+        this.distance += distance/1000;
     }
 
     /**
@@ -47,7 +47,7 @@ public class StatisticsModel {
     }
 
     public double getDistance() {
-        return distance/1000;
+        return distance;
     }
 
     /**
