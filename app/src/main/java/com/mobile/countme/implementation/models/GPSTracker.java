@@ -27,13 +27,13 @@ public class GPSTracker extends Service implements LocationListener {
     private final Context mContext;
 
     // flag for GPS status
-    private boolean isGPSEnabled = false;
+    boolean isGPSEnabled = false;
 
     // flag for network status
-    private boolean isNetworkEnabled = false;
+    boolean isNetworkEnabled = false;
 
     // flag for GPS status
-    private boolean canGetLocation = false;
+    boolean canGetLocation = false;
 
     private Location location; // location
     private double latitude; // latitude
@@ -41,7 +41,7 @@ public class GPSTracker extends Service implements LocationListener {
     private double distance; //distance
 
     // The minimum distance to change Updates in meters
-    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 1; // 5 meters
+    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 5; // 5 meters
 
     // The minimum time between updates in milliseconds
     private static final long MIN_TIME_BW_UPDATES = 1000 * 1; // 1 second
@@ -79,7 +79,7 @@ public class GPSTracker extends Service implements LocationListener {
             } else {
                 this.canGetLocation = true;
                 // First get location from Network Provider
-                if (isNetworkEnabled) {
+                if (isNetworkEnabled && !isGPSEnabled) {
                     if(android.os.Build.VERSION.SDK_INT >22) {
                         if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                             return null;
@@ -116,6 +116,7 @@ public class GPSTracker extends Service implements LocationListener {
                         }
                     }
                 }
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
