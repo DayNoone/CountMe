@@ -27,20 +27,21 @@ public class GPSTracker extends Service implements LocationListener {
     private final Context mContext;
 
     // flag for GPS status
-    boolean isGPSEnabled = false;
+    private boolean isGPSEnabled = false;
 
     // flag for network status
-    boolean isNetworkEnabled = false;
+    private boolean isNetworkEnabled = false;
 
     // flag for GPS status
-    boolean canGetLocation = false;
+    private boolean canGetLocation = false;
 
-    Location location; // location
-    double latitude; // latitude
-    double longitude; // longitude
+    private Location location; // location
+    private double latitude; // latitude
+    private double longitude; // longitude
+    private double distance; //distance
 
     // The minimum distance to change Updates in meters
-    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 5; // 5 meters
+    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 1; // 5 meters
 
     // The minimum time between updates in milliseconds
     private static final long MIN_TIME_BW_UPDATES = 1000 * 1; // 1 second
@@ -53,7 +54,10 @@ public class GPSTracker extends Service implements LocationListener {
     public GPSTracker(Context context) {
         this.mContext = context;
         trip = new ArrayList<Location>();
-        trip.add(getLocation());
+        Log.e("GPSTracker", "location: " + getLocation());
+        if(getLocation() != null) {
+            trip.add(getLocation());
+        }
 
     }
 
@@ -97,7 +101,6 @@ public class GPSTracker extends Service implements LocationListener {
                 }
                 // if GPS Enabled get lat/long using GPS Services
                 if (isGPSEnabled) {
-                    if (location == null) {
                         locationManager.requestLocationUpdates(
                                 LocationManager.GPS_PROVIDER,
                                 MIN_TIME_BW_UPDATES,
@@ -113,7 +116,6 @@ public class GPSTracker extends Service implements LocationListener {
                         }
                     }
                 }
-            }
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -203,7 +205,13 @@ public class GPSTracker extends Service implements LocationListener {
 
         @Override
         public void onLocationChanged(Location location) {
-            trip.add(location);
+            if(location != null) {
+                trip.add(location);
+                if(trip.size() > 1) {
+                    Log.e("GPSTracker", "It works");
+                    distance += location.distanceTo(trip.get(trip.size() - 2));
+                }
+            }
         }
 
         @Override
@@ -225,5 +233,20 @@ public class GPSTracker extends Service implements LocationListener {
 
     public ArrayList<Location> getTrip(){
         return trip;
+    }
+
+    public float getCurrentSpeed(){
+        if(trip.size() > 0) {
+            return trip.get(trip.size() - 1).getSpeed();
+        }
+        return -1;
+    }
+
+    public double getDistance() {
+        return distance;
+    }
+
+    public boolean isCanGetLocation() {
+        return canGetLocation;
     }
 }

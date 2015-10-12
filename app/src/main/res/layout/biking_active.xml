@@ -31,8 +31,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="0 min"
-        android:id="@+id/textView17"
+        android:text="0 m/s"
+        android:id="@+id/current_speed"
         android:textSize="30sp"
         android:layout_below="@+id/tracking_time"
         android:layout_marginTop="20dp"
@@ -43,22 +43,12 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="0 km"
-        android:id="@+id/textView18"
+        android:id="@+id/tripDistance"
         android:textSize="30sp"
         android:layout_marginTop="10dp"
-        android:layout_below="@+id/textView17"
-        android:layout_alignStart="@+id/textView17" />
+        android:layout_below="@+id/current_speed"
+        android:layout_alignStart="@+id/current_speed" />
 
-    <com.mobile.countme.custom_views.CustomTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="0 m/s"
-        android:id="@+id/textView19"
-        android:textSize="30sp"
-        android:layout_marginTop="10dp"
-        android:layout_below="@+id/textView18"
-        android:layout_alignStart="@+id/textView18" />
 
     <ImageButton
         android:layout_width="wrap_content"

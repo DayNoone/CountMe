@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.util.Log;
-import android.view.View;
 
 import com.mobile.countme.R;
 import com.mobile.countme.framework.AppMenu;
@@ -264,10 +263,10 @@ public class User {
         return context;
     }
 
-    public void addTripCo2(int tripCo2){
-        environmentModel.addCo2_savedTrip(tripCo2);
-        statisticsModel.addCo2_saved(tripCo2);
-        tripModel.setCo2_saved(tripCo2);
+    public void calculateCo2(double distance){
+        int co2 = environmentModel.addCo2_savedTrip(distance);
+        statisticsModel.addCo2_saved(co2);
+        tripModel.setCo2_saved(co2);
     }
 
     public void addTripDistance(double tripDistance){
@@ -378,7 +377,7 @@ public class User {
                     public void run() {
                         if(bikingActive != null) {
                             counter++;
-                            bikingActive.updateTime(getTimeInFormat(counter));
+                            bikingActive.updateView(getTimeInFormat(counter));
                         }
                     }
                 });
@@ -387,5 +386,7 @@ public class User {
         };
     }
 
-
+    public int getCounter() {
+        return counter;
+    }
 }

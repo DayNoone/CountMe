@@ -47,7 +47,7 @@ public class StatisticsModel {
     }
 
     public double getDistance() {
-        return distance;
+        return distance/1000;
     }
 
     /**

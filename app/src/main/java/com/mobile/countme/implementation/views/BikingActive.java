@@ -13,6 +13,7 @@ import com.mobile.countme.framework.MapsActivity;
 import com.mobile.countme.implementation.models.ErrorModel;
 import com.mobile.countme.implementation.models.GPSTracker;
 
+import java.math.BigDecimal;
 import java.util.Random;
 
 /**
@@ -39,10 +40,9 @@ public class BikingActive extends AppMenu {
 
                         tracker.stopUsingGPS();
                          
-                         // TODO: Testing code - Remove.
-                        getUser().addTripCo2(1232);
-                        getUser().addTripDistance(32.412312);
-                        getUser().addTripAvgSpeed(2.231231);
+                        getUser().addTripDistance(tracker.getDistance());
+                        getUser().calculateCo2(tracker.getDistance());
+                        getUser().addTripAvgSpeed(tracker.getDistance()/getUser().getCounter());
                         getUser().stoptimertask();
                         goTo(ResultMenu.class);
                     }
@@ -87,19 +87,29 @@ public class BikingActive extends AppMenu {
                 .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface arg0, int arg1) {
-                        // TODO: Testing code - Remove.
-                        getUser().addTripCo2(1232);
-                        getUser().addTripDistance(32.412312);
-                        getUser().addTripAvgSpeed(2.231231);
+                        tracker.stopUsingGPS();
+
+                        getUser().addTripDistance(tracker.getDistance());
+                        getUser().calculateCo2(tracker.getDistance());
+                        getUser().addTripAvgSpeed(tracker.getDistance() /getUser().getCounter());
+                        getUser().stoptimertask();
                         goTo(ResultMenu.class);
                     }
                 }).create().show();
     }
 
-    public void updateTime(String time_used){
+
+    public void updateView(String time_used){
         CustomTextView time = (CustomTextView) findViewById(R.id.tracking_time);
+        CustomTextView speed = (CustomTextView) findViewById(R.id.current_speed);
+        CustomTextView distance = (CustomTextView) findViewById(R.id.tripDistance);
         if(time != null) {
             time.setText(time_used);
+        }
+        if(tracker != null) {
+            speed.setText(Float.toString(tracker.getCurrentSpeed()) + " m/s");
+            Double transformedDistance = new BigDecimal(tracker.getDistance()).setScale(3, BigDecimal.ROUND_HALF_UP).doubleValue();
+            distance.setText(Double.toString(transformedDistance) + "m");
         }
     }
 

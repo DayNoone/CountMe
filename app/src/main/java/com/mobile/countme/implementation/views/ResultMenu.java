@@ -30,7 +30,7 @@ public class ResultMenu extends AppMenu {
         CustomTextView avgSpeed = (CustomTextView) findViewById(R.id.avgSpeed_result);
         CustomTextView time_used = (CustomTextView) findViewById(R.id.time_used);
         co2_saved.setText(getUser().getTripModel().getCo2_saved() + " g");
-        Double transformedDistance = new BigDecimal(getUser().getTripModel().getDistance()).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+        Double transformedDistance = new BigDecimal(getUser().getTripModel().getDistance()).setScale(3, BigDecimal.ROUND_HALF_UP).doubleValue();
         distance.setText(transformedDistance + " km");
         Double transformedAvgSpeed = new BigDecimal(getUser().getTripModel().getAvg_speed()).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
         avgSpeed.setText(transformedAvgSpeed + " m/s");
