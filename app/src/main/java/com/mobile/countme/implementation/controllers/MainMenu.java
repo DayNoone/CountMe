@@ -116,6 +116,7 @@ public class MainMenu extends AppMenu {
     public void startBiking(View view) {
         getUser().setTime();
         getUser().startTimer();
+        getUser().setStart_using_tracker(false);
         goTo(BikingActive.class);
     }
 

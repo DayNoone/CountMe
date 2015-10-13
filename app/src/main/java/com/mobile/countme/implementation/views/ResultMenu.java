@@ -54,6 +54,11 @@ public class ResultMenu extends AppMenu {
         for(ErrorModel error : getUser().getTripErrors().values()){
             popupMenu.getMenu().add(error.toString());
         }
+        //TODO: FIX THIS - REMOVE "INGEN FEILMELDINGER" IF THERE IS SOME ERRORS REPORTED.
+        for (int i = 0; i < popupMenu.getMenu().size(); i++){
+            Log.e("ResultMenu", "title: " + popupMenu.getMenu().getItem(i).getTitle());
+            popupMenu.getMenu().removeItem(i);
+        }
         new Thread() {
             public void run() {
                 try

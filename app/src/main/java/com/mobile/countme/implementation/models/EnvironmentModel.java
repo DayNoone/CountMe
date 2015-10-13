@@ -26,8 +26,8 @@ public class EnvironmentModel {
      * Adds the CO2 saved during the trip to the CO2 saved today so far.
      */
     public int addCo2_savedTrip(double distance){
-        co2_savedToday += distance/1000 * avgCar_co2_per_kilometer - distance/1000 * avgBicycle_co2_per_kilometer;
-        return (int)(distance/1000 * avgCar_co2_per_kilometer - distance/1000 * avgBicycle_co2_per_kilometer);
+        co2_savedToday += (distance/1000) * avgCar_co2_per_kilometer - (distance/1000) * avgBicycle_co2_per_kilometer;
+        return (int)((distance/1000) * avgCar_co2_per_kilometer - (distance/1000) * avgBicycle_co2_per_kilometer);
 
     }
 
