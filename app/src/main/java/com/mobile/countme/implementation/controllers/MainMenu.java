@@ -16,7 +16,7 @@ import com.mobile.countme.R;
 import com.mobile.countme.framework.AppMenu;
 import com.mobile.countme.framework.MainViewPagerAdapter;
 import com.mobile.countme.framework.SlidingTabLayout;
-import com.mobile.countme.implementation.menus.BikingActive;
+import com.mobile.countme.implementation.views.BikingActive;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,7 +27,7 @@ import java.util.Locale;
 /**
  * Created by Kristian on 16/09/2015.
  */
-public class MainPages extends AppMenu {
+public class MainMenu extends AppMenu {
 
     Toolbar toolbar;
     ViewPager pager;
@@ -58,7 +58,7 @@ public class MainPages extends AppMenu {
 
         // Assiging the Sliding Tab Layout View
         tabs = (SlidingTabLayout) findViewById(R.id.main_tabs);
-        tabs.setMainPages(this);
+        tabs.setMainMenu(this);
         tabs.setMainPagesInitialized(true);
         tabs.setDistributeEvenly(true); // To make the Tabs Fixed set this true, This makes the tabs Space Evenly in Available width
 
@@ -76,7 +76,7 @@ public class MainPages extends AppMenu {
         //Not functional ( view is not made yet)
         //((TextView) findViewById(R.id.start_tur)).setTypeface(Assets.getTypeface(this, Assets.baskerville_old_face_regular));
 
-        getUser().setMainPages(this);
+        getUser().setMainMenu(this);
     }
 
     @Override
@@ -102,7 +102,7 @@ public class MainPages extends AppMenu {
             return true;
         }
         else if (id == R.id.lang_english) {
-            Log.w("MainPages, itemSelected", "Setting language to english");
+            Log.w("MainMenu, itemSelected", "Setting language to english");
             setLocale("en");
             return true;
         }
@@ -114,6 +114,8 @@ public class MainPages extends AppMenu {
     }
 
     public void startBiking(View view) {
+        getUser().setTime();
+        getUser().startTimer();
         goTo(BikingActive.class);
     }
 
@@ -122,7 +124,7 @@ public class MainPages extends AppMenu {
      * @param view
      */
     public void viewOneDayStats(View view) {
-        adapter.getStatisticsMenu().setTripsStatistics(getUser().getStatisticsModel().getCo2_saved(), getUser().getStatisticsModel().getDistance(), getUser().getStatisticsModel().getAvg_speed());
+        adapter.getStatisticsTab().setTripsStatistics(getUser().getStatisticsModel().getCo2_saved(), getUser().getStatisticsModel().getDistance(), getUser().getStatisticsModel().getAvg_speed());
     }
 
     /**
@@ -132,7 +134,7 @@ public class MainPages extends AppMenu {
     public void viewOneWeekStats(View view) {
         JSONObject lastWeekTrips = getUser().getLastPeriodTrips(7);
         try {
-            adapter.getStatisticsMenu().setTripsStatistics(Integer.parseInt(lastWeekTrips.getString("co2Saved")), Double.parseDouble(lastWeekTrips.getString("distance")), Double.parseDouble(lastWeekTrips.getString("avgSpeed")));
+            adapter.getStatisticsTab().setTripsStatistics(Integer.parseInt(lastWeekTrips.getString("co2Saved")), Double.parseDouble(lastWeekTrips.getString("distance")), Double.parseDouble(lastWeekTrips.getString("avgSpeed")));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -146,7 +148,7 @@ public class MainPages extends AppMenu {
     public void viewOneMonthStatistics(View view){
         JSONObject lastMonthTrips = getUser().getLastPeriodTrips(30);
         try {
-            adapter.getStatisticsMenu().setTripsStatistics(Integer.parseInt(lastMonthTrips.getString("co2Saved")), Double.parseDouble(lastMonthTrips.getString("distance")), Double.parseDouble(lastMonthTrips.getString("avgSpeed")));
+            adapter.getStatisticsTab().setTripsStatistics(Integer.parseInt(lastMonthTrips.getString("co2Saved")), Double.parseDouble(lastMonthTrips.getString("distance")), Double.parseDouble(lastMonthTrips.getString("avgSpeed")));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -161,7 +163,7 @@ public class MainPages extends AppMenu {
         Configuration conf = res.getConfiguration();
         conf.locale = locale;
         res.updateConfiguration(conf, dm);
-        Intent refresh = new Intent(this, MainPages.class);
+        Intent refresh = new Intent(this, MainMenu.class);
         startActivity(refresh);
         finish();
     }
@@ -171,8 +173,8 @@ public class MainPages extends AppMenu {
      * Sets the statistics both in the models and the internal storage based on the newest trip.
      */
     public void setStatistics(){
-        adapter.getEnvironmentMenu().setEnvironmentGain(getUser().getEnvironmentModel().getCo2_savedToday(), getUser().getEnvironmentModel().getCo2_carDistance(), getUser().getEnvironmentModel().getCo2_busDistance(),getUser().getEnvironmentModel().getCo2_trainDistance(),getUser().getEnvironmentModel().getCo2_plainDistance());
-        adapter.getStatisticsMenu().setTripsStatistics(getUser().getStatisticsModel().getCo2_saved(), getUser().getStatisticsModel().getDistance(), getUser().getStatisticsModel().getAvg_speed());
+        adapter.getEnvironmentTab().setEnvironmentGain(getUser().getEnvironmentModel().getCo2_savedToday(), getUser().getEnvironmentModel().getCo2_carDistance(), getUser().getEnvironmentModel().getCo2_busDistance(),getUser().getEnvironmentModel().getCo2_trainDistance(),getUser().getEnvironmentModel().getCo2_plainDistance());
+        adapter.getStatisticsTab().setTripsStatistics(getUser().getStatisticsModel().getCo2_saved(), getUser().getStatisticsModel().getDistance(), getUser().getStatisticsModel().getAvg_speed());
         getUser().saveTripsStatistics();
     }
 

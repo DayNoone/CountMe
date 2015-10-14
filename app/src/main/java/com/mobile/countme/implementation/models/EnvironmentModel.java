@@ -1,10 +1,8 @@
 package com.mobile.countme.implementation.models;
 
-import com.mobile.countme.implementation.controllers.MainPages;
-
 /**
  * Created by Robin on 27.09.2015.
- * This class contains all the information the EnvironmentMenu will display.
+ * This class contains all the information the EnvironmentTab will display.
  */
 public class EnvironmentModel {
 
@@ -13,6 +11,7 @@ public class EnvironmentModel {
     private int co2_busDistance;
     private int co2_trainDistance;
     private int co2_plainDistance;
+    private final int avgBicycle_co2_per_kilometer = 21;
     private final int avgCar_co2_per_kilometer = 160;
     private final int avgBus_co2_per_kilometer = 101;
     private final int avgTrain_co2_per_kilometer = 56;
@@ -23,10 +22,11 @@ public class EnvironmentModel {
 
     /**
      * Adds the CO2 saved during the trip to the CO2 saved today so far.
-     * @param co2_trip
      */
-    public void addCo2_savedTrip(int co2_trip){
-        co2_savedToday += co2_trip;
+    public int addCo2_savedTrip(double distance){
+        co2_savedToday += distance * co2_carDistance - distance * avgBicycle_co2_per_kilometer;
+        return (int)(distance * co2_carDistance - distance * avgBicycle_co2_per_kilometer);
+
     }
 
     public int getCo2_savedToday() {

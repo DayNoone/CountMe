@@ -2,7 +2,7 @@ package com.mobile.countme.implementation.models;
 
 /**
  * Created by Robin on 01.10.2015.
- * This class contains all the information(from today) the StatisticsMenu will display.
+ * This class contains all the information(from today) the StatisticsTab will display.
  */
 public class StatisticsModel {
 
@@ -23,7 +23,7 @@ public class StatisticsModel {
      * @param distance
      */
     public void addDistance(double distance){
-        this.distance += distance;
+        this.distance += distance/1000;
     }
 
     /**

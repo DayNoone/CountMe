@@ -20,10 +20,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="0 min"
-        android:id="@+id/textView17"
-        android:textSize="30sp"
-        android:layout_marginTop="76dp"
+        android:text="00:00:00"
+        android:id="@+id/tracking_time"
+        android:textSize="50sp"
+        android:layout_marginTop="50dp"
         android:layout_below="@+id/button7"
         android:layout_centerHorizontal="true" />
 
@@ -31,23 +31,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="0 km"
-        android:id="@+id/textView18"
+        android:text="0 m/s"
+        android:id="@+id/current_speed"
         android:textSize="30sp"
-        android:layout_marginTop="10dp"
-        android:layout_below="@+id/textView17"
-        android:layout_alignStart="@+id/textView17" />
+        android:layout_below="@+id/tracking_time"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true" />
 
     <com.mobile.countme.custom_views.CustomTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="0 m/s"
-        android:id="@+id/textView19"
+        android:text="0 km"
+        android:id="@+id/tripDistance"
         android:textSize="30sp"
         android:layout_marginTop="10dp"
-        android:layout_below="@+id/textView18"
-        android:layout_alignStart="@+id/textView18" />
+        android:layout_below="@+id/current_speed"
+        android:layout_alignStart="@+id/current_speed" />
+
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -67,10 +68,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/button8"
+        android:onClick="sendError"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="10dp"
-        android:background="@drawable/cam_icon"
+        android:background="@drawable/road_fault"
         android:src="@drawable/btn_highlight"
         android:layout_marginRight="10dp"
         android:layout_marginStart="10dp"
@@ -84,6 +86,7 @@
         android:textSize="30sp"
         android:id="@+id/textView20"
         android:layout_below="@+id/button7"
+        android:layout_marginTop="-10dp"
         android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

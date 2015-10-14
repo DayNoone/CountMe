@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.mobile.countme.custom_views.CustomTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/error_page"
+        android:textSize="30dp"
+        android:id="@+id/titleErrorReport"
+        android:layout_marginTop="93dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/pictureTaken"
+        android:layout_below="@+id/titleErrorReport"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/cameraBtn"
+        android:onClick="startCamera"
+        android:background="@drawable/cam_icon"
+        android:src="@drawable/btn_highlight"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="350dp"
+        />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/descriptionBtn"
+        android:onClick="createDescription"
+        android:background="@drawable/form_icon"
+        android:src="@drawable/btn_highlight"
+        android:layout_marginLeft="260dp"
+        android:layout_marginTop="350dp"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/finished_editing"
+        android:onClick="finishEditing"
+        android:background="@drawable/btn_stroke"
+        android:id="@+id/SendBtn"
+        android:layout_marginTop="450dp"
+        android:layout_centerHorizontal="true" />
+
+
+</RelativeLayout>

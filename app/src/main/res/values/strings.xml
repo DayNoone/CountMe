@@ -21,9 +21,14 @@
     <!-- Biking idle -->
     <string name="start_trip">START TUR</string>
 
+    <!--Error Screen -->
+    <string name="error_page">Feilrapport</string>
+    <string name="finished_editing">Ok</string>
+
     <!--Result Screen -->
     <string name="result_page">Resultat</string>
     <string name="mainScreen">Hovedside</string>
+    <string name="popupError">Feilmeldinger</string>
 
     <!-- Environment -->
     <string name="environment_title"><u>CO&#8322; spart i dag</u></string>
@@ -38,6 +43,7 @@
     <string name="co2_spart">CO&#8322; spart</string>
     <string name="distance_traveled">Distanse:</string>
     <string name="avg_speed">Gj.fart: </string>
+    <string name="Time">Tid: </string>
     <string name="daily_display">1 dag</string>
     <string name="weekly_display">1 uke</string>
     <string name="monthhly_display">1 mnd</string>
@@ -46,6 +52,12 @@
     <string name="information_title"><u>Informasjon</u></string>
     <string name="contact">Kontakt oss: DinSykkelvei@sykkelmail.no</string>
     <string name="rewatch_intro">Se om igjen introduksjon</string>
+
+    <!--Error handler -->
+    <string name="report_error">Beskriv problem?</string>
+    <string name="later">Senere</string>
+    <string name="now">Nå</string>
+
 
     <!--Confirmation -->
     <string name="stop_biking">Avslutt tur?</string>
