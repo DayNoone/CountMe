@@ -54,7 +54,7 @@ public class GPSTracker extends Service implements LocationListener {
     protected LocationManager locationManager;
 
     private ArrayList<Location> trip;
-    private ArrayList<Integer> connectionType;
+    private ArrayList<Integer> connectionTypes;
     private ConnectivityManager cm;
     private NetworkInfo activeNetwork;
 
@@ -65,9 +65,9 @@ public class GPSTracker extends Service implements LocationListener {
         if (temp != null) {
             ConnectivityManager cm =
                     (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-            connectionType = new ArrayList<Integer>();
+            connectionTypes = new ArrayList<Integer>();
             activeNetwork = cm.getActiveNetworkInfo();
-            connectionType.add(activeNetwork.getType());
+            connectionTypes.add(activeNetwork.getType());
             trip.add(getLocation());
         }
 
@@ -148,7 +148,7 @@ public class GPSTracker extends Service implements LocationListener {
                 }
             }
             locationManager.removeUpdates(GPSTracker.this);
-            HTTPSender.sendTrip(trip, mContext);
+            HTTPSender.sendTrip(trip, connectionTypes, mContext);
         }
     }
 
@@ -222,7 +222,7 @@ public class GPSTracker extends Service implements LocationListener {
         if (location != null) {
             trip.add(location);
             activeNetwork = cm.getActiveNetworkInfo();
-            connectionType.add(activeNetwork.getType());
+            connectionTypes.add(activeNetwork.getType());
             if (trip.size() > 1) {
                 distance += location.distanceTo(trip.get(trip.size() - 2));
             }
