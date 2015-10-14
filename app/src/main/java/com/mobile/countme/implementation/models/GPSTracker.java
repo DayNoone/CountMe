@@ -11,11 +11,15 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.Settings;
 import android.util.Log;
+
+import com.mobile.countme.implementation.controllers.HTTPSender;
 
 import java.util.ArrayList;
 
@@ -49,10 +53,18 @@ public class GPSTracker extends Service implements LocationListener {
     protected LocationManager locationManager;
 
     private ArrayList<Location> trip;
+    private ArrayList<Integer> connectionType;
+    private ConnectivityManager cm;
+    private NetworkInfo activeNetwork;
 
     public GPSTracker(Context context) {
         this.mContext = context;
         trip = new ArrayList<Location>();
+        ConnectivityManager cm =
+                (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        connectionType = new ArrayList<Integer>();
+        activeNetwork = cm.getActiveNetworkInfo();
+        connectionType.add(activeNetwork.getType());
         trip.add(getLocation());
 
     }
@@ -134,6 +146,7 @@ public class GPSTracker extends Service implements LocationListener {
                 }
             }
             locationManager.removeUpdates(GPSTracker.this);
+            HTTPSender.sendTrip(trip, mContext);
         }
     }
 
@@ -204,6 +217,8 @@ public class GPSTracker extends Service implements LocationListener {
     @Override
     public void onLocationChanged(Location location) {
         trip.add(location);
+        activeNetwork = cm.getActiveNetworkInfo();
+        connectionType.add(activeNetwork.getType());
     }
 
     @Override
