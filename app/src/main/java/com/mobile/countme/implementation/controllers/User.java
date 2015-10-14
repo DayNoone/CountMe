@@ -59,6 +59,7 @@ public class User {
     private TimerTask timerTask;
 
     private BikingActive bikingActive;
+    private int errorCount = 1;
 
     /**
      * The models of the MVC structure.
@@ -342,6 +343,7 @@ public class User {
 
     public void resetErrors(){
         tripErrors = new HashMap<>();
+        errorCount = 1;
     }
 
     public void setErrorClicked(boolean errorClicked) {
@@ -433,5 +435,7 @@ public class User {
         this.start_using_tracker = start_using_tracker;
     }
 
-
+    public int getErrorCount() {
+        return errorCount++;
+    }
 }

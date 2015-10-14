@@ -22,6 +22,7 @@ import java.util.Random;
 public class BikingActive extends AppMenu {
 
     private GPSTracker tracker;
+
     public void onCreate(Bundle savedInstanceBundle) {
         super.onCreate(savedInstanceBundle);
         setContentView(R.layout.biking_active);
@@ -53,8 +54,7 @@ public class BikingActive extends AppMenu {
 
     public void sendError(View view){
         final ErrorModel newErrorModel = new ErrorModel(getUser());
-        Random random = new Random();
-        newErrorModel.setCoordinates("test" + random.nextInt(100));
+        newErrorModel.setCoordinates("Feilmelding " + getUser().getErrorCount());
         new AlertDialog.Builder(this)
                 .setMessage(R.string.report_error)
                 .setNegativeButton(R.string.later, new DialogInterface.OnClickListener() {

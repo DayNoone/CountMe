@@ -37,6 +37,7 @@
     <string name="result_page">Resultat</string>
     <string name="mainScreen">Hovedside</string>
     <string name="popupError">Feilmeldinger</string>
+    <string name="noErrorsReported">Ingen feilmeldinger</string>
 
     <!-- Environment -->
     <string name="environment_title"><u>CO&#8322; spart i dag</u></string>
