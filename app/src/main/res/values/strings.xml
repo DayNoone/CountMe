@@ -10,9 +10,15 @@
     <string name="statistics_page">Tall</string>
     <string name="info_page">Info</string>
 
+    <!--IntroductionMenu-->
     <string name="intro_page1">All bruk av GPS er anonym. Første og siste 100 metrene av din reiserute fjernes. Svada svada</string>
     <string name="intro_page2">Denne appen brukes til å [...] osv osv</string>
-    <string name="intro_page3">Ting og tang vet ikke</string>
+    <!--UserInformationTab-->
+    <string name="intro_userInformation"> Dette vil være nyttig tilleggsinformasjon til analyse. Den er helt valgfri, men vi ville satt veldig pris på om du fyller ut.</string>
+    <string name="UserInformation">Brukerinformasjon</string>
+    <string name="PickBirthDate">YYYY</string>
+    <string name="InfoPickBirthDate">Legg inn fødselsår: </string>
+
     <string name="intro_page4">Ved å trykke på mobilens <i>optionsknapp</i>, kan du velge språk. </string>
 
     <!--Load Screen-->

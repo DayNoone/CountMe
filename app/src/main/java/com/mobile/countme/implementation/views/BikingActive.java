@@ -39,10 +39,8 @@ public class BikingActive extends AppMenu {
                     public void onClick(DialogInterface arg0, int arg1) {
 
                         tracker.stopUsingGPS();
-                         
-                        getUser().addTripDistance(tracker.getDistance());
-                        getUser().calculateCo2(tracker.getDistance());
-                        getUser().addTripAvgSpeed(tracker.getDistance()/getUser().getCounter());
+
+                        getUser().addStatistics(tracker.getDistance());
                         getUser().stoptimertask();
                         goTo(ResultMenu.class);
                     }
@@ -89,9 +87,7 @@ public class BikingActive extends AppMenu {
                     public void onClick(DialogInterface arg0, int arg1) {
                         tracker.stopUsingGPS();
 
-                        getUser().addTripDistance(tracker.getDistance());
-                        getUser().calculateCo2(tracker.getDistance());
-                        getUser().addTripAvgSpeed(tracker.getDistance() /getUser().getCounter());
+                        getUser().addStatistics(tracker.getDistance());
                         getUser().stoptimertask();
                         goTo(ResultMenu.class);
                     }
@@ -99,14 +95,14 @@ public class BikingActive extends AppMenu {
     }
 
 
-    public void updateView(String time_used){
+    public void updateView(String time_used, boolean start_using_tracker){
         CustomTextView time = (CustomTextView) findViewById(R.id.tracking_time);
         CustomTextView speed = (CustomTextView) findViewById(R.id.current_speed);
         CustomTextView distance = (CustomTextView) findViewById(R.id.tripDistance);
         if(time != null) {
             time.setText(time_used);
         }
-        if(tracker != null) {
+        if(tracker != null && start_using_tracker) {
             speed.setText(Float.toString(tracker.getCurrentSpeed()) + " m/s");
             Double transformedDistance = new BigDecimal(tracker.getDistance()).setScale(3, BigDecimal.ROUND_HALF_UP).doubleValue();
             distance.setText(Double.toString(transformedDistance) + "m");

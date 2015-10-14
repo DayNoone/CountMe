@@ -41,8 +41,8 @@ public class IntroductionViewPagerAdapter extends FragmentPagerAdapter {
         }
         else if(position == 2)             // As we are having 2 tabs if the position is now 0 it must be 1 so we are returning second tab
         {
-            Page3 page3 = new Page3();
-            return page3;
+            UserInformationTab userInformationTab = new UserInformationTab();
+            return userInformationTab;
         }
         else         // As we are having 2 tabs if the position is now 0 it must be 1 so we are returning second tab
         {

@@ -3,7 +3,6 @@ package com.mobile.countme.implementation.controllers;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.os.Handler;
 import android.util.Log;
 
 import com.mobile.countme.R;
@@ -13,6 +12,7 @@ import com.mobile.countme.implementation.models.EnvironmentModel;
 import com.mobile.countme.implementation.models.ErrorModel;
 import com.mobile.countme.implementation.models.TripModel;
 import com.mobile.countme.implementation.models.StatisticsModel;
+import com.mobile.countme.implementation.models.UserModel;
 import com.mobile.countme.implementation.views.BikingActive;
 
 import org.json.JSONArray;
@@ -44,6 +44,7 @@ public class User {
     private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-M-yyyy");
     private Calendar calendar = new GregorianCalendar();
 
+    private boolean start_using_tracker;
     private boolean tripInitialized;
     //Used in the result menu
     private boolean errorClicked;
@@ -56,10 +57,6 @@ public class User {
     //Timer during trip with a Timertask that will update the bikingactive view
     private Timer timer;
     private TimerTask timerTask;
-    private int counter;
-    //we are going to use a handler to be able to run in our TimerTask
-    final Handler handler = new Handler();
-
 
     private BikingActive bikingActive;
 
@@ -70,6 +67,7 @@ public class User {
     private StatisticsModel statisticsModel;
     private TripModel tripModel;
     private ErrorModel errorModel;
+    private UserModel userModel;
 
     public User (AndroidFileIO io, AppMenu context) {
         this.fileIO = io;
@@ -79,6 +77,7 @@ public class User {
         environmentModel = new EnvironmentModel();
         statisticsModel = new StatisticsModel();
         tripModel = new TripModel();
+        userModel = new UserModel();
 
         tripErrors = new HashMap<>();
 
@@ -247,6 +246,10 @@ public class User {
         return tripModel;
     }
 
+    public UserModel getUserModel() {
+        return userModel;
+    }
+
     public Map<String,ErrorModel> getTripErrors() {
         return tripErrors;
     }
@@ -263,20 +266,15 @@ public class User {
         return context;
     }
 
-    public void calculateCo2(double distance){
+    public void addStatistics(double distance){
+        statisticsModel.addDistance(distance);
+        tripModel.setDistance(distance);
+        double avgSpeed = distance/getTimeUsedInSeconds();
+        statisticsModel.calc_new_avgSpeed(avgSpeed);
+        tripModel.setAvg_speed(avgSpeed);
         int co2 = environmentModel.addCo2_savedTrip(distance);
         statisticsModel.addCo2_saved(co2);
         tripModel.setCo2_saved(co2);
-    }
-
-    public void addTripDistance(double tripDistance){
-        statisticsModel.addDistance(tripDistance);
-        tripModel.setDistance(tripDistance);
-    }
-
-    public void addTripAvgSpeed(double tripAvgSpeed){
-        statisticsModel.calc_new_avgSpeed(tripAvgSpeed);
-        tripModel.setAvg_speed(tripAvgSpeed);
     }
 
     public boolean isTripInitialized() {
@@ -325,6 +323,9 @@ public class User {
         String hours = "";
         long difference = System.currentTimeMillis() - time;
         Integer numSeconds = (int) (difference/1000);
+        if(numSeconds > 5){
+            start_using_tracker = true;
+        }
         if(time_used > 0){
             numSeconds = time_used;
         }
@@ -347,6 +348,11 @@ public class User {
         return "" + hours + ":"  + minutes + ":"+ seconds;
     }
 
+    public double getTimeUsedInSeconds(){
+        long difference = System.currentTimeMillis() - time;
+        return (double)(difference/1000);
+    }
+
     public void startTimer() {
         //set a new Timer
         timer = new Timer();
@@ -361,7 +367,6 @@ public class User {
     public void stoptimertask() {
         //stop the timer, if it's not already null
         if (timer != null) {
-            counter = 0;
             timer.cancel();
             timer = null;
         }
@@ -376,8 +381,7 @@ public class User {
                     @Override
                     public void run() {
                         if(bikingActive != null) {
-                            counter++;
-                            bikingActive.updateView(getTimeInFormat(counter));
+                            bikingActive.updateView(getTimeInFormat(-1), start_using_tracker);
                         }
                     }
                 });
@@ -386,7 +390,7 @@ public class User {
         };
     }
 
-    public int getCounter() {
-        return counter;
+    public void setStart_using_tracker(boolean start_using_tracker) {
+        this.start_using_tracker = start_using_tracker;
     }
 }
