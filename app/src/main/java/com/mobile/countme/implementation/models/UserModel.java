@@ -2,14 +2,17 @@ package com.mobile.countme.implementation.models;
 
 import com.mobile.countme.framework.AppMenu;
 
+import java.util.Calendar;
+
 /**
  * Created by Robin on 14.10.2015.
  */
 public class UserModel extends AppMenu{
 
     private float weight;
-    private int birthYear;
+    private Integer birthYear;
     private String gender;
+    private Calendar calendar = Calendar.getInstance();
 
 
     public float getWeight() {
@@ -21,15 +24,14 @@ public class UserModel extends AppMenu{
     }
 
     public int getAge() {
-    //TODO: Implement this.
-        return 1;
+        return calendar.get(Calendar.YEAR) - birthYear;
     }
 
-    public void setBirthYear(int birthYear) {
+    public void setBirthYear(Integer birthYear) {
         this.birthYear = birthYear;
     }
 
-    public int getBirthYear() {
+    public Integer getBirthYear() {
         return birthYear;
     }
 

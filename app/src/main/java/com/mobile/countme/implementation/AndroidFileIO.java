@@ -102,6 +102,18 @@ public class AndroidFileIO {
     }
 
     /**
+     * Update the user information in the internal storage.
+     * @param userInfo
+     */
+    public void writeUserInformationSaveFile(JSONObject userInfo){
+        SharedPreferences sharedPreferences = context.getSharedPreferences(context.getString(R.string.userInfo), Context.MODE_PRIVATE);
+        SharedPreferences.Editor prefEditor = sharedPreferences.edit();
+        prefEditor.putString(context.getString(R.string.userInfo), userInfo.toString());
+        prefEditor.commit();
+        Log.e("AndroidFileIO", "userinfo: " + sharedPreferences.getString(context.getString(R.string.userInfo), null));
+    }
+
+    /**
      * Writes the initial trips statistics on first start of application.
      * @param jsonArray
      */
@@ -112,6 +124,19 @@ public class AndroidFileIO {
         prefEditor.putString( context.getString(R.string.statisticsData), string );
         prefEditor.commit();
         Log.e("AndroidFileIO", "tripsStatistics: " + sharedPreferences.getString(context.getString(R.string.statisticsData), null));
+    }
+
+    /**
+     * Writes the initial user information on first start of application.
+     * @param userInformation
+     */
+    public void writeInitialUserInformation(JSONObject userInformation){
+        String string = userInformation.toString();
+        SharedPreferences sharedPreferences = context.getSharedPreferences(context.getString(R.string.userInfo), Context.MODE_PRIVATE);
+        SharedPreferences.Editor prefEditor = sharedPreferences.edit();
+        prefEditor.putString( context.getString(R.string.userInfo), string );
+        prefEditor.commit();
+        Log.e("AndroidFileIO", "userInformation: " + sharedPreferences.getString(context.getString(R.string.userInfo), null));
     }
 
     public JSONArray readStatisticsSaveFile(){
@@ -127,6 +152,18 @@ public class AndroidFileIO {
         return trips;
     }
 
+    public JSONObject readUserInformation(){
+        SharedPreferences sharedPreferences = context.getSharedPreferences(context.getString(R.string.userInfo), Context.MODE_PRIVATE);
+        String userInformationString = sharedPreferences.getString(context.getString(R.string.userInfo), null);
+        JSONObject userInformation = null;
+        try {
+            userInformation = new JSONObject(userInformationString);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return userInformation;
+    }
 //    //Only used once the first time the game starts up
 //    //If a file is already present it gives you the present file.
 //    public File getTripsSaveFile(){
