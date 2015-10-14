@@ -74,6 +74,7 @@ public class LoadingScreen extends AppMenu {
 //                    getUser().saveEnvironmentStatistics();
 //                    getUser().saveTripsStatistics();
                     getUser().createTripsStatistics();
+                    getUser().createUSerInformation();
                 }
 
 //                getUser().setUserPref(sharedPref); - Should be here if we are to have options like language selection.
@@ -83,6 +84,7 @@ public class LoadingScreen extends AppMenu {
                 //Loads the statistics from the phone internal storage
                 getUser().loadEnvironmentalStatistics();
                 getUser().loadTripsStatistics();
+                getUser().loadUserInformation();
 
                 //Connecting client -- This should be here if we have to make our own application from scratch
 //                if(!getUser().getUsername().equals("DefaultUser")){

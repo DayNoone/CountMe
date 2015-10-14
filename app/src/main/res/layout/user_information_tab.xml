@@ -32,7 +32,6 @@
     <EditText
         android:layout_width="150dp"
         android:layout_height="40dp"
-        android:text="@string/PickBirthDate"
         android:inputType="number"
         android:gravity="center"
         android:maxLength="4"
@@ -40,6 +39,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight="20dp"
         android:id="@+id/editText"
+        android:hint="@string/PickBirthDate"
         android:layout_centerVertical="true"
         android:layout_below="@+id/UserInformationHeadLine"
         android:imeOptions="actionDone"
@@ -55,5 +55,39 @@
         android:layout_alignBaseline="@+id/editText"
         android:layout_marginLeft="20dp"
         android:layout_below="@+id/UserInformationHeadLine" />
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="260dp"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/genderGrp"
+        >
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Male"
+            android:textColor="#FFFFFF"
+            android:buttonTint="#FFFFFF"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/male"
+            />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Kvinne"
+            android:id="@+id/female"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#FFFFFF"
+            android:buttonTint="#FFFFFF"
+            android:layout_marginLeft="30dp"
+            />
+
+
+    </RadioGroup>
+
 
 </RelativeLayout>

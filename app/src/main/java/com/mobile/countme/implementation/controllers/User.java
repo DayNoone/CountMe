@@ -183,6 +183,21 @@ public class User {
 
     }
 
+    /**
+     * Loads the user information from phones internal storage
+     */
+    public void loadUserInformation(){
+        JSONObject userInformation = fileIO.readUserInformation();
+        Log.w("User", "loadTripsStatistics: " + userInformation);
+        try {
+            userModel.setGender(userInformation.getString("Gender"));
+            userModel.setBirthYear(Integer.parseInt(userInformation.getString("BirthDate")));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     //Saves all trips statistics to internal storage
     //Current solution puts all statistics as a long string with the @ as an end char.
     public void saveTripsStatistics(){
@@ -198,6 +213,18 @@ public class User {
         fileIO.writeStatisticSaveFile(tripsToday);
     }
 
+    //Saves the user information to internal storage
+    public void saveUserInformationToStorage(){
+        JSONObject userInfo = new JSONObject();
+        try {
+            userInfo.put("BirthDate",userModel.getBirthYear());
+            userInfo.put("Gender", userModel.getGender());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        fileIO.writeUserInformationSaveFile(userInfo);
+    }
+
     public void createTripsStatistics(){
         JSONArray trips = new JSONArray();
             JSONObject trip = new JSONObject();
@@ -211,6 +238,17 @@ public class User {
                 e.printStackTrace();
             }
         fileIO.writeInitialStatisticsSaveFile(trips);
+    }
+
+    public void createUSerInformation(){
+        JSONObject userInformation = new JSONObject();
+        try {
+            userInformation.put("BirthDate", 0);
+            userInformation.put("Gender", 0);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        fileIO.writeUserInformationSaveFile(userInformation);
     }
 
     /**
@@ -276,6 +314,7 @@ public class User {
         statisticsModel.addCo2_saved(co2);
         tripModel.setCo2_saved(co2);
     }
+
 
     public boolean isTripInitialized() {
         return tripInitialized;
@@ -393,4 +432,6 @@ public class User {
     public void setStart_using_tracker(boolean start_using_tracker) {
         this.start_using_tracker = start_using_tracker;
     }
+
+
 }

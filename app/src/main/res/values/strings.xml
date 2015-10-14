@@ -16,8 +16,10 @@
     <!--UserInformationTab-->
     <string name="intro_userInformation"> Dette vil være nyttig tilleggsinformasjon til analyse. Den er helt valgfri, men vi ville satt veldig pris på om du fyller ut.</string>
     <string name="UserInformation">Brukerinformasjon</string>
-    <string name="PickBirthDate">YYYY</string>
+    <string name="PickBirthDate">ÅÅÅÅ</string>
     <string name="InfoPickBirthDate">Legg inn fødselsår: </string>
+    <string name="Male">Mann</string>
+    <string name="Kvinne">Kvinne</string>
 
     <string name="intro_page4">Ved å trykke på mobilens <i>optionsknapp</i>, kan du velge språk. </string>
 
@@ -80,5 +82,6 @@
     <!--Consider making these strings unreadable-->
     <string name="statisticsData">statisticsData</string>
     <string name="profile_preferences">UserPrefsFile</string>
+    <string name="userInfo">userInfo</string>
 
 </resources>

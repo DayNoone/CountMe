@@ -8,14 +8,14 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import com.mobile.countme.framework.AppMenu;
 import com.mobile.countme.R;
@@ -93,66 +93,63 @@ public class IntroductionMenu extends AppMenu {
     }
 
     public void goToMainApp(View view) {
+        getUser().saveUserInformationToStorage();
         goTo(MainMenu.class);
     }
 
 
-    public void insertDate(View view){
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-
-        alert.setTitle("Legg til beskrivelse");
-
-// Set an EditText view to get user input
-        final EditText input = new EditText(this);
-        final Integer birthYear = getUser().getUserModel().getBirthYear();
-        Log.e("IntroductionMenu", birthYear + "");
-        input.setFilters(new InputFilter[] {new InputFilter.LengthFilter(4)});
-        if(birthYear != 0) {
-            input.setText(birthYear + "");
-        }
-        input.setInputType(InputType.TYPE_CLASS_NUMBER);
-        alert.setView(input);
-
-        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                // Do something with value!
-                Editable editable = input.getText();
-                if (editable.toString().length() > 0) {
-                    int birthYear = Integer.parseInt(editable.toString());
-                    getUser().getUserModel().setBirthYear(birthYear);
-                }
-            }
-        });
-
-        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                // Canceled.
-            }
-        });
-
-        alert.show();
-    }
-
-    public void initEditText(){
+    public void initUserInformation(){
         final EditText editText = (EditText) findViewById(R.id.editText);
         if(editText == null) return;
         final Integer birthYear = getUser().getUserModel().getBirthYear();
-        if(birthYear != 0) {
+        if(birthYear != null && birthYear != 0) {
             editText.setText(birthYear + "");
         }
-        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        editText.addTextChangedListener(new TextWatcher() {
             @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                boolean handled = false;
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    Editable editable = editText.getText();
-                    if (editable.toString().length() > 0) {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                Editable editable = editText.getText();
+                if (!editable.toString().contains("Y")) {
+                    if(editable.toString().isEmpty()){
+                        getUser().getUserModel().setBirthYear(0);
+                    }else {
                         int newBirthYear = Integer.parseInt(editable.toString());
                         getUser().getUserModel().setBirthYear(newBirthYear);
                     }
-                    handled = true;
                 }
-                return handled;
+            }
+        });
+
+        RadioGroup rg = (RadioGroup) findViewById(R.id.genderGrp);
+        if(rg == null) return;
+        if(getUser().getUserModel().getGender() != null && getUser().getUserModel().getGender().equals("male")){
+            RadioButton male = (RadioButton) findViewById(R.id.male);
+            male.setChecked(true);
+        }else if(getUser().getUserModel().getGender() != null && getUser().getUserModel().getGender().equals("female")){
+            RadioButton female = (RadioButton) findViewById(R.id.female);
+            female.setChecked(true);
+        }
+        rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.male:
+                        getUser().getUserModel().setGender("male");
+                        break;
+                    case R.id.female:
+                        getUser().getUserModel().setGender("female");
+                        break;
+                }
             }
         });
     }

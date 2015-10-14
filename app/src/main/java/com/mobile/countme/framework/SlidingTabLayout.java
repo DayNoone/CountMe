@@ -297,7 +297,7 @@ public class SlidingTabLayout extends HorizontalScrollView {
                 mainMenu.setStatistics();
             }
             if(introductionMenuInitialized){
-                introductionMenu.initEditText();
+                introductionMenu.initUserInformation();
             }
         }
 
