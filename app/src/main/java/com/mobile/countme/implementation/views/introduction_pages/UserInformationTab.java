@@ -12,10 +12,10 @@ import android.view.ViewGroup;
 
 import com.mobile.countme.R;
 
-public class Page3 extends Fragment  {
+public class UserInformationTab extends Fragment  {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v =inflater.inflate(R.layout.page_3,container,false);
+        View v =inflater.inflate(R.layout.user_information_tab,container,false);
         return v;
     }
 }

@@ -12,6 +12,7 @@ import com.mobile.countme.implementation.models.EnvironmentModel;
 import com.mobile.countme.implementation.models.ErrorModel;
 import com.mobile.countme.implementation.models.TripModel;
 import com.mobile.countme.implementation.models.StatisticsModel;
+import com.mobile.countme.implementation.models.UserModel;
 import com.mobile.countme.implementation.views.BikingActive;
 
 import org.json.JSONArray;
@@ -66,6 +67,7 @@ public class User {
     private StatisticsModel statisticsModel;
     private TripModel tripModel;
     private ErrorModel errorModel;
+    private UserModel userModel;
 
     public User (AndroidFileIO io, AppMenu context) {
         this.fileIO = io;
@@ -75,6 +77,7 @@ public class User {
         environmentModel = new EnvironmentModel();
         statisticsModel = new StatisticsModel();
         tripModel = new TripModel();
+        userModel = new UserModel();
 
         tripErrors = new HashMap<>();
 
@@ -241,6 +244,10 @@ public class User {
 
     public TripModel getTripModel() {
         return tripModel;
+    }
+
+    public UserModel getUserModel() {
+        return userModel;
     }
 
     public Map<String,ErrorModel> getTripErrors() {
