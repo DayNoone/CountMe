@@ -22,6 +22,7 @@ import java.util.Random;
 public class BikingActive extends AppMenu {
 
     private GPSTracker tracker;
+
     public void onCreate(Bundle savedInstanceBundle) {
         super.onCreate(savedInstanceBundle);
         setContentView(R.layout.biking_active);
@@ -39,10 +40,8 @@ public class BikingActive extends AppMenu {
                     public void onClick(DialogInterface arg0, int arg1) {
 
                         tracker.stopUsingGPS();
-                         
-                        getUser().addTripDistance(tracker.getDistance());
-                        getUser().calculateCo2(tracker.getDistance());
-                        getUser().addTripAvgSpeed(tracker.getDistance()/getUser().getCounter());
+
+                        getUser().addStatistics(tracker.getDistance());
                         getUser().stoptimertask();
                         goTo(ResultMenu.class);
                     }
@@ -53,10 +52,13 @@ public class BikingActive extends AppMenu {
         goTo(MapsActivity.class);
     }
 
+    /**
+     * Error reporting
+     * @param view
+     */
     public void sendError(View view){
         final ErrorModel newErrorModel = new ErrorModel(getUser());
-        Random random = new Random();
-        newErrorModel.setCoordinates("test" + random.nextInt(100));
+        newErrorModel.setCoordinates("Feilmelding " + getUser().getErrorCount());
         new AlertDialog.Builder(this)
                 .setMessage(R.string.report_error)
                 .setNegativeButton(R.string.later, new DialogInterface.OnClickListener() {
@@ -89,9 +91,7 @@ public class BikingActive extends AppMenu {
                     public void onClick(DialogInterface arg0, int arg1) {
                         tracker.stopUsingGPS();
 
-                        getUser().addTripDistance(tracker.getDistance());
-                        getUser().calculateCo2(tracker.getDistance());
-                        getUser().addTripAvgSpeed(tracker.getDistance() /getUser().getCounter());
+                        getUser().addStatistics(tracker.getDistance());
                         getUser().stoptimertask();
                         goTo(ResultMenu.class);
                     }
@@ -99,14 +99,19 @@ public class BikingActive extends AppMenu {
     }
 
 
-    public void updateView(String time_used){
+    /**
+     * Updates the view of this menu with new values for the user to see real time statistics
+     * @param time_used
+     * @param start_using_tracker
+     */
+    public void updateView(String time_used, boolean start_using_tracker){
         CustomTextView time = (CustomTextView) findViewById(R.id.tracking_time);
         CustomTextView speed = (CustomTextView) findViewById(R.id.current_speed);
         CustomTextView distance = (CustomTextView) findViewById(R.id.tripDistance);
         if(time != null) {
             time.setText(time_used);
         }
-        if(tracker != null) {
+        if(tracker != null && start_using_tracker) {
             speed.setText(Float.toString(tracker.getCurrentSpeed()) + " m/s");
             Double transformedDistance = new BigDecimal(tracker.getDistance()).setScale(3, BigDecimal.ROUND_HALF_UP).doubleValue();
             distance.setText(Double.toString(transformedDistance) + "m");

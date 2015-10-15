@@ -16,7 +16,7 @@
     <!-- Introduction pages -->
     <string name="intro_page1">All usage of this app is anonymous. The first and last 100 metres of your path gets deleted.</string>
     <string name="intro_page2">The purpose of this app is to [...]</string>
-    <string name="intro_page3">This is some text explaining something of importance</string>
+    <string name="intro_userInformation">This is some text explaining something of importance</string>
     <string name="intro_page4">And with that, you may start the app.</string>
 
     <!-- Biking idle -->

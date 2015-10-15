@@ -96,12 +96,12 @@
         android:layout_width="118dp"
         android:layout_height="wrap_content"
         android:text="@string/popupError"
-        android:onClick="showErrorList"
+        android:onClick="showErrorPopupList"
         android:background="@drawable/btn_stroke"
         android:id="@+id/popupError"
         android:layout_below="@id/textView11"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="235dp" />
+        android:layout_alignStart="@id/textView11" />
 
     <Button
         android:layout_width="wrap_content"
@@ -110,7 +110,7 @@
         android:onClick="goToMainMenu"
         android:background="@drawable/btn_stroke"
         android:id="@+id/goToMainScreen"
-        android:layout_marginTop="172dp"
+        android:layout_marginTop="188dp"
         android:layout_alignTop="@+id/avgSpeed_result"
         android:layout_alignEnd="@+id/titleResult" />
 </RelativeLayout>

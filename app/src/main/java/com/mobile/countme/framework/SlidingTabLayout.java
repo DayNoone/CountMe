@@ -32,6 +32,7 @@ package com.mobile.countme.framework;
         import android.widget.LinearLayout;
         import android.widget.TextView;
 
+        import com.mobile.countme.implementation.controllers.IntroductionMenu;
         import com.mobile.countme.implementation.controllers.MainMenu;
 
 /**
@@ -82,7 +83,9 @@ public class SlidingTabLayout extends HorizontalScrollView {
 
     //Created
     private MainMenu mainMenu;
+    private IntroductionMenu introductionMenu;
     private boolean mainPagesInitialized;
+    private boolean introductionMenuInitialized;
 
     public SlidingTabLayout(Context context) {
         this(context, null);
@@ -293,6 +296,9 @@ public class SlidingTabLayout extends HorizontalScrollView {
             if(mainPagesInitialized){
                 mainMenu.setStatistics();
             }
+            if(introductionMenuInitialized){
+                introductionMenu.initUserInformation();
+            }
         }
 
         @Override
@@ -342,5 +348,13 @@ public class SlidingTabLayout extends HorizontalScrollView {
 
     public void setMainPagesInitialized(boolean mainPagesInitialized) {
         this.mainPagesInitialized = mainPagesInitialized;
+    }
+
+    public void setIntroductionMenu(IntroductionMenu introductionMenu) {
+        this.introductionMenu = introductionMenu;
+    }
+
+    public void setIntroductionMenuInitialized(boolean introductionMenuInitialized) {
+        this.introductionMenuInitialized = introductionMenuInitialized;
     }
 }

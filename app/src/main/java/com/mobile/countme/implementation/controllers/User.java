@@ -3,7 +3,6 @@ package com.mobile.countme.implementation.controllers;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.os.Handler;
 import android.util.Log;
 
 import com.mobile.countme.R;
@@ -13,6 +12,7 @@ import com.mobile.countme.implementation.models.EnvironmentModel;
 import com.mobile.countme.implementation.models.ErrorModel;
 import com.mobile.countme.implementation.models.TripModel;
 import com.mobile.countme.implementation.models.StatisticsModel;
+import com.mobile.countme.implementation.models.UserModel;
 import com.mobile.countme.implementation.views.BikingActive;
 
 import org.json.JSONArray;
@@ -41,10 +41,10 @@ public class User {
     private AppMenu context;
     private MainMenu mainMenu;
 
+    //Format for timestamp
     private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-M-yyyy");
     private Calendar calendar = new GregorianCalendar();
 
-    private boolean tripInitialized;
     //Used in the result menu
     private boolean errorClicked;
     //Current time
@@ -56,12 +56,14 @@ public class User {
     //Timer during trip with a Timertask that will update the bikingactive view
     private Timer timer;
     private TimerTask timerTask;
-    private int counter;
-    //we are going to use a handler to be able to run in our TimerTask
-    final Handler handler = new Handler();
 
-
+    //Biking active fields
     private BikingActive bikingActive;
+    //Set to true when starting tracker
+    private boolean start_using_tracker;
+    private boolean tripInitialized;
+    //The count of the errors in one trip
+    private int errorCount = 1;
 
     /**
      * The models of the MVC structure.
@@ -70,6 +72,7 @@ public class User {
     private StatisticsModel statisticsModel;
     private TripModel tripModel;
     private ErrorModel errorModel;
+    private UserModel userModel;
 
     public User (AndroidFileIO io, AppMenu context) {
         this.fileIO = io;
@@ -79,6 +82,7 @@ public class User {
         environmentModel = new EnvironmentModel();
         statisticsModel = new StatisticsModel();
         tripModel = new TripModel();
+        userModel = new UserModel();
 
         tripErrors = new HashMap<>();
 
@@ -184,8 +188,22 @@ public class User {
 
     }
 
+    /**
+     * Loads the user information from phones internal storage
+     */
+    public void loadUserInformation(){
+        JSONObject userInformation = fileIO.readUserInformation();
+        Log.w("User", "loadTripsStatistics: " + userInformation);
+        try {
+            userModel.setGender(userInformation.getString("Gender"));
+            userModel.setBirthYear(Integer.parseInt(userInformation.getString("BirthDate")));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     //Saves all trips statistics to internal storage
-    //Current solution puts all statistics as a long string with the @ as an end char.
     public void saveTripsStatistics(){
         JSONObject tripsToday = new JSONObject();
         try {
@@ -199,6 +217,21 @@ public class User {
         fileIO.writeStatisticSaveFile(tripsToday);
     }
 
+    //Saves the user information to internal storage
+    public void saveUserInformationToStorage(){
+        JSONObject userInfo = new JSONObject();
+        try {
+            userInfo.put("BirthDate", userModel.getBirthYear());
+            userInfo.put("Gender", userModel.getGender());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        fileIO.writeUserInformationSaveFile(userInfo);
+    }
+
+    /**
+     * Creates a reset trip statistics
+     */
     public void createTripsStatistics(){
         JSONArray trips = new JSONArray();
             JSONObject trip = new JSONObject();
@@ -212,6 +245,20 @@ public class User {
                 e.printStackTrace();
             }
         fileIO.writeInitialStatisticsSaveFile(trips);
+    }
+
+    /**
+     * Creates a reset user information
+     */
+    public void createUserInformation(){
+        JSONObject userInformation = new JSONObject();
+        try {
+            userInformation.put("BirthDate", 0);
+            userInformation.put("Gender", 0);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        fileIO.writeUserInformationSaveFile(userInformation);
     }
 
     /**
@@ -247,6 +294,10 @@ public class User {
         return tripModel;
     }
 
+    public UserModel getUserModel() {
+        return userModel;
+    }
+
     public Map<String,ErrorModel> getTripErrors() {
         return tripErrors;
     }
@@ -262,23 +313,6 @@ public class User {
     public AppMenu getContext() {
         return context;
     }
-
-    public void calculateCo2(double distance){
-        int co2 = environmentModel.addCo2_savedTrip(distance);
-        statisticsModel.addCo2_saved(co2);
-        tripModel.setCo2_saved(co2);
-    }
-
-    public void addTripDistance(double tripDistance){
-        statisticsModel.addDistance(tripDistance);
-        tripModel.setDistance(tripDistance);
-    }
-
-    public void addTripAvgSpeed(double tripAvgSpeed){
-        statisticsModel.calc_new_avgSpeed(tripAvgSpeed);
-        tripModel.setAvg_speed(tripAvgSpeed);
-    }
-
     public boolean isTripInitialized() {
         return tripInitialized;
     }
@@ -287,14 +321,26 @@ public class User {
         this.tripInitialized = tripInitialized;
     }
 
+    /**
+     * Adds a description to the error.
+     * @param description
+     */
     public void addDescription(String description){
         errorModel.setDescprition(description);
     }
 
+    /**
+     * Adds a photo to the error
+     * @param photo
+     */
     public void addPhoto(Bitmap photo){
         errorModel.setPhotoTaken(photo);
     }
 
+    /**
+     * Adds an errorModel to the list of errors
+     * @param errorModel
+     */
     public void addError(ErrorModel errorModel){
         tripErrors.put(errorModel.toString(), errorModel);
     }
@@ -303,8 +349,12 @@ public class User {
         errorModel = error;
     }
 
+    /**
+     * Resets the error list after a trip is finished, also resets the error counter
+     */
     public void resetErrors(){
         tripErrors = new HashMap<>();
+        errorCount = 1;
     }
 
     public void setErrorClicked(boolean errorClicked) {
@@ -319,12 +369,42 @@ public class User {
         this.time = System.currentTimeMillis();
     }
 
+    public void setStart_using_tracker(boolean start_using_tracker) {
+        this.start_using_tracker = start_using_tracker;
+    }
+
+    public int getErrorCount() {
+        return errorCount++;
+    }
+    /**
+     * Adds and calculates the new statistics after a trip is finished
+     * @param distance
+     */
+    public void addStatistics(double distance){
+        statisticsModel.addDistance(distance);
+        tripModel.setDistance(distance);
+        double avgSpeed = distance/getTimeUsedInSeconds();
+        statisticsModel.calc_new_avgSpeed(avgSpeed);
+        tripModel.setAvg_speed(avgSpeed);
+        int co2 = environmentModel.addCo2_savedTrip(distance);
+        statisticsModel.addCo2_saved(co2);
+        tripModel.setCo2_saved(co2);
+    }
+
+    /**
+     * Returns the time used in the format: HH:MM:SS
+     * @param time_used
+     * @return
+     */
     public String getTimeInFormat(Integer time_used) {
         String seconds = "";
         String minutes = "";
         String hours = "";
         long difference = System.currentTimeMillis() - time;
         Integer numSeconds = (int) (difference/1000);
+        if(numSeconds > 5){
+            start_using_tracker = true;
+        }
         if(time_used > 0){
             numSeconds = time_used;
         }
@@ -347,6 +427,18 @@ public class User {
         return "" + hours + ":"  + minutes + ":"+ seconds;
     }
 
+    /**
+     * Returns the time used in seconds
+     * @return
+     */
+    public double getTimeUsedInSeconds(){
+        long difference = System.currentTimeMillis() - time;
+        return (double)(difference/1000);
+    }
+
+    /**
+     * Initializes the timer
+     */
     public void startTimer() {
         //set a new Timer
         timer = new Timer();
@@ -358,15 +450,20 @@ public class User {
         timer.schedule(timerTask, 1000, 1000); //
     }
 
+    /**
+     * Stops the timer
+     */
     public void stoptimertask() {
         //stop the timer, if it's not already null
         if (timer != null) {
-            counter = 0;
             timer.cancel();
             timer = null;
         }
     }
 
+    /**
+     * Initializes the timer task after X milliseconds
+     */
     public void initializeTimerTask() {
         timerTask = new TimerTask() {
             @Override
@@ -376,8 +473,7 @@ public class User {
                     @Override
                     public void run() {
                         if(bikingActive != null) {
-                            counter++;
-                            bikingActive.updateView(getTimeInFormat(counter));
+                            bikingActive.updateView(getTimeInFormat(-1), start_using_tracker);
                         }
                     }
                 });
@@ -386,7 +482,4 @@ public class User {
         };
     }
 
-    public int getCounter() {
-        return counter;
-    }
 }
