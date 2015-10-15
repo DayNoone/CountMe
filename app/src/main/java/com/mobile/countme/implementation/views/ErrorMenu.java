@@ -37,7 +37,7 @@ public class ErrorMenu extends AppMenu {
     }
 
     public void finishEditing(View view){
-        //TODO: Set trip init when starting trip track.
+        getUser().getErrorModel().setEditedWhenReported(false);
         if(getUser().isTripInitialized()){
             goTo(BikingActive.class);
         }else {
@@ -78,7 +78,6 @@ public class ErrorMenu extends AppMenu {
         if(getUser().getErrorModel().isEditedWhenReported()) {
             Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
             startActivityForResult(intent, 0);
-            getUser().getErrorModel().setEditedWhenReported(false);
         }else {
             Toast.makeText(getApplicationContext(),"Du kan ikke laste opp bilde i ettertid", Toast.LENGTH_SHORT).show();
         }
@@ -125,7 +124,7 @@ public class ErrorMenu extends AppMenu {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-
+        getUser().getErrorModel().setEditedWhenReported(false);
         if(getUser().isTripInitialized()){
             goTo(BikingActive.class);
         }else {

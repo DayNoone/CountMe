@@ -22,6 +22,7 @@ import java.util.Random;
 public class BikingActive extends AppMenu {
 
     private GPSTracker tracker;
+
     public void onCreate(Bundle savedInstanceBundle) {
         super.onCreate(savedInstanceBundle);
         setContentView(R.layout.biking_active);
@@ -51,10 +52,13 @@ public class BikingActive extends AppMenu {
         goTo(MapsActivity.class);
     }
 
+    /**
+     * Error reporting
+     * @param view
+     */
     public void sendError(View view){
         final ErrorModel newErrorModel = new ErrorModel(getUser());
-        Random random = new Random();
-        newErrorModel.setCoordinates("test" + random.nextInt(100));
+        newErrorModel.setCoordinates("Feilmelding " + getUser().getErrorCount());
         new AlertDialog.Builder(this)
                 .setMessage(R.string.report_error)
                 .setNegativeButton(R.string.later, new DialogInterface.OnClickListener() {
@@ -95,6 +99,11 @@ public class BikingActive extends AppMenu {
     }
 
 
+    /**
+     * Updates the view of this menu with new values for the user to see real time statistics
+     * @param time_used
+     * @param start_using_tracker
+     */
     public void updateView(String time_used, boolean start_using_tracker){
         CustomTextView time = (CustomTextView) findViewById(R.id.tracking_time);
         CustomTextView speed = (CustomTextView) findViewById(R.id.current_speed);

@@ -74,7 +74,7 @@ public class LoadingScreen extends AppMenu {
 //                    getUser().saveEnvironmentStatistics();
 //                    getUser().saveTripsStatistics();
                     getUser().createTripsStatistics();
-                    getUser().createUSerInformation();
+                    getUser().createUserInformation();
                 }
 
 //                getUser().setUserPref(sharedPref); - Should be here if we are to have options like language selection.
