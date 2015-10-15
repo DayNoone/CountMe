@@ -3,6 +3,7 @@ package com.mobile.countme.implementation.controllers;
 import android.content.Context;
 import android.location.Location;
 import android.net.ConnectivityManager;
+import android.util.Log;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
@@ -34,6 +35,7 @@ public class HTTPSender {
     //sendTrip method creates a json from an arraylist of locations, an arraylist of ints and a context
     //Then it uses delegation to send the json to the server via a specified url
     public static void sendTrip(ArrayList<Location> trip, ArrayList<Integer> connectionTypes, Context context) {
+        Log.d("SendTrip", "SendTrip started");
 
         JSONObject jsonObject = null;
 
@@ -78,8 +80,9 @@ public class HTTPSender {
                 dataPoint.put("lat", location.getLatitude());
                 dataPoint.put("lon", location.getLongitude());
                 dataPoint.put("time", sdf.format(new Date(location.getTime())) + "-0100");
-                int connectionType = connectionTypes.get(i);
-                switch (connectionType) {
+                dataPoint.put("mode", "mobile");
+                //int connectionType = connectionTypes.get(i);
+                /*switch (connectionType) {
                     case (ConnectivityManager.TYPE_BLUETOOTH):
                         dataPoint.put("mode", "bluethooth");
                         break;
@@ -130,9 +133,11 @@ public class HTTPSender {
             jsonObject.put("purpose", "");
             String versionName = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName;
             jsonObject.put("OS", versionName);
-        } catch (Exception e) {
+            Log.d("SendTrip", "JSON created successfully");
+        }
+        catch (Exception e) {
             //dirty fix to checked exceptions
-            System.out.println("Feil med JSON");
+            e.printStackTrace();
         }
 
 
@@ -144,7 +149,7 @@ public class HTTPSender {
 
     //sendJSON is a delegation method that sends a jsonObject to an url
     private static void sendJSON(JSONObject obj, String url){
-
+        Log.d("SendJSON", "SendJSON started");
         HttpPost post = new HttpPost( url );
         StringEntity string = null;
         HttpResponse response;
@@ -154,8 +159,10 @@ public class HTTPSender {
             string.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
             post.setEntity(string);
             response = new DefaultHttpClient().execute(post);
+            Log.d("SendJSON", "JSON sent");
         }
         catch (Exception e){
+            e.printStackTrace();
 
         }
 

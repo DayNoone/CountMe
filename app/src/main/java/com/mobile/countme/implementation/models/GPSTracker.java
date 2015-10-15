@@ -66,8 +66,8 @@ public class GPSTracker extends Service implements LocationListener {
             ConnectivityManager cm =
                     (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
             connectionTypes = new ArrayList<Integer>();
-            activeNetwork = cm.getActiveNetworkInfo();
-            connectionTypes.add(activeNetwork.getType());
+            //activeNetwork = cm.getActiveNetworkInfo();
+            //connectionTypes.add(activeNetwork.getType());
             trip.add(getLocation());
         }
 
@@ -92,11 +92,6 @@ public class GPSTracker extends Service implements LocationListener {
                 this.canGetLocation = true;
                 // First get location from Network Provider
                 if (isNetworkEnabled && !isGPSEnabled) {
-                    if (android.os.Build.VERSION.SDK_INT > 22) {
-                        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                            return null;
-                        }
-                    }
                     locationManager.requestLocationUpdates(
                             LocationManager.NETWORK_PROVIDER,
                             MIN_TIME_BW_UPDATES,
@@ -141,13 +136,10 @@ public class GPSTracker extends Service implements LocationListener {
      * Calling this function will stop using GPS in your app
      */
     public void stopUsingGPS() {
+        Log.d("Stopping GPS", "Stopping GPS");
         if (locationManager != null) {
-            if (android.os.Build.VERSION.SDK_INT > 22) {
-                if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    return;
-                }
-            }
-            locationManager.removeUpdates(GPSTracker.this);
+            Log.d("Stopping GPS", "Locationmanager!=null");
+            locationManager.removeUpdates(this);
             HTTPSender.sendTrip(trip, connectionTypes, mContext);
         }
     }
@@ -221,8 +213,8 @@ public class GPSTracker extends Service implements LocationListener {
     public void onLocationChanged(Location location) {
         if (location != null) {
             trip.add(location);
-            activeNetwork = cm.getActiveNetworkInfo();
-            connectionTypes.add(activeNetwork.getType());
+            //activeNetwork = cm.getActiveNetworkInfo();
+            //connectionTypes.add(activeNetwork.getType());
             if (trip.size() > 1) {
                 distance += location.distanceTo(trip.get(trip.size() - 2));
             }
