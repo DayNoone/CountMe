@@ -25,6 +25,7 @@ import java.util.TimeZone;
 public class HTTPSender {
 
     private static final String SERVER_URL = "https://tf2.sintef.no:8084/smioTest/api/";
+    private static final String USERID = "560946d8b2af57c413ac8426";
     public HTTPSender() {
 
     }
@@ -50,7 +51,7 @@ public class HTTPSender {
          */
         try {
             jsonObject = new JSONObject();
-            jsonObject.put("_userId", "USERID"); //TODO fill in correct user id
+            jsonObject.put("_userId", USERID); //TODO fill in correct user id
             Date startTime = new Date(trip.get(0).getTime());
             Date endTime = new Date(trip.get(trip.size() - 1).getTime());
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy'-'MM'-'dd'T'hh':'mm':'ss");
@@ -136,7 +137,7 @@ public class HTTPSender {
 
 
         if (jsonObject != null) {
-            String url = SERVER_URL + "user/" + "USERID" + "/trips"; //TODO correct user id
+            String url = SERVER_URL + "user/" + USERID + "/trips"; //TODO correct user id
             sendJSON(jsonObject, url);
         }
     }
