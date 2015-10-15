@@ -119,7 +119,7 @@ public class HTTPSender {
                 dataPoint.put("accuracy", trip.get(i).getAccuracy());
                 dataPoint.put("altitudeAccuracy", "");
                 dataPoint.put("heading", "");
-                dataPoint.put("altitude", trip.get(i).getSpeed());
+                dataPoint.put("speed", trip.get(i).getSpeed());
 
             }
             jsonObject.put("tripData", tripData);
@@ -129,6 +129,7 @@ public class HTTPSender {
         }
         catch(Exception e){
             //dirty fix to checked exceptions
+            System.out.println("Feil med JSON");
         }
 
         if( jsonObject != null) {
@@ -143,6 +144,7 @@ public class HTTPSender {
                 response = new DefaultHttpClient().execute(post);
             }
             catch (Exception e){
+                System.out.println("Feil med sending til server");
 
             }
         }
