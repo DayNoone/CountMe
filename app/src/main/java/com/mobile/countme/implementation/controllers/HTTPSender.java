@@ -30,6 +30,8 @@ public class HTTPSender {
     }
 
 
+    //sendTrip method creates a json from an arraylist of locations, an arraylist of ints and a context
+    //Then it uses delegation to send the json to the server via a specified url
     public static void sendTrip(ArrayList<Location> trip, ArrayList<Integer> connectionTypes, Context context) {
 
         JSONObject jsonObject = null;
@@ -139,6 +141,7 @@ public class HTTPSender {
         }
     }
 
+    //sendJSON is a delegation method that sends a jsonObject to an url
     private static void sendJSON(JSONObject obj, String url){
 
         HttpPost post = new HttpPost( url );
@@ -154,6 +157,9 @@ public class HTTPSender {
         catch (Exception e){
 
         }
+
+        //If response is needed somewhere, return it and react in a relevant place
+
     }
 
 }
