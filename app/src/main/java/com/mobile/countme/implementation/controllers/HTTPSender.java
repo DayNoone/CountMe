@@ -132,20 +132,28 @@ public class HTTPSender {
             //dirty fix to checked exceptions
         }
 
+
         if( jsonObject != null) {
-            HttpPost post = new HttpPost(SERVER_URL + "user/" + "USERID" + "/trips" ); //TODO correct user id
-            StringEntity string = null;
-            HttpResponse response;
+            String url = SERVER_URL + "user/" + "USERID" + "/trips"; //TODO correct user id
+            sendJSON(jsonObject, url);
+        }
 
-            try {
-                string = new StringEntity(jsonObject.toString());
-                string.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
-                post.setEntity(string);
-                response = new DefaultHttpClient().execute(post);
-            }
-            catch (Exception e){
+    }
 
-            }
+    private static void sendJSON(JSONObject obj, String url){
+
+        HttpPost post = new HttpPost( url );
+        StringEntity string = null;
+        HttpResponse response;
+
+        try {
+            string = new StringEntity(obj.toString());
+            string.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+            post.setEntity(string);
+            response = new DefaultHttpClient().execute(post);
+        }
+        catch (Exception e){
+
         }
     }
 
