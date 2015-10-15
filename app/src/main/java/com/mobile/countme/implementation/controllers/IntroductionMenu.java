@@ -98,6 +98,9 @@ public class IntroductionMenu extends AppMenu {
     }
 
 
+    /**
+     * Initializes the user information tab
+     */
     public void initUserInformation(){
         final EditText editText = (EditText) findViewById(R.id.editText);
         if(editText == null) return;

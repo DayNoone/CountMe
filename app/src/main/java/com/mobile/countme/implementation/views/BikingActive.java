@@ -52,6 +52,10 @@ public class BikingActive extends AppMenu {
         goTo(MapsActivity.class);
     }
 
+    /**
+     * Error reporting
+     * @param view
+     */
     public void sendError(View view){
         final ErrorModel newErrorModel = new ErrorModel(getUser());
         newErrorModel.setCoordinates("Feilmelding " + getUser().getErrorCount());
@@ -95,6 +99,11 @@ public class BikingActive extends AppMenu {
     }
 
 
+    /**
+     * Updates the view of this menu with new values for the user to see real time statistics
+     * @param time_used
+     * @param start_using_tracker
+     */
     public void updateView(String time_used, boolean start_using_tracker){
         CustomTextView time = (CustomTextView) findViewById(R.id.tracking_time);
         CustomTextView speed = (CustomTextView) findViewById(R.id.current_speed);

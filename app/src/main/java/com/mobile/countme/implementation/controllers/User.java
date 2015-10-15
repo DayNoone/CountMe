@@ -41,11 +41,10 @@ public class User {
     private AppMenu context;
     private MainMenu mainMenu;
 
+    //Format for timestamp
     private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-M-yyyy");
     private Calendar calendar = new GregorianCalendar();
 
-    private boolean start_using_tracker;
-    private boolean tripInitialized;
     //Used in the result menu
     private boolean errorClicked;
     //Current time
@@ -58,7 +57,12 @@ public class User {
     private Timer timer;
     private TimerTask timerTask;
 
+    //Biking active fields
     private BikingActive bikingActive;
+    //Set to true when starting tracker
+    private boolean start_using_tracker;
+    private boolean tripInitialized;
+    //The count of the errors in one trip
     private int errorCount = 1;
 
     /**
@@ -200,7 +204,6 @@ public class User {
     }
 
     //Saves all trips statistics to internal storage
-    //Current solution puts all statistics as a long string with the @ as an end char.
     public void saveTripsStatistics(){
         JSONObject tripsToday = new JSONObject();
         try {
@@ -218,7 +221,7 @@ public class User {
     public void saveUserInformationToStorage(){
         JSONObject userInfo = new JSONObject();
         try {
-            userInfo.put("BirthDate",userModel.getBirthYear());
+            userInfo.put("BirthDate", userModel.getBirthYear());
             userInfo.put("Gender", userModel.getGender());
         } catch (JSONException e) {
             e.printStackTrace();
@@ -226,6 +229,9 @@ public class User {
         fileIO.writeUserInformationSaveFile(userInfo);
     }
 
+    /**
+     * Creates a reset trip statistics
+     */
     public void createTripsStatistics(){
         JSONArray trips = new JSONArray();
             JSONObject trip = new JSONObject();
@@ -241,7 +247,10 @@ public class User {
         fileIO.writeInitialStatisticsSaveFile(trips);
     }
 
-    public void createUSerInformation(){
+    /**
+     * Creates a reset user information
+     */
+    public void createUserInformation(){
         JSONObject userInformation = new JSONObject();
         try {
             userInformation.put("BirthDate", 0);
@@ -304,19 +313,6 @@ public class User {
     public AppMenu getContext() {
         return context;
     }
-
-    public void addStatistics(double distance){
-        statisticsModel.addDistance(distance);
-        tripModel.setDistance(distance);
-        double avgSpeed = distance/getTimeUsedInSeconds();
-        statisticsModel.calc_new_avgSpeed(avgSpeed);
-        tripModel.setAvg_speed(avgSpeed);
-        int co2 = environmentModel.addCo2_savedTrip(distance);
-        statisticsModel.addCo2_saved(co2);
-        tripModel.setCo2_saved(co2);
-    }
-
-
     public boolean isTripInitialized() {
         return tripInitialized;
     }
@@ -325,14 +321,26 @@ public class User {
         this.tripInitialized = tripInitialized;
     }
 
+    /**
+     * Adds a description to the error.
+     * @param description
+     */
     public void addDescription(String description){
         errorModel.setDescprition(description);
     }
 
+    /**
+     * Adds a photo to the error
+     * @param photo
+     */
     public void addPhoto(Bitmap photo){
         errorModel.setPhotoTaken(photo);
     }
 
+    /**
+     * Adds an errorModel to the list of errors
+     * @param errorModel
+     */
     public void addError(ErrorModel errorModel){
         tripErrors.put(errorModel.toString(), errorModel);
     }
@@ -341,6 +349,9 @@ public class User {
         errorModel = error;
     }
 
+    /**
+     * Resets the error list after a trip is finished, also resets the error counter
+     */
     public void resetErrors(){
         tripErrors = new HashMap<>();
         errorCount = 1;
@@ -358,6 +369,33 @@ public class User {
         this.time = System.currentTimeMillis();
     }
 
+    public void setStart_using_tracker(boolean start_using_tracker) {
+        this.start_using_tracker = start_using_tracker;
+    }
+
+    public int getErrorCount() {
+        return errorCount++;
+    }
+    /**
+     * Adds and calculates the new statistics after a trip is finished
+     * @param distance
+     */
+    public void addStatistics(double distance){
+        statisticsModel.addDistance(distance);
+        tripModel.setDistance(distance);
+        double avgSpeed = distance/getTimeUsedInSeconds();
+        statisticsModel.calc_new_avgSpeed(avgSpeed);
+        tripModel.setAvg_speed(avgSpeed);
+        int co2 = environmentModel.addCo2_savedTrip(distance);
+        statisticsModel.addCo2_saved(co2);
+        tripModel.setCo2_saved(co2);
+    }
+
+    /**
+     * Returns the time used in the format: HH:MM:SS
+     * @param time_used
+     * @return
+     */
     public String getTimeInFormat(Integer time_used) {
         String seconds = "";
         String minutes = "";
@@ -389,11 +427,18 @@ public class User {
         return "" + hours + ":"  + minutes + ":"+ seconds;
     }
 
+    /**
+     * Returns the time used in seconds
+     * @return
+     */
     public double getTimeUsedInSeconds(){
         long difference = System.currentTimeMillis() - time;
         return (double)(difference/1000);
     }
 
+    /**
+     * Initializes the timer
+     */
     public void startTimer() {
         //set a new Timer
         timer = new Timer();
@@ -405,6 +450,9 @@ public class User {
         timer.schedule(timerTask, 1000, 1000); //
     }
 
+    /**
+     * Stops the timer
+     */
     public void stoptimertask() {
         //stop the timer, if it's not already null
         if (timer != null) {
@@ -413,6 +461,9 @@ public class User {
         }
     }
 
+    /**
+     * Initializes the timer task after X milliseconds
+     */
     public void initializeTimerTask() {
         timerTask = new TimerTask() {
             @Override
@@ -431,11 +482,4 @@ public class User {
         };
     }
 
-    public void setStart_using_tracker(boolean start_using_tracker) {
-        this.start_using_tracker = start_using_tracker;
-    }
-
-    public int getErrorCount() {
-        return errorCount++;
-    }
 }
