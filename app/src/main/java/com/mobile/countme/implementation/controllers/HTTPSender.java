@@ -27,6 +27,7 @@ public class HTTPSender {
 
     private static final String SERVER_URL = "https://tf2.sintef.no:8084/smioTest/api/";
     private static final String USERID = "560946d8b2af57c413ac8426";
+
     public HTTPSender() {
 
     }
@@ -143,32 +144,12 @@ public class HTTPSender {
 
         if (jsonObject != null) {
             String url = SERVER_URL + "user/" + USERID + "/trips"; //TODO correct user id
-            sendJSON(jsonObject, url);
+            HttpSenderThread thread = new HttpSenderThread(jsonObject, url);
+            thread.start();
         }
     }
 
-    //sendJSON is a delegation method that sends a jsonObject to an url
-    private static void sendJSON(JSONObject obj, String url){
-        Log.d("SendJSON", "SendJSON started");
-        HttpPost post = new HttpPost( url );
-        StringEntity string = null;
-        HttpResponse response;
 
-        try {
-            string = new StringEntity(obj.toString());
-            string.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
-            post.setEntity(string);
-            response = new DefaultHttpClient().execute(post);
-            Log.d("SendJSON", "JSON sent");
-        }
-        catch (Exception e){
-            e.printStackTrace();
-
-        }
-
-        //If response is needed somewhere, return it and react in a relevant place
-
-    }
 
 }
 
