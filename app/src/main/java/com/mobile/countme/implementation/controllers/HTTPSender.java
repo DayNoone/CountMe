@@ -127,25 +127,17 @@ public class HTTPSender {
             jsonObject.put("purpose", "");
             String versionName = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName;
             jsonObject.put("OS", versionName);
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             //dirty fix to checked exceptions
             System.out.println("Feil med JSON");
         }
 
 
-        if( jsonObject != null) {
+        if (jsonObject != null) {
             String url = SERVER_URL + "user/" + "USERID" + "/trips"; //TODO correct user id
             sendJSON(jsonObject, url);
         }
-
-            try {
-                string = new StringEntity(jsonObject.toString());
-                string.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
-                post.setEntity(string);
-                response = new DefaultHttpClient().execute(post);
-            }
-            catch (Exception e){
+    }
 
     private static void sendJSON(JSONObject obj, String url){
 
