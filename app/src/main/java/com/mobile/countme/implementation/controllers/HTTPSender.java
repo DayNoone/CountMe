@@ -119,7 +119,12 @@ public class HTTPSender {
                 dataPoint.put("accuracy", trip.get(i).getAccuracy());
                 dataPoint.put("altitudeAccuracy", "");
                 dataPoint.put("heading", "");
+<<<<<<< HEAD
                 dataPoint.put("speed", trip.get(i).getSpeed());
+=======
+                dataPoint.put("altitude", trip.get(i).getSpeed());
+                tripData.put(dataPoint);
+>>>>>>> origin/SendToServer
 
             }
             jsonObject.put("tripData", tripData);
