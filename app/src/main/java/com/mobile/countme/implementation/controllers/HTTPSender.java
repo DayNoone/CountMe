@@ -119,7 +119,7 @@ public class HTTPSender {
                 dataPoint.put("accuracy", trip.get(i).getAccuracy());
                 dataPoint.put("altitudeAccuracy", "");
                 dataPoint.put("heading", "");
-                dataPoint.put("altitude", trip.get(i).getSpeed());
+                dataPoint.put("speed", trip.get(i).getSpeed());
                 tripData.put(dataPoint);
 
             }
@@ -130,6 +130,7 @@ public class HTTPSender {
         }
         catch(Exception e){
             //dirty fix to checked exceptions
+            System.out.println("Feil med JSON");
         }
 
 
@@ -138,7 +139,13 @@ public class HTTPSender {
             sendJSON(jsonObject, url);
         }
 
-    }
+            try {
+                string = new StringEntity(jsonObject.toString());
+                string.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+                post.setEntity(string);
+                response = new DefaultHttpClient().execute(post);
+            }
+            catch (Exception e){
 
     private static void sendJSON(JSONObject obj, String url){
 
