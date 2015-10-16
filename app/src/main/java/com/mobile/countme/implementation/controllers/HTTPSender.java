@@ -26,7 +26,7 @@ import java.util.TimeZone;
 public class HTTPSender {
 
     private static final String SERVER_URL = "https://tf2.sintef.no:8084/smioTest/api/";
-    private static final String USERID = "560946d8b2af57c413ac8426";
+    private static final String USERID = "560946d8b2af57c413ac8427";
     private static final String TOKEN = "$2a$10$w1BPdOBPdOBqiuaYiKJ6a2qYdewOKOdk7fQ.LE3yjf6fvF5/YLtBi2Q8S";
 
     public HTTPSender() {
