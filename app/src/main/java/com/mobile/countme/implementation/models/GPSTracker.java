@@ -246,6 +246,10 @@ public class GPSTracker extends Service implements LocationListener {
         return distance;
     }
 
+    public void setDistance(double distance) {
+        this.distance = distance;
+    }
+
     public boolean isCanGetLocation() {
         return canGetLocation;
     }

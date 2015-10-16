@@ -10,6 +10,7 @@ import com.mobile.countme.framework.AppMenu;
 import com.mobile.countme.implementation.AndroidFileIO;
 import com.mobile.countme.implementation.models.EnvironmentModel;
 import com.mobile.countme.implementation.models.ErrorModel;
+import com.mobile.countme.implementation.models.GPSTracker;
 import com.mobile.countme.implementation.models.TripModel;
 import com.mobile.countme.implementation.models.StatisticsModel;
 import com.mobile.countme.implementation.models.UserModel;
@@ -73,6 +74,7 @@ public class User {
     private TripModel tripModel;
     private ErrorModel errorModel;
     private UserModel userModel;
+    private GPSTracker tracker;
 
     public User (AndroidFileIO io, AppMenu context) {
         this.fileIO = io;
@@ -83,6 +85,7 @@ public class User {
         statisticsModel = new StatisticsModel();
         tripModel = new TripModel();
         userModel = new UserModel();
+        GPSTracker tracker = new GPSTracker(userModel.getApplicationContext());
 
         tripErrors = new HashMap<>();
 
@@ -376,6 +379,10 @@ public class User {
     public int getErrorCount() {
         return errorCount++;
     }
+    public GPSTracker getTracker() {
+        return tracker;
+    }
+
     /**
      * Adds and calculates the new statistics after a trip is finished
      * @param distance
@@ -482,4 +489,14 @@ public class User {
         };
     }
 
+    /**
+     * Stops the GPS tracker
+     */
+    public void stopTracker(){
+        tracker.stopUsingGPS();
+    }
+
+    public void resetTracker(){
+        tracker = new GPSTracker(userModel.getApplicationContext());
+    }
 }
