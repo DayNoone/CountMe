@@ -26,8 +26,11 @@ import java.util.TimeZone;
 public class HTTPSender {
 
     private static final String SERVER_URL = "https://tf2.sintef.no:8084/smioTest/api/";
-    private static final String USERID = "560946d9b2af57c413ac8427";
-    private static final String TOKEN = "$2a$10$w1BPdOBqiuaYiKJ6a2qYdewOKOdk7fQ.LE3yjf6fvF5/YLtBi2Q8S";
+    //private static final String USERID = "560946d9b2af57c413ac8427";
+    //private static final String TOKEN = "$2a$10$w1BPdOBqiuaYiKJ6a2qYdewOKOdk7fQ.LE3yjf6fvF5/YLtBi2Q8S";
+    private static final String USERNAME = "sondre";
+    private static final String PASSWORD = "dabchick402";
+
     static private LoginInfo info;
 
 
@@ -39,8 +42,15 @@ public class HTTPSender {
     //sendTrip method creates a json from an arraylist of locations, an arraylist of ints and a context
     //Then it uses delegation to send the json to the server via a specified url
     public static void sendTrip(ArrayList<Location> trip, ArrayList<Integer> connectionTypes, Context context) {
-        logIn("sondre", "dabchick402");
+        logIn( USERNAME, PASSWORD );
+        try{
+            if( !info.isSet() ){
+                info.wait();
+            }
+        }
+        catch(Exception e){
 
+        }
         Log.d("SendTrip", "SendTrip started");
 
         JSONObject jsonObject = null;
@@ -58,7 +68,7 @@ public class HTTPSender {
          */
         try {
             jsonObject = new JSONObject();
-            jsonObject.put("_userId", USERID); //TODO fill in correct user id
+            jsonObject.put("_userId", info.getUserID());
             Date startTime = new Date(trip.get(0).getTime());
             Date endTime = new Date(trip.get(trip.size() - 1).getTime());
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy'-'MM'-'dd'T'hh':'mm':'ss");
@@ -147,7 +157,7 @@ public class HTTPSender {
 
 
         if (jsonObject != null) {
-            String sendURL = SERVER_URL + "user/" + USERID + "/trips/?token=" + TOKEN; //TODO correct user id
+            String sendURL = SERVER_URL + "user/" + info.getUserID() + "/trips/?token=" + info.getToken();
             HttpSenderThread thread = new HttpSenderThread(jsonObject, sendURL, info, HttpPostKind.TRIP);
             thread.start();
         }
