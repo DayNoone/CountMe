@@ -40,7 +40,6 @@ public class HTTPSender {
         Log.d("SendTrip", "SendTrip started");
 
         JSONObject jsonObject = null;
-        String url = SERVER_URL + "?token=" + TOKEN + "/";
         /*
         var json = {
             "_userId": [unik brukar-ID],
@@ -56,7 +55,6 @@ public class HTTPSender {
         try {
             jsonObject = new JSONObject();
             jsonObject.put("_userId", USERID); //TODO fill in correct user id
-            jsonObject.put("token", TOKEN); //TODO fill in correct token
             Date startTime = new Date(trip.get(0).getTime());
             Date endTime = new Date(trip.get(trip.size() - 1).getTime());
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy'-'MM'-'dd'T'hh':'mm':'ss");
@@ -145,8 +143,8 @@ public class HTTPSender {
 
 
         if (jsonObject != null) {
-            String sendURL = url + "user/" + USERID + "/trips"; //TODO correct user id
-            HttpSenderThread thread = new HttpSenderThread(jsonObject, url);
+            String sendURL = SERVER_URL + "user/" + USERID + "/trips/?token=" + TOKEN; //TODO correct user id
+            HttpSenderThread thread = new HttpSenderThread(jsonObject, sendURL);
             thread.start();
         }
     }
