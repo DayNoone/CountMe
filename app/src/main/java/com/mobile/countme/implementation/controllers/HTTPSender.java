@@ -28,6 +28,8 @@ public class HTTPSender {
     private static final String SERVER_URL = "https://tf2.sintef.no:8084/smioTest/api/";
     private static final String USERID = "560946d9b2af57c413ac8427";
     private static final String TOKEN = "$2a$10$w1BPdOBqiuaYiKJ6a2qYdewOKOdk7fQ.LE3yjf6fvF5/YLtBi2Q8S";
+    static private LoginInfo info;
+
 
     public HTTPSender() {
 
@@ -37,6 +39,8 @@ public class HTTPSender {
     //sendTrip method creates a json from an arraylist of locations, an arraylist of ints and a context
     //Then it uses delegation to send the json to the server via a specified url
     public static void sendTrip(ArrayList<Location> trip, ArrayList<Integer> connectionTypes, Context context) {
+        logIn("sondre", "dabchick402");
+
         Log.d("SendTrip", "SendTrip started");
 
         JSONObject jsonObject = null;
@@ -144,9 +148,25 @@ public class HTTPSender {
 
         if (jsonObject != null) {
             String sendURL = SERVER_URL + "user/" + USERID + "/trips/?token=" + TOKEN; //TODO correct user id
-            HttpSenderThread thread = new HttpSenderThread(jsonObject, sendURL);
+            HttpSenderThread thread = new HttpSenderThread(jsonObject, sendURL, info, HttpPostKind.TRIP);
             thread.start();
         }
+    }
+
+    public static void logIn(String username, String password){
+        info = new LoginInfo();
+        try{
+
+            JSONObject obj = new JSONObject();
+            obj.put("username", username);
+            obj.put("password", password);
+            HttpSenderThread thread = new HttpSenderThread(obj, SERVER_URL, info, HttpPostKind.LOGIN);
+            thread.start();
+        }
+        catch( Exception e){
+
+        }
+
     }
 
 

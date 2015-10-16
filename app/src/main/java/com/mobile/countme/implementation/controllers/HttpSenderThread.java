@@ -8,6 +8,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.protocol.HTTP;
+import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
 /**
@@ -17,10 +18,14 @@ import org.json.JSONObject;
 public class HttpSenderThread extends Thread {
     private JSONObject obj;
     private String url;
+    private LoginInfo info;
+    private HttpPostKind postType;
 
-    HttpSenderThread(JSONObject obj, String url){
+    HttpSenderThread(JSONObject obj, String url, LoginInfo info, HttpPostKind postType){
         this.obj = obj;
         this.url = url;
+        this.info = info;
+        this.postType = postType;
 
     }
 
@@ -41,12 +46,21 @@ public class HttpSenderThread extends Thread {
             post.setEntity(string);
             response = new DefaultHttpClient().execute(post);
             Log.d("SendJSON", "JSON sent");
+            switch(postType){
+
+                case TRIP:
+                    break;
+                case LOGIN:
+                    String json_string = EntityUtils.toString(response.getEntity());
+                    JSONObject receivedObject = new JSONObject(json_string);
+                    Log.d("Received something", receivedObject.toString());
+                    break;
+            }
         }
         catch (Exception e){
             e.printStackTrace();
 
         }
-
         //If response is needed somewhere, figure out how to communicate with main thread.
 
     }
