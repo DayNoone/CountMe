@@ -40,7 +40,7 @@ public class HTTPSender {
         Log.d("SendTrip", "SendTrip started");
 
         JSONObject jsonObject = null;
-
+        String url = SERVER_URL + "?token=" + TOKEN + "/";
         /*
         var json = {
             "_userId": [unik brukar-ID],
@@ -145,7 +145,7 @@ public class HTTPSender {
 
 
         if (jsonObject != null) {
-            String url = SERVER_URL + "user/" + USERID + "/trips"; //TODO correct user id
+            String sendURL = url + "user/" + USERID + "/trips"; //TODO correct user id
             HttpSenderThread thread = new HttpSenderThread(jsonObject, url);
             thread.start();
         }
