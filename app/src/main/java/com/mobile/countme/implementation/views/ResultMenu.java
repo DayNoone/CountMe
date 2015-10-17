@@ -62,7 +62,7 @@ public class ResultMenu extends AppMenu {
     private void initSpinner(){
         final Spinner dropdown = (Spinner)findViewById(R.id.spinnerErrors);
         ArrayList<String> items = new ArrayList<>();
-        items.add(" ");
+        items.add("Velg feilmelding");
         for(ErrorModel error : getUser().getTripErrors().values()){
             items.add(error.getCoordinates());
         }
@@ -86,7 +86,6 @@ public class ResultMenu extends AppMenu {
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
                 // TODO Auto-generated method stub
-
             }
         });
     }
