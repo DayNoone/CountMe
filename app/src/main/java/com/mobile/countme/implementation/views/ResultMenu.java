@@ -7,10 +7,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.PopupMenu;
 import android.widget.PopupWindow;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.mobile.countme.R;
@@ -21,6 +24,7 @@ import com.mobile.countme.implementation.controllers.MainMenu;
 import com.mobile.countme.implementation.models.ErrorModel;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 
 /**
  * Created by Kristian on 16/09/2015.
@@ -46,7 +50,8 @@ public class ResultMenu extends AppMenu {
         avgSpeed.setText(transformedAvgSpeed + " m/s");
         time_used.setText(getUser().getTimeInFormat(-1));
         getUser().setTripInitialized(false);
-        pop = (Button) findViewById(R.id.popupError);
+        initSpinner();
+//        pop = (Button) findViewById(R.id.popupError);
     }
 
     public void goToMainMenu(View view){
@@ -54,15 +59,46 @@ public class ResultMenu extends AppMenu {
         goTo(MainMenu.class);
     }
 
+    private void initSpinner(){
+        final Spinner dropdown = (Spinner)findViewById(R.id.spinnerErrors);
+        ArrayList<String> items = new ArrayList<>();
+        items.add("Velg feilmelding");
+        for(ErrorModel error : getUser().getTripErrors().values()){
+            items.add(error.getCoordinates());
+        }
+        dropdown.setPrompt("Feilmeldinger");
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.error_dropdownlist, items);
+        dropdown.setAdapter(adapter);
+        dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> arg0, View arg1,
+                                       int arg2, long arg3) {
+                // TODO Auto-generated method stub
+                String item = dropdown.getSelectedItem().toString();
+                if(getUser().getTripErrors().containsKey(item)) {
+                    getUser().getTripErrors().get(item).setThisError();
+                    goTo(ErrorMenu.class);
+                }
+                Log.e("Selected item : ", item);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+                // TODO Auto-generated method stub
+            }
+        });
+    }
+
     public void showErrorPopupList(View view){
         try {
 
             mInflater = (LayoutInflater) getApplicationContext()
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View layout = mInflater.inflate(R.layout.error_popupwindow, null);
+            View layout = mInflater.inflate(R.layout.error_dropdownlist, null);
 
             //If you want to add any listeners to your textviews, these are two //textviews.
-            final TextView itema = (TextView) layout.findViewById(R.id.noErrorsReported);
+//            final TextView itema = (TextView) layout.findViewById(R.id.noErrorsReported);
 
 
             layout.measure(View.MeasureSpec.UNSPECIFIED,
