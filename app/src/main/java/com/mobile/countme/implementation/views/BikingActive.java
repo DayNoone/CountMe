@@ -38,7 +38,6 @@ public class BikingActive extends AppMenu {
                     public void onClick(DialogInterface arg0, int arg1) {
 
                         getUser().stopTracker();
-                        getUser().resetTracker();
                         getUser().addStatistics(getUser().getTracker().getDistance());
                         getUser().stoptimertask();
                         goTo(ResultMenu.class);
@@ -89,7 +88,6 @@ public class BikingActive extends AppMenu {
 
                     public void onClick(DialogInterface arg0, int arg1) {
                         getUser().stopTracker();
-                        getUser().resetTracker();
                         getUser().addStatistics(getUser().getTracker().getDistance());
                         getUser().stoptimertask();
                         goTo(ResultMenu.class);

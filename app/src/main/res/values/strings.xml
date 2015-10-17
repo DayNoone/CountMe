@@ -53,6 +53,7 @@
     <string name="distance_traveled">Distanse:</string>
     <string name="avg_speed">Gj.fart: </string>
     <string name="Time">Tid: </string>
+    <string name="Errors">Feilmeldinger: </string>
     <string name="daily_display">1 dag</string>
     <string name="weekly_display">1 uke</string>
     <string name="monthhly_display">1 mnd</string>

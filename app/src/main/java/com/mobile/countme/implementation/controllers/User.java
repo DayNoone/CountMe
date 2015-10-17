@@ -85,7 +85,7 @@ public class User {
         statisticsModel = new StatisticsModel();
         tripModel = new TripModel();
         userModel = new UserModel();
-        GPSTracker tracker = new GPSTracker(userModel.getApplicationContext());
+        tracker = new GPSTracker(context.getApplicationContext());
 
         tripErrors = new HashMap<>();
 
@@ -497,6 +497,6 @@ public class User {
     }
 
     public void resetTracker(){
-        tracker = new GPSTracker(userModel.getApplicationContext());
+        tracker = new GPSTracker(context.getApplicationContext());
     }
 }
