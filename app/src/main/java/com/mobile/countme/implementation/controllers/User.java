@@ -409,7 +409,7 @@ public class User {
         String hours = "";
         long difference = System.currentTimeMillis() - time;
         Integer numSeconds = (int) (difference/1000);
-        if(numSeconds > 5){
+        if(numSeconds > 1){
             start_using_tracker = true;
         }
         if(time_used > 0){

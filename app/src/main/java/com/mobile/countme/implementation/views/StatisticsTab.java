@@ -36,7 +36,7 @@ public class StatisticsTab extends Fragment {
         co2_display.setText(Integer.toString(co2_saved) + " g");
         Double transformedDistance = new BigDecimal(distance).setScale(3, BigDecimal.ROUND_HALF_UP).doubleValue();
         carDistance.setText(Double.toString(transformedDistance) + " km");
-        Double transformedAvgSpeed = new BigDecimal(avg_speed).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+        Double transformedAvgSpeed = new BigDecimal(avg_speed*3.6).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
         avgSpeed.setText(Double.toString(transformedAvgSpeed) + " m/s");
 
     }

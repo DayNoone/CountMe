@@ -209,7 +209,11 @@ public class GPSTracker extends Service implements LocationListener {
                 trip.add(location);
                 if(trip.size() > 1) {
                     Log.e("GPSTracker", "It works");
-                    distance += location.distanceTo(trip.get(trip.size() - 2));
+                    float distanceTo = location.distanceTo(trip.get(trip.size() - 2));
+                    //Checks if the distance between two points that are added with one second difference are more than X meters.
+                    if(distanceTo < 100) {
+                        distance += location.distanceTo(trip.get(trip.size() - 2));
+                    }
                 }
             }
         }
