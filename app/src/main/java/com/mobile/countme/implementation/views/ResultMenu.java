@@ -51,7 +51,6 @@ public class ResultMenu extends AppMenu {
         time_used.setText(getUser().getTimeInFormat(-1));
         getUser().setTripInitialized(false);
         initSpinner();
-//        pop = (Button) findViewById(R.id.popupError);
     }
 
     public void goToMainMenu(View view){
@@ -88,73 +87,6 @@ public class ResultMenu extends AppMenu {
                 // TODO Auto-generated method stub
             }
         });
-    }
-
-    public void showErrorPopupList(View view){
-        try {
-
-            mInflater = (LayoutInflater) getApplicationContext()
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View layout = mInflater.inflate(R.layout.error_dropdownlist, null);
-
-            //If you want to add any listeners to your textviews, these are two //textviews.
-//            final TextView itema = (TextView) layout.findViewById(R.id.noErrorsReported);
-
-
-            layout.measure(View.MeasureSpec.UNSPECIFIED,
-                    View.MeasureSpec.UNSPECIFIED);
-            mDropdown = new PopupWindow(layout, FrameLayout.LayoutParams.WRAP_CONTENT,
-                    FrameLayout.LayoutParams.WRAP_CONTENT,true);
-            Drawable background = getResources().getDrawable(android.R.drawable.editbox_dropdown_dark_frame);
-            mDropdown.setBackgroundDrawable(background);
-            mDropdown.showAsDropDown(pop, 5, 5);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    public void showErrorList(View view){
-        popupMenu=new PopupMenu(this,view);
-        MenuInflater menuInflater=popupMenu.getMenuInflater();
-        PopUpMenuEventHandle popUpMenuEventHandle=new PopUpMenuEventHandle(getApplicationContext());
-        popupMenu.setOnMenuItemClickListener(popUpMenuEventHandle);
-        menuInflater.inflate(R.menu.error_popuplist, popupMenu.getMenu());
-        popupMenu.show();
-        for(ErrorModel error : getUser().getTripErrors().values()){
-            popupMenu.getMenu().add(error.toString());
-        }
-        if(popupMenu.getMenu().size() > 1){
-            popupMenu.getMenu().getItem(0).setVisible(false);
-        }
-        for (int i = 0; i < popupMenu.getMenu().size(); i++){
-            Log.e("ResultMenu", "title: " + popupMenu.getMenu().getItem(i).getTitle());
-        }
-        new Thread() {
-            public void run() {
-                try
-
-                {
-                    Log.e("ResultMenu","erroclicked: " + getUser().isErrorClicked());
-                    while(true) {
-                        if (getUser().isErrorClicked()) {
-                            Log.e("ResultMenu","erroclickedyes: " + getUser().isErrorClicked());
-                            getUser().setErrorClicked(false);
-                            goTo(ErrorMenu.class);
-                            break;
-                        }
-                    }
-                } catch (
-                        Exception ex
-                        )
-
-                {
-                    Log.e("Client", "Something went wrong - couldn't connect");
-                    ex.printStackTrace();
-                }
-            }
-        }.start();
     }
 
     @Override

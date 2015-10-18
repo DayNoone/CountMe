@@ -76,6 +76,7 @@
 
     <!-- Biking active -->
     <string name="biking_active"><u>Sykling pågår</u></string>
+    <string name="report_problem"><u>Feilmelding</u></string>
 
     <!--Profile strings-->
     <string name="isLoggedInn">isLoggedInn</string>
