@@ -4,6 +4,8 @@ import android.content.Context;
 import android.location.Location;
 import android.util.Log;
 
+import com.mobile.countme.framework.GPSFilter;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -45,6 +47,7 @@ public class HTTPSender {
         }
         Log.d("SendTrip", "SendTrip started");
 
+        GPSFilter.filterTrip(trip, connectionTypes);
         JSONObject jsonObject = null;
         /*
         var json = {
