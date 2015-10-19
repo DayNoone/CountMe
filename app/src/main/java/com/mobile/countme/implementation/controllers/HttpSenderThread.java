@@ -53,9 +53,11 @@ public class HttpSenderThread extends Thread {
                 case LOGIN:
                     String json_string = EntityUtils.toString(response.getEntity());
                     JSONObject receivedObject = new JSONObject(json_string);
-                    info.setUserID(receivedObject.getString("_id"));
-                    info.setToken(receivedObject.getString("token"));
-                    info.notifyAll();
+                    synchronized (info) {
+                        info.setUserID(receivedObject.getString("_id"));
+                        info.setToken(receivedObject.getString("token"));
+                        info.notifyAll();
+                    }
                     Log.d("Received loginresponse", receivedObject.toString());
                     break;
             }

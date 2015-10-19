@@ -38,13 +38,14 @@ public class HTTPSender {
     //Then it uses delegation to send the json to the server via a specified url
     public static void sendTrip(ArrayList<Location> trip, ArrayList<Integer> connectionTypes, Context context) {
         logIn(USERNAME, PASSWORD);
-        try{
-            while( !info.isSet() ){
-                info.wait();
+        synchronized (info) {
+            try {
+                while (!info.isSet()) {
+                    info.wait();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        }
-        catch(Exception e){
-            e.printStackTrace();
         }
         Log.d("SendTrip", "SendTrip started");
 
