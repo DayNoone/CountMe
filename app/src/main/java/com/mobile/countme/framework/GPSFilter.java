@@ -23,11 +23,11 @@ public class GPSFilter {
             }
             if( accumulator < 100.0){
                 trip.remove(i);
-                trip.remove(i);
+                modes.remove(i);
             }
             else{
                 trip.remove(i);
-                trip.remove(i);
+                modes.remove(i);
                 break;
             }
             end = almostEnd;
