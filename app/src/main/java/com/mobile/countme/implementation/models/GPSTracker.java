@@ -213,6 +213,7 @@ public class GPSTracker extends Service implements LocationListener {
     public void onLocationChanged(Location location) {
         if (location != null) {
             trip.add(location);
+            cm = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
             activeNetwork = cm.getActiveNetworkInfo();
             connectionTypes.add(activeNetwork.getType());
             if (trip.size() > 1) {
