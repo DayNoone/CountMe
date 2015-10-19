@@ -43,7 +43,7 @@ public class HTTPSender {
             }
         }
         catch(Exception e){
-
+            e.printStackTrace();
         }
         Log.d("SendTrip", "SendTrip started");
 
@@ -169,7 +169,7 @@ public class HTTPSender {
             thread.start();
         }
         catch( Exception e){
-
+            e.printStackTrace();
         }
 
     }

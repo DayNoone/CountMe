@@ -37,7 +37,7 @@ public class HttpSenderThread extends Thread {
     private void sendJSON(){
         Log.d("SendJSON", "SendJSON started");
         HttpPost post = new HttpPost( url );
-        StringEntity string = null;
+        StringEntity string;
         HttpResponse response;
 
         try {
