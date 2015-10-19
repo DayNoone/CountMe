@@ -56,7 +56,7 @@ public class HttpSenderThread extends Thread {
                     info.setUserID(receivedObject.getString("_id"));
                     info.setToken(receivedObject.getString("token"));
                     info.notifyAll();
-                    Log.d("Received something", receivedObject.toString());
+                    Log.d("Received loginresponse", receivedObject.toString());
                     break;
             }
         }
