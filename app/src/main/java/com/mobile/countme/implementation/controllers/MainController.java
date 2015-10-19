@@ -36,7 +36,7 @@ import static com.google.android.gms.internal.zzhu.runOnUiThread;
  * Created by Robin on 27.09.2015.
  * This is the main controller in the application.
  */
-public class User {
+public class MainController {
 
     private AndroidFileIO fileIO;
     private AppMenu context;
@@ -76,7 +76,7 @@ public class User {
     private UserModel userModel;
     private GPSTracker tracker;
 
-    public User (AndroidFileIO io, AppMenu context) {
+    public MainController(AndroidFileIO io, AppMenu context) {
         this.fileIO = io;
         this.context = context;
 
@@ -97,7 +97,7 @@ public class User {
      */
     public void loadEnvironmentalStatistics(){
         JSONArray environmentStatistics = fileIO.readStatisticsSaveFile();
-        Log.w("User", "loadEnvironmentalStatistics: " + environmentStatistics);
+        Log.w("MainController", "loadEnvironmentalStatistics: " + environmentStatistics);
         try {
             JSONObject todaysTrips = environmentStatistics.getJSONObject(environmentStatistics.length()-1);
             if(todaysTrips.getString("TimeStamp").equals(simpleDateFormat.format(calendar.getTime()))){
@@ -121,10 +121,12 @@ public class User {
         dummyObjectLastWeek.put("co2Saved",1);
         dummyObjectLastWeek.put("distance", 2.255512321);
         dummyObjectLastWeek.put("avgSpeed",1.32);
+        dummyObjectLastWeek.put("calories", 241);
         dummyObjectLastMonth.put("TimeStamp", "08-09-2015");
         dummyObjectLastMonth.put("co2Saved", 1);
         dummyObjectLastMonth.put("distance",1.2314123123123);
         dummyObjectLastMonth.put("avgSpeed", 1.54);
+        dummyObjectLastMonth.put("calories",23213);
         trips.put(dummyObjectLastMonth);
         trips.put(dummyObjectLastWeek);
         prefEditor.putString(context.getString(R.string.statisticsData), trips.toString());
@@ -144,6 +146,7 @@ public class User {
             lastPeriodTrips.put("co2Saved", 0);
             lastPeriodTrips.put("distance", 0);
             lastPeriodTrips.put("avgSpeed", 0);
+            lastPeriodTrips.put("calories", 0);
             int numOfTrips = 0;
             for (int i = allDaysTrips.length() - 1; i >= 0; i--) {
 
@@ -155,12 +158,13 @@ public class User {
                     lastPeriodTrips.put("co2Saved", Integer.toString(Integer.parseInt(lastPeriodTrips.getString("co2Saved")) + Integer.parseInt(dayTrips.getString("co2Saved"))));
                     lastPeriodTrips.put("distance", Double.toString(Double.parseDouble(lastPeriodTrips.getString("distance")) + Double.parseDouble(dayTrips.getString("distance"))));
                     lastPeriodTrips.put("avgSpeed", Double.toString(Double.parseDouble(lastPeriodTrips.getString("avgSpeed")) + Double.parseDouble(dayTrips.getString("avgSpeed"))));
+                    lastPeriodTrips.put("calories", Integer.toString(Integer.parseInt(lastPeriodTrips.getString("calories")) + Integer.parseInt(dayTrips.getString("calories"))));
                 }else {
                     break;
                 }
             }
             if(numOfTrips > 0) {
-                Log.e("User", "numoftrips: " + numOfTrips + "avgSpeed: " + lastPeriodTrips.getString("avgSpeed"));
+                Log.e("MainController", "numoftrips: " + numOfTrips + "avgSpeed: " + lastPeriodTrips.getString("avgSpeed"));
                 lastPeriodTrips.put("avgSpeed", Double.toString(Double.parseDouble(lastPeriodTrips.getString("avgSpeed")) / numOfTrips));
             }
 
@@ -177,13 +181,14 @@ public class User {
      */
     public void loadTripsStatistics(){
         JSONArray tripsStatistics = fileIO.readStatisticsSaveFile();
-        Log.w("User", "loadTripsStatistics: " + tripsStatistics);
+        Log.w("MainController", "loadTripsStatistics: " + tripsStatistics);
         try {
             JSONObject todaysTrips = tripsStatistics.getJSONObject(tripsStatistics.length()-1);
             if(todaysTrips.getString("TimeStamp").equals(simpleDateFormat.format(calendar.getTime()))){
                 statisticsModel.setCo2_saved(Integer.parseInt(todaysTrips.getString("co2Saved")));
                 statisticsModel.setDistance(Double.parseDouble(todaysTrips.getString("distance")));
                 statisticsModel.setAvg_speed(Double.parseDouble(todaysTrips.getString("avgSpeed")));
+                statisticsModel.setKcal(Integer.parseInt(todaysTrips.getString("calories")));
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -196,10 +201,11 @@ public class User {
      */
     public void loadUserInformation(){
         JSONObject userInformation = fileIO.readUserInformation();
-        Log.w("User", "loadTripsStatistics: " + userInformation);
+        Log.w("MainController", "loadTripsStatistics: " + userInformation);
         try {
             userModel.setGender(userInformation.getString("Gender"));
             userModel.setBirthYear(Integer.parseInt(userInformation.getString("BirthDate")));
+            userModel.setWeight(Float.parseFloat(userInformation.getString("Weight")));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -214,6 +220,7 @@ public class User {
             tripsToday.put("co2Saved", statisticsModel.getCo2_saved());
             tripsToday.put("distance", statisticsModel.getDistance());
             tripsToday.put("avgSpeed", statisticsModel.getAvg_speed());
+            tripsToday.put("calories", statisticsModel.getKcal());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -226,6 +233,7 @@ public class User {
         try {
             userInfo.put("BirthDate", userModel.getBirthYear());
             userInfo.put("Gender", userModel.getGender());
+            userInfo.put("Weight", userModel.getWeight());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -243,6 +251,7 @@ public class User {
                 trip.put("co2Saved", 0);
                 trip.put("distance", 0);
                 trip.put("avgSpeed", 0);
+                trip.put("calories", 0);
                 trips.put(trip);
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -258,6 +267,7 @@ public class User {
         try {
             userInformation.put("BirthDate", 0);
             userInformation.put("Gender", 0);
+            userInformation.put("Weight",0.0);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -274,6 +284,7 @@ public class User {
             trip.put("co2Saved", 0);
             trip.put("distance", 0);
             trip.put("avgSpeed", 0);
+            trip.put("calories", 0);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -392,6 +403,13 @@ public class User {
         tripModel.setDistance(distance);
         double avgSpeed = distance/getTimeUsedInSeconds();
         statisticsModel.calc_new_avgSpeed(avgSpeed);
+        //TODO: How to calculate calories based on distance and weight.
+        statisticsModel.setKcal(10000);
+        //TODO: FIIIIIXXXX
+
+
+
+
         tripModel.setAvg_speed(avgSpeed);
         int co2 = environmentModel.addCo2_savedTrip(distance);
         statisticsModel.addCo2_saved(co2);

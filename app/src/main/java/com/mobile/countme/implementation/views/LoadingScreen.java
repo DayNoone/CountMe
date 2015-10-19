@@ -9,7 +9,7 @@ import android.util.Log;
 import com.mobile.countme.R;
 import com.mobile.countme.framework.AppMenu;
 import com.mobile.countme.implementation.AndroidFileIO;
-import com.mobile.countme.implementation.controllers.User;
+import com.mobile.countme.implementation.controllers.MainController;
 import com.mobile.countme.implementation.controllers.IntroductionMenu;
 import com.mobile.countme.implementation.controllers.MainMenu;
 import com.mobile.countme.storage_and_memory.Assets;
@@ -32,13 +32,11 @@ public class LoadingScreen extends AppMenu {
         //Sets all the static classes for the application
         setAppAssets(new Assets(this));
         setFileIO(new AndroidFileIO(this));
-        setUser(new User(getFileIO(), this));
+        setMainController(new MainController(getFileIO(), this));
 
 
 //        // TODO: ALPHA CODE, REMOVE AT LAUNCH:
 //        // This code resets all the statistics.
-//        getUser().resetEnvironmentalStatistics();
-//        getUser().resetTripsStatistics();
 
         //After done loading
         new LoadViewTask().execute();
@@ -71,33 +69,16 @@ public class LoadingScreen extends AppMenu {
                 if(!isLoggedInn) {
                     Log.e("LoadScreen", "UserData Not present, creating new saveStatistics");
                     //ONLY DONE THE FIRST TIME THE APPLICATION IS CREATED
-//                    getUser().saveEnvironmentStatistics();
-//                    getUser().saveTripsStatistics();
-                    getUser().createTripsStatistics();
-                    getUser().createUserInformation();
+                    getMainController().createTripsStatistics();
+                    getMainController().createUserInformation();
                 }
 
-//                getUser().setUserPref(sharedPref); - Should be here if we are to have options like language selection.
                 //TODO: Testing code - Remove
-//                getUser().addRandomShit();
 
                 //Loads the statistics from the phone internal storage
-                getUser().loadEnvironmentalStatistics();
-                getUser().loadTripsStatistics();
-                getUser().loadUserInformation();
-
-                //Connecting client -- This should be here if we have to make our own application from scratch
-//                if(!getUser().getUsername().equals("DefaultUser")){
-//                    androidClient = new AndroidClient(getUser());
-//                    Log.e("Client", "Client init");
-//                    getUser().setAndroidClient(androidClient);
-//                }
-
-                //Loads all the applications graphical assets (Img, Bitmap, ...) -- This should be here.
-//                getAppAssets().loadNonGameGraphicalAssets();
-
-                //Loads all the games Audio assets (Sound, Music, ...) -- I dont think we are going to have any audio assets.
-//                getGameAssets().loadNoneGameAudioAssets();
+                getMainController().loadEnvironmentalStatistics();
+                getMainController().loadTripsStatistics();
+                getMainController().loadUserInformation();
 
 
             }

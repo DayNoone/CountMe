@@ -76,7 +76,7 @@ public class MainMenu extends AppMenu {
         //Not functional ( view is not made yet)
         //((TextView) findViewById(R.id.start_tur)).setTypeface(Assets.getTypeface(this, Assets.baskerville_old_face_regular));
 
-        getUser().setMainMenu(this);
+        getMainController().setMainMenu(this);
     }
 
     @Override
@@ -114,10 +114,10 @@ public class MainMenu extends AppMenu {
     }
 
     public void startBiking(View view) {
-        getUser().resetTracker();
-        getUser().setTime();
-        getUser().startTimer();
-        getUser().setStart_using_tracker(false);
+        getMainController().resetTracker();
+        getMainController().setTime();
+        getMainController().startTimer();
+        getMainController().setStart_using_tracker(false);
         goTo(BikingActive.class);
     }
 
@@ -126,7 +126,7 @@ public class MainMenu extends AppMenu {
      * @param view
      */
     public void viewOneDayStats(View view) {
-        adapter.getStatisticsTab().setTripsStatistics(getUser().getStatisticsModel().getCo2_saved(), getUser().getStatisticsModel().getDistance(), getUser().getStatisticsModel().getAvg_speed());
+        adapter.getStatisticsTab().setTripsStatistics(getMainController().getStatisticsModel().getCo2_saved(), getMainController().getStatisticsModel().getDistance(), getMainController().getStatisticsModel().getAvg_speed());
     }
 
     /**
@@ -134,7 +134,7 @@ public class MainMenu extends AppMenu {
      * @param view
      */
     public void viewOneWeekStats(View view) {
-        JSONObject lastWeekTrips = getUser().getLastPeriodTrips(7);
+        JSONObject lastWeekTrips = getMainController().getLastPeriodTrips(7);
         try {
             adapter.getStatisticsTab().setTripsStatistics(Integer.parseInt(lastWeekTrips.getString("co2Saved")), Double.parseDouble(lastWeekTrips.getString("distance")), Double.parseDouble(lastWeekTrips.getString("avgSpeed")));
         } catch (JSONException e) {
@@ -148,7 +148,7 @@ public class MainMenu extends AppMenu {
      * @param view
      */
     public void viewOneMonthStatistics(View view){
-        JSONObject lastMonthTrips = getUser().getLastPeriodTrips(30);
+        JSONObject lastMonthTrips = getMainController().getLastPeriodTrips(30);
         try {
             adapter.getStatisticsTab().setTripsStatistics(Integer.parseInt(lastMonthTrips.getString("co2Saved")), Double.parseDouble(lastMonthTrips.getString("distance")), Double.parseDouble(lastMonthTrips.getString("avgSpeed")));
         } catch (JSONException e) {
@@ -175,9 +175,9 @@ public class MainMenu extends AppMenu {
      * Sets the statistics both in the models and the internal storage based on the newest trip.
      */
     public void setStatistics(){
-        adapter.getEnvironmentTab().setEnvironmentGain(getUser().getEnvironmentModel().getCo2_savedToday(), getUser().getEnvironmentModel().getCo2_carDistance(), getUser().getEnvironmentModel().getCo2_busDistance(),getUser().getEnvironmentModel().getCo2_trainDistance(),getUser().getEnvironmentModel().getCo2_plainDistance());
-        adapter.getStatisticsTab().setTripsStatistics(getUser().getStatisticsModel().getCo2_saved(), getUser().getStatisticsModel().getDistance(), getUser().getStatisticsModel().getAvg_speed());
-        getUser().saveTripsStatistics();
+        adapter.getEnvironmentTab().setEnvironmentGain(getMainController().getEnvironmentModel().getCo2_savedToday(), getMainController().getEnvironmentModel().getCo2_carDistance(), getMainController().getEnvironmentModel().getCo2_busDistance(), getMainController().getEnvironmentModel().getCo2_trainDistance(), getMainController().getEnvironmentModel().getCo2_plainDistance());
+        adapter.getStatisticsTab().setTripsStatistics(getMainController().getStatisticsModel().getCo2_saved(), getMainController().getStatisticsModel().getDistance(), getMainController().getStatisticsModel().getAvg_speed());
+        getMainController().saveTripsStatistics();
     }
 
 

@@ -3,7 +3,6 @@ package com.mobile.countme.implementation.views;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.View;
 
 import com.mobile.countme.R;
@@ -11,10 +10,8 @@ import com.mobile.countme.custom_views.CustomTextView;
 import com.mobile.countme.framework.AppMenu;
 import com.mobile.countme.framework.MapsActivity;
 import com.mobile.countme.implementation.models.ErrorModel;
-import com.mobile.countme.implementation.models.GPSTracker;
 
 import java.math.BigDecimal;
-import java.util.Random;
 
 /**
  * Created by Kristian on 16/09/2015.
@@ -25,8 +22,8 @@ public class BikingActive extends AppMenu {
     public void onCreate(Bundle savedInstanceBundle) {
         super.onCreate(savedInstanceBundle);
         setContentView(R.layout.biking_active);
-        getUser().setTripInitialized(true);
-        getUser().setBikingActive(this);
+        getMainController().setTripInitialized(true);
+        getMainController().setBikingActive(this);
     }
 
     public void stopBiking(View view) {
@@ -37,9 +34,9 @@ public class BikingActive extends AppMenu {
 
                     public void onClick(DialogInterface arg0, int arg1) {
 
-                        getUser().stopTracker();
-                        getUser().addStatistics(getUser().getTracker().getDistance());
-                        getUser().stoptimertask();
+                        getMainController().stopTracker();
+                        getMainController().addStatistics(getMainController().getTracker().getDistance());
+                        getMainController().stoptimertask();
                         goTo(ResultMenu.class);
                     }
                 }).create().show();
@@ -54,25 +51,25 @@ public class BikingActive extends AppMenu {
      * @param view
      */
     public void sendError(View view){
-        final ErrorModel newErrorModel = new ErrorModel(getUser());
-        newErrorModel.setCoordinates("Feilmelding " + getUser().getErrorCount());
+        final ErrorModel newErrorModel = new ErrorModel(getMainController());
+        newErrorModel.setCoordinates("Feilmelding " + getMainController().getErrorCount());
         new AlertDialog.Builder(this)
                 .setMessage(R.string.report_error)
                 .setNegativeButton(R.string.later, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //Her må det sendes inn koordinater eller noe slikt, sånn at brukeren kan identifisere problemet etter turen, hvis han/hun vil legge til beskrivelse i ettertid.
-                        getUser().addError(newErrorModel);
+                        getMainController().addError(newErrorModel);
                     }
                 })
                 .setPositiveButton(R.string.now, new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface arg0, int arg1) {
                         //Add description and/or take picture.
-                        getUser().addStatistics(getUser().getTracker().getDistance());
+                        getMainController().addStatistics(getMainController().getTracker().getDistance());
                         newErrorModel.setEditedWhenReported(true);
-                        getUser().addError(newErrorModel);
-                        getUser().setErrorModel(newErrorModel);
+                        getMainController().addError(newErrorModel);
+                        getMainController().setErrorModel(newErrorModel);
                         goTo(ErrorMenu.class);
 
                     }
@@ -87,9 +84,9 @@ public class BikingActive extends AppMenu {
                 .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface arg0, int arg1) {
-                        getUser().stopTracker();
-                        getUser().addStatistics(getUser().getTracker().getDistance());
-                        getUser().stoptimertask();
+                        getMainController().stopTracker();
+                        getMainController().addStatistics(getMainController().getTracker().getDistance());
+                        getMainController().stoptimertask();
                         goTo(ResultMenu.class);
                     }
                 }).create().show();
@@ -108,10 +105,10 @@ public class BikingActive extends AppMenu {
         if(time != null) {
             time.setText(time_used);
         }
-        if(getUser().getTracker() != null && start_using_tracker) {
-            Double currentSpeedInKmH = new BigDecimal(getUser().getTracker().getCurrentSpeed()*3.6).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+        if(getMainController().getTracker() != null && start_using_tracker) {
+            Double currentSpeedInKmH = new BigDecimal(getMainController().getTracker().getCurrentSpeed()*3.6).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
             speed.setText(Double.toString(currentSpeedInKmH) + " km/h");
-            Double transformedDistance = new BigDecimal(getUser().getTracker().getDistance()).setScale(3, BigDecimal.ROUND_HALF_UP).doubleValue();
+            Double transformedDistance = new BigDecimal(getMainController().getTracker().getDistance()).setScale(3, BigDecimal.ROUND_HALF_UP).doubleValue();
             distance.setText(Double.toString(transformedDistance) + "m");
         }
     }

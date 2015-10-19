@@ -42,7 +42,6 @@
         android:hint="@string/PickBirthDate"
         android:layout_centerVertical="true"
         android:layout_below="@+id/UserInformationHeadLine"
-        android:imeOptions="actionDone"
         android:layout_marginTop="60dp"
         android:background="@drawable/input_stroke" />
 
@@ -86,8 +85,30 @@
             android:layout_marginLeft="30dp"
             />
 
-
     </RadioGroup>
+
+    <com.mobile.countme.custom_views.CustomTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/infoWeight"
+        android:id="@+id/infoWeight"
+        android:layout_alignBaseline="@+id/editTextWeight"
+        android:layout_marginLeft="65dp" />
+
+    <EditText
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:inputType="numberDecimal"
+        android:gravity="center"
+        android:ems="10"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:id="@+id/editTextWeight"
+        android:layout_centerVertical="true"
+        android:layout_below="@+id/genderGrp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/input_stroke" />
 
 
 </RelativeLayout>

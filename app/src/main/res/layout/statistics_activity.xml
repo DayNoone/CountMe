@@ -49,6 +49,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/calories_burned"
+        android:id="@+id/textView11"
+        android:layout_below="@+id/textView10"
+        android:layout_alignStart="@+id/textView9"
+        android:layout_marginTop="23dp" />
+
+    <com.mobile.countme.custom_views.CustomTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="0 g"
         android:id="@+id/co2_saved_statistics"
         android:layout_alignTop="@+id/textView8"
@@ -71,6 +81,15 @@
         android:text="0 m/s"
         android:id="@+id/avgSpeed_statistics"
         android:layout_alignTop="@+id/textView10"
+        android:layout_alignEnd="@+id/distance_statistics" />
+
+    <com.mobile.countme.custom_views.CustomTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="0 kcal"
+        android:id="@+id/calories_burned"
+        android:layout_alignTop="@+id/textView11"
         android:layout_alignEnd="@+id/distance_statistics" />
 
     <Button

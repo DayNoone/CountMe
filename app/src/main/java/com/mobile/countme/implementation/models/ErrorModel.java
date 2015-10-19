@@ -3,7 +3,7 @@ package com.mobile.countme.implementation.models;
 
 import android.graphics.Bitmap;
 
-import com.mobile.countme.implementation.controllers.User;
+import com.mobile.countme.implementation.controllers.MainController;
 
 /**
  * Created by Robin on 05.10.2015.
@@ -15,10 +15,10 @@ public class ErrorModel {
     private Bitmap photoTaken;
     private boolean editedWhenReported;
 
-    private User user;
+    private MainController mainController;
 
-    public ErrorModel(User user){
-        this.user = user;
+    public ErrorModel(MainController mainController){
+        this.mainController = mainController;
     }
 
     public String getDescprition() {
@@ -45,7 +45,7 @@ public class ErrorModel {
     }
 
     public void setThisError(){
-        user.setErrorModel(this);
+        mainController.setErrorModel(this);
     }
 
     public boolean isEditedWhenReported() {
