@@ -14,7 +14,7 @@ public class GPSFilter {
         Location end = trip.get(trip.size() - 1);
         Location almostEnd;
         double accumulator = 0.0;
-        double lengthSegment = 0.0;
+        double lengthSegment;
         for(int i = trip.size() - 2; i >= 0; i --){
             almostEnd = trip.get(i);
             lengthSegment = almostEnd.distanceTo(end);
@@ -26,8 +26,6 @@ public class GPSFilter {
                 modes.remove(i);
             }
             else{
-                trip.remove(i);
-                modes.remove(i);
                 break;
             }
             end = almostEnd;
@@ -38,17 +36,13 @@ public class GPSFilter {
         Location next;
         int lastIndex = 0;
         accumulator = 0.0;
-        lengthSegment = 0.0;
         for(int i = 1; i < trip.size(); i ++){
             next = trip.get(i);
             lengthSegment = start.distanceTo(next);
             if(lengthSegment < 20.0){
                 accumulator += lengthSegment;
             }
-            if( accumulator < 100.0){
-
-            }
-            else{
+            if( accumulator > 100.0){
                 lastIndex = i;
                 break;
             }
