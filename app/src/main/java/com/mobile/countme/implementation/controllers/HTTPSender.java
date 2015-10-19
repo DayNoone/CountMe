@@ -2,6 +2,7 @@ package com.mobile.countme.implementation.controllers;
 
 import android.content.Context;
 import android.location.Location;
+import android.net.ConnectivityManager;
 import android.util.Log;
 
 import com.mobile.countme.framework.GPSFilter;
@@ -36,7 +37,7 @@ public class HTTPSender {
     //sendTrip method creates a json from an arraylist of locations, an arraylist of ints and a context
     //Then it uses delegation to send the json to the server via a specified url
     public static void sendTrip(ArrayList<Location> trip, ArrayList<Integer> connectionTypes, Context context) {
-        logIn( USERNAME, PASSWORD );
+        logIn(USERNAME, PASSWORD);
         try{
             if( !info.isSet() ){
                 info.wait();
@@ -91,8 +92,8 @@ public class HTTPSender {
                 dataPoint.put("lon", location.getLongitude());
                 dataPoint.put("time", sdf.format(new Date(location.getTime())) + "-0100");
                 dataPoint.put("mode", "mobile");
-                //int connectionType = connectionTypes.get(i);
-                /*switch (connectionType) {
+                int connectionType = connectionTypes.get(i);
+                switch (connectionType) {
                     case (ConnectivityManager.TYPE_BLUETOOTH):
                         dataPoint.put("mode", "bluethooth");
                         break;

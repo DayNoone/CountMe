@@ -213,8 +213,8 @@ public class GPSTracker extends Service implements LocationListener {
     public void onLocationChanged(Location location) {
         if (location != null) {
             trip.add(location);
-            //activeNetwork = cm.getActiveNetworkInfo();
-            //connectionTypes.add(activeNetwork.getType());
+            activeNetwork = cm.getActiveNetworkInfo();
+            connectionTypes.add(activeNetwork.getType());
             if (trip.size() > 1) {
                 distance += location.distanceTo(trip.get(trip.size() - 2));
             }
