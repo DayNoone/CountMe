@@ -28,16 +28,18 @@ public class StatisticsTab extends Fragment {
      * @param distance
      * @param avg_speed
      */
-    public void setTripsStatistics(int co2_saved, double distance, double avg_speed){
+    public void setTripsStatistics(int co2_saved, double distance, double avg_speed, int kcal){
         if(getView() == null) return;
         CustomTextView co2_display = (CustomTextView) getView().findViewById(R.id.co2_saved_statistics);
         CustomTextView carDistance = (CustomTextView) getView().findViewById(R.id.distance_statistics);
         CustomTextView avgSpeed = (CustomTextView) getView().findViewById(R.id.avgSpeed_statistics);
+        CustomTextView kcal_display = (CustomTextView) getView().findViewById(R.id.calories_burned);
         co2_display.setText(Integer.toString(co2_saved) + " g");
         Double transformedDistance = new BigDecimal(distance).setScale(3, BigDecimal.ROUND_HALF_UP).doubleValue();
         carDistance.setText(Double.toString(transformedDistance) + " km");
         Double transformedAvgSpeed = new BigDecimal(avg_speed*3.6).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
         avgSpeed.setText(Double.toString(transformedAvgSpeed) + " m/s");
+        kcal_display.setText(Integer.toString(kcal) + " kcal");
 
     }
 }

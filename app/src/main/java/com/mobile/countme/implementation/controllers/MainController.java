@@ -406,10 +406,7 @@ public class MainController {
         //TODO: How to calculate calories based on distance and weight.
         statisticsModel.setKcal(10000);
         //TODO: FIIIIIXXXX
-
-
-
-
+        tripModel.setKcal(10000);
         tripModel.setAvg_speed(avgSpeed);
         int co2 = environmentModel.addCo2_savedTrip(distance);
         statisticsModel.addCo2_saved(co2);

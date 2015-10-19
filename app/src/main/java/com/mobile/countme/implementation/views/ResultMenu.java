@@ -35,11 +35,13 @@ public class ResultMenu extends AppMenu {
         setContentView(R.layout.result_activity);
         CustomTextView co2_saved = (CustomTextView) findViewById(R.id.co2_saved_result);
         CustomTextView distance = (CustomTextView) findViewById(R.id.distance_result);
+        CustomTextView calories_display = (CustomTextView) findViewById(R.id.calories_burned);
         CustomTextView avgSpeed = (CustomTextView) findViewById(R.id.avgSpeed_result);
         CustomTextView time_used = (CustomTextView) findViewById(R.id.time_used);
         co2_saved.setText(getMainController().getTripModel().getCo2_saved() + " g");
         Double transformedDistance = new BigDecimal(getMainController().getTripModel().getDistance()).setScale(3, BigDecimal.ROUND_HALF_UP).doubleValue();
         distance.setText(transformedDistance + " km");
+        calories_display.setText(getMainController().getTripModel().getKcal() + " kcal");
         Double transformedAvgSpeed = new BigDecimal(getMainController().getTripModel().getAvg_speed()).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
         avgSpeed.setText(transformedAvgSpeed + " m/s");
         time_used.setText(getMainController().getTimeInFormat(-1));

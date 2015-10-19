@@ -126,7 +126,7 @@ public class MainMenu extends AppMenu {
      * @param view
      */
     public void viewOneDayStats(View view) {
-        adapter.getStatisticsTab().setTripsStatistics(getMainController().getStatisticsModel().getCo2_saved(), getMainController().getStatisticsModel().getDistance(), getMainController().getStatisticsModel().getAvg_speed());
+        adapter.getStatisticsTab().setTripsStatistics(getMainController().getStatisticsModel().getCo2_saved(), getMainController().getStatisticsModel().getDistance(), getMainController().getStatisticsModel().getAvg_speed(), getMainController().getStatisticsModel().getKcal());
     }
 
     /**
@@ -136,7 +136,7 @@ public class MainMenu extends AppMenu {
     public void viewOneWeekStats(View view) {
         JSONObject lastWeekTrips = getMainController().getLastPeriodTrips(7);
         try {
-            adapter.getStatisticsTab().setTripsStatistics(Integer.parseInt(lastWeekTrips.getString("co2Saved")), Double.parseDouble(lastWeekTrips.getString("distance")), Double.parseDouble(lastWeekTrips.getString("avgSpeed")));
+            adapter.getStatisticsTab().setTripsStatistics(Integer.parseInt(lastWeekTrips.getString("co2Saved")), Double.parseDouble(lastWeekTrips.getString("distance")), Double.parseDouble(lastWeekTrips.getString("avgSpeed")), Integer.parseInt(lastWeekTrips.getString("calories")));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -150,7 +150,7 @@ public class MainMenu extends AppMenu {
     public void viewOneMonthStatistics(View view){
         JSONObject lastMonthTrips = getMainController().getLastPeriodTrips(30);
         try {
-            adapter.getStatisticsTab().setTripsStatistics(Integer.parseInt(lastMonthTrips.getString("co2Saved")), Double.parseDouble(lastMonthTrips.getString("distance")), Double.parseDouble(lastMonthTrips.getString("avgSpeed")));
+            adapter.getStatisticsTab().setTripsStatistics(Integer.parseInt(lastMonthTrips.getString("co2Saved")), Double.parseDouble(lastMonthTrips.getString("distance")), Double.parseDouble(lastMonthTrips.getString("avgSpeed")), Integer.parseInt(lastMonthTrips.getString("calories")));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -176,7 +176,7 @@ public class MainMenu extends AppMenu {
      */
     public void setStatistics(){
         adapter.getEnvironmentTab().setEnvironmentGain(getMainController().getEnvironmentModel().getCo2_savedToday(), getMainController().getEnvironmentModel().getCo2_carDistance(), getMainController().getEnvironmentModel().getCo2_busDistance(), getMainController().getEnvironmentModel().getCo2_trainDistance(), getMainController().getEnvironmentModel().getCo2_plainDistance());
-        adapter.getStatisticsTab().setTripsStatistics(getMainController().getStatisticsModel().getCo2_saved(), getMainController().getStatisticsModel().getDistance(), getMainController().getStatisticsModel().getAvg_speed());
+        adapter.getStatisticsTab().setTripsStatistics(getMainController().getStatisticsModel().getCo2_saved(), getMainController().getStatisticsModel().getDistance(), getMainController().getStatisticsModel().getAvg_speed(), getMainController().getStatisticsModel().getKcal());
         getMainController().saveTripsStatistics();
     }
 
