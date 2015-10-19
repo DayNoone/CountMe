@@ -39,7 +39,7 @@ public class HTTPSender {
     public static void sendTrip(ArrayList<Location> trip, ArrayList<Integer> connectionTypes, Context context) {
         logIn(USERNAME, PASSWORD);
         try{
-            if( !info.isSet() ){
+            while( !info.isSet() ){
                 info.wait();
             }
         }
