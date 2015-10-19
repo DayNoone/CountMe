@@ -217,7 +217,14 @@ public class GPSTracker extends Service implements LocationListener {
             activeNetwork = cm.getActiveNetworkInfo();
             connectionTypes.add(activeNetwork.getType());
             if (trip.size() > 1) {
-                distance += location.distanceTo(trip.get(trip.size() - 2));
+
+                Log.e("GPSTracker", "It works");
+                float distanceTo = location.distanceTo(trip.get(trip.size() - 2));
+                //Checks if the distance between two points that are added with one second difference are more than X meters.
+                if (distanceTo < 20.0f) {
+                    distance += location.distanceTo(trip.get(trip.size() - 2));
+                }
+
             }
         }
     }
@@ -252,6 +259,10 @@ public class GPSTracker extends Service implements LocationListener {
 
     public double getDistance() {
         return distance;
+    }
+
+    public void setDistance(double distance) {
+        this.distance = distance;
     }
 
     public boolean isCanGetLocation() {

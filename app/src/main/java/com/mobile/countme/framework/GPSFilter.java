@@ -13,15 +13,15 @@ public class GPSFilter {
     public static void filterTrip(ArrayList<Location> trip, ArrayList<Integer> modes){
         Location end = trip.get(trip.size() - 1);
         Location almostEnd;
-        double accumulator = 0.0;
-        double lengthSegment;
+        float accumulator = 0.0f;
+        float lengthSegment;
         for(int i = trip.size() - 2; i >= 0; i --){
             almostEnd = trip.get(i);
             lengthSegment = almostEnd.distanceTo(end);
-            if(lengthSegment < 20.0){
+            if(lengthSegment < 20.0f){
                 accumulator += lengthSegment;
             }
-            if( accumulator < 100.0){
+            if( accumulator < 100.0f){
                 trip.remove(i);
                 modes.remove(i);
             }
@@ -35,14 +35,14 @@ public class GPSFilter {
         Location start = trip.get(0);
         Location next;
         int lastIndex = 0;
-        accumulator = 0.0;
+        accumulator = 0.0f;
         for(int i = 1; i < trip.size(); i ++){
             next = trip.get(i);
             lengthSegment = start.distanceTo(next);
-            if(lengthSegment < 20.0){
+            if(lengthSegment < 20.0f){
                 accumulator += lengthSegment;
             }
-            if( accumulator > 100.0){
+            if( accumulator > 100.0f){
                 lastIndex = i;
                 break;
             }

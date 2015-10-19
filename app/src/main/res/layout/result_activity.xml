@@ -59,6 +59,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/Errors"
+        android:id="@+id/textView12"
+        android:layout_below="@+id/textView11"
+        android:layout_alignStart="@+id/textView11"
+        android:layout_marginTop="23dp"/>
+
+    <com.mobile.countme.custom_views.CustomTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="0 g"
         android:id="@+id/co2_saved_result"
         android:layout_alignTop="@+id/textView8"
@@ -92,16 +102,26 @@
         android:layout_alignTop="@+id/textView11"
         android:layout_alignEnd="@+id/distance_result" />
 
-    <Button
-        android:layout_width="118dp"
+    <!--<Button-->
+        <!--android:layout_width="118dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="@string/popupError"-->
+        <!--android:onClick="showErrorPopupList"-->
+        <!--android:background="@drawable/btn_stroke"-->
+        <!--android:id="@+id/popupError"-->
+        <!--android:layout_below="@id/textView11"-->
+        <!--android:layout_marginTop="20dp"-->
+        <!--android:layout_alignStart="@id/textView11" />-->
+
+    <Spinner
+        android:id="@+id/spinnerErrors"
+        android:layout_width="148dp"
         android:layout_height="wrap_content"
-        android:text="@string/popupError"
-        android:onClick="showErrorPopupList"
-        android:background="@drawable/btn_stroke"
-        android:id="@+id/popupError"
         android:layout_below="@id/textView11"
         android:layout_marginTop="20dp"
-        android:layout_alignStart="@id/textView11" />
+        android:layout_alignEnd="@id/time_used"
+        android:background="@drawable/btn_stroke"
+        android:spinnerMode="dropdown" />
 
     <Button
         android:layout_width="wrap_content"
