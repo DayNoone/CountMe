@@ -66,7 +66,6 @@ public class BikingActive extends AppMenu {
 
                     public void onClick(DialogInterface arg0, int arg1) {
                         //Add description and/or take picture.
-                        getMainController().addStatistics(getMainController().getTracker().getDistance());
                         newErrorModel.setEditedWhenReported(true);
                         getMainController().addError(newErrorModel);
                         getMainController().setErrorModel(newErrorModel);

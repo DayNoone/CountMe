@@ -206,6 +206,8 @@ public class MainController {
             userModel.setGender(userInformation.getString("Gender"));
             userModel.setBirthYear(Integer.parseInt(userInformation.getString("BirthDate")));
             userModel.setWeight(Float.parseFloat(userInformation.getString("Weight")));
+            userModel.setUsername(userInformation.getString("Username"));
+            userModel.setPassword(userInformation.getString("Password"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -234,6 +236,8 @@ public class MainController {
             userInfo.put("BirthDate", userModel.getBirthYear());
             userInfo.put("Gender", userModel.getGender());
             userInfo.put("Weight", userModel.getWeight());
+            userInfo.put("Username", userModel.getUsername());
+            userInfo.put("Password", userModel.getPassword());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -268,6 +272,10 @@ public class MainController {
             userInformation.put("BirthDate", 0);
             userInformation.put("Gender", 0);
             userInformation.put("Weight",0.0);
+            userModel.setUsername(Long.toString(calendar.getTimeInMillis()));
+            userModel.setPassword(Double.toString(calendar.getTimeInMillis()/2));
+            userInformation.put("Username", userModel.getUsername());
+            userInformation.put("Password", userModel.getPassword());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -401,12 +409,12 @@ public class MainController {
     public void addStatistics(double distance){
         statisticsModel.addDistance(distance);
         tripModel.setDistance(distance);
-        double avgSpeed = distance/getTimeUsedInSeconds();
+        double avgSpeed = distance/getTimeUsedInSeconds()*3.6;
         statisticsModel.calc_new_avgSpeed(avgSpeed);
-        //TODO: How to calculate calories based on distance and weight.
-        statisticsModel.setKcal(10000);
-        //TODO: FIIIIIXXXX
-        tripModel.setKcal(10000);
+        //http://www.health.harvard.edu/diet-and-weight-loss/calories-burned-in-30-minutes-of-leisure-and-routine-activities - Using the average speed from 13-19 mph as a basis for calorie calculation.
+        int kcal = (int)(((userModel.getWeight()*2.2046)/1800) * 286.696 * (avgSpeed*0.621371192) * (getTimeUsedInSeconds()/1800));
+        statisticsModel.setKcal(kcal);
+        tripModel.setKcal(kcal);
         tripModel.setAvg_speed(avgSpeed);
         int co2 = environmentModel.addCo2_savedTrip(distance);
         statisticsModel.addCo2_saved(co2);
@@ -514,4 +522,5 @@ public class MainController {
     public void resetTracker(){
         tracker = new GPSTracker(context.getApplicationContext());
     }
+
 }
