@@ -65,7 +65,7 @@ public class HttpSenderThread extends Thread {
                 case CREATEUSER:
                     json_string = EntityUtils.toString(response.getEntity());
                     receivedObject = new JSONObject(json_string);
-                    Log.d("Response from creating user", receivedObject.toString());
+                    Log.d("Create user response", receivedObject.toString());
 
             }
         }

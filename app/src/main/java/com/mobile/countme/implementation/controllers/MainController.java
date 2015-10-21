@@ -273,7 +273,8 @@ public class MainController {
             userInformation.put("Gender", 0);
             userInformation.put("Weight",0.0);
             userModel.setUsername(Long.toString(calendar.getTimeInMillis()));
-            userModel.setPassword(Double.toString(calendar.getTimeInMillis()/2));
+            userModel.setPassword(Double.toString(calendar.getTimeInMillis() / 2));
+            HTTPSender.createUser(userModel);
             userInformation.put("Username", userModel.getUsername());
             userInformation.put("Password", userModel.getPassword());
         } catch (JSONException e) {
