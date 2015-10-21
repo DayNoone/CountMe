@@ -208,6 +208,7 @@ public class MainController {
             userModel.setWeight(Float.parseFloat(userInformation.getString("Weight")));
             userModel.setUsername(userInformation.getString("Username"));
             userModel.setPassword(userInformation.getString("Password"));
+            HTTPSender.logIn(userModel);
         } catch (JSONException e) {
             e.printStackTrace();
         }

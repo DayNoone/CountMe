@@ -39,7 +39,6 @@ public class HTTPSender {
     //sendTrip method creates a json from an arraylist of locations, an arraylist of ints and a context
     //Then it uses delegation to send the json to the server via a specified url
     public static void sendTrip(ArrayList<Location> trip, ArrayList<Integer> connectionTypes, Context context) {
-        logIn();
         synchronized (info) {
             try {
                 while (!info.isLoggedIn()) {
@@ -162,8 +161,12 @@ public class HTTPSender {
         }
     }
 
-    public static void logIn(){
-        info = new LoginInfo();
+    public static void logIn(UserModel model){
+        if(info == null) {
+            info = new LoginInfo();
+            info.setUsername(model.getUsername());
+            info.setPassword(model.getPassword());
+        }
         synchronized (info) {
             try {
                 while (!info.hasInfo()) {
