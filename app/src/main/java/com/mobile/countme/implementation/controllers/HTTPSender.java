@@ -6,8 +6,10 @@ import android.net.ConnectivityManager;
 import android.util.Log;
 
 import com.mobile.countme.framework.GPSFilter;
+import com.mobile.countme.implementation.models.UserModel;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
@@ -172,6 +174,26 @@ public class HTTPSender {
         }
         catch( Exception e){
             e.printStackTrace();
+        }
+
+    }
+
+    public static void createUser(UserModel model) {
+        JSONObject obj = null;
+        try {
+            obj = new JSONObject();
+            obj.put("username", model.getUsername());
+            obj.put("birthyear", model.getBirthYear());
+            obj.put("gender", model.getGender());
+            //Potentially more things
+        }
+        catch (JSONException e) {
+            e.printStackTrace();
+        }
+        if (obj != null) {
+            String sendURL = SERVER_URL + "user/";
+            HttpSenderThread thread = new HttpSenderThread(obj, sendURL, info, HttpPostKind.CREATEUSER);
+            thread.start();
         }
 
     }
