@@ -105,10 +105,10 @@ public class BikingActive extends AppMenu {
             time.setText(time_used);
         }
         if(getMainController().getTracker() != null && start_using_tracker) {
-            Double currentSpeedInKmH = new BigDecimal(getMainController().getTracker().getCurrentSpeed()*3.6).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+            Double currentSpeedInKmH = new BigDecimal(getMainController().getTracker().getCurrentSpeed()*3.6).setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
             speed.setText(Double.toString(currentSpeedInKmH) + " km/h");
-            Double transformedDistance = new BigDecimal(getMainController().getTracker().getDistance()).setScale(3, BigDecimal.ROUND_HALF_UP).doubleValue();
-            distance.setText(Double.toString(transformedDistance) + "m");
+            Double transformedDistance = new BigDecimal((getMainController().getTracker().getDistance()/1000)).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+            distance.setText(Double.toString(transformedDistance) + "km");
         }
     }
 

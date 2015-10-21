@@ -35,9 +35,9 @@ public class StatisticsTab extends Fragment {
         CustomTextView avgSpeed = (CustomTextView) getView().findViewById(R.id.avgSpeed_statistics);
         CustomTextView kcal_display = (CustomTextView) getView().findViewById(R.id.calories_burned);
         co2_display.setText(Integer.toString(co2_saved) + " g");
-        Double transformedDistance = new BigDecimal(distance).setScale(3, BigDecimal.ROUND_HALF_UP).doubleValue();
+        Double transformedDistance = new BigDecimal(distance).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
         carDistance.setText(Double.toString(transformedDistance) + " km");
-        Double transformedAvgSpeed = new BigDecimal(avg_speed).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+        Double transformedAvgSpeed = new BigDecimal(avg_speed).setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
         avgSpeed.setText(Double.toString(transformedAvgSpeed) + " km/t");
         kcal_display.setText(Integer.toString(kcal) + " kcal");
 

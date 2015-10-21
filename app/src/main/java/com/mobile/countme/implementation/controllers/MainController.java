@@ -188,7 +188,7 @@ public class MainController {
                 statisticsModel.setCo2_saved(Integer.parseInt(todaysTrips.getString("co2Saved")));
                 statisticsModel.setDistance(Double.parseDouble(todaysTrips.getString("distance")));
                 statisticsModel.setAvg_speed(Double.parseDouble(todaysTrips.getString("avgSpeed")));
-                statisticsModel.setKcal(Integer.parseInt(todaysTrips.getString("calories")));
+                statisticsModel.addKcal(Integer.parseInt(todaysTrips.getString("calories")));
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -413,7 +413,7 @@ public class MainController {
         statisticsModel.calc_new_avgSpeed(avgSpeed);
         //http://www.health.harvard.edu/diet-and-weight-loss/calories-burned-in-30-minutes-of-leisure-and-routine-activities - Using the average speed from 13-19 mph as a basis for calorie calculation.
         int kcal = (int)(((userModel.getWeight()*2.2046)/1800) * 286.696 * (avgSpeed*0.621371192) * (getTimeUsedInSeconds()/1800));
-        statisticsModel.setKcal(kcal);
+        statisticsModel.addKcal(kcal);
         tripModel.setKcal(kcal);
         tripModel.setAvg_speed(avgSpeed);
         int co2 = environmentModel.addCo2_savedTrip(distance);

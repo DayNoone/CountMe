@@ -25,11 +25,6 @@ import java.util.ArrayList;
  */
 public class ResultMenu extends AppMenu {
 
-    private PopupMenu popupMenu;
-    private PopupWindow mDropdown = null;
-    LayoutInflater mInflater;
-    Button pop;
-
     public void onCreate(Bundle savedInstanceBundle) {
         super.onCreate(savedInstanceBundle);
         setContentView(R.layout.result_activity);
@@ -39,10 +34,10 @@ public class ResultMenu extends AppMenu {
         CustomTextView avgSpeed = (CustomTextView) findViewById(R.id.avgSpeed_result);
         CustomTextView time_used = (CustomTextView) findViewById(R.id.time_used);
         co2_saved.setText(getMainController().getTripModel().getCo2_saved() + " g");
-        Double transformedDistance = new BigDecimal(getMainController().getTripModel().getDistance()).setScale(3, BigDecimal.ROUND_HALF_UP).doubleValue();
+        Double transformedDistance = new BigDecimal(getMainController().getTripModel().getDistance()).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
         distance.setText(transformedDistance + " km");
         calories_display.setText(getMainController().getTripModel().getKcal() + " kcal");
-        Double transformedAvgSpeed = new BigDecimal(getMainController().getTripModel().getAvg_speed()).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+        Double transformedAvgSpeed = new BigDecimal(getMainController().getTripModel().getAvg_speed()).setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
         avgSpeed.setText(transformedAvgSpeed + " km/t");
         time_used.setText(getMainController().getTimeInFormat(-1));
         getMainController().setTripInitialized(false);

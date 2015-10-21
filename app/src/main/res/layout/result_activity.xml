@@ -89,7 +89,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="0 m"
+        android:text="0.00 km"
         android:id="@+id/distance_result"
         android:layout_alignTop="@+id/textView9"
         android:layout_alignEnd="@+id/co2_saved_result" />
@@ -107,7 +107,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="0 m/s"
+        android:text="0.0 km/t"
         android:id="@+id/avgSpeed_result"
         android:layout_alignTop="@+id/textView10"
         android:layout_alignEnd="@+id/distance_result" />

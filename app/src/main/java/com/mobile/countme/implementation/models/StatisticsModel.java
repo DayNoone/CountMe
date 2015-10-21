@@ -76,7 +76,7 @@ public class StatisticsModel {
         this.distance = distance;
     }
 
-    public void setKcal(int kcal) {
-        this.kcal = kcal;
+    public void addKcal(int kcal) {
+        this.kcal += kcal;
     }
 }
