@@ -182,9 +182,25 @@ public class HTTPSender {
         JSONObject obj = null;
         try {
             obj = new JSONObject();
+/*              username:                         userStore.getAt(0).get('username'),
+               gender:                              userStore.getAt(0).get('gender'),
+               maritalstatus:    userStore.getAt(0).get('maritalstatus'),
+               occupation:                       userStore.getAt(0).get('occupation'),
+               birthyear:                           userStore.getAt(0).get('birthyear'),
+               subscription:      userStore.getAt(0).get('subscription'),
+               residence:                          userStore.getAt(0).get('residence'),
+               area:                                   userStore.getAt(0).get('area'),
+               numchildren:      userStore.getAt(0).get('numchildren')
+*/
             obj.put("username", model.getUsername());
             obj.put("birthyear", model.getBirthYear());
             obj.put("gender", model.getGender());
+            obj.put("maritalstatus", "");
+            obj.put("occupation", "");
+            obj.put("subscription", "");
+            obj.put("residence", "");
+            obj.put("area", "");
+            obj.put("numchildren", "");
             //Potentially more things
         }
         catch (JSONException e) {
