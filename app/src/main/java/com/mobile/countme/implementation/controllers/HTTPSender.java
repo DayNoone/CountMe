@@ -201,6 +201,7 @@ public class HTTPSender {
             obj.put("residence", "");
             obj.put("area", "");
             obj.put("numchildren", "");
+            obj.put("password", model.getPassword());
             //Potentially more things
         }
         catch (JSONException e) {
