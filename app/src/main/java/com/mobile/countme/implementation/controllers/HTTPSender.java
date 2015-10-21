@@ -25,8 +25,8 @@ public class HTTPSender {
     private static final String SERVER_URL = "https://tf2.sintef.no:8084/smioTest/api/";
     //private static final String USERID = "560946d9b2af57c413ac8427";
     //private static final String TOKEN = "$2a$10$w1BPdOBqiuaYiKJ6a2qYdewOKOdk7fQ.LE3yjf6fvF5/YLtBi2Q8S";
-    private static final String USERNAME = "sondre";
-    private static final String PASSWORD = "dabchick402";
+    //private static final String USERNAME = "sondre";
+    //private static final String PASSWORD = "dabchick402";
 
     static private LoginInfo info;
 
@@ -39,10 +39,10 @@ public class HTTPSender {
     //sendTrip method creates a json from an arraylist of locations, an arraylist of ints and a context
     //Then it uses delegation to send the json to the server via a specified url
     public static void sendTrip(ArrayList<Location> trip, ArrayList<Integer> connectionTypes, Context context) {
-        logIn(USERNAME, PASSWORD);
+        logIn();
         synchronized (info) {
             try {
-                while (!info.isSet()) {
+                while (!info.isLoggedIn()) {
                     info.wait();
                 }
             } catch (Exception e) {
@@ -162,13 +162,22 @@ public class HTTPSender {
         }
     }
 
-    public static void logIn(String username, String password){
+    public static void logIn(){
         info = new LoginInfo();
+        synchronized (info) {
+            try {
+                while (!info.hasInfo()) {
+                    info.wait();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         try{
 
             JSONObject obj = new JSONObject();
-            obj.put("username", username);
-            obj.put("password", password);
+            obj.put("username", info.getUsername());
+            obj.put("password", info.getPassword());
             HttpSenderThread thread = new HttpSenderThread(obj, SERVER_URL, info, HttpPostKind.LOGIN);
             thread.start();
         }
@@ -179,6 +188,7 @@ public class HTTPSender {
     }
 
     public static void createUser(UserModel model) {
+        info = new LoginInfo();
         JSONObject obj = null;
         try {
             obj = new JSONObject();
