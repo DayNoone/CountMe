@@ -9,17 +9,19 @@ import java.util.Calendar;
  */
 public class UserModel extends AppMenu{
 
-    private float weight;
+    private Float weight;
     private Integer birthYear;
     private String gender;
     private Calendar calendar = Calendar.getInstance();
+    private String username;
+    private String password;
 
 
-    public float getWeight() {
+    public Float getWeight() {
         return weight;
     }
 
-    public void setWeight(float weight) {
+    public void setWeight(Float weight) {
         this.weight = weight;
     }
 
@@ -35,11 +37,27 @@ public class UserModel extends AppMenu{
         return birthYear;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
     public String getGender() {
         return gender;
     }
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

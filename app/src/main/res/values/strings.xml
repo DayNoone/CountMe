@@ -14,13 +14,13 @@
     <string name="intro_page1">All bruk av GPS er anonym. Første og siste 100 metrene av din reiserute fjernes. Svada svada</string>
     <string name="intro_page2">Denne appen brukes til å [...] osv osv</string>
     <!--UserInformationTab-->
-    <string name="intro_userInformation"> Dette vil være nyttig tilleggsinformasjon til analyse. Den er helt valgfri, men vi ville satt veldig pris på om du fyller ut.</string>
+    <string name="intro_userInformation"> Denne informasjonen er helt valgfri og vil bli brukt som en del av sykkeldataanalysen. Vi ville satt veldig pris på om du fyller ut.</string>
     <string name="UserInformation">Brukerinformasjon</string>
     <string name="PickBirthDate">ÅÅÅÅ</string>
     <string name="InfoPickBirthDate">Legg inn fødselsår: </string>
     <string name="Male">Mann</string>
     <string name="Kvinne">Kvinne</string>
-
+    <string name="infoWeight">Vekt(kg): </string>
     <string name="intro_page4">Ved å trykke på mobilens <i>optionsknapp</i>, kan du velge språk. </string>
 
     <!--Load Screen-->
@@ -52,6 +52,7 @@
     <string name="co2_spart">CO&#8322; spart</string>
     <string name="distance_traveled">Distanse:</string>
     <string name="avg_speed">Gj.fart: </string>
+    <string name="calories_burned">Kalorier forbrent: </string>
     <string name="Time">Tid: </string>
     <string name="Errors">Feilmeldinger: </string>
     <string name="daily_display">1 dag</string>

@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.mobile.countme.implementation.AndroidFileIO;
-import com.mobile.countme.implementation.controllers.User;
+import com.mobile.countme.implementation.controllers.MainController;
 import com.mobile.countme.storage_and_memory.Assets;
 
 /**
@@ -16,7 +16,7 @@ public abstract class AppMenu extends AppCompatActivity {
     //These values persists through the application lifetime.
     private static Assets appAssets;
     private static AndroidFileIO fileIO;
-    private static User user;
+    private static MainController mainController;
 
     protected boolean onCreateViewCalled = false;
 
@@ -48,8 +48,8 @@ public abstract class AppMenu extends AppCompatActivity {
 
 
 
-    public static User getUser() {
-        return user;
+    public static MainController getMainController() {
+        return mainController;
     }
 
     public static AndroidFileIO getFileIO() {
@@ -60,8 +60,8 @@ public abstract class AppMenu extends AppCompatActivity {
         return appAssets;
     }
 
-    public static void setUser(User user) {
-        AppMenu.user = user;
+    public static void setMainController(MainController mainController) {
+        AppMenu.mainController = mainController;
     }
 
     public static void setAppAssets(Assets assets) {
