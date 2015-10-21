@@ -20,6 +20,7 @@ import android.provider.Settings;
 import android.util.Log;
 
 import com.mobile.countme.implementation.controllers.HTTPSender;
+import com.mobile.countme.implementation.controllers.MainController;
 
 import java.util.ArrayList;
 
@@ -147,7 +148,7 @@ public class GPSTracker extends Service implements LocationListener {
     /**
      * Function to get latitude
      */
-    public double getLatitude() {
+    public Double getLatitude() {
         if (location != null) {
             latitude = location.getLatitude();
         }
@@ -159,7 +160,7 @@ public class GPSTracker extends Service implements LocationListener {
     /**
      * Function to get longitude
      */
-    public double getLongitude() {
+    public Double getLongitude() {
         if (location != null) {
             longitude = location.getLongitude();
         }

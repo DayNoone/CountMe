@@ -2,18 +2,15 @@ package com.mobile.countme.implementation.views;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.PopupMenu;
-import android.widget.PopupWindow;
 import android.widget.Spinner;
 
 import com.mobile.countme.R;
 import com.mobile.countme.custom_views.CustomTextView;
 import com.mobile.countme.framework.AppMenu;
+import com.mobile.countme.implementation.controllers.HTTPSender;
 import com.mobile.countme.implementation.controllers.MainMenu;
 import com.mobile.countme.implementation.models.ErrorModel;
 
@@ -45,6 +42,7 @@ public class ResultMenu extends AppMenu {
     }
 
     public void goToMainMenu(View view){
+        HTTPSender.sendErrors(getMainController().getTripErrors());
         getMainController().resetErrors();
         goTo(MainMenu.class);
     }
@@ -54,7 +52,7 @@ public class ResultMenu extends AppMenu {
         ArrayList<String> items = new ArrayList<>();
         items.add("Velg feilmelding");
         for(ErrorModel error : getMainController().getTripErrors().values()){
-            items.add(error.getCoordinates());
+            items.add(error.getName());
         }
         dropdown.setPrompt("Feilmeldinger");
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.error_dropdownlist, items);

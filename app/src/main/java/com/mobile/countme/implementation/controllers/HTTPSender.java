@@ -6,6 +6,7 @@ import android.net.ConnectivityManager;
 import android.util.Log;
 
 import com.mobile.countme.framework.GPSFilter;
+import com.mobile.countme.implementation.models.ErrorModel;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -13,6 +14,7 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Map;
 import java.util.TimeZone;
 
 /**
@@ -158,6 +160,47 @@ public class HTTPSender {
             HttpSenderThread thread = new HttpSenderThread(jsonObject, sendURL, info, HttpPostKind.TRIP);
             thread.start();
         }
+    }
+
+    //sendErrors method creates jsonObjects from an hashmap of trip errors
+    //Then it uses delegation to send the jsonObejcts to the server via a specified url
+    public static void sendErrors(Map<String, ErrorModel> tripErrors) {
+        Log.d("SendErrors", "SendErrors started");
+
+        JSONObject error = null;
+        try {
+            error = new JSONObject();
+            error.put("_userId", info.getUserID());
+            ErrorModel errorModel;
+            for (String errorStr : tripErrors.keySet()) {
+                errorModel = tripErrors.get(errorStr);
+                synchronized (error) {
+                    error.put("description", errorModel.getDescription());
+                    error.put("lat", errorModel.getLatitude());
+                    error.put("lon", errorModel.getLongitude());
+                    error.put("image", errorModel.getPhotoTakenInBase64());
+
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy'-'MM'-'dd'T'hh':'mm':'ss");
+                    sdf.setTimeZone(TimeZone.getTimeZone("CET"));
+                    error.put("timestamp", sdf.format(new Date(errorModel.getTimeStamp())) + "-0100");
+
+                    if (error != null) {
+                        String sendURL = SERVER_URL + "user/" + info.getUserID() + "/errors/?token=" + info.getToken();
+                        HttpSenderThread thread = new HttpSenderThread(error, sendURL, info, HttpPostKind.ERROR);
+                        thread.start();
+                        error.wait();
+                    }
+                }
+            }
+
+            Log.d("SendErrors", "JSON created successfully");
+        }
+        catch (Exception e) {
+            //dirty fix to checked exceptions
+            e.printStackTrace();
+        }
+
+
     }
 
     public static void logIn(String username, String password){
