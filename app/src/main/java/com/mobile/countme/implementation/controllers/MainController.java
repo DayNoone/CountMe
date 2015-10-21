@@ -29,6 +29,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.UUID;
 
 import static com.google.android.gms.internal.zzhu.runOnUiThread;
 
@@ -208,6 +209,7 @@ public class MainController {
             userModel.setWeight(Float.parseFloat(userInformation.getString("Weight")));
             userModel.setUsername(userInformation.getString("Username"));
             userModel.setPassword(userInformation.getString("Password"));
+            HTTPSender.logIn(userModel);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -271,9 +273,12 @@ public class MainController {
         try {
             userInformation.put("BirthDate", 0);
             userInformation.put("Gender", 0);
-            userInformation.put("Weight",0.0);
-            userModel.setUsername(Long.toString(calendar.getTimeInMillis()));
-            userModel.setPassword(Double.toString(calendar.getTimeInMillis()/2));
+            userInformation.put("Weight", 0.0);
+            String username = new UUID(System.currentTimeMillis(), System.nanoTime()).toString();
+            userModel.setUsername(username);
+            String password = new UUID(System.currentTimeMillis(), System.nanoTime()).toString();
+            userModel.setPassword(password);
+            HTTPSender.createUser(userModel);
             userInformation.put("Username", userModel.getUsername());
             userInformation.put("Password", userModel.getPassword());
         } catch (JSONException e) {

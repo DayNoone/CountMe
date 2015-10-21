@@ -47,6 +47,8 @@ public class HttpSenderThread extends Thread {
             post.setEntity(string);
             response = new DefaultHttpClient().execute(post);
             Log.d("SendJSON", "JSON sent");
+            String json_string;
+            JSONObject receivedObject;
             switch(postType){
 
                 case TRIP:
@@ -59,8 +61,8 @@ public class HttpSenderThread extends Thread {
                     }
                     break;
                 case LOGIN:
-                    String json_string = EntityUtils.toString(response.getEntity());
-                    JSONObject receivedObject = new JSONObject(json_string);
+                    json_string = EntityUtils.toString(response.getEntity());
+                    receivedObject = new JSONObject(json_string);
                     synchronized (info) {
                         info.setUserID(receivedObject.getString("_id"));
                         info.setToken(receivedObject.getString("token"));
@@ -68,6 +70,16 @@ public class HttpSenderThread extends Thread {
                     }
                     Log.d("Received loginresponse", receivedObject.toString());
                     break;
+                case CREATEUSER:
+                    json_string = EntityUtils.toString(response.getEntity());
+                    receivedObject = new JSONObject(json_string);
+                    synchronized (info) {
+                        info.setPassword(receivedObject.getString("password"));
+                        info.setUsername(receivedObject.getString("username"));
+                        info.notifyAll();
+                    }
+                    Log.d("Create user response", receivedObject.toString());
+
             }
         }
         catch (Exception e){

@@ -7,8 +7,10 @@ import android.util.Log;
 
 import com.mobile.countme.framework.GPSFilter;
 import com.mobile.countme.implementation.models.ErrorModel;
+import com.mobile.countme.implementation.models.UserModel;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
@@ -25,8 +27,8 @@ public class HTTPSender {
     private static final String SERVER_URL = "https://tf2.sintef.no:8084/smioTest/api/";
     //private static final String USERID = "560946d9b2af57c413ac8427";
     //private static final String TOKEN = "$2a$10$w1BPdOBqiuaYiKJ6a2qYdewOKOdk7fQ.LE3yjf6fvF5/YLtBi2Q8S";
-    private static final String USERNAME = "sondre";
-    private static final String PASSWORD = "dabchick402";
+    //private static final String USERNAME = "sondre";
+    //private static final String PASSWORD = "dabchick402";
 
     static private LoginInfo info;
 
@@ -39,10 +41,9 @@ public class HTTPSender {
     //sendTrip method creates a json from an arraylist of locations, an arraylist of ints and a context
     //Then it uses delegation to send the json to the server via a specified url
     public static void sendTrip(ArrayList<Location> trip, ArrayList<Integer> connectionTypes, Context context) {
-        logIn(USERNAME, PASSWORD);
         synchronized (info) {
             try {
-                while (!info.isSet()) {
+                while (!info.isLoggedIn()) {
                     info.wait();
                 }
             } catch (Exception e) {
@@ -203,18 +204,63 @@ public class HTTPSender {
 
     }
 
-    public static void logIn(String username, String password){
-        info = new LoginInfo();
+    public static void logIn(UserModel model){
+        if(info == null) {
+            info = new LoginInfo();
+            info.setUsername(model.getUsername());
+            info.setPassword(model.getPassword());
+        }
+        synchronized (info) {
+            try {
+                while (!info.hasInfo()) {
+                    info.wait();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         try{
 
             JSONObject obj = new JSONObject();
-            obj.put("username", username);
-            obj.put("password", password);
+            obj.put("username", info.getUsername());
+            obj.put("password", info.getPassword());
             HttpSenderThread thread = new HttpSenderThread(obj, SERVER_URL, info, HttpPostKind.LOGIN);
             thread.start();
         }
         catch( Exception e){
             e.printStackTrace();
+        }
+
+    }
+
+    public static void createUser(UserModel model) {
+        info = new LoginInfo();
+        JSONObject obj = null;
+        try {
+            obj = new JSONObject();
+/*              username:                         userStore.getAt(0).get('username'),
+               gender:                              userStore.getAt(0).get('gender'),
+               maritalstatus:    userStore.getAt(0).get('maritalstatus'),
+               occupation:                       userStore.getAt(0).get('occupation'),
+               birthyear:                           userStore.getAt(0).get('birthyear'),
+               subscription:      userStore.getAt(0).get('subscription'),
+               residence:                          userStore.getAt(0).get('residence'),
+               area:                                   userStore.getAt(0).get('area'),
+               numchildren:      userStore.getAt(0).get('numchildren')
+*/
+            obj.put("username", model.getUsername());
+            obj.put("birthyear", model.getBirthYear());
+            obj.put("gender", model.getGender());
+            obj.put("password", model.getPassword());
+            //Potentially more things
+        }
+        catch (JSONException e) {
+            e.printStackTrace();
+        }
+        if (obj != null) {
+            String sendURL = SERVER_URL + "user/";
+            HttpSenderThread thread = new HttpSenderThread(obj, sendURL, info, HttpPostKind.CREATEUSER);
+            thread.start();
         }
 
     }

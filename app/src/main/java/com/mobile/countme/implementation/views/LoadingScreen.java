@@ -20,13 +20,13 @@ import com.mobile.countme.storage_and_memory.Assets;
 public class LoadingScreen extends AppMenu {
 
     @Override
-    public void onCreate(Bundle savedInstanceBundle){
+    public void onCreate(Bundle savedInstanceBundle) {
         super.onCreate(savedInstanceBundle);
 
         //TODO: ALPHA CODE, REMOVE AT LAUNCH:
 //        This clears the sharedPref for userPrefrences (clear username).
-//        SharedPreferences sharedPref = getSharedPreferences(getString(R.string.profile_preferences), Context.MODE_PRIVATE);
-//        sharedPref.edit().clear().commit();
+        //SharedPreferences sharedPref = getSharedPreferences(getString(R.string.profile_preferences), Context.MODE_PRIVATE);
+        //sharedPref.edit().clear().commit();
 
         //Load things
         //Sets all the static classes for the application
@@ -47,74 +47,68 @@ public class LoadingScreen extends AppMenu {
     private class LoadViewTask extends AsyncTask<Void, Integer, Void> {
 
 
-
-    //The code to be executed in a background thread.
-    @Override
-    protected Void doInBackground(Void... params) {
+        //The code to be executed in a background thread.
+        @Override
+        protected Void doInBackground(Void... params) {
              /* This code creates/saves the user data and loads all the application assets
               * The publish progress is set in 2 parts:
               * "Saved Data", "Saved preferences" and "GUI?"
 .             */
-        try
-        {
-            //Get the current thread's token
-            synchronized (this)
-            {
-                //IMPORTANT, needs to be done first
+            try {
+                //Get the current thread's token
+                synchronized (this) {
+                    //IMPORTANT, needs to be done first
 //                getFileIO().getEnvironmentSaveFile();
 //                getFileIO().getTripsSaveFile();
-                //If the user already "logged" inn
-                SharedPreferences sharedPref = getSharedPreferences(getString(R.string.profile_preferences), Context.MODE_PRIVATE);
-                boolean isLoggedInn = sharedPref.getBoolean(getString(R.string.isLoggedInn), false);
-                if(!isLoggedInn) {
-                    Log.e("LoadScreen", "UserData Not present, creating new saveStatistics");
-                    //ONLY DONE THE FIRST TIME THE APPLICATION IS CREATED
-                    getMainController().createTripsStatistics();
-                    getMainController().createUserInformation();
+                    //If the user already "logged" inn
+                    SharedPreferences sharedPref = getSharedPreferences(getString(R.string.profile_preferences), Context.MODE_PRIVATE);
+                    boolean isLoggedInn = sharedPref.getBoolean(getString(R.string.isLoggedInn), false);
+                    if (!isLoggedInn) {
+                        Log.e("LoadScreen", "UserData Not present, creating new saveStatistics");
+                        //ONLY DONE THE FIRST TIME THE APPLICATION IS CREATED
+                        getMainController().createTripsStatistics();
+                        getMainController().createUserInformation();
+                    }
+
+                    //TODO: Testing code - Remove
+
+                    //Loads the statistics from the phone internal storage
+                    getMainController().loadEnvironmentalStatistics();
+                    getMainController().loadTripsStatistics();
+                    getMainController().loadUserInformation();
+
+
                 }
+            } catch (Exception e) {
+                Log.e("LoadScreen", "LOADING APPLICATION DATA FAILED");
+                e.printStackTrace();
+            }
 
-                //TODO: Testing code - Remove
+            return null;
+        }
 
-                //Loads the statistics from the phone internal storage
-                getMainController().loadEnvironmentalStatistics();
-                getMainController().loadTripsStatistics();
-                getMainController().loadUserInformation();
+        //after executing the code in the thread
+        @Override
+        protected void onPostExecute(Void result) {
 
-
+            // Checks if the user is logged inn, if the user is logged inn it skips the IntroductionMenu and continues to MainPagesActivity.
+            SharedPreferences sharedPref = getSharedPreferences(getString(R.string.profile_preferences), Context.MODE_PRIVATE);
+            boolean isLoggedInn = sharedPref.getBoolean(getString(R.string.isLoggedInn), false);
+            Log.e("LoadingScreen", "isloggedin: " + isLoggedInn);
+            if (isLoggedInn) {
+                goTo(MainMenu.class);
+            } else {
+                //Initialize the next Activity if not logged inn and set the logged inn boolean to true, so that the next time the user starts the application he/she will not go to the introduction menu.
+                SharedPreferences.Editor edit = sharedPref.edit();
+                edit.putBoolean(getString(R.string.isLoggedInn), Boolean.TRUE);
+                edit.commit();
+                goTo(IntroductionMenu.class);
             }
         }
-        catch (Exception e)
-        {
-            Log.e("LoadScreen", "LOADING APPLICATION DATA FAILED");
-            e.printStackTrace();
-        }
-
-        return null;
     }
 
-    //after executing the code in the thread
     @Override
-    protected void onPostExecute(Void result)
-    {
-
-        // Checks if the user is logged inn, if the user is logged inn it skips the IntroductionMenu and continues to MainPagesActivity.
-        SharedPreferences sharedPref = getSharedPreferences(getString(R.string.profile_preferences), Context.MODE_PRIVATE);
-        boolean isLoggedInn = sharedPref.getBoolean(getString(R.string.isLoggedInn), false);
-        Log.e("LoadingScreen", "isloggedin: " + isLoggedInn);
-        if(isLoggedInn) {
-            goTo(MainMenu.class);
-        }else{
-            //Initialize the next Activity if not logged inn and set the logged inn boolean to true, so that the next time the user starts the application he/she will not go to the introduction menu.
-            SharedPreferences.Editor edit = sharedPref.edit();
-            edit.putBoolean(getString(R.string.isLoggedInn), Boolean.TRUE);
-            edit.commit();
-            goTo(IntroductionMenu.class);
-        }
-    }
-}
-
-    @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
 
     }
 
