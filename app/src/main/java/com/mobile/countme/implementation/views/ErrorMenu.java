@@ -15,7 +15,6 @@ import android.widget.Toast;
 
 import com.mobile.countme.R;
 import com.mobile.countme.framework.AppMenu;
-import com.mobile.countme.implementation.models.ErrorModel;
 
 /**
  * Created by Kristian on 16/09/2015.
@@ -30,15 +29,15 @@ public class ErrorMenu extends AppMenu {
         setContentView(R.layout.error_activity);
 
         photoTaken = (ImageView)findViewById(R.id.pictureTaken);
-        if(getUser().getErrorModel().getPhotoTaken() != null) {
-            photoTaken.setImageBitmap(getUser().getErrorModel().getPhotoTaken());
+        if(getMainController().getErrorModel().getPhotoTaken() != null) {
+            photoTaken.setImageBitmap(getMainController().getErrorModel().getPhotoTaken());
         }
-        description = getUser().getErrorModel().getDescprition();
+        description = getMainController().getErrorModel().getDescprition();
     }
 
     public void finishEditing(View view){
-        getUser().getErrorModel().setEditedWhenReported(false);
-        if(getUser().isTripInitialized()){
+        getMainController().getErrorModel().setEditedWhenReported(false);
+        if(getMainController().isTripInitialized()){
             goTo(BikingActive.class);
         }else {
             goTo(ResultMenu.class);
@@ -61,7 +60,7 @@ public class ErrorMenu extends AppMenu {
                 // Do something with value!
                 Editable editable = input.getText();
                 description = editable.toString();
-                getUser().addDescription(description);
+                getMainController().addDescription(description);
             }
         });
 
@@ -75,7 +74,7 @@ public class ErrorMenu extends AppMenu {
     }
 
     public void startCamera(View view){
-        if(getUser().getErrorModel().isEditedWhenReported()) {
+        if(getMainController().getErrorModel().isEditedWhenReported()) {
             Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
             startActivityForResult(intent, 0);
         }else {
@@ -89,7 +88,7 @@ public class ErrorMenu extends AppMenu {
 
         if(data != null) {
             Bitmap bp = (Bitmap) data.getExtras().get("data");
-            getUser().addPhoto(bp);
+            getMainController().addPhoto(bp);
             photoTaken.setImageBitmap(bp);
         }
     }
@@ -124,8 +123,8 @@ public class ErrorMenu extends AppMenu {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        getUser().getErrorModel().setEditedWhenReported(false);
-        if(getUser().isTripInitialized()){
+        getMainController().getErrorModel().setEditedWhenReported(false);
+        if(getMainController().isTripInitialized()){
             goTo(BikingActive.class);
         }else {
             goTo(ResultMenu.class);

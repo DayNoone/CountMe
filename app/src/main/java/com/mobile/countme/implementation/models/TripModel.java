@@ -9,6 +9,7 @@ public class TripModel {
     private int co2_saved;
     private double distance;
     private double avg_speed;
+    private int kcal;
 
     //TODO: Create ArrayList with errors reported this trip. May need to create an ErrorModel that contains both a description and a picture.
 
@@ -24,6 +25,10 @@ public class TripModel {
         return distance;
     }
 
+    public int getKcal() {
+        return kcal;
+    }
+
     public void setAvg_speed(double avg_speed) {
         this.avg_speed = avg_speed;
     }
@@ -34,5 +39,9 @@ public class TripModel {
 
     public void setDistance(double distance) {
         this.distance = distance/1000;
+    }
+
+    public void setKcal(int kcal) {
+        this.kcal = kcal;
     }
 }

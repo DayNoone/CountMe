@@ -29,52 +29,6 @@ public class AndroidFileIO {
         this.context = context;
     }
 
-
-
-//    public void writeEnvironmentSaveFile(String string){
-//        try{
-//            if(!string.equals(old_environmentalStats)) {
-//                old_environmentalStats = string;
-//                FileOutputStream outputStream = context.openFileOutput(context.getString(R.string.environmentStatisticsData), Context.MODE_PRIVATE);
-//                outputStream.write(string.getBytes());
-//                outputStream.close();
-//                Log.e("FileIO", "EnvironmentalFileSaved: " + string);
-//            }
-//        } catch (Exception e){
-//            e.printStackTrace();
-//            Log.e("FileIO", "EnvironmentalFileNotFound!");
-//        }
-//    }
-
-//    public String readEnvironmentSaveFile(){
-//        String temp="";
-//        try{
-//            FileInputStream inputStream = context.openFileInput(context.getString(R.string.environmentStatisticsData));
-//            int c;
-//            while ( (c= inputStream.read()) != -1){
-//                temp = temp + Character.toString((char) c);
-//            }
-//        }catch (Exception e){
-//            e.printStackTrace();
-//            Log.e("FileIO", "UnableToReadEnvironmentalFile!");
-//        }
-//        Log.e("FileIO", "ReadEnvironmentalFile:" + temp);
-//        return temp;
-//    }
-
-//    //Only used once the first time the game starts up
-//    //If a file is already present it gives you the present file.
-//    public File getEnvironmentSaveFile(){
-//        File file = new File(context.getFilesDir(), context.getString(R.string.environmentStatisticsData));
-//        if(!file.exists()){
-//            savedData = file;
-//            Log.e("FileIO", "EnvironmentalDataCreated");
-//        }else{
-//            Log.e("FileIO", "EnvironmentalDataExists");
-//        }
-//        return savedData;
-//    }
-
     /**
      * Update the trip statistics in the internal storage.
      * @param todaysTrips
@@ -90,6 +44,7 @@ public class AndroidFileIO {
                 lastDayTrips.put("co2Saved", todaysTrips.get("co2Saved"));
                 lastDayTrips.put("distance", todaysTrips.get("distance"));
                 lastDayTrips.put("avgSpeed", todaysTrips.get("avgSpeed"));
+                lastDayTrips.put("calories", todaysTrips.get("calories"));
             }else {
                 trips.put(todaysTrips);
             }

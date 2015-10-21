@@ -9,6 +9,7 @@ public class StatisticsModel {
     private int co2_saved;
     private double distance;
     private double avg_speed;
+    private int kcal;
 
     /**
      * Adds the co2 saved this trip to the co2 saved so far(this week or month).
@@ -50,6 +51,10 @@ public class StatisticsModel {
         return distance;
     }
 
+    public int getKcal() {
+        return kcal;
+    }
+
     /**
      * Resets all the statistics.
      */
@@ -69,5 +74,9 @@ public class StatisticsModel {
 
     public void setDistance(double distance) {
         this.distance = distance;
+    }
+
+    public void addKcal(int kcal) {
+        this.kcal += kcal;
     }
 }

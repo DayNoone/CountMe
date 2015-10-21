@@ -1,25 +1,19 @@
 package com.mobile.countme.implementation.views;
 
-import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.PopupMenu;
 import android.widget.PopupWindow;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.mobile.countme.R;
 import com.mobile.countme.custom_views.CustomTextView;
 import com.mobile.countme.framework.AppMenu;
-import com.mobile.countme.framework.PopUpMenuEventHandle;
 import com.mobile.countme.implementation.controllers.MainMenu;
 import com.mobile.countme.implementation.models.ErrorModel;
 
@@ -31,30 +25,27 @@ import java.util.ArrayList;
  */
 public class ResultMenu extends AppMenu {
 
-    private PopupMenu popupMenu;
-    private PopupWindow mDropdown = null;
-    LayoutInflater mInflater;
-    Button pop;
-
     public void onCreate(Bundle savedInstanceBundle) {
         super.onCreate(savedInstanceBundle);
         setContentView(R.layout.result_activity);
         CustomTextView co2_saved = (CustomTextView) findViewById(R.id.co2_saved_result);
         CustomTextView distance = (CustomTextView) findViewById(R.id.distance_result);
+        CustomTextView calories_display = (CustomTextView) findViewById(R.id.calories_burned);
         CustomTextView avgSpeed = (CustomTextView) findViewById(R.id.avgSpeed_result);
         CustomTextView time_used = (CustomTextView) findViewById(R.id.time_used);
-        co2_saved.setText(getUser().getTripModel().getCo2_saved() + " g");
-        Double transformedDistance = new BigDecimal(getUser().getTripModel().getDistance()).setScale(3, BigDecimal.ROUND_HALF_UP).doubleValue();
+        co2_saved.setText(getMainController().getTripModel().getCo2_saved() + " g");
+        Double transformedDistance = new BigDecimal(getMainController().getTripModel().getDistance()).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
         distance.setText(transformedDistance + " km");
-        Double transformedAvgSpeed = new BigDecimal(getUser().getTripModel().getAvg_speed()).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
-        avgSpeed.setText(transformedAvgSpeed + " m/s");
-        time_used.setText(getUser().getTimeInFormat(-1));
-        getUser().setTripInitialized(false);
+        calories_display.setText(getMainController().getTripModel().getKcal() + " kcal");
+        Double transformedAvgSpeed = new BigDecimal(getMainController().getTripModel().getAvg_speed()).setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
+        avgSpeed.setText(transformedAvgSpeed + " km/t");
+        time_used.setText(getMainController().getTimeInFormat(-1));
+        getMainController().setTripInitialized(false);
         initSpinner();
     }
 
     public void goToMainMenu(View view){
-        getUser().resetErrors();
+        getMainController().resetErrors();
         goTo(MainMenu.class);
     }
 
@@ -62,7 +53,7 @@ public class ResultMenu extends AppMenu {
         final Spinner dropdown = (Spinner)findViewById(R.id.spinnerErrors);
         ArrayList<String> items = new ArrayList<>();
         items.add("Velg feilmelding");
-        for(ErrorModel error : getUser().getTripErrors().values()){
+        for(ErrorModel error : getMainController().getTripErrors().values()){
             items.add(error.getCoordinates());
         }
         dropdown.setPrompt("Feilmeldinger");
@@ -75,8 +66,8 @@ public class ResultMenu extends AppMenu {
                                        int arg2, long arg3) {
                 // TODO Auto-generated method stub
                 String item = dropdown.getSelectedItem().toString();
-                if(getUser().getTripErrors().containsKey(item)) {
-                    getUser().getTripErrors().get(item).setThisError();
+                if(getMainController().getTripErrors().containsKey(item)) {
+                    getMainController().getTripErrors().get(item).setThisError();
                     goTo(ErrorMenu.class);
                 }
                 Log.e("Selected item : ", item);

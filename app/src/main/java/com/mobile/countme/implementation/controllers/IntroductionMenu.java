@@ -1,15 +1,11 @@
 package com.mobile.countme.implementation.controllers;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.InputFilter;
-import android.text.InputType;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +15,7 @@ import android.widget.RadioGroup;
 
 import com.mobile.countme.framework.AppMenu;
 import com.mobile.countme.R;
+import com.mobile.countme.framework.DecimalDigitsInputFilter;
 import com.mobile.countme.framework.SlidingTabLayout;
 import com.mobile.countme.framework.IntroductionViewPagerAdapter;
 
@@ -93,7 +90,7 @@ public class IntroductionMenu extends AppMenu {
     }
 
     public void goToMainApp(View view) {
-        getUser().saveUserInformationToStorage();
+        getMainController().saveUserInformationToStorage();
         goTo(MainMenu.class);
     }
 
@@ -104,7 +101,7 @@ public class IntroductionMenu extends AppMenu {
     public void initUserInformation(){
         final EditText editText = (EditText) findViewById(R.id.editText);
         if(editText == null) return;
-        final Integer birthYear = getUser().getUserModel().getBirthYear();
+        final Integer birthYear = getMainController().getUserModel().getBirthYear();
         if(birthYear != null && birthYear != 0) {
             editText.setText(birthYear + "");
         }
@@ -124,21 +121,51 @@ public class IntroductionMenu extends AppMenu {
                 Editable editable = editText.getText();
                 if (!editable.toString().contains("Y")) {
                     if(editable.toString().isEmpty()){
-                        getUser().getUserModel().setBirthYear(0);
+                        getMainController().getUserModel().setBirthYear(0);
                     }else {
                         int newBirthYear = Integer.parseInt(editable.toString());
-                        getUser().getUserModel().setBirthYear(newBirthYear);
+                        getMainController().getUserModel().setBirthYear(newBirthYear);
                     }
+                }
+            }
+        });
+
+        final EditText editTextWeight = (EditText) findViewById(R.id.editTextWeight);
+        if(editTextWeight == null) return;
+        editTextWeight.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(4,1)});
+        final Float weight = getMainController().getUserModel().getWeight();
+        if(weight != null && weight != 0) {
+            editTextWeight.setText(weight + "");
+        }
+        editTextWeight.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                Editable editable = editTextWeight.getText();
+                if(editable.toString().isEmpty()){
+                    getMainController().getUserModel().setWeight((float)0.0);
+                }else {
+                    float newWeight = Float.parseFloat(editable.toString());
+                    getMainController().getUserModel().setWeight(newWeight);
                 }
             }
         });
 
         RadioGroup rg = (RadioGroup) findViewById(R.id.genderGrp);
         if(rg == null) return;
-        if(getUser().getUserModel().getGender() != null && getUser().getUserModel().getGender().equals("male")){
+        if(getMainController().getUserModel().getGender() != null && getMainController().getUserModel().getGender().equals("male")){
             RadioButton male = (RadioButton) findViewById(R.id.male);
             male.setChecked(true);
-        }else if(getUser().getUserModel().getGender() != null && getUser().getUserModel().getGender().equals("female")){
+        }else if(getMainController().getUserModel().getGender() != null && getMainController().getUserModel().getGender().equals("female")){
             RadioButton female = (RadioButton) findViewById(R.id.female);
             female.setChecked(true);
         }
@@ -147,10 +174,10 @@ public class IntroductionMenu extends AppMenu {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
                     case R.id.male:
-                        getUser().getUserModel().setGender("male");
+                        getMainController().getUserModel().setGender("male");
                         break;
                     case R.id.female:
-                        getUser().getUserModel().setGender("female");
+                        getMainController().getUserModel().setGender("female");
                         break;
                 }
             }
