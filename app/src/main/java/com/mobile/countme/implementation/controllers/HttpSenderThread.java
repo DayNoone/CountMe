@@ -74,7 +74,6 @@ public class HttpSenderThread extends Thread {
                     json_string = EntityUtils.toString(response.getEntity());
                     receivedObject = new JSONObject(json_string);
                     synchronized (info) {
-                        info.setPassword(receivedObject.getString("password"));
                         info.setUsername(receivedObject.getString("username"));
                         info.notifyAll();
                     }

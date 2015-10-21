@@ -252,6 +252,7 @@ public class HTTPSender {
             obj.put("birthyear", model.getBirthYear());
             obj.put("gender", model.getGender());
             obj.put("password", model.getPassword());
+            info.setPassword(model.getPassword());
             //Potentially more things
         }
         catch (JSONException e) {
