@@ -29,6 +29,7 @@ public class HttpSenderThread extends Thread {
 
     }
 
+
     public void run(){
         sendJSON();
     }
@@ -49,6 +50,13 @@ public class HttpSenderThread extends Thread {
             switch(postType){
 
                 case TRIP:
+                    break;
+                case ERROR:
+                    String json_string1 = EntityUtils.toString(response.getEntity());
+                    Log.d("Received errorresponse", json_string1);
+                    synchronized (obj) {
+                        obj.notifyAll();
+                    }
                     break;
                 case LOGIN:
                     String json_string = EntityUtils.toString(response.getEntity());

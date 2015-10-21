@@ -348,7 +348,7 @@ public class MainController {
      * @param description
      */
     public void addDescription(String description){
-        errorModel.setDescprition(description);
+        errorModel.setDescription(description);
     }
 
     /**

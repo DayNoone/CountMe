@@ -32,7 +32,7 @@ public class ErrorMenu extends AppMenu {
         if(getMainController().getErrorModel().getPhotoTaken() != null) {
             photoTaken.setImageBitmap(getMainController().getErrorModel().getPhotoTaken());
         }
-        description = getMainController().getErrorModel().getDescprition();
+        description = getMainController().getErrorModel().getDescription();
     }
 
     public void finishEditing(View view){
