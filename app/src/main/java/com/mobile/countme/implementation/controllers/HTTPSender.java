@@ -195,12 +195,6 @@ public class HTTPSender {
             obj.put("username", model.getUsername());
             obj.put("birthyear", model.getBirthYear());
             obj.put("gender", model.getGender());
-            obj.put("maritalstatus", "");
-            obj.put("occupation", "");
-            obj.put("subscription", "");
-            obj.put("residence", "");
-            obj.put("area", "");
-            obj.put("numchildren", "");
             obj.put("password", model.getPassword());
             //Potentially more things
         }
