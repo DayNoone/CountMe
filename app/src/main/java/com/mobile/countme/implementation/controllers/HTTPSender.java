@@ -4,6 +4,7 @@ import android.content.Context;
 import android.location.Location;
 import android.net.ConnectivityManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.mobile.countme.framework.GPSFilter;
 import com.mobile.countme.implementation.models.ErrorModel;
@@ -31,6 +32,7 @@ public class HTTPSender {
     //private static final String PASSWORD = "dabchick402";
 
     static private LoginInfo info;
+    static private UserModel userModel;
 
 
     public HTTPSender() {
@@ -41,15 +43,11 @@ public class HTTPSender {
     //sendTrip method creates a json from an arraylist of locations, an arraylist of ints and a context
     //Then it uses delegation to send the json to the server via a specified url
     public static void sendTrip(ArrayList<Location> trip, ArrayList<Integer> connectionTypes, Context context) {
-        synchronized (info) {
-            try {
-                while (!info.isLoggedIn()) {
-                    info.wait();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+
+        while (!logIn(userModel)) {
+            Toast.makeText(context, "Du må slå på internett", Toast.LENGTH_SHORT).show();
         }
+
         Log.d("SendTrip", "SendTrip started");
 
         GPSFilter.filterTrip(trip, connectionTypes);
@@ -122,7 +120,7 @@ public class HTTPSender {
                     case (ConnectivityManager.TYPE_WIMAX):
                         dataPoint.put("mode", "wimax");
                         break;
-                    case(-1):
+                    case (-1):
                         dataPoint.put("mode", "none");
                     default:
                         dataPoint.put("mode", "");
@@ -151,8 +149,7 @@ public class HTTPSender {
             String versionName = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName;
             jsonObject.put("OS", versionName);
             Log.d("SendTrip", "JSON created successfully");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             //dirty fix to checked exceptions
             e.printStackTrace();
         }
@@ -197,8 +194,7 @@ public class HTTPSender {
             }
 
             Log.d("SendErrors", "JSON created successfully");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             //dirty fix to checked exceptions
             e.printStackTrace();
         }
@@ -206,11 +202,15 @@ public class HTTPSender {
 
     }
 
-    public static boolean logIn(UserModel model){
-        if(info == null) {
+    public static boolean logIn(UserModel model) {
+        userModel = model;
+        if (info == null) {
             info = new LoginInfo();
             info.setUsername(model.getUsername());
             info.setPassword(model.getPassword());
+        }
+        if(info.isLoggedIn()){
+            return true;
         }
         synchronized (info) {
             try {
@@ -221,15 +221,14 @@ public class HTTPSender {
                 e.printStackTrace();
             }
         }
-        try{
+        try {
 
             JSONObject obj = new JSONObject();
             obj.put("username", info.getUsername());
             obj.put("password", info.getPassword());
             HttpSenderThread thread = new HttpSenderThread(obj, SERVER_URL, info, HttpPostKind.LOGIN);
             thread.start();
-        }
-        catch( Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return info.isLoggedIn();
@@ -257,8 +256,7 @@ public class HTTPSender {
             obj.put("password", model.getPassword());
             info.setPassword(model.getPassword());
             //Potentially more things
-        }
-        catch (JSONException e) {
+        } catch (JSONException e) {
             e.printStackTrace();
         }
         if (obj != null) {
@@ -268,7 +266,6 @@ public class HTTPSender {
         }
 
     }
-
 
 
 }
