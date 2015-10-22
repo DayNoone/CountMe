@@ -71,12 +71,12 @@ public class HTTPSender {
             jsonObject.put("_userId", info.getUserID());
             Date startTime = new Date(trip.get(0).getTime());
             Date endTime = new Date(trip.get(trip.size() - 1).getTime());
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy'-'MM'-'dd'T'hh':'mm':'ss");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss-SSSz");
             sdf.setTimeZone(TimeZone.getTimeZone("CET"));
             sdf.format(startTime);
             sdf.format(endTime);
-            jsonObject.put("startTime", startTime + "-0100");
-            jsonObject.put("endTime", endTime + "-0100");
+            jsonObject.put("startTime", startTime);
+            jsonObject.put("endTime", endTime);
             JSONArray tripData = new JSONArray();
             JSONObject dataPoint;
             Location location;
@@ -183,9 +183,9 @@ public class HTTPSender {
                     error.put("lon", errorModel.getLongitude());
                     error.put("image", errorModel.getPhotoTakenInBase64());
 
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy'-'MM'-'dd'T'hh':'mm':'ss");
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss-SSSz");
                     sdf.setTimeZone(TimeZone.getTimeZone("CET"));
-                    error.put("timestamp", sdf.format(new Date(errorModel.getTimeStamp())) + "-0100");
+                    error.put("timestamp", sdf.format(new Date(errorModel.getTimeStamp())));
 
                     if (error != null) {
                         String sendURL = SERVER_URL + "user/" + info.getUserID() + "/errors/?token=" + info.getToken();
