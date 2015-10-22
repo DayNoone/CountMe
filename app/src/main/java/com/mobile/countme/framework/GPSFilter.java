@@ -22,8 +22,8 @@ public class GPSFilter {
                 accumulator += lengthSegment;
             }
             if( accumulator < 100.0f){
-                trip.remove(i);
-                modes.remove(i);
+                trip.remove(i + 1);
+                modes.remove(i + 1);
             }
             else{
                 break;
@@ -43,7 +43,7 @@ public class GPSFilter {
                 accumulator += lengthSegment;
             }
             if( accumulator > 100.0f){
-                lastIndex = i;
+                lastIndex = i - 1;
                 break;
             }
             start = next;
