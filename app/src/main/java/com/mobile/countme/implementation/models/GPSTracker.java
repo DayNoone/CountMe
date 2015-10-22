@@ -67,8 +67,13 @@ public class GPSTracker extends Service implements LocationListener {
             ConnectivityManager cm =
                     (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
             connectionTypes = new ArrayList<Integer>();
-            activeNetwork = cm.getActiveNetworkInfo();
-            connectionTypes.add(activeNetwork.getType());
+            if(cm != null) {
+                activeNetwork = cm.getActiveNetworkInfo();
+                connectionTypes.add(activeNetwork.getType());
+            }
+            else{
+                connectionTypes.add(-1);
+            }
             trip.add(getLocation());
         }
 
