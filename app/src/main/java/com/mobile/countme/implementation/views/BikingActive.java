@@ -51,7 +51,7 @@ public class BikingActive extends AppMenu {
         newErrorModel.setName("Feilmelding " + getMainController().getErrorCount());
         newErrorModel.setLatitude(getMainController().getTracker().getLatitude().toString());
         newErrorModel.setLongitude(getMainController().getTracker().getLongitude().toString());
-        newErrorModel.setTimeStamp(getMainController().getTracker().getLocation() != null ? getMainController().getTracker().getLocation().getTime() : -1);
+        newErrorModel.setTimeStamp(getMainController().getTracker().getLocation() != null ? System.currentTimeMillis() : -1);
         new AlertDialog.Builder(this)
                 .setMessage(R.string.report_error)
                 .setNegativeButton(R.string.later, new DialogInterface.OnClickListener() {
