@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public class GPSFilter {
 
     public static void filterTrip(ArrayList<Location> trip, ArrayList<Integer> modes){
+        if(trip.size() == 0) return;
         Location end = trip.get(trip.size() - 1);
         Location almostEnd;
         float accumulator = 0.0f;

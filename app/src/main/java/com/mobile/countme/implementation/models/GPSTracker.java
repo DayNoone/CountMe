@@ -19,6 +19,7 @@ import android.os.IBinder;
 import android.provider.Settings;
 import android.util.Log;
 
+import com.mobile.countme.framework.AppMenu;
 import com.mobile.countme.implementation.controllers.HTTPSender;
 import com.mobile.countme.implementation.controllers.MainController;
 
@@ -142,6 +143,7 @@ public class GPSTracker extends Service implements LocationListener {
             Log.d("Stopping GPS", "Locationmanager!=null");
             locationManager.removeUpdates(this);
             HTTPSender.sendTrip(trip, connectionTypes, mContext);
+            AppMenu.getMainController().getTripModel().setTrips(trip);
         }
     }
 

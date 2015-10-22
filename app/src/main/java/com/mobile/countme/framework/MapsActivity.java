@@ -1,14 +1,22 @@
 package com.mobile.countme.framework;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.mobile.countme.R;
 import com.mobile.countme.implementation.views.BikingActive;
+import com.mobile.countme.implementation.views.ResultMenu;
+
+import java.util.ArrayList;
 
 public class MapsActivity extends FragmentActivity {
 
@@ -65,10 +73,18 @@ public class MapsActivity extends FragmentActivity {
      */
     private void setUpMap() {
         //mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
+        ArrayList<LatLng> locationPoints = new ArrayList<>();
+        for(Location location : AppMenu.getMainController().getTripModel().getTrips()) {
+            locationPoints.add(new LatLng(location.getLatitude(),
+                    location.getLongitude()));
+        }
+        PolylineOptions polylineOptions = new PolylineOptions();
+        polylineOptions.addAll(locationPoints);polylineOptions.color(Color.RED);
+        mMap.addPolyline(polylineOptions);
     }
 
     public void goBack(View view) {
-        Intent intent = new Intent(this, BikingActive.class);
+        Intent intent = new Intent(this, ResultMenu.class);
         startActivity(intent);
         finish();
     }

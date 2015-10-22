@@ -10,6 +10,7 @@ import android.widget.Spinner;
 import com.mobile.countme.R;
 import com.mobile.countme.custom_views.CustomTextView;
 import com.mobile.countme.framework.AppMenu;
+import com.mobile.countme.framework.MapsActivity;
 import com.mobile.countme.implementation.controllers.HTTPSender;
 import com.mobile.countme.implementation.controllers.MainMenu;
 import com.mobile.countme.implementation.models.ErrorModel;
@@ -45,6 +46,10 @@ public class ResultMenu extends AppMenu {
         HTTPSender.sendErrors(getMainController().getTripErrors());
         getMainController().resetErrors();
         goTo(MainMenu.class);
+    }
+
+    public void goToMaps(View view) {
+        goTo(MapsActivity.class);
     }
 
     private void initSpinner(){
