@@ -1,10 +1,11 @@
 package com.mobile.countme.implementation.controllers;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.location.Location;
 import android.net.ConnectivityManager;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.mobile.countme.framework.GPSFilter;
 import com.mobile.countme.implementation.models.ErrorModel;
@@ -45,7 +46,25 @@ public class HTTPSender {
     public static void sendTrip(ArrayList<Location> trip, ArrayList<Integer> connectionTypes, Context context) {
 
         while (!logIn(userModel)) {
-            Toast.makeText(context, "Du må slå på internett", Toast.LENGTH_SHORT).show();
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setMessage("Du trenger internett!")
+                    .setCancelable(false)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            synchronized (userModel) {
+                                userModel.notify();
+                            }
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
+            synchronized (userModel){
+                try {
+                    userModel.wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
         }
 
         Log.d("SendTrip", "SendTrip started");
