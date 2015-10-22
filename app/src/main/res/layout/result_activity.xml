@@ -3,6 +3,30 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/mapBtn"
+        android:onClick="goToMaps"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/map_icon"
+        android:src="@drawable/btn_highlight"
+        android:layout_marginLeft="20dp"
+        android:layout_marginEnd="10dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/map_description"
+        android:id="@+id/textView7"
+        android:layout_below="@+id/mapBtn"
+        android:layout_alignStart="@+id/mapBtn"
+        android:layout_marginLeft="-3dp"/>
+
     <com.mobile.countme.custom_views.CustomTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

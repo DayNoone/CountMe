@@ -32,12 +32,15 @@
     <!--Error Screen -->
     <string name="error_page">Feilrapport</string>
     <string name="finished_editing">Ok</string>
+    <string name="take_picture">Ta bilde</string>
+    <string name="Add_description">Beskrivelse</string>
 
     <!--Result Screen -->
     <string name="result_page">Resultat</string>
     <string name="mainScreen">Hovedside</string>
     <string name="popupError">Feilmeldinger</string>
     <string name="noErrorsReported">Ingen feilmeldinger</string>
+    <string name="map_description">Se reiserute</string>
 
     <!-- Environment -->
     <string name="environment_title"><u>CO&#8322; spart i dag</u></string>
@@ -77,7 +80,7 @@
 
     <!-- Biking active -->
     <string name="biking_active"><u>Sykling pågår</u></string>
-    <string name="report_problem"><u>Feilmelding</u></string>
+    <string name="report_problem">Feilmelding</string>
 
     <!--Profile strings-->
     <string name="isLoggedInn">isLoggedInn</string>

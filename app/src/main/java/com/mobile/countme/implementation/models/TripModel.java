@@ -1,5 +1,9 @@
 package com.mobile.countme.implementation.models;
 
+import android.location.Location;
+
+import java.util.ArrayList;
+
 /**
  * Created by Robin on 01.10.2015.
  * This class contains all the information(from today) the StatisticsTab will display.
@@ -11,7 +15,7 @@ public class TripModel {
     private double avg_speed;
     private int kcal;
 
-    //TODO: Create ArrayList with errors reported this trip. May need to create an ErrorModel that contains both a description and a picture.
+    private ArrayList<Location> trips;
 
     public double getAvg_speed() {
         return avg_speed;
@@ -23,6 +27,10 @@ public class TripModel {
 
     public double getDistance() {
         return distance;
+    }
+
+    public ArrayList<Location> getTrips() {
+        return trips;
     }
 
     public int getKcal() {
@@ -43,5 +51,9 @@ public class TripModel {
 
     public void setKcal(int kcal) {
         this.kcal = kcal;
+    }
+
+    public void setTrips(ArrayList<Location> trips) {
+        this.trips = trips;
     }
 }
