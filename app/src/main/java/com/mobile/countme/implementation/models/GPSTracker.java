@@ -69,7 +69,12 @@ public class GPSTracker extends Service implements LocationListener {
             connectionTypes = new ArrayList<Integer>();
             if(cm != null) {
                 activeNetwork = cm.getActiveNetworkInfo();
-                connectionTypes.add(activeNetwork.getType());
+                if (activeNetwork != null) {
+                    connectionTypes.add(activeNetwork.getType());
+                }
+                else {
+                    connectionTypes.add(-1);
+                }
             }
             else{
                 connectionTypes.add(-1);
@@ -222,7 +227,12 @@ public class GPSTracker extends Service implements LocationListener {
             cm = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
             if(cm != null) {
                 activeNetwork = cm.getActiveNetworkInfo();
-                connectionTypes.add(activeNetwork.getType());
+                if(activeNetwork != null){
+                    connectionTypes.add(activeNetwork.getType());
+                }
+                else{
+                    connectionTypes.add(-1);
+                }
             }
             else{
                 connectionTypes.add(-1);
