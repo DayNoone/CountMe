@@ -1,5 +1,6 @@
 package com.mobile.countme.implementation.controllers;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -7,6 +8,7 @@ import android.location.Location;
 import android.net.ConnectivityManager;
 import android.util.Log;
 
+import com.mobile.countme.framework.AppMenu;
 import com.mobile.countme.framework.GPSFilter;
 import com.mobile.countme.implementation.models.ErrorModel;
 import com.mobile.countme.implementation.models.UserModel;
@@ -21,6 +23,8 @@ import java.util.Date;
 import java.util.Map;
 import java.util.TimeZone;
 
+import static com.google.android.gms.internal.zzhu.runOnUiThread;
+
 /**
  * Created by Torgeir on 14.10.2015.
  */
@@ -34,6 +38,8 @@ public class HTTPSender {
 
     static private LoginInfo info;
     static private UserModel userModel;
+    private static boolean clicked;
+    private static AppMenu context;
 
 
     public HTTPSender() {
@@ -43,24 +49,39 @@ public class HTTPSender {
 
     //sendTrip method creates a json from an arraylist of locations, an arraylist of ints and a context
     //Then it uses delegation to send the json to the server via a specified url
-    public static void sendTrip(ArrayList<Location> trip, ArrayList<Integer> connectionTypes, Context context) {
+    public static void sendTrip(ArrayList<Location> trip, ArrayList<Integer> connectionTypes, AppMenu context) {
+        HTTPSender.context = context;
+        while (!isConnected(context)) {
+            clicked = false;
+            new Thread() {
+                public void run() {
+                    runOnUiThread(new Runnable() {
+                                      public void run() {
+                                          AlertDialog.Builder builder = new AlertDialog.Builder(HTTPSender.context);
+                                          builder.setMessage("Du trenger internett for å sende til server!")
+                                                  .setCancelable(false)
+                                                  .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                                      public void onClick(DialogInterface dialog, int id) {
+                                                          synchronized (userModel) {
+                                                              HTTPSender.clicked = true;
+                                                              userModel.notify();
+                                                          }
+                                                      }
+                                                  });
+                                          AlertDialog alert = builder.create();
+                                          alert.show();
+                                      }
+                                  }
+                    );
+                }
+            }.start();
 
-        while (!logIn(userModel)) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(context);
-            builder.setMessage("Du trenger internett!")
-                    .setCancelable(false)
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            synchronized (userModel) {
-                                userModel.notify();
-                            }
-                        }
-                    });
-            AlertDialog alert = builder.create();
-            alert.show();
-            synchronized (userModel){
+            synchronized (userModel) {
                 try {
-                    userModel.wait();
+                    if (!clicked) {
+                        Log.d("Wait for click", "no connection, user has not clicked button, waiting");
+                        userModel.wait();
+                    }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -193,23 +214,23 @@ public class HTTPSender {
             ErrorModel errorModel;
             for (String errorStr : tripErrors.keySet()) {
                 errorModel = tripErrors.get(errorStr);
-                synchronized (error) {
-                    error.put("description", errorModel.getDescription());
-                    error.put("lat", errorModel.getLatitude());
-                    error.put("lon", errorModel.getLongitude());
-                    error.put("image", errorModel.getPhotoTakenInBase64());
 
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss-SSSz");
-                    sdf.setTimeZone(TimeZone.getTimeZone("CET"));
-                    error.put("timestamp", sdf.format(new Date(errorModel.getTimeStamp())));
+                error.put("description", errorModel.getDescription());
+                error.put("lat", errorModel.getLatitude());
+                error.put("lon", errorModel.getLongitude());
+                error.put("image", errorModel.getPhotoTakenInBase64());
 
-                    if (error != null) {
-                        String sendURL = SERVER_URL + "user/" + info.getUserID() + "/errors/?token=" + info.getToken();
-                        HttpSenderThread thread = new HttpSenderThread(error, sendURL, info, HttpPostKind.ERROR);
-                        thread.start();
-                        error.wait();
-                    }
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss-SSSz");
+                sdf.setTimeZone(TimeZone.getTimeZone("CET"));
+                error.put("timestamp", sdf.format(new Date(errorModel.getTimeStamp())));
+
+                if (error != null) {
+                    String sendURL = SERVER_URL + "user/" + info.getUserID() + "/errors/?token=" + info.getToken();
+                    HttpSenderThread thread = new HttpSenderThread(error, sendURL, info, HttpPostKind.ERROR);
+                    thread.start();
+                    thread.wait();
                 }
+
             }
 
             Log.d("SendErrors", "JSON created successfully");
@@ -228,7 +249,7 @@ public class HTTPSender {
             info.setUsername(model.getUsername());
             info.setPassword(model.getPassword());
         }
-        if(info.isLoggedIn()){
+        if (info.isLoggedIn()) {
             return true;
         }
 
@@ -239,17 +260,24 @@ public class HTTPSender {
             obj.put("password", info.getPassword());
             HttpSenderThread thread = new HttpSenderThread(obj, SERVER_URL, info, HttpPostKind.LOGIN);
             thread.start();
-        }
-        catch (Exception e) {
+            synchronized (thread) {
+                thread.wait();
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
             e.printStackTrace();
         }
+
         Log.d("loginattempt done", "login returning " + info.isLoggedIn());
         return info.isLoggedIn();
 
     }
 
-    public static void createUser(UserModel model) {
-        info = new LoginInfo();
+    public static boolean createUser(UserModel model) {
+        if (info == null) {
+            info = new LoginInfo();
+        }
         JSONObject obj = null;
         try {
             obj = new JSONObject();
@@ -276,10 +304,22 @@ public class HTTPSender {
             String sendURL = SERVER_URL + "user/";
             HttpSenderThread thread = new HttpSenderThread(obj, sendURL, info, HttpPostKind.CREATEUSER);
             thread.start();
+            synchronized (thread) {
+                try {
+                    thread.wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
         }
+        return info.hasInfo();
 
     }
 
+    private static boolean isConnected(Context context) {
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        return cm.getActiveNetworkInfo() != null;
+    }
 
 }
 

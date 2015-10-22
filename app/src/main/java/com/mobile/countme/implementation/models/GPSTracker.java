@@ -19,6 +19,7 @@ import android.os.IBinder;
 import android.provider.Settings;
 import android.util.Log;
 
+import com.mobile.countme.framework.AppMenu;
 import com.mobile.countme.implementation.controllers.HTTPSender;
 import com.mobile.countme.implementation.controllers.MainController;
 
@@ -29,7 +30,7 @@ import java.util.ArrayList;
  */
 public class GPSTracker extends Service implements LocationListener {
 
-    private final Context mContext;
+    private final AppMenu mContext;
 
     // flag for GPS status
     boolean isGPSEnabled = false;
@@ -59,7 +60,7 @@ public class GPSTracker extends Service implements LocationListener {
     private ConnectivityManager cm;
     private NetworkInfo activeNetwork;
 
-    public GPSTracker(Context context) {
+    public GPSTracker(AppMenu context) {
         this.mContext = context;
         trip = new ArrayList<Location>();
         Location temp = getLocation();

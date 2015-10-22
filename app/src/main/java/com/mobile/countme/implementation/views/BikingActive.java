@@ -33,11 +33,15 @@ public class BikingActive extends AppMenu {
                 .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface arg0, int arg1) {
+                        new Thread() {
+                            public void run() {
 
-                        getMainController().stopTracker();
-                        getMainController().addStatistics(getMainController().getTracker().getDistance());
-                        getMainController().stoptimertask();
-                        goTo(ResultMenu.class);
+                                getMainController().stopTracker();
+                                getMainController().addStatistics(getMainController().getTracker().getDistance());
+                                getMainController().stoptimertask();
+                                goTo(ResultMenu.class);
+                            }
+                        }.start();
                     }
                 }).create().show();
     }

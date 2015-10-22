@@ -82,6 +82,7 @@ public class MainController {
     private GPSTracker tracker;
 
     public MainController(AndroidFileIO io, AppMenu context) {
+        bikingActive = new BikingActive();
         this.fileIO = io;
         this.context = context;
 
@@ -90,7 +91,7 @@ public class MainController {
         statisticsModel = new StatisticsModel();
         tripModel = new TripModel();
         userModel = new UserModel();
-        tracker = new GPSTracker(context.getApplicationContext());
+        tracker = new GPSTracker(bikingActive);
 
         tripErrors = new HashMap<>();
 
@@ -222,35 +223,35 @@ public class MainController {
                 new Thread() {
                     public void run() {
                         runOnUiThread(new Runnable() {
-                                                        public void run() {
-                                                            AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                                                            builder.setMessage("Du trenger internett!")
-                                                                    .setCancelable(false)
-                                                                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                                                        public void onClick(DialogInterface dialog, int id) {
-                                                                            synchronized (userModel) {
-                                                                                MainController.clicked = true;
-                                                                                userModel.notify();
-                                                                            }
-                                                                        }
-                                                                    });
-                                                            AlertDialog alert = builder.create();
-                                                            alert.show();
-                                                        }
-                                                    }
+                                          public void run() {
+                                              AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                                              builder.setMessage("Du trenger internett for å starte appen!")
+                                                      .setCancelable(false)
+                                                      .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                                          public void onClick(DialogInterface dialog, int id) {
+                                                              synchronized (userModel) {
+                                                                  MainController.clicked = true;
+                                                                  userModel.notify();
+                                                              }
+                                                          }
+                                                      });
+                                              AlertDialog alert = builder.create();
+                                              alert.show();
+                                          }
+                                      }
                         );
                     }
                 }.start();
-            }
 
-            synchronized (userModel) {
-                try {
-                    if (!clicked) {
-                        Log.d("Wait for click", "no connection, user has not clicked button, waiting");
-                        userModel.wait();
+                synchronized (userModel) {
+                    try {
+                        if (!clicked) {
+                            Log.d("Wait for click", "no connection, user has not clicked button, waiting");
+                            userModel.wait();
+                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
                 }
             }
 
@@ -321,19 +322,67 @@ public class MainController {
     public void createUserInformation() {
         JSONObject userInformation = new JSONObject();
         try {
-            userInformation.put("BirthDate", 0);
-            userInformation.put("Gender", 0);
-            userInformation.put("Weight", 0.0);
-            String username = new UUID(System.currentTimeMillis(), System.nanoTime()).toString();
-            userModel.setUsername(username);
-            String password = new UUID(System.currentTimeMillis(), System.nanoTime()).toString();
-            userModel.setPassword(password);
-            HTTPSender.createUser(userModel);
+            boolean created = false;
+            while (!created) {
+                userInformation.put("BirthDate", 0);
+                userInformation.put("Gender", 0);
+                userInformation.put("Weight", 0.0);
+                String username = new UUID(System.currentTimeMillis(), System.nanoTime()).toString();
+                userModel.setUsername(username);
+                String password = new UUID(System.currentTimeMillis(), System.nanoTime()).toString();
+                userModel.setPassword(password);
+
+
+                created = HTTPSender.createUser(userModel);
+                if (!created) {
+                    clicked = false;
+                    new Thread() {
+                        public void run() {
+                            runOnUiThread(new Runnable() {
+                                              public void run() {
+                                                  AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                                                  builder.setMessage("Du trenger internett for å starte appen!")
+                                                          .setCancelable(false)
+                                                          .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                                              public void onClick(DialogInterface dialog, int id) {
+                                                                  synchronized (userModel) {
+                                                                      MainController.clicked = true;
+                                                                      userModel.notify();
+                                                                  }
+                                                              }
+                                                          });
+                                                  AlertDialog alert = builder.create();
+                                                  alert.show();
+                                              }
+                                          }
+                            );
+                        }
+                    }.start();
+
+                    synchronized (userModel) {
+                        try {
+                            if (!clicked) {
+                                Log.d("Wait for click", "no connection, user has not clicked button, waiting");
+                                userModel.wait();
+                            }
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+
+
             userInformation.put("Username", userModel.getUsername());
             userInformation.put("Password", userModel.getPassword());
-        } catch (JSONException e) {
+        } catch (
+                JSONException e
+                )
+
+        {
             e.printStackTrace();
         }
+
         fileIO.writeUserInformationSaveFile(userInformation);
     }
 
@@ -583,7 +632,7 @@ public class MainController {
     }
 
     public void resetTracker() {
-        tracker = new GPSTracker(context.getApplicationContext());
+        tracker = new GPSTracker(bikingActive);
     }
 
 }

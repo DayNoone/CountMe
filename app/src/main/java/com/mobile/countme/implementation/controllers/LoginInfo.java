@@ -18,6 +18,11 @@ public class LoginInfo {
         isLoggedIn = false;
         hasInfo = false;
     }
+    public void resetInfo(){
+        username = null;
+        password = null;
+        hasInfo = false;
+    }
     public void resetLogin(){
         token = null;
         userID = null;

@@ -27,7 +27,7 @@ public class HttpSenderThread extends Thread {
     private LoginInfo info;
     private HttpPostKind postType;
 
-    HttpSenderThread(JSONObject obj, String url, LoginInfo info, HttpPostKind postType){
+    HttpSenderThread(JSONObject obj, String url, LoginInfo info, HttpPostKind postType) {
         this.obj = obj;
         this.url = url;
         this.info = info;
@@ -36,14 +36,14 @@ public class HttpSenderThread extends Thread {
     }
 
 
-    public void run(){
+    public void run() {
         sendJSON();
     }
 
     //sendJSON is a delegation method that sends a jsonObject to an url
-    private void sendJSON(){
+    private void sendJSON() {
         Log.d("SendJSON", "SendJSON started");
-        HttpPost post = new HttpPost( url );
+        HttpPost post = new HttpPost(url);
         StringEntity string;
         HttpResponse response;
 
@@ -55,66 +55,68 @@ public class HttpSenderThread extends Thread {
             Log.d("SendJSON", "JSON sent");
             String json_string;
             JSONObject receivedObject;
-            switch(postType){
+            switch (postType) {
 
                 case TRIP:
                     break;
                 case ERROR:
                     String json_string1 = EntityUtils.toString(response.getEntity());
                     Log.d("Received errorresponse", json_string1);
-                    synchronized (obj) {
-                        obj.notifyAll();
-                    }
+
                     break;
                 case LOGIN:
                     json_string = EntityUtils.toString(response.getEntity());
                     receivedObject = new JSONObject(json_string);
-                    synchronized (info) {
-                        info.setUserID(receivedObject.getString("_id"));
-                        info.setToken(receivedObject.getString("token"));
-                        info.notifyAll();
-                    }
+                    info.setUserID(receivedObject.getString("_id"));
+                    info.setToken(receivedObject.getString("token"));
+
+
                     Log.d("Received loginresponse", receivedObject.toString());
                     break;
                 case CREATEUSER:
                     json_string = EntityUtils.toString(response.getEntity());
                     receivedObject = new JSONObject(json_string);
-                    synchronized (info) {
-                        info.setUsername(receivedObject.getString("username"));
-                        info.notifyAll();
-                    }
+                    info.setUsername(receivedObject.getString("username"));
+
+
                     Log.d("Create user response", receivedObject.toString());
 
             }
-        }
-        catch (JSONException e) {
+        } catch (JSONException e) {
             Log.d("Exception", "JSONException");
             e.printStackTrace();
-        }
-        catch (ClientProtocolException e) {
+        } catch (ClientProtocolException e) {
 
             Log.d("Exception", "ClientProtoclException");
             e.printStackTrace();
-        }
-        catch (UnsupportedEncodingException e) {
+        } catch (UnsupportedEncodingException e) {
 
             Log.d("Exception", "UnsupportedEncodingException");
             e.printStackTrace();
-        }
-        catch(UnknownHostException e){
+        } catch (UnknownHostException e) {
             Log.d("Exception", "UnknownHostException");
-            synchronized (info){
-                info.resetLogin();
-                info.notify();
+            switch (postType) {
+                case LOGIN:
+                    info.resetLogin();
+
+                    break;
+                case CREATEUSER:
+                    info.resetInfo();
+                    break;
+
             }
 
             e.printStackTrace();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
 
             Log.d("Exception", "IOException");
             e.printStackTrace();
         }
+        synchronized (this){
+            this.notifyAll();
+        }
+
+
         //If response is needed somewhere, figure out how to communicate with main thread.
 
     }
