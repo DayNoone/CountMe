@@ -122,6 +122,8 @@ public class HTTPSender {
                     case (ConnectivityManager.TYPE_WIMAX):
                         dataPoint.put("mode", "wimax");
                         break;
+                    case(-1):
+                        dataPoint.put("mode", "none");
                     default:
                         dataPoint.put("mode", "");
                         break;
