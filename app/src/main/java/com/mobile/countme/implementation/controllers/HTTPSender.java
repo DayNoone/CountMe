@@ -206,7 +206,7 @@ public class HTTPSender {
 
     }
 
-    public static void logIn(UserModel model){
+    public static boolean logIn(UserModel model){
         if(info == null) {
             info = new LoginInfo();
             info.setUsername(model.getUsername());
@@ -232,6 +232,7 @@ public class HTTPSender {
         catch( Exception e){
             e.printStackTrace();
         }
+        return info.isLoggedIn();
 
     }
 

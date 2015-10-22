@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.mobile.countme.R;
 import com.mobile.countme.framework.AppMenu;
@@ -209,7 +210,10 @@ public class MainController {
             userModel.setWeight(Float.parseFloat(userInformation.getString("Weight")));
             userModel.setUsername(userInformation.getString("Username"));
             userModel.setPassword(userInformation.getString("Password"));
-            HTTPSender.logIn(userModel);
+            while(!HTTPSender.logIn(userModel)){
+
+                Toast.makeText(context, "Du må slå på internett", Toast.LENGTH_SHORT).show();
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
