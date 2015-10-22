@@ -15,6 +15,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.UnknownHostException;
 
 /**
  * Created by Torgeir on 15.10.2015.
@@ -98,6 +99,15 @@ public class HttpSenderThread extends Thread {
         catch (UnsupportedEncodingException e) {
 
             Log.d("Exception", "UnsupportedEncodingException");
+            e.printStackTrace();
+        }
+        catch(UnknownHostException e){
+            Log.d("Exception", "UnknownHostException");
+            synchronized (info){
+                info.resetLogin();
+                info.notify();
+            }
+
             e.printStackTrace();
         }
         catch (IOException e) {

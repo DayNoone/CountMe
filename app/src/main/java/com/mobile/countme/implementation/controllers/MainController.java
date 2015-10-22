@@ -1,5 +1,6 @@
 package com.mobile.countme.implementation.controllers;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -99,12 +100,12 @@ public class MainController {
     /**
      * Loads the environmental statistics of the user from phones internal storage
      */
-    public void loadEnvironmentalStatistics(){
+    public void loadEnvironmentalStatistics() {
         JSONArray environmentStatistics = fileIO.readStatisticsSaveFile();
         Log.w("MainController", "loadEnvironmentalStatistics: " + environmentStatistics);
         try {
-            JSONObject todaysTrips = environmentStatistics.getJSONObject(environmentStatistics.length()-1);
-            if(todaysTrips.getString("TimeStamp").equals(simpleDateFormat.format(calendar.getTime()))){
+            JSONObject todaysTrips = environmentStatistics.getJSONObject(environmentStatistics.length() - 1);
+            if (todaysTrips.getString("TimeStamp").equals(simpleDateFormat.format(calendar.getTime()))) {
                 environmentModel.setCo2_savedToday(Integer.parseInt(todaysTrips.getString("co2Saved")));
             }
         } catch (JSONException e) {
@@ -121,16 +122,16 @@ public class MainController {
         JSONArray trips = new JSONArray(tripsString);
         JSONObject dummyObjectLastWeek = new JSONObject();
         JSONObject dummyObjectLastMonth = new JSONObject();
-        dummyObjectLastWeek.put("TimeStamp","01-10-2015");
-        dummyObjectLastWeek.put("co2Saved",1);
+        dummyObjectLastWeek.put("TimeStamp", "01-10-2015");
+        dummyObjectLastWeek.put("co2Saved", 1);
         dummyObjectLastWeek.put("distance", 2.255512321);
-        dummyObjectLastWeek.put("avgSpeed",1.32);
+        dummyObjectLastWeek.put("avgSpeed", 1.32);
         dummyObjectLastWeek.put("calories", 241);
         dummyObjectLastMonth.put("TimeStamp", "08-09-2015");
         dummyObjectLastMonth.put("co2Saved", 1);
-        dummyObjectLastMonth.put("distance",1.2314123123123);
+        dummyObjectLastMonth.put("distance", 1.2314123123123);
         dummyObjectLastMonth.put("avgSpeed", 1.54);
-        dummyObjectLastMonth.put("calories",23213);
+        dummyObjectLastMonth.put("calories", 23213);
         trips.put(dummyObjectLastMonth);
         trips.put(dummyObjectLastWeek);
         prefEditor.putString(context.getString(R.string.statisticsData), trips.toString());
@@ -139,6 +140,7 @@ public class MainController {
 
     /**
      * Returns a JSONObject that contains the summed values of the specified period.
+     *
      * @param numberOfDays
      * @return
      */
@@ -163,11 +165,11 @@ public class MainController {
                     lastPeriodTrips.put("distance", Double.toString(Double.parseDouble(lastPeriodTrips.getString("distance")) + Double.parseDouble(dayTrips.getString("distance"))));
                     lastPeriodTrips.put("avgSpeed", Double.toString(Double.parseDouble(lastPeriodTrips.getString("avgSpeed")) + Double.parseDouble(dayTrips.getString("avgSpeed"))));
                     lastPeriodTrips.put("calories", Integer.toString(Integer.parseInt(lastPeriodTrips.getString("calories")) + Integer.parseInt(dayTrips.getString("calories"))));
-                }else {
+                } else {
                     break;
                 }
             }
-            if(numOfTrips > 0) {
+            if (numOfTrips > 0) {
                 Log.e("MainController", "numoftrips: " + numOfTrips + "avgSpeed: " + lastPeriodTrips.getString("avgSpeed"));
                 lastPeriodTrips.put("avgSpeed", Double.toString(Double.parseDouble(lastPeriodTrips.getString("avgSpeed")) / numOfTrips));
             }
@@ -180,15 +182,16 @@ public class MainController {
         calendar = Calendar.getInstance();
         return lastPeriodTrips;
     }
+
     /**
      * Loads the trips statistics of the user from phones internal storage
      */
-    public void loadTripsStatistics(){
+    public void loadTripsStatistics() {
         JSONArray tripsStatistics = fileIO.readStatisticsSaveFile();
         Log.w("MainController", "loadTripsStatistics: " + tripsStatistics);
         try {
-            JSONObject todaysTrips = tripsStatistics.getJSONObject(tripsStatistics.length()-1);
-            if(todaysTrips.getString("TimeStamp").equals(simpleDateFormat.format(calendar.getTime()))){
+            JSONObject todaysTrips = tripsStatistics.getJSONObject(tripsStatistics.length() - 1);
+            if (todaysTrips.getString("TimeStamp").equals(simpleDateFormat.format(calendar.getTime()))) {
                 statisticsModel.setCo2_saved(Integer.parseInt(todaysTrips.getString("co2Saved")));
                 statisticsModel.setDistance(Double.parseDouble(todaysTrips.getString("distance")));
                 statisticsModel.setAvg_speed(Double.parseDouble(todaysTrips.getString("avgSpeed")));
@@ -203,44 +206,68 @@ public class MainController {
     /**
      * Loads the user information from phones internal storage
      */
-    public void loadUserInformation(){
+    public void loadUserInformation() {
         JSONObject userInformation = fileIO.readUserInformation();
-        Log.w("MainController", "loadTripsStatistics: " + userInformation);
+        Log.w("MainController", "user information: " + userInformation);
         try {
             userModel.setGender(userInformation.getString("Gender"));
             userModel.setBirthYear(Integer.parseInt(userInformation.getString("BirthDate")));
             userModel.setWeight(Float.parseFloat(userInformation.getString("Weight")));
             userModel.setUsername(userInformation.getString("Username"));
             userModel.setPassword(userInformation.getString("Password"));
-            while(!HTTPSender.logIn(userModel)){
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setMessage("Du trenger internett!")
-                        .setCancelable(false)
-                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                synchronized (userModel) {
-                                    userModel.notify();
-                                }
-                            }
-                        });
-                AlertDialog alert = builder.create();
-                alert.show();
-                synchronized (userModel){
-                    try {
-                        userModel.wait();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+            while (!HTTPSender.logIn(userModel)) {
+                clicked = false;
+
+
+                new Thread() {
+                    public void run() {
+                        runOnUiThread(new Runnable() {
+                                                        public void run() {
+                                                            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                                                            builder.setMessage("Du trenger internett!")
+                                                                    .setCancelable(false)
+                                                                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                                                        public void onClick(DialogInterface dialog, int id) {
+                                                                            synchronized (userModel) {
+                                                                                MainController.clicked = true;
+                                                                                userModel.notify();
+                                                                            }
+                                                                        }
+                                                                    });
+                                                            AlertDialog alert = builder.create();
+                                                            alert.show();
+                                                        }
+                                                    }
+                        );
                     }
+                }.start();
+            }
+
+            synchronized (userModel) {
+                try {
+                    if (!clicked) {
+                        Log.d("Wait for click", "no connection, user has not clicked button, waiting");
+                        userModel.wait();
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
-        } catch (JSONException e) {
+
+        } catch (
+                JSONException e
+                )
+
+        {
             e.printStackTrace();
         }
 
     }
 
+    public static boolean clicked;
+
     //Saves all trips statistics to internal storage
-    public void saveTripsStatistics(){
+    public void saveTripsStatistics() {
         JSONObject tripsToday = new JSONObject();
         try {
             tripsToday.put("TimeStamp", simpleDateFormat.format(calendar.getTime()));
@@ -255,7 +282,7 @@ public class MainController {
     }
 
     //Saves the user information to internal storage
-    public void saveUserInformationToStorage(){
+    public void saveUserInformationToStorage() {
         JSONObject userInfo = new JSONObject();
         try {
             userInfo.put("BirthDate", userModel.getBirthYear());
@@ -272,26 +299,26 @@ public class MainController {
     /**
      * Creates a reset trip statistics
      */
-    public void createTripsStatistics(){
+    public void createTripsStatistics() {
         JSONArray trips = new JSONArray();
-            JSONObject trip = new JSONObject();
-            try {
-                trip.put("TimeStamp", simpleDateFormat.format(calendar.getTime()));
-                trip.put("co2Saved", 0);
-                trip.put("distance", 0);
-                trip.put("avgSpeed", 0);
-                trip.put("calories", 0);
-                trips.put(trip);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+        JSONObject trip = new JSONObject();
+        try {
+            trip.put("TimeStamp", simpleDateFormat.format(calendar.getTime()));
+            trip.put("co2Saved", 0);
+            trip.put("distance", 0);
+            trip.put("avgSpeed", 0);
+            trip.put("calories", 0);
+            trips.put(trip);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         fileIO.writeInitialStatisticsSaveFile(trips);
     }
 
     /**
      * Creates a reset user information
      */
-    public void createUserInformation(){
+    public void createUserInformation() {
         JSONObject userInformation = new JSONObject();
         try {
             userInformation.put("BirthDate", 0);
@@ -313,7 +340,7 @@ public class MainController {
     /**
      * Resets the trips statistics file. This should be done every day.
      */
-    public void resetTripsStatistics(){
+    public void resetTripsStatistics() {
         JSONObject trip = new JSONObject();
         try {
             trip.put("TimeStamp", simpleDateFormat.format(calendar.getTime()));
@@ -348,7 +375,7 @@ public class MainController {
         return userModel;
     }
 
-    public Map<String,ErrorModel> getTripErrors() {
+    public Map<String, ErrorModel> getTripErrors() {
         return tripErrors;
     }
 
@@ -363,6 +390,7 @@ public class MainController {
     public AppMenu getContext() {
         return context;
     }
+
     public boolean isTripInitialized() {
         return tripInitialized;
     }
@@ -373,36 +401,39 @@ public class MainController {
 
     /**
      * Adds a description to the error.
+     *
      * @param description
      */
-    public void addDescription(String description){
+    public void addDescription(String description) {
         errorModel.setDescription(description);
     }
 
     /**
      * Adds a photo to the error
+     *
      * @param photo
      */
-    public void addPhoto(Bitmap photo){
+    public void addPhoto(Bitmap photo) {
         errorModel.setPhotoTaken(photo);
     }
 
     /**
      * Adds an errorModel to the list of errors
+     *
      * @param errorModel
      */
-    public void addError(ErrorModel errorModel){
+    public void addError(ErrorModel errorModel) {
         tripErrors.put(errorModel.toString(), errorModel);
     }
 
-    public void setErrorModel(ErrorModel error){
+    public void setErrorModel(ErrorModel error) {
         errorModel = error;
     }
 
     /**
      * Resets the error list after a trip is finished, also resets the error counter
      */
-    public void resetErrors(){
+    public void resetErrors() {
         tripErrors = new HashMap<>();
         errorCount = 1;
     }
@@ -426,21 +457,23 @@ public class MainController {
     public int getErrorCount() {
         return errorCount++;
     }
+
     public GPSTracker getTracker() {
         return tracker;
     }
 
     /**
      * Adds and calculates the new statistics after a trip is finished
+     *
      * @param distance
      */
-    public void addStatistics(double distance){
+    public void addStatistics(double distance) {
         statisticsModel.addDistance(distance);
         tripModel.setDistance(distance);
-        double avgSpeed = distance/getTimeUsedInSeconds()*3.6;
+        double avgSpeed = distance / getTimeUsedInSeconds() * 3.6;
         statisticsModel.calc_new_avgSpeed(avgSpeed);
         //http://www.health.harvard.edu/diet-and-weight-loss/calories-burned-in-30-minutes-of-leisure-and-routine-activities - Using the average speed from 13-19 mph as a basis for calorie calculation.
-        int kcal = (int)(((userModel.getWeight()*2.2046)/1800) * 286.696 * (avgSpeed*0.621371192) * (getTimeUsedInSeconds()/1800));
+        int kcal = (int) (((userModel.getWeight() * 2.2046) / 1800) * 286.696 * (avgSpeed * 0.621371192) * (getTimeUsedInSeconds() / 1800));
         statisticsModel.addKcal(kcal);
         tripModel.setKcal(kcal);
         tripModel.setAvg_speed(avgSpeed);
@@ -451,6 +484,7 @@ public class MainController {
 
     /**
      * Returns the time used in the format: HH:MM:SS
+     *
      * @param time_used
      * @return
      */
@@ -459,39 +493,40 @@ public class MainController {
         String minutes = "";
         String hours = "";
         long difference = System.currentTimeMillis() - time;
-        Integer numSeconds = (int) (difference/1000);
-        if(numSeconds > 1){
+        Integer numSeconds = (int) (difference / 1000);
+        if (numSeconds > 1) {
             start_using_tracker = true;
         }
-        if(time_used > 0){
+        if (time_used > 0) {
             numSeconds = time_used;
         }
-        Integer numMinutes = numSeconds/60;
-        Integer numHours = numMinutes/60;
-        numSeconds = numSeconds - numMinutes*60;
-        numMinutes = numMinutes - numHours*60;
+        Integer numMinutes = numSeconds / 60;
+        Integer numHours = numMinutes / 60;
+        numSeconds = numSeconds - numMinutes * 60;
+        numMinutes = numMinutes - numHours * 60;
         seconds = numSeconds.toString();
         minutes = numMinutes.toString();
         hours = numHours.toString();
-        if(numSeconds < 10){
+        if (numSeconds < 10) {
             seconds = "0" + seconds;
         }
-        if(numMinutes < 10){
+        if (numMinutes < 10) {
             minutes = "0" + minutes;
         }
-        if(numHours < 10){
+        if (numHours < 10) {
             hours = "0" + hours;
         }
-        return "" + hours + ":"  + minutes + ":"+ seconds;
+        return "" + hours + ":" + minutes + ":" + seconds;
     }
 
     /**
      * Returns the time used in seconds
+     *
      * @return
      */
-    public double getTimeUsedInSeconds(){
+    public double getTimeUsedInSeconds() {
         long difference = System.currentTimeMillis() - time;
-        return (double)(difference/1000);
+        return (double) (difference / 1000);
     }
 
     /**
@@ -530,7 +565,7 @@ public class MainController {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        if(bikingActive != null) {
+                        if (bikingActive != null) {
                             bikingActive.updateView(getTimeInFormat(-1), start_using_tracker);
                         }
                     }
@@ -543,11 +578,11 @@ public class MainController {
     /**
      * Stops the GPS tracker
      */
-    public void stopTracker(){
+    public void stopTracker() {
         tracker.stopUsingGPS();
     }
 
-    public void resetTracker(){
+    public void resetTracker() {
         tracker = new GPSTracker(context.getApplicationContext());
     }
 

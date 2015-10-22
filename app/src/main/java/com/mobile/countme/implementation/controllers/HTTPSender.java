@@ -231,15 +231,7 @@ public class HTTPSender {
         if(info.isLoggedIn()){
             return true;
         }
-        synchronized (info) {
-            try {
-                while (!info.hasInfo()) {
-                    info.wait();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+
         try {
 
             JSONObject obj = new JSONObject();
@@ -247,9 +239,11 @@ public class HTTPSender {
             obj.put("password", info.getPassword());
             HttpSenderThread thread = new HttpSenderThread(obj, SERVER_URL, info, HttpPostKind.LOGIN);
             thread.start();
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             e.printStackTrace();
         }
+        Log.d("loginattempt done", "login returning " + info.isLoggedIn());
         return info.isLoggedIn();
 
     }
