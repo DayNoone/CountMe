@@ -42,10 +42,6 @@ public class BikingActive extends AppMenu {
                 }).create().show();
     }
 
-    public void goToMaps(View view) {
-        goTo(MapsActivity.class);
-    }
-
     /**
      * Error reporting
      * @param view
@@ -55,7 +51,7 @@ public class BikingActive extends AppMenu {
         newErrorModel.setName("Feilmelding " + getMainController().getErrorCount());
         newErrorModel.setLatitude(getMainController().getTracker().getLatitude().toString());
         newErrorModel.setLongitude(getMainController().getTracker().getLongitude().toString());
-        newErrorModel.setTimeStamp(getMainController().getTracker().getLocation().getTime());
+        newErrorModel.setTimeStamp(getMainController().getTracker().getLocation() != null ? System.currentTimeMillis() : -1);
         new AlertDialog.Builder(this)
                 .setMessage(R.string.report_error)
                 .setNegativeButton(R.string.later, new DialogInterface.OnClickListener() {
@@ -111,7 +107,7 @@ public class BikingActive extends AppMenu {
             Double currentSpeedInKmH = new BigDecimal(getMainController().getTracker().getCurrentSpeed()*3.6).setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
             speed.setText(Double.toString(currentSpeedInKmH) + " km/h");
             Double transformedDistance = new BigDecimal((getMainController().getTracker().getDistance()/1000)).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
-            distance.setText(Double.toString(transformedDistance) + "km");
+            distance.setText(Double.toString(transformedDistance) + " km");
         }
     }
 

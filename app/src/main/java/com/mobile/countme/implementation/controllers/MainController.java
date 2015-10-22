@@ -58,6 +58,7 @@ public class MainController {
     //Timer during trip with a Timertask that will update the bikingactive view
     private Timer timer;
     private TimerTask timerTask;
+    private String lastTime;
 
     //Biking active fields
     private BikingActive bikingActive;
@@ -407,6 +408,10 @@ public class MainController {
         return tracker;
     }
 
+    public String getLastTime() {
+        return lastTime;
+    }
+
     /**
      * Adds and calculates the new statistics after a trip is finished
      * @param distance
@@ -459,6 +464,7 @@ public class MainController {
         if(numHours < 10){
             hours = "0" + hours;
         }
+        lastTime = "" + hours + ":"  + minutes + ":"+ seconds;
         return "" + hours + ":"  + minutes + ":"+ seconds;
     }
 
