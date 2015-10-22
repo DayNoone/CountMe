@@ -10,22 +10,21 @@ import java.util.ArrayList;
  */
 public class GPSFilter {
 
-    public static void filterTrip(ArrayList<Location> trip, ArrayList<Integer> modes){
+    public static void filterTrip(ArrayList<Location> trip, ArrayList<Integer> modes) {
         Location end = trip.get(trip.size() - 1);
         Location almostEnd;
         float accumulator = 0.0f;
         float lengthSegment;
-        for(int i = trip.size() - 2; i >= 0; i --){
+        for (int i = trip.size() - 2; i >= 0; i--) {
             almostEnd = trip.get(i);
             lengthSegment = almostEnd.distanceTo(end);
-            if(lengthSegment < 20.0f){
+            if (lengthSegment < 20.0f) {
                 accumulator += lengthSegment;
             }
-            if( accumulator < 100.0f){
-                trip.remove(i + 1);
-                modes.remove(i + 1);
-            }
-            else{
+            trip.remove(i + 1);
+            modes.remove(i + 1);
+
+            if (accumulator >= 100.0f) {
                 break;
             }
             end = almostEnd;
@@ -36,10 +35,10 @@ public class GPSFilter {
         Location next;
         int lastIndex = 0;
         accumulator = 0.0f;
-        for(int i = 1; i < trip.size(); i ++){
+        for (int i = 1; i < trip.size(); i++) {
             next = trip.get(i);
             lengthSegment = start.distanceTo(next);
-            if(lengthSegment < 20.0f){
+            if (lengthSegment < 20.0f) {
                 accumulator += lengthSegment;
             }
             if( accumulator > 100.0f){
@@ -50,7 +49,7 @@ public class GPSFilter {
 
 
         }
-        for(int i = lastIndex; i >= 0; i--){
+        for (int i = lastIndex; i >= 0; i--) {
             trip.remove(i);
             modes.remove(i);
         }
