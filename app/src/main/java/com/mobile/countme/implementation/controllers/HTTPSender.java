@@ -69,14 +69,10 @@ public class HTTPSender {
         try {
             jsonObject = new JSONObject();
             jsonObject.put("_userId", info.getUserID());
-            Date startTime = new Date(trip.get(0).getTime());
-            Date endTime = new Date(trip.get(trip.size() - 1).getTime());
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy'-'MM'-'dd'T'HH':'mm':'ss");
             sdf.setTimeZone(TimeZone.getTimeZone("CET"));
-            sdf.format(startTime);
-            sdf.format(endTime);
-            jsonObject.put("startTime", startTime);
-            jsonObject.put("endTime", endTime);
+            jsonObject.put("startTime", sdf.format(new Date(trip.get(0).getTime())));
+            jsonObject.put("endTime", sdf.format(new Date(trip.get(trip.size() - 1).getTime())));
             JSONArray tripData = new JSONArray();
             JSONObject dataPoint;
             Location location;

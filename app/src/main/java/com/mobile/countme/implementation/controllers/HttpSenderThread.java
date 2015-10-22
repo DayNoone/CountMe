@@ -52,6 +52,8 @@ public class HttpSenderThread extends Thread {
             switch(postType){
 
                 case TRIP:
+                    String json_string2 = EntityUtils.toString(response.getEntity());
+                    Log.d("Received tripresponse", json_string2);
                     break;
                 case ERROR:
                     String json_string1 = EntityUtils.toString(response.getEntity());
