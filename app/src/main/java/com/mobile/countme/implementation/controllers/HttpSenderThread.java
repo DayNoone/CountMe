@@ -3,13 +3,18 @@ package com.mobile.countme.implementation.controllers;
 import android.util.Log;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 /**
  * Created by Torgeir on 15.10.2015.
@@ -81,9 +86,24 @@ public class HttpSenderThread extends Thread {
 
             }
         }
-        catch (Exception e){
+        catch (JSONException e) {
+            Log.d("Exception", "JSONException");
             e.printStackTrace();
+        }
+        catch (ClientProtocolException e) {
 
+            Log.d("Exception", "ClientProtoclException");
+            e.printStackTrace();
+        }
+        catch (UnsupportedEncodingException e) {
+
+            Log.d("Exception", "UnsupportedEncodingException");
+            e.printStackTrace();
+        }
+        catch (IOException e) {
+
+            Log.d("Exception", "IOException");
+            e.printStackTrace();
         }
         //If response is needed somewhere, figure out how to communicate with main thread.
 
