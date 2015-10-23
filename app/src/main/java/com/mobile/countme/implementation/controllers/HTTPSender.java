@@ -263,8 +263,6 @@ public class HTTPSender {
                numchildren:      userStore.getAt(0).get('numchildren')
 */
             obj.put("username", model.getUsername());
-            obj.put("birthyear", model.getBirthYear());
-            obj.put("gender", model.getGender());
             obj.put("password", model.getPassword());
             info.setPassword(model.getPassword());
             //Potentially more things
@@ -284,6 +282,32 @@ public class HTTPSender {
             }
         }
         return info.hasInfo();
+
+    }
+
+    public static void updateUser(UserModel model){
+
+
+        try {
+
+            JSONObject obj = new JSONObject();
+            Integer birthyear = userModel.getBirthYear();
+            if(birthyear != null){
+                obj.put("birthyear", birthyear);
+
+            }
+
+            String gender = userModel.getGender();
+            if(gender != null){
+                obj.put("gender", gender);
+            }
+
+            HttpSenderThread thread = new HttpSenderThread(obj, SERVER_URL + "user/" + info.getUserID()+ "/?token=" + info.getToken(), info, HttpPostKind.UPDATEUSER);
+            thread.start();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
 
     }
 

@@ -26,6 +26,7 @@
     <string name="Kvinne">Kvinne</string>
     <string name="infoWeight">Vekt (kg):</string>
     <string name="intro_page4">Ved å trykke på mobilens <i>optionsknapp</i>, kan du velge språk. </string>
+    <string name="save">Lagre</string>
 
     <!--OptionsTab-->
     <string name="OptionsTab">Instillinger</string>

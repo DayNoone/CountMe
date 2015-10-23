@@ -79,7 +79,7 @@ public class MainController {
     private StatisticsModel statisticsModel;
     private TripModel tripModel;
     private ErrorModel errorModel;
-    private UserModel userModel;
+    public UserModel userModel;
     private GPSTracker tracker;
 
     public MainController(AndroidFileIO io, AppMenu context) {

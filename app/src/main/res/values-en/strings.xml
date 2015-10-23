@@ -36,6 +36,7 @@
     <!--OptionsTab-->
     <string name="OptionsTab">Options</string>
     <string name="option_information">Anonymous data for analysis. Weight is for calorie calculation.</string>
+    <string name="save">Save</string>
 
     <!-- Environment -->
     <string name="environment_title">CO&#8322; saved today</string>
