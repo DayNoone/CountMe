@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.mobile.countme.custom_views.CustomTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/OptionsTab"
+        android:id="@+id/UserInformationHeadLine"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:layout_marginTop="93dp"
+        android:layout_centerHorizontal="true" />
+
+    <com.mobile.countme.custom_views.CustomTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/option_information"
+        android:id="@+id/userInfoDescription"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+
+        android:layout_marginBottom="30dp"/>
+
+    <EditText
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:inputType="number"
+        android:gravity="center"
+        android:maxLength="4"
+        android:ems="10"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:id="@+id/editText"
+        android:hint="@string/PickBirthDate"
+        android:layout_centerVertical="true"
+        android:layout_below="@+id/UserInformationHeadLine"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/input_stroke" />
+
+    <com.mobile.countme.custom_views.CustomTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/InfoPickBirthDate"
+        android:id="@+id/infoPickBirthDate"
+        android:layout_alignBaseline="@+id/editText"
+        android:layout_marginLeft="20dp"
+        android:layout_below="@+id/UserInformationHeadLine" />
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="260dp"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/genderGrp"
+        >
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Male"
+            android:textColor="#FFFFFF"
+            android:buttonTint="#FFFFFF"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/male"
+            />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Kvinne"
+            android:id="@+id/female"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#FFFFFF"
+            android:buttonTint="#FFFFFF"
+            android:layout_marginLeft="30dp"
+            />
+
+    </RadioGroup>
+
+    <com.mobile.countme.custom_views.CustomTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/infoWeight"
+        android:id="@+id/infoWeight"
+        android:layout_alignBaseline="@+id/editTextWeight"
+        android:layout_marginLeft="65dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/rewatch_intro"
+        android:padding="6dp"
+        android:id="@+id/button5"
+        android:onClick="goToIntroduction"
+        android:layout_below="@id/editTextWeight"
+        android:layout_marginTop="40dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/btn_stroke"/>
+
+    <EditText
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:inputType="numberDecimal"
+        android:gravity="center"
+        android:ems="10"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:id="@+id/editTextWeight"
+        android:layout_centerVertical="true"
+        android:layout_below="@+id/genderGrp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/input_stroke" />
+
+
+</RelativeLayout>

@@ -6,14 +6,21 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.InputFilter;
+import android.text.TextWatcher;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import com.mobile.countme.R;
 import com.mobile.countme.framework.AppMenu;
+import com.mobile.countme.framework.DecimalDigitsInputFilter;
 import com.mobile.countme.framework.MainViewPagerAdapter;
 import com.mobile.countme.framework.SlidingTabLayout;
 import com.mobile.countme.implementation.views.BikingActive;
@@ -178,6 +185,95 @@ public class MainMenu extends AppMenu {
         adapter.getEnvironmentTab().setEnvironmentGain(getMainController().getEnvironmentModel().getCo2_savedToday(), getMainController().getEnvironmentModel().getCo2_carDistance(), getMainController().getEnvironmentModel().getCo2_busDistance(), getMainController().getEnvironmentModel().getCo2_trainDistance(), getMainController().getEnvironmentModel().getCo2_plainDistance());
         adapter.getStatisticsTab().setTripsStatistics(getMainController().getStatisticsModel().getCo2_saved(), getMainController().getStatisticsModel().getDistance(), getMainController().getStatisticsModel().getAvg_speed(), getMainController().getStatisticsModel().getKcal());
         getMainController().saveTripsStatistics();
+    }
+
+    /**
+     * Initializes the options tab
+     */
+    public void initOptionsTab(){
+        final EditText editText = (EditText) findViewById(R.id.editText);
+        if(editText == null) return;
+        final Integer birthYear = getMainController().getUserModel().getBirthYear();
+        if(birthYear != null && birthYear != 0) {
+            editText.setText(birthYear + "");
+        }
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                Editable editable = editText.getText();
+                if (!editable.toString().contains("Y")) {
+                    if(editable.toString().isEmpty()){
+                        getMainController().getUserModel().setBirthYear(0);
+                    }else {
+                        int newBirthYear = Integer.parseInt(editable.toString());
+                        getMainController().getUserModel().setBirthYear(newBirthYear);
+                    }
+                }
+            }
+        });
+
+        final EditText editTextWeight = (EditText) findViewById(R.id.editTextWeight);
+        if(editTextWeight == null) return;
+        editTextWeight.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(4,1)});
+        final Float weight = getMainController().getUserModel().getWeight();
+        if(weight != null && weight != 0) {
+            editTextWeight.setText(weight + "");
+        }
+        editTextWeight.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                Editable editable = editTextWeight.getText();
+                if(editable.toString().isEmpty()){
+                    getMainController().getUserModel().setWeight((float)0.0);
+                }else {
+                    float newWeight = Float.parseFloat(editable.toString());
+                    getMainController().getUserModel().setWeight(newWeight);
+                }
+            }
+        });
+
+        RadioGroup rg = (RadioGroup) findViewById(R.id.genderGrp);
+        if(rg == null) return;
+        if(getMainController().getUserModel().getGender() != null && getMainController().getUserModel().getGender().equals("male")){
+            RadioButton male = (RadioButton) findViewById(R.id.male);
+            male.setChecked(true);
+        }else if(getMainController().getUserModel().getGender() != null && getMainController().getUserModel().getGender().equals("female")){
+            RadioButton female = (RadioButton) findViewById(R.id.female);
+            female.setChecked(true);
+        }
+        rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.male:
+                        getMainController().getUserModel().setGender("male");
+                        break;
+                    case R.id.female:
+                        getMainController().getUserModel().setGender("female");
+                        break;
+                }
+            }
+        });
     }
 
 

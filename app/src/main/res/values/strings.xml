@@ -8,13 +8,15 @@
     <string name="biking_idle">Start</string>
     <string name="environment_page">Miljø</string>
     <string name="statistics_page">Tall</string>
+    <string name="statistics_header">Statistikk</string>
     <string name="info_page">Info</string>
 
     <!--IntroductionMenu-->
     <string name="intro_page1">All GPS-data samles inn anonymt. I tillegg registreres ikke  de første og siste 100 meterne av turen for å beskytte din identitet.</string>
     <string name="intro_page2">Denne appen sender informasjon videre til Statens vegvesen for bruk i deres analyse av dagens situasjon for syklister på veinettet. Ved å bruke appen bidrar du til å gi Statens vegvesen innsikt i hvilke sykkelruter som er populære, samt hvor det eksisterer veifeil eller tilsvarende som må utbedres. Å bruke denne appen forbedrer din sykkelhverdag!</string>
+
     <!--UserInformationTab-->
-    <string name="intro_userInformation"> Denne informasjonen er helt valgfri og vil bli brukt som en del av sykkeldataanalysen. Vi ville satt veldig pris på om du fyller ut.</string>
+    <string name="intro_userInformation"> Denne informasjonen er helt valgfri og vil bli brukt som en del av sykkeldataanalysen. Vi ville satt veldig pris på om du fyller ut. Vekt blir brukt til kaloriberegning.</string>
     <string name="UserInformation">Brukerinformasjon</string>
     <string name="PickBirthDate">ÅÅÅÅ</string>
     <string name="InfoPickBirthDate">Legg inn fødselsår: </string>
@@ -22,6 +24,10 @@
     <string name="Kvinne">Kvinne</string>
     <string name="infoWeight">Vekt (kg):</string>
     <string name="intro_page4">Ved å trykke på mobilens <i>optionsknapp</i>, kan du velge språk. </string>
+
+    <!--OptionsTab-->
+    <string name="OptionsTab">Instillinger</string>
+    <string name="option_information">Anonym data til analyse. Vekt er til kaloriberegning.</string>
 
     <!--Load Screen-->
     <string name="no_progress">No Progress</string>
@@ -65,7 +71,7 @@
     <!-- Information -->
     <string name="information_title"><u>Informasjon</u></string>
     <string name="contact">Kontakt oss: DinSykkelvei@sykkelmail.no</string>
-    <string name="rewatch_intro">Se om igjen introduksjon</string>
+    <string name="rewatch_intro">Se introduksjon om igjen</string>
 
     <!--Error handler -->
     <string name="report_error">Beskriv problem:</string>

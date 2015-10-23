@@ -8,6 +8,7 @@
     <string name="biking_idle">Start</string>
     <string name="environment_page">Environment</string>
     <string name="statistics_page">Statistics</string>
+    <string name="statistics_header">Statistics</string>
     <string name="info_page">Info</string>
 
     <!--Load Screen-->
@@ -15,9 +16,9 @@
 
     <!-- Introduction pages -->
     <string name="intro_page1">All usage of this app is anonymous. The first and last 100 meters of your path gets deleted to prevent identification.</string>
-    <string name="intro_page2">This app sends information to the Norwegian Public Roads Administration to help them analyze today's bicycling situation. By using the app you contribute to providing them with insight to which biking routes are important, as well as where there are road faults or similar that nee to be fixed. Using this app will improve your biking experience!</string>
+    <string name="intro_page2">This app sends information to the Norwegian Public Roads Administration to help them analyze today\'s bicycling situation. By using the app you contribute to providing them with insight to which biking routes are important, as well as where there are road faults or similar that nee to be fixed. Using this app will improve your biking experience!</string>
     <string name="intro_userInformation">This information is completely optional. It will be used as part of the bicycling analysis. We would appreciate if you provide it.</string>
-    <string name="intro_page4">By pressing the phone's </string>
+    <string name="intro_page4">By pressing the phone\'s </string>
 
     <!-- Biking idle -->
     <string name="start_trip">START TRIP</string>
@@ -29,6 +30,9 @@
     <!--Result Screen -->
     <string name="result_page">Result</string>
     <string name="mainScreen">Mainscreen</string>
+
+    <!--OptionsTab-->
+    <string name="OptionsTab">Options</string>
 
     <!-- Environment -->
     <string name="environment_title">CO&#8322; saved today</string>
