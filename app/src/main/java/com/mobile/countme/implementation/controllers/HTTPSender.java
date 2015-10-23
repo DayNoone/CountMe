@@ -51,42 +51,7 @@ public class HTTPSender {
     //Then it uses delegation to send the json to the server via a specified url
     public static void sendTrip(ArrayList<Location> trip, ArrayList<Integer> connectionTypes, AppMenu context) {
         HTTPSender.context = context;
-        while (!isConnected(context)) {
-            clicked = false;
-            new Thread() {
-                public void run() {
-                    runOnUiThread(new Runnable() {
-                                      public void run() {
-                                          AlertDialog.Builder builder = new AlertDialog.Builder(HTTPSender.context);
-                                          builder.setMessage("Du trenger internett for å sende til server!")
-                                                  .setCancelable(false)
-                                                  .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                                      public void onClick(DialogInterface dialog, int id) {
-                                                          synchronized (userModel) {
-                                                              HTTPSender.clicked = true;
-                                                              userModel.notify();
-                                                          }
-                                                      }
-                                                  });
-                                          AlertDialog alert = builder.create();
-                                          alert.show();
-                                      }
-                                  }
-                    );
-                }
-            }.start();
 
-            synchronized (userModel) {
-                try {
-                    if (!clicked) {
-                        Log.d("Wait for click", "no connection, user has not clicked button, waiting");
-                        userModel.wait();
-                    }
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
 
         Log.d("SendTrip", "SendTrip started");
 
@@ -316,10 +281,7 @@ public class HTTPSender {
 
     }
 
-    private static boolean isConnected(Context context) {
-        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        return cm.getActiveNetworkInfo() != null;
-    }
+
 
 }
 
