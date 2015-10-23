@@ -82,7 +82,6 @@ public class MainController {
     private GPSTracker tracker;
 
     public MainController(AndroidFileIO io, AppMenu context) {
-        bikingActive = new BikingActive();
         this.fileIO = io;
         this.context = context;
 
@@ -91,7 +90,7 @@ public class MainController {
         statisticsModel = new StatisticsModel();
         tripModel = new TripModel();
         userModel = new UserModel();
-        tracker = new GPSTracker(bikingActive);
+        tracker = new GPSTracker(context);
 
         tripErrors = new HashMap<>();
 
@@ -225,7 +224,7 @@ public class MainController {
                         runOnUiThread(new Runnable() {
                                           public void run() {
                                               AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                                              builder.setMessage("Du trenger internett for å starte appen!")
+                                              builder.setMessage(R.string.require_network_on_startup)
                                                       .setCancelable(false)
                                                       .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                                           public void onClick(DialogInterface dialog, int id) {
@@ -341,7 +340,7 @@ public class MainController {
                             runOnUiThread(new Runnable() {
                                               public void run() {
                                                   AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                                                  builder.setMessage("Du trenger internett for å starte appen!")
+                                                  builder.setMessage(R.string.require_network_on_startup)
                                                           .setCancelable(false)
                                                           .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                                               public void onClick(DialogInterface dialog, int id) {
@@ -632,7 +631,7 @@ public class MainController {
     }
 
     public void resetTracker() {
-        tracker = new GPSTracker(bikingActive);
+        tracker = new GPSTracker(context);
     }
 
 }

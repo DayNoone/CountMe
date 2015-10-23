@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
+import android.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 
@@ -23,6 +23,7 @@ import static com.google.android.gms.internal.zzhu.runOnUiThread;
  */
 public class BikingActive extends AppMenu {
 
+    public static BikingActive activeObject;
 
     public void onCreate(Bundle savedInstanceBundle) {
         super.onCreate(savedInstanceBundle);
@@ -34,35 +35,7 @@ public class BikingActive extends AppMenu {
     public static boolean clicked;
 
     public void stopBiking(View view) {
-        while (!isConnected(this)) {
-            clicked = false;
-
-            android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
-            builder.setMessage("Du trenger internett for å sende til server!")
-                    .setCancelable(false)
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            synchronized (this) {
-                                BikingActive.clicked = true;
-                                notify();
-                            }
-                        }
-                    });
-            android.app.AlertDialog alert = builder.create();
-            alert.show();
-
-
-            synchronized (this) {
-                try {
-                    if (!clicked) {
-                        Log.d("Wait for click", "no connection, user has not clicked button, waiting");
-                        wait();
-                    }
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
+        activeObject = this;
 
         new AlertDialog.Builder(this)
                 .setMessage(R.string.stop_biking)
@@ -70,15 +43,15 @@ public class BikingActive extends AppMenu {
                 .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface arg0, int arg1) {
-                        new Thread() {
-                            public void run() {
+                        if(!BikingActive.activeObject.isConnected(BikingActive.activeObject)){
+                            return;
+                        }
 
-                                getMainController().stopTracker();
-                                getMainController().addStatistics(getMainController().getTracker().getDistance());
-                                getMainController().stoptimertask();
-                                goTo(ResultMenu.class);
-                            }
-                        }.start();
+                        getMainController().stopTracker();
+                        getMainController().addStatistics(getMainController().getTracker().getDistance());
+                        getMainController().stoptimertask();
+                        goTo(ResultMenu.class);
+
                     }
                 }).create().show();
     }
@@ -158,7 +131,7 @@ public class BikingActive extends AppMenu {
         }
     }
 
-    private static boolean isConnected(Context context) {
+    public static boolean isConnected(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         return cm.getActiveNetworkInfo() != null;
     }

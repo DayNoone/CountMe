@@ -56,8 +56,11 @@
     <string name="later">Later</string>
     <string name="now">Now</string>
 
+    <!--Error dialog for when network is not active on startup -->
+    <string name="require_network_on_startup">Network connection is required on startup!</string>
+
     <!--Confirmation -->
-    <string name="stop_biking">Stop trip?</string>
+    <string name="stop_biking">Stop trip?\nNetwork is required!</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
 
