@@ -14,11 +14,13 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.mobile.countme.R;
+import com.mobile.countme.custom_views.CustomTextView;
 import com.mobile.countme.framework.AppMenu;
 import com.mobile.countme.framework.DecimalDigitsInputFilter;
 import com.mobile.countme.framework.MainViewPagerAdapter;
@@ -133,6 +135,12 @@ public class MainMenu extends AppMenu {
      * @param view
      */
     public void viewOneDayStats(View view) {
+        Button button_day = (Button)findViewById(R.id.button3);
+        Button button_week = (Button)findViewById(R.id.button4);
+        Button button_month = (Button)findViewById(R.id.button5);
+        button_day.setBackgroundResource(R.drawable.btn_stroke_statistics);
+        button_week.setBackgroundResource(R.drawable.btn_stroke);
+        button_month.setBackgroundResource(R.drawable.btn_stroke);
         adapter.getStatisticsTab().setTripsStatistics(getMainController().getStatisticsModel().getCo2_saved(), getMainController().getStatisticsModel().getDistance(), getMainController().getStatisticsModel().getAvg_speed(), getMainController().getStatisticsModel().getKcal());
     }
 
@@ -142,6 +150,12 @@ public class MainMenu extends AppMenu {
      */
     public void viewOneWeekStats(View view) {
         JSONObject lastWeekTrips = getMainController().getLastPeriodTrips(7);
+        Button button_day = (Button)findViewById(R.id.button3);
+        Button button_week = (Button)findViewById(R.id.button4);
+        Button button_month = (Button)findViewById(R.id.button5);
+        button_day.setBackgroundResource(R.drawable.btn_stroke);
+        button_week.setBackgroundResource(R.drawable.btn_stroke_statistics);
+        button_month.setBackgroundResource(R.drawable.btn_stroke);
         try {
             adapter.getStatisticsTab().setTripsStatistics(Integer.parseInt(lastWeekTrips.getString("co2Saved")), Double.parseDouble(lastWeekTrips.getString("distance")), Double.parseDouble(lastWeekTrips.getString("avgSpeed")), Integer.parseInt(lastWeekTrips.getString("calories")));
         } catch (JSONException e) {
@@ -156,6 +170,12 @@ public class MainMenu extends AppMenu {
      */
     public void viewOneMonthStatistics(View view){
         JSONObject lastMonthTrips = getMainController().getLastPeriodTrips(30);
+        Button button_day = (Button)findViewById(R.id.button3);
+        Button button_week = (Button)findViewById(R.id.button4);
+        Button button_month = (Button)findViewById(R.id.button5);
+        button_day.setBackgroundResource(R.drawable.btn_stroke);
+        button_week.setBackgroundResource(R.drawable.btn_stroke);
+        button_month.setBackgroundResource(R.drawable.btn_stroke_statistics);
         try {
             adapter.getStatisticsTab().setTripsStatistics(Integer.parseInt(lastMonthTrips.getString("co2Saved")), Double.parseDouble(lastMonthTrips.getString("distance")), Double.parseDouble(lastMonthTrips.getString("avgSpeed")), Integer.parseInt(lastMonthTrips.getString("calories")));
         } catch (JSONException e) {

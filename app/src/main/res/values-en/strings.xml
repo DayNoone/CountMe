@@ -92,7 +92,7 @@
     <string name="infoWeight">Weight (kg):</string>
     <string name="noErrorsReported">No Errors reported</string>
     <string name="popupError">Errors</string>
-    <string name="report_problem"><u>Error message</u></string>
+    <string name="report_problem">Report road fault</string>
     <string name="stats_header"><u>Statistics</u></string>
     <string name="userInfo">userInfo</string>
 

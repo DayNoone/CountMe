@@ -90,7 +90,7 @@
 
     <!-- Biking active -->
     <string name="biking_active"><u>Sykling pågår</u></string>
-    <string name="report_problem">Feilmelding</string>
+    <string name="report_problem">Rapporter veiproblem</string>
 
     <!--Profile strings-->
     <string name="isLoggedInn">isLoggedInn</string>
