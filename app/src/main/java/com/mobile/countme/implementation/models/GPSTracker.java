@@ -22,6 +22,7 @@ import android.util.Log;
 import com.mobile.countme.framework.AppMenu;
 import com.mobile.countme.implementation.controllers.HTTPSender;
 import com.mobile.countme.implementation.controllers.MainController;
+import com.mobile.countme.implementation.views.ResultMenu;
 
 import java.util.ArrayList;
 
@@ -41,6 +42,8 @@ public class GPSTracker extends Service implements LocationListener {
     // flag for GPS status
     boolean canGetLocation = false;
 
+    private boolean automaticallyStopped = false;
+
     private Location location; // location
     private double latitude; // latitude
     private double longitude; // longitude
@@ -51,6 +54,12 @@ public class GPSTracker extends Service implements LocationListener {
 
     // The minimum time between updates in milliseconds
     private static final long MIN_TIME_BW_UPDATES = 1000 * 1; // 1 second
+
+    // The maximum movement within 10 minutes for the tracking to stop automatically
+    private static final long MAX_MOVEMENT_TO_STOP = 100; // 100 meters
+
+    // The time for when we stop tracking if there is minimal movement
+    private static final long TIME_LIMIT = 10 * 60 * 1000; // 10 minutes
 
     // Declaring a Location Manager
     protected LocationManager locationManager;
@@ -70,9 +79,8 @@ public class GPSTracker extends Service implements LocationListener {
             connectionTypes = new ArrayList<Integer>();
             activeNetwork = cm.getActiveNetworkInfo();
             connectionTypes.add(activeNetwork.getType());
-            trip.add(getLocation());
+            trip.add(temp);
         }
-
     }
 
     public Location getLocation() {
@@ -227,9 +235,36 @@ public class GPSTracker extends Service implements LocationListener {
                 if (distanceTo < 20.0f) {
                     distance += location.distanceTo(trip.get(trip.size() - 2));
                 }
-
+            }
+            if (!trip.isEmpty()) {
+                boolean tooLongWithoutMovement = true;
+                int firstPointToDelete = 0;
+                for (int i = trip.size() - 1; i >= 0; i--) {
+                    Location prevLocation = trip.get(i);
+                    if (location.getTime() - prevLocation.getTime() > TIME_LIMIT) {
+                        tooLongWithoutMovement = false;
+                        break;
+                    }
+                    if (location.distanceTo(prevLocation) > MAX_MOVEMENT_TO_STOP) {
+                        tooLongWithoutMovement = false;
+                        break;
+                    }
+                    firstPointToDelete = i;
+                }
+                if (tooLongWithoutMovement) {
+                    for (int i = trip.size() - 1; i >= firstPointToDelete; i--) {
+                        trip.remove(i);
+                    }
+                    automaticallyStopped = true;
+                }
             }
         }
+    }
+
+    public void checkIfNoLocationsReceived() {
+        // No new locations received for 10 minutes, trip stopped
+        if (!trip.isEmpty() && trip.get(trip.size() - 1).getTime() < System.currentTimeMillis() - TIME_LIMIT)
+            automaticallyStopped = true;
     }
 
     @Override
@@ -270,5 +305,9 @@ public class GPSTracker extends Service implements LocationListener {
 
     public boolean isCanGetLocation() {
         return canGetLocation;
+    }
+
+    public boolean isAutomaticallyStopped() {
+        return automaticallyStopped;
     }
 }

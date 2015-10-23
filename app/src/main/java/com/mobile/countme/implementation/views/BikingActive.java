@@ -33,13 +33,16 @@ public class BikingActive extends AppMenu {
                 .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface arg0, int arg1) {
-
-                        getMainController().stopTracker();
-                        getMainController().addStatistics(getMainController().getTracker().getDistance());
-                        getMainController().stoptimertask();
-                        goTo(ResultMenu.class);
+                        endTripAndReturn();
                     }
                 }).create().show();
+    }
+
+    public void endTripAndReturn() {
+        getMainController().stopTracker();
+        getMainController().addStatistics(getMainController().getTracker().getDistance());
+        getMainController().stoptimertask();
+        goTo(ResultMenu.class);
     }
 
     /**
@@ -97,6 +100,11 @@ public class BikingActive extends AppMenu {
      * @param start_using_tracker
      */
     public void updateView(String time_used, boolean start_using_tracker){
+        getMainController().getTracker().checkIfNoLocationsReceived();
+        if (getMainController().getTracker().isAutomaticallyStopped()) {
+            //TODO We could add a Push notification here
+            endTripAndReturn();
+        }
         CustomTextView time = (CustomTextView) findViewById(R.id.tracking_time);
         CustomTextView speed = (CustomTextView) findViewById(R.id.current_speed);
         CustomTextView distance = (CustomTextView) findViewById(R.id.tripDistance);
