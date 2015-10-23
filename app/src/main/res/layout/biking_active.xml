@@ -49,21 +49,37 @@
         android:layout_below="@+id/current_speed"
         android:layout_alignStart="@+id/current_speed" />
 
-
+<RelativeLayout
+    android:id="@+id/relId"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="5dp"
+    android:layout_marginStart="10dp"
+    android:layout_marginTop="10dp">
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/button8"
         android:onClick="sendError"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="10dp"
         android:background="@drawable/road_fault"
         android:src="@drawable/btn_highlight"
-        android:layout_marginLeft="30dp"
-        android:layout_marginStart="10dp"
+        android:layout_centerHorizontal="true"
         />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/report_problem"
+        android:textSize="10dp"
+        android:id="@+id/textView7"
+        android:layout_marginTop="5dp"
+        android:layout_below="@id/button8"
+        android:gravity="center"
+         />
+
+</RelativeLayout>
 
     <com.mobile.countme.custom_views.CustomTextView
         android:layout_width="wrap_content"
@@ -74,17 +90,5 @@
         android:id="@+id/textView20"
         android:layout_marginTop="65dp"
         android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="@string/report_problem"
-        android:textSize="10dp"
-        android:id="@+id/textView7"
-        android:layout_marginLeft="-17dp"
-        android:layout_marginTop="5dp"
-        android:layout_below="@id/button8"
-        android:layout_alignStart="@+id/button8" />
 
 </RelativeLayout>

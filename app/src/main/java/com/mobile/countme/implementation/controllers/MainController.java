@@ -33,6 +33,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.TreeMap;
 import java.util.UUID;
 
 import static com.google.android.gms.internal.zzhu.runOnUiThread;
@@ -93,7 +94,7 @@ public class MainController {
         userModel = new UserModel();
         tracker = new GPSTracker(context);
 
-        tripErrors = new HashMap<>();
+        tripErrors = new TreeMap<>();
 
 
     }
@@ -498,7 +499,7 @@ public class MainController {
      * Resets the error list after a trip is finished, also resets the error counter
      */
     public void resetErrors() {
-        tripErrors = new HashMap<>();
+        tripErrors = new TreeMap<>();
         errorCount = 1;
     }
 

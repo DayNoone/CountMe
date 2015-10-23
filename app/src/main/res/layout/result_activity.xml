@@ -162,9 +162,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/textView11"
         android:layout_marginTop="20dp"
-        android:layout_alignEnd="@id/time_used"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/textView12"
         android:background="@drawable/btn_stroke"
-        android:spinnerMode="dropdown" />
+        android:spinnerMode="dialog" />
 
     <Button
         android:layout_width="wrap_content"

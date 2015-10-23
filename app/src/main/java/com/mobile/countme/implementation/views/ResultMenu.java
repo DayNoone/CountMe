@@ -59,7 +59,7 @@ public class ResultMenu extends AppMenu {
     private void initSpinner(){
         final Spinner dropdown = (Spinner)findViewById(R.id.spinnerErrors);
         ArrayList<String> items = new ArrayList<>();
-        items.add("Velg feilmelding");
+        items.add(getString(R.string.errorsList));
         for(ErrorModel error : getMainController().getTripErrors().values()){
             items.add(error.getName());
         }

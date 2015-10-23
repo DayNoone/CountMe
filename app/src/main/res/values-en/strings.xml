@@ -32,6 +32,9 @@
     <!--Result Screen -->
     <string name="result_page">Result</string>
     <string name="mainScreen">Mainscreen</string>
+    <string name="errorsList">Choose road fault</string>
+    <string name="errorDialog">Road faults</string>
+
 
     <!--OptionsTab-->
     <string name="OptionsTab">Options</string>
@@ -81,7 +84,7 @@
     <!--Consider making these strings unreadable-->
     <string name="statisticsData">statisticsData</string>
     <string name="profile_preferences">UserPrefsFile</string>
-    <string name="Errors">Errors:</string>
+    <string name="Errors">Edit road faults: </string>
     <string name="InfoPickBirthDate">Submit birth year:</string>
     <string name="Kvinne">Female</string>
     <string name="Male">Male</string>
