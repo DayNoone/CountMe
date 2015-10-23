@@ -115,9 +115,9 @@ public class IntroductionMenu extends AppMenu {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH ||
                         actionId == EditorInfo.IME_ACTION_DONE ||
                         actionId == EditorInfo.IME_ACTION_NEXT){
-                    Toast.makeText(getApplicationContext(), "Fødselsdato er nå lagret",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.birthdate_saved),Toast.LENGTH_SHORT).show();
 
-                    return true;
+                    return false;
 
                 }
                 return false;
@@ -163,9 +163,9 @@ public class IntroductionMenu extends AppMenu {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH ||
                         actionId == EditorInfo.IME_ACTION_DONE ||
                         actionId == EditorInfo.IME_ACTION_NEXT){
-                    Toast.makeText(getApplicationContext(), "Vekt er nå lagret",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.birthdate_saved),Toast.LENGTH_SHORT).show();
 
-                    return true;
+                    return false;
 
                 }
                 return false;

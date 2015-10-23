@@ -11,13 +11,17 @@ import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mobile.countme.R;
 import com.mobile.countme.custom_views.CustomTextView;
@@ -217,6 +221,21 @@ public class MainMenu extends AppMenu {
         if(birthYear != null && birthYear != 0) {
             editText.setText(birthYear + "");
         }
+        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH ||
+                        actionId == EditorInfo.IME_ACTION_DONE ||
+                        actionId == EditorInfo.IME_ACTION_NEXT){
+                    Toast.makeText(getApplicationContext(), getString(R.string.birthdate_saved), Toast.LENGTH_SHORT).show();
+
+                    return false;
+
+                }
+                return false;
+            }
+
+        });
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -249,6 +268,21 @@ public class MainMenu extends AppMenu {
         if(weight != null && weight != 0) {
             editTextWeight.setText(weight + "");
         }
+        editTextWeight.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH ||
+                        actionId == EditorInfo.IME_ACTION_DONE ||
+                        actionId == EditorInfo.IME_ACTION_NEXT) {
+                    Toast.makeText(getApplicationContext(), getString(R.string.weight_saved), Toast.LENGTH_SHORT).show();
+
+                    return false;
+
+                }
+                return false;
+            }
+
+        });
         editTextWeight.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -272,7 +306,7 @@ public class MainMenu extends AppMenu {
             }
         });
 
-        RadioGroup rg = (RadioGroup) findViewById(R.id.genderGrp);
+        final RadioGroup rg = (RadioGroup) findViewById(R.id.genderGrp);
         if(rg == null) return;
         if(getMainController().getUserModel().getGender() != null && getMainController().getUserModel().getGender().equals("male")){
             RadioButton male = (RadioButton) findViewById(R.id.male);
@@ -281,6 +315,28 @@ public class MainMenu extends AppMenu {
             RadioButton female = (RadioButton) findViewById(R.id.female);
             female.setChecked(true);
         }
+        final RadioButton female = (RadioButton)findViewById(R.id.female);
+        final RadioButton male = (RadioButton)findViewById(R.id.male);
+        //TODO: Make it possible to uncheck radio buttons
+        male.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(male.isChecked()){
+                    Log.e("Main","ischecked");
+                    final RadioGroup rg = (RadioGroup) findViewById(R.id.genderGrp);
+                    rg.clearCheck();
+                }
+            }
+        });
+        female.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(female.isChecked()){
+                    final RadioGroup rg = (RadioGroup) findViewById(R.id.genderGrp);
+                    rg.clearCheck();
+                }
+            }
+        });
         rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {

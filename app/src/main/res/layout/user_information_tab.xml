@@ -13,7 +13,7 @@
         android:id="@+id/UserInformationHeadLine"
         android:layout_gravity="center_horizontal"
         android:gravity="center"
-        android:layout_marginTop="93dp"
+        android:layout_marginTop="73dp"
         android:layout_centerHorizontal="true" />
 
     <com.mobile.countme.custom_views.CustomTextView
@@ -44,7 +44,7 @@
         android:hint="@string/PickBirthDate"
         android:layout_centerVertical="true"
         android:layout_below="@+id/UserInformationHeadLine"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="50dp"
         android:background="@drawable/input_stroke" />
 
     <com.mobile.countme.custom_views.CustomTextView
@@ -60,9 +60,10 @@
     <RadioGroup
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="260dp"
+        android:layout_marginTop="30dp"
         android:orientation="horizontal"
         android:layout_centerHorizontal="true"
+        android:layout_below="@id/editText"
         android:id="@+id/genderGrp"
         >
 

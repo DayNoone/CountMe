@@ -21,6 +21,8 @@
     <string name="intro_page3">By using the app you contribute to providing them with insight to which biking routes are important, as well as where there are road faults or similar that nee to be fixed.</string>
     <string name="intro_page4">By pressing the phone\'s </string>
     <string name="intro_page5">Using this app will improve your biking experience!</string>
+    <string name="birthdate_saved">Birthdate is now saved</string>
+    <string name="weight_saved">Weight is now saved</string>
 
     <!-- Biking idle -->
     <string name="start_trip">START TRIP</string>
@@ -28,6 +30,9 @@
     <!--Error Screen -->
     <string name="error_page">Error report</string>
     <string name="finished_editing">Ok</string>
+    <string name="photo_saved">Photo is now saved</string>
+    <string name="description_saved">Description is now saved</string>
+    <string name="error_saved">Road fault is now saved</string>
 
     <!--Result Screen -->
     <string name="result_page">Result</string>
@@ -76,6 +81,7 @@
 
     <!-- Biking active -->
     <string name="biking_active"><u>Biking active</u></string>
+    <string name="require_network_stop_trip">You don\'t have network connection</string>
 
     <!--Profile strings-->
     <string name="isLoggedInn">isLoggedIn</string>
