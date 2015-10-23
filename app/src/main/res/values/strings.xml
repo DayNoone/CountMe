@@ -13,7 +13,9 @@
 
     <!--IntroductionMenu-->
     <string name="intro_page1">All GPS-data samles inn anonymt. I tillegg registreres ikke  de første og siste 100 meterne av turen for å beskytte din identitet.</string>
-    <string name="intro_page2">Denne appen sender informasjon videre til Statens vegvesen for bruk i deres analyse av dagens situasjon for syklister på veinettet. Ved å bruke appen bidrar du til å gi Statens vegvesen innsikt i hvilke sykkelruter som er populære, samt hvor det eksisterer veifeil eller tilsvarende som må utbedres. Å bruke denne appen forbedrer din sykkelhverdag!</string>
+    <string name="intro_page2">Denne appen sender informasjon videre til Statens vegvesen for bruk i deres analyse av dagens situasjon for syklister på veinettet.</string>
+    <string name="intro_page3">Ved å bruke appen bidrar du til å gi Statens vegvesen innsikt i hvilke sykkelruter som er populære, samt hvor det eksisterer veifeil eller tilsvarende som må utbedres.</string>
+    <string name="intro_page5">Å bruke denne appen forbedrer din sykkelhverdag!</string>
 
     <!--UserInformationTab-->
     <string name="intro_userInformation"> Denne informasjonen er helt valgfri og vil bli brukt som en del av sykkeldataanalysen. Vi ville satt veldig pris på om du fyller ut. Vekt blir brukt til kaloriberegning.</string>

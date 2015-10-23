@@ -16,7 +16,7 @@ import com.mobile.countme.R;
 public class Page2 extends Fragment  {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v =inflater.inflate(R.layout.page_2, container,false);
+        View v =inflater.inflate(R.layout.page_1, container,false);
         return v;
     }
 }
