@@ -11,7 +11,38 @@
         android:text="@string/intro_page2"
         android:id="@+id/textView"
         android:layout_gravity="center_horizontal"
-        android:layout_centerVertical="true"
+        android:layout_marginTop="100dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:layout_centerHorizontal="true"
+        android:gravity="center" />
+
+    <com.mobile.countme.custom_views.CustomTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/intro_page3"
+        android:id="@+id/textView1"
+        android:layout_gravity="center_horizontal"
+        android:layout_below="@id/textView"
+        android:layout_marginTop="40dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:layout_centerHorizontal="true"
+        android:gravity="center" />
+
+    <com.mobile.countme.custom_views.CustomTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="30dp"
+        android:text="@string/intro_page5"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:id="@+id/textView2"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="40dp"
+        android:layout_below="@id/textView1"
         android:layout_centerHorizontal="true"
         android:gravity="center" />
 

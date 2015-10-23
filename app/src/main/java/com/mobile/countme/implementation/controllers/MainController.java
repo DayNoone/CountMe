@@ -62,6 +62,7 @@ public class MainController {
     //Timer during trip with a Timertask that will update the bikingactive view
     private Timer timer;
     private TimerTask timerTask;
+    private String lastTime;
 
     //Biking active fields
     private BikingActive bikingActive;
@@ -301,17 +302,32 @@ public class MainController {
      */
     public void createTripsStatistics() {
         JSONArray trips = new JSONArray();
-        JSONObject trip = new JSONObject();
-        try {
-            trip.put("TimeStamp", simpleDateFormat.format(calendar.getTime()));
-            trip.put("co2Saved", 0);
-            trip.put("distance", 0);
-            trip.put("avgSpeed", 0);
-            trip.put("calories", 0);
-            trips.put(trip);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+            JSONObject trip = new JSONObject();
+            try {
+                trip.put("TimeStamp", simpleDateFormat.format(calendar.getTime()));
+                trip.put("co2Saved", 0);
+                trip.put("distance", 0);
+                trip.put("avgSpeed", 0);
+                trip.put("calories", 0);
+//                JSONObject dummyObjectLastWeek = new JSONObject();
+//                JSONObject dummyObjectLastMonth = new JSONObject();
+//                dummyObjectLastWeek.put("TimeStamp","19-10-2015");
+//                dummyObjectLastWeek.put("co2Saved",1);
+//                dummyObjectLastWeek.put("distance", 2.255512321);
+//                dummyObjectLastWeek.put("avgSpeed",1.32);
+//                dummyObjectLastWeek.put("calories", 241);
+//                dummyObjectLastMonth.put("TimeStamp", "08-09-2015");
+//                dummyObjectLastMonth.put("co2Saved", 1);
+//                dummyObjectLastMonth.put("distance",1.2314123123123);
+//                dummyObjectLastMonth.put("avgSpeed", 1.54);
+//                dummyObjectLastMonth.put("calories",23213);
+//                trips.put(dummyObjectLastMonth);
+//                trips.put(dummyObjectLastWeek);
+                trips.put(trip);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
         fileIO.writeInitialStatisticsSaveFile(trips);
     }
 
@@ -510,6 +526,10 @@ public class MainController {
         return tracker;
     }
 
+    public String getLastTime() {
+        return lastTime;
+    }
+
     /**
      * Adds and calculates the new statistics after a trip is finished
      *
@@ -564,7 +584,9 @@ public class MainController {
         if (numHours < 10) {
             hours = "0" + hours;
         }
-        return "" + hours + ":" + minutes + ":" + seconds;
+        lastTime = "" + hours + ":"  + minutes + ":"+ seconds;
+        return "" + hours + ":"  + minutes + ":"+ seconds;
+
     }
 
     /**

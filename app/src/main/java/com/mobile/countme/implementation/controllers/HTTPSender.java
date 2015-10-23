@@ -72,14 +72,11 @@ public class HTTPSender {
         try {
             jsonObject = new JSONObject();
             jsonObject.put("_userId", info.getUserID());
-            Date startTime = new Date(trip.get(0).getTime());
-            Date endTime = new Date(trip.get(trip.size() - 1).getTime());
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss-SSSz");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy'-'MM'-'dd'T'HH':'mm':'ss");
             sdf.setTimeZone(TimeZone.getTimeZone("CET"));
-            sdf.format(startTime);
-            sdf.format(endTime);
-            jsonObject.put("startTime", startTime);
-            jsonObject.put("endTime", endTime);
+            jsonObject.put("startTime", sdf.format(new Date(trip.get(0).getTime())));
+            jsonObject.put("endTime", sdf.format(new Date(trip.get(trip.size() - 1).getTime())));
+
             JSONArray tripData = new JSONArray();
             JSONObject dataPoint;
             Location location;
@@ -97,7 +94,7 @@ public class HTTPSender {
 
                 dataPoint.put("lat", location.getLatitude());
                 dataPoint.put("lon", location.getLongitude());
-                dataPoint.put("time", sdf.format(new Date(location.getTime())) + "-0100");
+                dataPoint.put("time", sdf.format(new Date(location.getTime())));
                 dataPoint.put("mode", "mobile");
                 int connectionType = connectionTypes.get(i);
                 switch (connectionType) {
@@ -179,33 +176,42 @@ public class HTTPSender {
             ErrorModel errorModel;
             for (String errorStr : tripErrors.keySet()) {
                 errorModel = tripErrors.get(errorStr);
+                synchronized (error) {
+                    error.put("description", errorModel.getDescription());
+                    error.put("lat", errorModel.getLatitude());
+                    error.put("lon", errorModel.getLongitude());
+                    error.put("image", errorModel.getPhotoTakenInBase64());
 
-                error.put("description", errorModel.getDescription());
-                error.put("lat", errorModel.getLatitude());
-                error.put("lon", errorModel.getLongitude());
-                error.put("image", errorModel.getPhotoTakenInBase64());
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy'-'MM'-'dd'T'HH':'mm':'ss");
+                    sdf.setTimeZone(TimeZone.getTimeZone("CET"));
+                    String timeStamp = sdf.format(new Date(errorModel.getTimeStamp()));
+                    error.put("timestamp", timeStamp);
 
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss-SSSz");
-                sdf.setTimeZone(TimeZone.getTimeZone("CET"));
-                error.put("timestamp", sdf.format(new Date(errorModel.getTimeStamp())));
-
-                if (error != null) {
-                    String sendURL = SERVER_URL + "user/" + info.getUserID() + "/errors/?token=" + info.getToken();
-                    HttpSenderThread thread = new HttpSenderThread(error, sendURL, info, HttpPostKind.ERROR);
-                    thread.start();
-                    thread.wait();
+                    if (error != null) {
+                        String sendURL = SERVER_URL + "user/" + info.getUserID() + "/errors/?token=" + info.getToken();
+                        HttpSenderThread thread = new HttpSenderThread(error, sendURL, info, HttpPostKind.ERROR);
+                        thread.start();
+                        synchronized (thread) {
+                            try {
+                                thread.wait();
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
                 }
+
 
             }
 
-            Log.d("SendErrors", "JSON created successfully");
-        } catch (Exception e) {
-            //dirty fix to checked exceptions
-            e.printStackTrace();
+                Log.d("SendErrors", "JSON created successfully");
+            }catch(JSONException e){
+                //dirty fix to checked exceptions
+                e.printStackTrace();
+            }
+
+
         }
-
-
-    }
 
     public static boolean logIn(UserModel model) {
         userModel = model;
@@ -280,7 +286,6 @@ public class HTTPSender {
         return info.hasInfo();
 
     }
-
 
 
 }

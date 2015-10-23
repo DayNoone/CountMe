@@ -295,6 +295,7 @@ public class SlidingTabLayout extends HorizontalScrollView {
             //Always updates the views based on the models.
             if(mainPagesInitialized){
                 mainMenu.setStatistics();
+                mainMenu.initOptionsTab();
             }
             if(introductionMenuInitialized){
                 introductionMenu.initUserInformation();

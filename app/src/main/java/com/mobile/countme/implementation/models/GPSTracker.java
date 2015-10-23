@@ -152,6 +152,7 @@ public class GPSTracker extends Service implements LocationListener {
             Log.d("Stopping GPS", "Locationmanager!=null");
             locationManager.removeUpdates(this);
             HTTPSender.sendTrip(trip, connectionTypes, mContext);
+            AppMenu.getMainController().getTripModel().setTrips(trip);
         }
     }
 

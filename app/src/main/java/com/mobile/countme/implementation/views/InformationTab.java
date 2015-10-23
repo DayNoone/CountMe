@@ -15,7 +15,7 @@ import com.mobile.countme.R;
 public class InformationTab extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v =inflater.inflate(R.layout.information_activity,container,false);
+        View v =inflater.inflate(R.layout.options_tab,container,false);
         return v;
     }
 }

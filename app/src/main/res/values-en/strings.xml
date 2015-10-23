@@ -8,16 +8,19 @@
     <string name="biking_idle">Start</string>
     <string name="environment_page">Environment</string>
     <string name="statistics_page">Statistics</string>
+    <string name="statistics_header">Statistics</string>
     <string name="info_page">Info</string>
 
     <!--Load Screen-->
     <string name="no_progress">No Progress</string>
 
     <!-- Introduction pages -->
-    <string name="intro_page1">All usage of this app is anonymous. The first and last 100 metres of your path gets deleted.</string>
-    <string name="intro_page2">The purpose of this app is to [...]</string>
-    <string name="intro_userInformation">This is some text explaining something of importance</string>
-    <string name="intro_page4">And with that, you may start the app.</string>
+    <string name="intro_page1">All usage of this app is anonymous. The first and last 100 meters of your path gets deleted to prevent identification.</string>
+    <string name="intro_page2">This app sends information to the Norwegian Public Roads Administration to help them analyze today\'s bicycling situation.</string>
+    <string name="intro_userInformation">This information is completely optional. It will be used as part of the bicycling analysis. We would appreciate if you provide it.</string>
+    <string name="intro_page3">By using the app you contribute to providing them with insight to which biking routes are important, as well as where there are road faults or similar that nee to be fixed.</string>
+    <string name="intro_page4">By pressing the phone\'s </string>
+    <string name="intro_page5">Using this app will improve your biking experience!</string>
 
     <!-- Biking idle -->
     <string name="start_trip">START TRIP</string>
@@ -29,6 +32,10 @@
     <!--Result Screen -->
     <string name="result_page">Result</string>
     <string name="mainScreen">Mainscreen</string>
+
+    <!--OptionsTab-->
+    <string name="OptionsTab">Options</string>
+    <string name="option_information">Anonymous data for analysis. Weight is for calorie calculation.</string>
 
     <!-- Environment -->
     <string name="environment_title">CO&#8322; saved today</string>
@@ -47,12 +54,12 @@
     <string name="monthhly_display">1 mo</string>
 
     <!-- Information -->
-    <string name="information_title">Information</string>
+    <string name="information_title"><u>Information</u></string>
     <string name="contact">Contact us: DinSykkelvei@sykkelmail.no</string>
     <string name="rewatch_intro">Rewatch introduction</string>
 
     <!--Error handler -->
-    <string name="report_error">Describe problem?</string>
+    <string name="report_error">Describe problem:</string>
     <string name="later">Later</string>
     <string name="now">Now</string>
 
@@ -74,6 +81,20 @@
     <!--Consider making these strings unreadable-->
     <string name="statisticsData">statisticsData</string>
     <string name="profile_preferences">UserPrefsFile</string>
+    <string name="Errors">Errors:</string>
+    <string name="InfoPickBirthDate">Submit birth year:</string>
+    <string name="Kvinne">Female</string>
+    <string name="Male">Male</string>
+    <string name="PickBirthDate">YYYY</string>
+    <string name="Time">Time:</string>
+    <string name="UserInformation">User information</string>
+    <string name="calories_burned">kcal burned:</string>
+    <string name="infoWeight">Weight (kg):</string>
+    <string name="noErrorsReported">No Errors reported</string>
+    <string name="popupError">Errors</string>
+    <string name="report_problem"><u>Error message</u></string>
+    <string name="stats_header"><u>Statistics</u></string>
+    <string name="userInfo">userInfo</string>
 
 
 </resources>

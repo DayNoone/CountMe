@@ -14,6 +14,7 @@ public class GPSFilter {
         if(trip.size() == 0){
             return;
         }
+
         Location end = trip.get(trip.size() - 1);
         Location almostEnd;
         float accumulator = 0.0f;
