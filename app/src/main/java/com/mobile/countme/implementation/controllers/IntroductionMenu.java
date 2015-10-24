@@ -6,12 +6,17 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mobile.countme.framework.AppMenu;
 import com.mobile.countme.R;
@@ -91,6 +96,7 @@ public class IntroductionMenu extends AppMenu {
 
     public void goToMainApp(View view) {
         getMainController().saveUserInformationToStorage();
+        Log.e("Test", getMainController().getUserModel().getGender());
         goTo(MainMenu.class);
     }
 
@@ -105,6 +111,21 @@ public class IntroductionMenu extends AppMenu {
         if(birthYear != null && birthYear != 0) {
             editText.setText(birthYear + "");
         }
+        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH ||
+                        actionId == EditorInfo.IME_ACTION_DONE ||
+                        actionId == EditorInfo.IME_ACTION_NEXT){
+                    Toast.makeText(getApplicationContext(), getString(R.string.birthdate_saved),Toast.LENGTH_SHORT).show();
+
+                    return false;
+
+                }
+                return false;
+            }
+
+        });
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -132,11 +153,29 @@ public class IntroductionMenu extends AppMenu {
 
         final EditText editTextWeight = (EditText) findViewById(R.id.editTextWeight);
         if(editTextWeight == null) return;
-        editTextWeight.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(4,1)});
+        DecimalDigitsInputFilter decimalDigitsInputFilter = new DecimalDigitsInputFilter();
+        decimalDigitsInputFilter.setDigits(1);
+        editTextWeight.setFilters(new InputFilter[] {decimalDigitsInputFilter});
         final Float weight = getMainController().getUserModel().getWeight();
         if(weight != null && weight != 0) {
             editTextWeight.setText(weight + "");
         }
+
+        editTextWeight.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH ||
+                        actionId == EditorInfo.IME_ACTION_DONE ||
+                        actionId == EditorInfo.IME_ACTION_NEXT){
+                    Toast.makeText(getApplicationContext(), getString(R.string.birthdate_saved),Toast.LENGTH_SHORT).show();
+
+                    return false;
+
+                }
+                return false;
+            }
+
+        });
         editTextWeight.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -174,10 +213,20 @@ public class IntroductionMenu extends AppMenu {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
                     case R.id.male:
-                        getMainController().getUserModel().setGender("male");
+                        if(getMainController().getUserModel().getGender().equals("male")){
+                            getMainController().getUserModel().setGender("");
+                        }else {
+                            getMainController().getUserModel().setGender("male");
+                        }
+                        getMainController().saveUserInformationToStorage();
                         break;
                     case R.id.female:
-                        getMainController().getUserModel().setGender("female");
+                        if(getMainController().getUserModel().getGender().equals("female")){
+                            getMainController().getUserModel().setGender("");
+                        }else {
+                            getMainController().getUserModel().setGender("female");
+                        }
+                        getMainController().saveUserInformationToStorage();
                         break;
                 }
             }

@@ -25,6 +25,8 @@
     <string name="Male">Mann</string>
     <string name="Kvinne">Kvinne</string>
     <string name="infoWeight">Vekt (kg):</string>
+    <string name="birthdate_saved">Fødselsdato er nå lagret</string>
+    <string name="weight_saved">Vekt er nå lagret</string>
     <string name="intro_page4">Ved å trykke på mobilens <i>optionsknapp</i>, kan du velge språk. </string>
 
     <!--OptionsTab-->
@@ -42,6 +44,10 @@
     <string name="finished_editing">Ok</string>
     <string name="take_picture">Ta bilde</string>
     <string name="Add_description">Beskrivelse</string>
+    <string name="photo_saved">Bilde er nå lagret</string>
+    <string name="description_saved">Beskrivelse er nå lagret</string>
+    <string name="error_saved">Vei problem er nå lagret</string>
+
 
     <!--Result Screen -->
     <string name="result_page">Resultat</string>
@@ -49,6 +55,8 @@
     <string name="popupError">Feilmeldinger</string>
     <string name="noErrorsReported">Ingen feilmeldinger</string>
     <string name="map_description">Se reiserute</string>
+    <string name="errorsList">Velg vei problem</string>
+    <string name="errorDialog">Vei problemer</string>
 
     <!-- Environment -->
     <string name="environment_title"><u>CO&#8322; spart i dag</u></string>
@@ -65,7 +73,7 @@
     <string name="avg_speed">Gj.fart: </string>
     <string name="calories_burned">kcal forbrent:</string>
     <string name="Time">Tid: </string>
-    <string name="Errors">Feilmeldinger: </string>
+    <string name="Errors">Rediger veiproblem: </string>
     <string name="daily_display">1 dag</string>
     <string name="weekly_display">1 uke</string>
     <string name="monthhly_display">1 mnd</string>
@@ -76,7 +84,7 @@
     <string name="rewatch_intro">Se introduksjon om igjen</string>
 
     <!--Error handler -->
-    <string name="report_error">Beskriv problem:</string>
+    <string name="report_error">Beskriv problem:\n(bilde kan ikke legges til senere)</string>
     <string name="later">Senere</string>
     <string name="now">Nå</string>
 
@@ -91,6 +99,7 @@
     <!-- Biking active -->
     <string name="biking_active"><u>Sykling pågår</u></string>
     <string name="report_problem">Rapporter veiproblem</string>
+    <string name="require_network_stop_trip">Du har ikke internettforbindelse</string>
 
     <!--Profile strings-->
     <string name="isLoggedInn">isLoggedInn</string>

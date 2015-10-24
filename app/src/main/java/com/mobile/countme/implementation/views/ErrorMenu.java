@@ -37,6 +37,7 @@ public class ErrorMenu extends AppMenu {
 
     public void finishEditing(View view){
         getMainController().getErrorModel().setEditedWhenReported(false);
+        Toast.makeText(getApplicationContext(), getString(R.string.error_saved), Toast.LENGTH_SHORT).show();
         if(getMainController().isTripInitialized()){
             goTo(BikingActive.class);
         }else {
@@ -61,6 +62,7 @@ public class ErrorMenu extends AppMenu {
                 Editable editable = input.getText();
                 description = editable.toString();
                 getMainController().addDescription(description);
+                Toast.makeText(getApplicationContext(), getString(R.string.description_saved), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -90,6 +92,7 @@ public class ErrorMenu extends AppMenu {
             Bitmap bp = (Bitmap) data.getExtras().get("data");
             getMainController().addPhoto(bp);
             photoTaken.setImageBitmap(bp);
+            Toast.makeText(getApplicationContext(), getString(R.string.photo_saved), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -124,6 +127,7 @@ public class ErrorMenu extends AppMenu {
     public void onBackPressed() {
         super.onBackPressed();
         getMainController().getErrorModel().setEditedWhenReported(false);
+        Toast.makeText(getApplicationContext(),getString(R.string.error_saved),Toast.LENGTH_SHORT).show();
         if(getMainController().isTripInitialized()){
             goTo(BikingActive.class);
         }else {

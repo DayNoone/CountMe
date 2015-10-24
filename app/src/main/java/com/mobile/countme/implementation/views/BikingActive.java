@@ -5,18 +5,15 @@ import android.content.DialogInterface;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.app.AlertDialog;
-import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.mobile.countme.R;
-import com.mobile.countme.custom_views.CustomTextView;
+import com.mobile.countme.custom_classes.CustomTextView;
 import com.mobile.countme.framework.AppMenu;
-import com.mobile.countme.framework.MapsActivity;
 import com.mobile.countme.implementation.models.ErrorModel;
 
 import java.math.BigDecimal;
-
-import static com.google.android.gms.internal.zzhu.runOnUiThread;
 
 /**
  * Created by Kristian on 16/09/2015.
@@ -44,6 +41,7 @@ public class BikingActive extends AppMenu {
 
                     public void onClick(DialogInterface arg0, int arg1) {
                         if(!BikingActive.activeObject.isConnected(BikingActive.activeObject)){
+                            Toast.makeText(getApplicationContext(),getString(R.string.require_network_stop_trip),Toast.LENGTH_SHORT).show();
                             return;
                         }
 
@@ -72,8 +70,8 @@ public class BikingActive extends AppMenu {
                 .setNegativeButton(R.string.later, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //Her må det sendes inn koordinater eller noe slikt, sånn at brukeren kan identifisere problemet etter turen, hvis han/hun vil legge til beskrivelse i ettertid.
                         getMainController().addError(newErrorModel);
+                        Toast.makeText(getApplicationContext(), getString(R.string.error_saved), Toast.LENGTH_SHORT).show();
                     }
                 })
                 .setPositiveButton(R.string.now, new DialogInterface.OnClickListener() {
