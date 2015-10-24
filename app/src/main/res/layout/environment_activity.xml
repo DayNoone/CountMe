@@ -12,7 +12,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
-    <com.mobile.countme.custom_views.CustomTextView
+    <com.mobile.countme.custom_classes.CustomTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -23,7 +23,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
-    <com.mobile.countme.custom_views.CustomTextView
+    <com.mobile.countme.custom_classes.CustomTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -33,7 +33,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="26dp" />
 
-    <com.mobile.countme.custom_views.CustomTextView
+    <com.mobile.countme.custom_classes.CustomTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -44,7 +44,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="45dp" />
 
-    <com.mobile.countme.custom_views.CustomTextView
+    <com.mobile.countme.custom_classes.CustomTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -54,7 +54,7 @@
         android:layout_below="@+id/textView3"
         android:layout_alignEnd="@+id/co2_display" />
 
-    <com.mobile.countme.custom_views.CustomTextView
+    <com.mobile.countme.custom_classes.CustomTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -64,7 +64,7 @@
         android:layout_alignStart="@+id/car_km"
         android:layout_marginTop="27dp" />
 
-    <com.mobile.countme.custom_views.CustomTextView
+    <com.mobile.countme.custom_classes.CustomTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -74,7 +74,7 @@
         android:layout_alignStart="@+id/plain_km"
         android:layout_marginTop="26dp" />
 
-    <com.mobile.countme.custom_views.CustomTextView
+    <com.mobile.countme.custom_classes.CustomTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"

@@ -24,7 +24,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mobile.countme.R;
-import com.mobile.countme.custom_views.CustomTextView;
 import com.mobile.countme.framework.AppMenu;
 import com.mobile.countme.framework.DecimalDigitsInputFilter;
 import com.mobile.countme.framework.MainViewPagerAdapter;
@@ -263,7 +262,9 @@ public class MainMenu extends AppMenu {
 
         final EditText editTextWeight = (EditText) findViewById(R.id.editTextWeight);
         if(editTextWeight == null) return;
-        editTextWeight.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(4,1)});
+        DecimalDigitsInputFilter decimalDigitsInputFilter = new DecimalDigitsInputFilter();
+        decimalDigitsInputFilter.setDigits(1);
+        editTextWeight.setFilters(new InputFilter[] {decimalDigitsInputFilter});
         final Float weight = getMainController().getUserModel().getWeight();
         if(weight != null && weight != 0) {
             editTextWeight.setText(weight + "");
@@ -297,7 +298,7 @@ public class MainMenu extends AppMenu {
             @Override
             public void afterTextChanged(Editable s) {
                 Editable editable = editTextWeight.getText();
-                if(editable.toString().isEmpty()){
+                if(editable.toString().isEmpty() || editable.toString().equals(".")){
                     getMainController().getUserModel().setWeight((float)0.0);
                 }else {
                     float newWeight = Float.parseFloat(editable.toString());
@@ -315,37 +316,25 @@ public class MainMenu extends AppMenu {
             RadioButton female = (RadioButton) findViewById(R.id.female);
             female.setChecked(true);
         }
-        final RadioButton female = (RadioButton)findViewById(R.id.female);
-        final RadioButton male = (RadioButton)findViewById(R.id.male);
-        //TODO: Make it possible to uncheck radio buttons
-        male.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(male.isChecked()){
-                    Log.e("Main","ischecked");
-                    final RadioGroup rg = (RadioGroup) findViewById(R.id.genderGrp);
-                    rg.clearCheck();
-                }
-            }
-        });
-        female.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(female.isChecked()){
-                    final RadioGroup rg = (RadioGroup) findViewById(R.id.genderGrp);
-                    rg.clearCheck();
-                }
-            }
-        });
         rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
                     case R.id.male:
-                        getMainController().getUserModel().setGender("male");
+                        if(getMainController().getUserModel().getGender().equals("male")){
+                            getMainController().getUserModel().setGender("");
+                        }else {
+                            getMainController().getUserModel().setGender("male");
+                        }
+                        getMainController().saveUserInformationToStorage();
                         break;
                     case R.id.female:
-                        getMainController().getUserModel().setGender("female");
+                        if(getMainController().getUserModel().getGender().equals("female")){
+                            getMainController().getUserModel().setGender("");
+                        }else {
+                            getMainController().getUserModel().setGender("female");
+                        }
+                        getMainController().saveUserInformationToStorage();
                         break;
                 }
             }

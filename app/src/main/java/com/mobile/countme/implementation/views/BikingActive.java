@@ -5,19 +5,15 @@ import android.content.DialogInterface;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.app.AlertDialog;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.mobile.countme.R;
-import com.mobile.countme.custom_views.CustomTextView;
+import com.mobile.countme.custom_classes.CustomTextView;
 import com.mobile.countme.framework.AppMenu;
-import com.mobile.countme.framework.MapsActivity;
 import com.mobile.countme.implementation.models.ErrorModel;
 
 import java.math.BigDecimal;
-
-import static com.google.android.gms.internal.zzhu.runOnUiThread;
 
 /**
  * Created by Kristian on 16/09/2015.

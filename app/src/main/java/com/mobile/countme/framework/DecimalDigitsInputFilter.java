@@ -1,7 +1,9 @@
 package com.mobile.countme.framework;
 
 import android.text.InputFilter;
+import android.text.SpannableStringBuilder;
 import android.text.Spanned;
+import android.text.method.DigitsKeyListener;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -9,22 +11,68 @@ import java.util.regex.Pattern;
 /**
  * Created by Robin on 19.10.2015.
  */
-public class DecimalDigitsInputFilter implements InputFilter {
+public class DecimalDigitsInputFilter extends DigitsKeyListener implements InputFilter {
 
-    Pattern mPattern;
+    public DecimalDigitsInputFilter(){
+        super(false,true);
+    }
 
-    public DecimalDigitsInputFilter(int digitsBeforeZero,int digitsAfterZero) {
-        mPattern=Pattern.compile("[0-9]{0," + (digitsBeforeZero-1) + "}+((\\.[0-9]{0," + (digitsAfterZero-1) + "})?)||(\\.)?");
+    private int digits;
+
+    public void setDigits(int d) {
+        digits = d;
     }
 
     @Override
-    public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+    public CharSequence filter(CharSequence source, int start, int end,
+                               Spanned dest, int dstart, int dend) {
+        CharSequence out = super.filter(source, start, end, dest, dstart, dend);
 
-        Matcher matcher=mPattern.matcher(dest);
-        if(!matcher.matches())
-            return "";
-        return null;
+        // if changed, replace the source
+        if (out != null) {
+            source = out;
+            start = 0;
+            end = out.length();
+        }
+
+        int len = end - start;
+
+        // if deleting, source is empty
+        // and deleting can't break anything
+        if (len == 0) {
+            return source;
+        }
+
+        int dlen = dest.length();
+
+        // Find the position of the decimal .
+        for (int i = 0; i < dstart; i++) {
+            if (dest.charAt(i) == '.') {
+                // being here means, that a number has
+                // been inserted after the dot
+                // check if the amount of digits is right
+                return (dlen-(i+1) + len > digits) ?
+                        "" :
+                        new SpannableStringBuilder(source, start, end);
+            }
+        }
+
+        for (int i = start; i < end; ++i) {
+            if (source.charAt(i) == '.') {
+                // being here means, dot has been inserted
+                // check if the amount of digits is right
+                if ((dlen-dend) + (end-(i + 1)) > digits)
+                    return "";
+                else
+                    break;  // return new SpannableStringBuilder(source, start, end);
+            }
+        }
+
+        // if the dot is after the inserted part,
+        // nothing can break
+        return new SpannableStringBuilder(source, start, end);
     }
+
 
 
 }

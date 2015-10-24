@@ -6,6 +6,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -95,6 +96,7 @@ public class IntroductionMenu extends AppMenu {
 
     public void goToMainApp(View view) {
         getMainController().saveUserInformationToStorage();
+        Log.e("Test", getMainController().getUserModel().getGender());
         goTo(MainMenu.class);
     }
 
@@ -151,7 +153,9 @@ public class IntroductionMenu extends AppMenu {
 
         final EditText editTextWeight = (EditText) findViewById(R.id.editTextWeight);
         if(editTextWeight == null) return;
-        editTextWeight.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(4,1)});
+        DecimalDigitsInputFilter decimalDigitsInputFilter = new DecimalDigitsInputFilter();
+        decimalDigitsInputFilter.setDigits(1);
+        editTextWeight.setFilters(new InputFilter[] {decimalDigitsInputFilter});
         final Float weight = getMainController().getUserModel().getWeight();
         if(weight != null && weight != 0) {
             editTextWeight.setText(weight + "");
@@ -209,10 +213,20 @@ public class IntroductionMenu extends AppMenu {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
                     case R.id.male:
-                        getMainController().getUserModel().setGender("male");
+                        if(getMainController().getUserModel().getGender().equals("male")){
+                            getMainController().getUserModel().setGender("");
+                        }else {
+                            getMainController().getUserModel().setGender("male");
+                        }
+                        getMainController().saveUserInformationToStorage();
                         break;
                     case R.id.female:
-                        getMainController().getUserModel().setGender("female");
+                        if(getMainController().getUserModel().getGender().equals("female")){
+                            getMainController().getUserModel().setGender("");
+                        }else {
+                            getMainController().getUserModel().setGender("female");
+                        }
+                        getMainController().saveUserInformationToStorage();
                         break;
                 }
             }

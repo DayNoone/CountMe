@@ -8,7 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import com.mobile.countme.R;
-import com.mobile.countme.custom_views.CustomTextView;
+import com.mobile.countme.custom_classes.CustomTextView;
 import com.mobile.countme.framework.AppMenu;
 import com.mobile.countme.framework.MapsActivity;
 import com.mobile.countme.implementation.controllers.HTTPSender;

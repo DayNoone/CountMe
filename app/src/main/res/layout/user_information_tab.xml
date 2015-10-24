@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.mobile.countme.custom_views.CustomTextView
+    <com.mobile.countme.custom_classes.CustomTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="30dp"
@@ -16,7 +16,7 @@
         android:layout_marginTop="73dp"
         android:layout_centerHorizontal="true" />
 
-    <com.mobile.countme.custom_views.CustomTextView
+    <com.mobile.countme.custom_classes.CustomTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -47,7 +47,7 @@
         android:layout_marginTop="50dp"
         android:background="@drawable/input_stroke" />
 
-    <com.mobile.countme.custom_views.CustomTextView
+    <com.mobile.countme.custom_classes.CustomTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -67,7 +67,7 @@
         android:id="@+id/genderGrp"
         >
 
-        <RadioButton
+        <com.mobile.countme.custom_classes.ToggleableRadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/Male"
@@ -77,7 +77,7 @@
             android:id="@+id/male"
             />
 
-        <RadioButton
+        <com.mobile.countme.custom_classes.ToggleableRadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/Kvinne"
@@ -90,7 +90,7 @@
 
     </RadioGroup>
 
-    <com.mobile.countme.custom_views.CustomTextView
+    <com.mobile.countme.custom_classes.CustomTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
