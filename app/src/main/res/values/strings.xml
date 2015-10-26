@@ -26,6 +26,7 @@
     <string name="Kvinne">Kvinne</string>
     <string name="infoWeight">Vekt (kg):</string>
     <string name="intro_page4">Ved å trykke på mobilens <i>optionsknapp</i>, kan du velge språk. </string>
+    <string name="save">Lagre</string>
 
     <!--OptionsTab-->
     <string name="OptionsTab">Instillinger</string>
@@ -80,9 +81,11 @@
     <string name="later">Senere</string>
     <string name="now">Nå</string>
 
+    <!--Error dialog for when network is not active on startup -->
+    <string name="require_network_on_startup">Nettverk er nødvendig ved oppstart!</string>
 
     <!--Confirmation -->
-    <string name="stop_biking">Avslutt tur?</string>
+    <string name="stop_biking">Avslutt tur?\nNettverk er nødvendig!</string>
     <string name="yes">Ja</string>
     <string name="no">Nei</string>
 

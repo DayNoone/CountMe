@@ -1,8 +1,11 @@
 package com.mobile.countme.implementation.views;
 
+import android.content.Context;
 import android.content.DialogInterface;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
+import android.app.AlertDialog;
+import android.util.Log;
 import android.view.View;
 
 import com.mobile.countme.R;
@@ -13,11 +16,14 @@ import com.mobile.countme.implementation.models.ErrorModel;
 
 import java.math.BigDecimal;
 
+import static com.google.android.gms.internal.zzhu.runOnUiThread;
+
 /**
  * Created by Kristian on 16/09/2015.
  */
 public class BikingActive extends AppMenu {
 
+    public static BikingActive activeObject;
 
     public void onCreate(Bundle savedInstanceBundle) {
         super.onCreate(savedInstanceBundle);
@@ -26,14 +32,22 @@ public class BikingActive extends AppMenu {
         getMainController().setBikingActive(this);
     }
 
+    public static boolean clicked;
+
     public void stopBiking(View view) {
+        activeObject = this;
+
         new AlertDialog.Builder(this)
                 .setMessage(R.string.stop_biking)
                 .setNegativeButton(R.string.no, null)
                 .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface arg0, int arg1) {
+                        if(!BikingActive.activeObject.isConnected(BikingActive.activeObject)){
+                            return;
+                        }
                         endTripAndReturn();
+
                     }
                 }).create().show();
     }
@@ -47,9 +61,10 @@ public class BikingActive extends AppMenu {
 
     /**
      * Error reporting
+     *
      * @param view
      */
-    public void sendError(View view){
+    public void sendError(View view) {
         final ErrorModel newErrorModel = new ErrorModel(getMainController());
         newErrorModel.setName("Feilmelding " + getMainController().getErrorCount());
         newErrorModel.setLatitude(getMainController().getTracker().getLatitude().toString());
@@ -96,6 +111,7 @@ public class BikingActive extends AppMenu {
 
     /**
      * Updates the view of this menu with new values for the user to see real time statistics
+     *
      * @param time_used
      * @param start_using_tracker
      */
@@ -105,18 +121,25 @@ public class BikingActive extends AppMenu {
             //TODO We could add a Push notification here
             endTripAndReturn();
         }
+    public void updateView(String time_used, boolean start_using_tracker) {
         CustomTextView time = (CustomTextView) findViewById(R.id.tracking_time);
         CustomTextView speed = (CustomTextView) findViewById(R.id.current_speed);
         CustomTextView distance = (CustomTextView) findViewById(R.id.tripDistance);
-        if(time != null) {
+        if (time != null) {
             time.setText(time_used);
         }
-        if(getMainController().getTracker() != null && start_using_tracker) {
-            Double currentSpeedInKmH = new BigDecimal(getMainController().getTracker().getCurrentSpeed()*3.6).setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
+        if (getMainController().getTracker() != null && start_using_tracker) {
+            Double currentSpeedInKmH = new BigDecimal(getMainController().getTracker().getCurrentSpeed() * 3.6).setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
             speed.setText(Double.toString(currentSpeedInKmH) + " km/h");
-            Double transformedDistance = new BigDecimal((getMainController().getTracker().getDistance()/1000)).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
-            distance.setText(Double.toString(transformedDistance) + " km");
+
+            Double transformedDistance = new BigDecimal((getMainController().getTracker().getDistance() / 1000)).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+            distance.setText(Double.toString(transformedDistance) + "km");
+
         }
     }
 
+    public static boolean isConnected(Context context) {
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        return cm.getActiveNetworkInfo() != null;
+    }
 }

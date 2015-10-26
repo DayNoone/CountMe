@@ -23,6 +23,7 @@ import com.mobile.countme.framework.AppMenu;
 import com.mobile.countme.framework.DecimalDigitsInputFilter;
 import com.mobile.countme.framework.MainViewPagerAdapter;
 import com.mobile.countme.framework.SlidingTabLayout;
+import com.mobile.countme.implementation.models.UserModel;
 import com.mobile.countme.implementation.views.BikingActive;
 
 import org.json.JSONException;
@@ -118,6 +119,9 @@ public class MainMenu extends AppMenu {
 
     public void goToIntroduction(View view){
         goTo(IntroductionMenu.class);
+    }
+    public void sendData(View view){
+        HTTPSender.updateUser(getMainController().userModel);
     }
 
     public void startBiking(View view) {

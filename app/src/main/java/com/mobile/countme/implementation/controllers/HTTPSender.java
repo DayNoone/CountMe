@@ -1,10 +1,14 @@
 package com.mobile.countme.implementation.controllers;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.location.Location;
 import android.net.ConnectivityManager;
 import android.util.Log;
 
+import com.mobile.countme.framework.AppMenu;
 import com.mobile.countme.framework.GPSFilter;
 import com.mobile.countme.implementation.models.ErrorModel;
 import com.mobile.countme.implementation.models.UserModel;
@@ -19,6 +23,8 @@ import java.util.Date;
 import java.util.Map;
 import java.util.TimeZone;
 
+import static com.google.android.gms.internal.zzhu.runOnUiThread;
+
 /**
  * Created by Torgeir on 14.10.2015.
  */
@@ -31,6 +37,9 @@ public class HTTPSender {
     //private static final String PASSWORD = "dabchick402";
 
     static private LoginInfo info;
+    static private UserModel userModel;
+    private static boolean clicked;
+    private static AppMenu context;
 
 
     public HTTPSender() {
@@ -40,16 +49,10 @@ public class HTTPSender {
 
     //sendTrip method creates a json from an arraylist of locations, an arraylist of ints and a context
     //Then it uses delegation to send the json to the server via a specified url
-    public static void sendTrip(ArrayList<Location> trip, ArrayList<Integer> connectionTypes, Context context) {
-        synchronized (info) {
-            try {
-                while (!info.isLoggedIn()) {
-                    info.wait();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+    public static void sendTrip(ArrayList<Location> trip, ArrayList<Integer> connectionTypes, AppMenu context) {
+        HTTPSender.context = context;
+
+
         Log.d("SendTrip", "SendTrip started");
 
         GPSFilter.filterTrip(trip, connectionTypes);
@@ -73,6 +76,7 @@ public class HTTPSender {
             sdf.setTimeZone(TimeZone.getTimeZone("CET"));
             jsonObject.put("startTime", sdf.format(new Date(trip.get(0).getTime())));
             jsonObject.put("endTime", sdf.format(new Date(trip.get(trip.size() - 1).getTime())));
+
             JSONArray tripData = new JSONArray();
             JSONObject dataPoint;
             Location location;
@@ -118,6 +122,8 @@ public class HTTPSender {
                     case (ConnectivityManager.TYPE_WIMAX):
                         dataPoint.put("mode", "wimax");
                         break;
+                    case (-1):
+                        dataPoint.put("mode", "none");
                     default:
                         dataPoint.put("mode", "");
                         break;
@@ -145,8 +151,7 @@ public class HTTPSender {
             String versionName = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName;
             jsonObject.put("OS", versionName);
             Log.d("SendTrip", "JSON created successfully");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             //dirty fix to checked exceptions
             e.printStackTrace();
         }
@@ -186,52 +191,64 @@ public class HTTPSender {
                         String sendURL = SERVER_URL + "user/" + info.getUserID() + "/errors/?token=" + info.getToken();
                         HttpSenderThread thread = new HttpSenderThread(error, sendURL, info, HttpPostKind.ERROR);
                         thread.start();
-                        error.wait();
+                        synchronized (thread) {
+                            try {
+                                thread.wait();
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
                     }
                 }
+
+
             }
 
-            Log.d("SendErrors", "JSON created successfully");
+                Log.d("SendErrors", "JSON created successfully");
+            }catch(JSONException e){
+                //dirty fix to checked exceptions
+                e.printStackTrace();
+            }
+
+
         }
-        catch (Exception e) {
-            //dirty fix to checked exceptions
-            e.printStackTrace();
-        }
 
-
-    }
-
-    public static void logIn(UserModel model){
-        if(info == null) {
+    public static boolean logIn(UserModel model) {
+        userModel = model;
+        if (info == null) {
             info = new LoginInfo();
             info.setUsername(model.getUsername());
             info.setPassword(model.getPassword());
         }
-        synchronized (info) {
-            try {
-                while (!info.hasInfo()) {
-                    info.wait();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        if (info.isLoggedIn()) {
+            return true;
         }
-        try{
+
+        try {
 
             JSONObject obj = new JSONObject();
             obj.put("username", info.getUsername());
             obj.put("password", info.getPassword());
             HttpSenderThread thread = new HttpSenderThread(obj, SERVER_URL, info, HttpPostKind.LOGIN);
             thread.start();
-        }
-        catch( Exception e){
+            synchronized (thread) {
+                thread.wait();
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
             e.printStackTrace();
         }
 
+        Log.d("loginattempt done", "login returning " + info.isLoggedIn());
+        return info.isLoggedIn();
+
     }
 
-    public static void createUser(UserModel model) {
-        info = new LoginInfo();
+    public static boolean createUser(UserModel model) {
+        if (info == null) {
+            info = new LoginInfo();
+        }
         JSONObject obj = null;
         try {
             obj = new JSONObject();
@@ -246,23 +263,53 @@ public class HTTPSender {
                numchildren:      userStore.getAt(0).get('numchildren')
 */
             obj.put("username", model.getUsername());
-            obj.put("birthyear", model.getBirthYear());
-            obj.put("gender", model.getGender());
             obj.put("password", model.getPassword());
             info.setPassword(model.getPassword());
             //Potentially more things
-        }
-        catch (JSONException e) {
+        } catch (JSONException e) {
             e.printStackTrace();
         }
         if (obj != null) {
             String sendURL = SERVER_URL + "user/";
             HttpSenderThread thread = new HttpSenderThread(obj, sendURL, info, HttpPostKind.CREATEUSER);
             thread.start();
+            synchronized (thread) {
+                try {
+                    thread.wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
         }
+        return info.hasInfo();
 
     }
 
+    public static void updateUser(UserModel model){
+
+
+        try {
+
+            JSONObject obj = new JSONObject();
+            Integer birthyear = userModel.getBirthYear();
+            if(birthyear != null){
+                obj.put("birthyear", birthyear);
+
+            }
+
+            String gender = userModel.getGender();
+            if(gender != null){
+                obj.put("gender", gender);
+            }
+
+            HttpSenderThread thread = new HttpSenderThread(obj, SERVER_URL + "user/" + info.getUserID()+ "/?token=" + info.getToken(), info, HttpPostKind.UPDATEUSER);
+            thread.start();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+    }
 
 
 }

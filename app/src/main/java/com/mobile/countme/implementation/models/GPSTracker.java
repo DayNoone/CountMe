@@ -31,7 +31,7 @@ import java.util.ArrayList;
  */
 public class GPSTracker extends Service implements LocationListener {
 
-    private final Context mContext;
+    private final AppMenu mContext;
 
     // flag for GPS status
     boolean isGPSEnabled = false;
@@ -69,7 +69,7 @@ public class GPSTracker extends Service implements LocationListener {
     private ConnectivityManager cm;
     private NetworkInfo activeNetwork;
 
-    public GPSTracker(Context context) {
+    public GPSTracker(AppMenu context) {
         this.mContext = context;
         trip = new ArrayList<Location>();
         Location temp = getLocation();
@@ -77,10 +77,19 @@ public class GPSTracker extends Service implements LocationListener {
             ConnectivityManager cm =
                     (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
             connectionTypes = new ArrayList<Integer>();
-            activeNetwork = cm.getActiveNetworkInfo();
-            connectionTypes.add(activeNetwork.getType());
+            if (cm != null) {
+                activeNetwork = cm.getActiveNetworkInfo();
+                if (activeNetwork != null) {
+                    connectionTypes.add(activeNetwork.getType());
+                } else {
+                    connectionTypes.add(-1);
+                }
+            } else {
+                connectionTypes.add(-1);
+            }
             trip.add(temp);
         }
+
     }
 
     public Location getLocation() {
@@ -133,8 +142,8 @@ public class GPSTracker extends Service implements LocationListener {
                     }
                 }
             }
-
-        } catch (Exception e) {
+        }
+        catch (IllegalStateException e){
             e.printStackTrace();
         }
 
@@ -225,8 +234,16 @@ public class GPSTracker extends Service implements LocationListener {
         if (location != null) {
             trip.add(location);
             cm = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
-            activeNetwork = cm.getActiveNetworkInfo();
-            connectionTypes.add(activeNetwork.getType());
+            if (cm != null) {
+                activeNetwork = cm.getActiveNetworkInfo();
+                if (activeNetwork != null) {
+                    connectionTypes.add(activeNetwork.getType());
+                } else {
+                    connectionTypes.add(-1);
+                }
+            } else {
+                connectionTypes.add(-1);
+            }
             if (trip.size() > 1) {
 
                 Log.e("GPSTracker", "It works");
