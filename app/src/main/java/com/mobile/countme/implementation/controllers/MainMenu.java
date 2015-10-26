@@ -11,12 +11,17 @@ import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mobile.countme.R;
 import com.mobile.countme.framework.AppMenu;
@@ -137,6 +142,12 @@ public class MainMenu extends AppMenu {
      * @param view
      */
     public void viewOneDayStats(View view) {
+        Button button_day = (Button)findViewById(R.id.button3);
+        Button button_week = (Button)findViewById(R.id.button4);
+        Button button_month = (Button)findViewById(R.id.button5);
+        button_day.setBackgroundResource(R.drawable.btn_stroke_statistics);
+        button_week.setBackgroundResource(R.drawable.btn_stroke);
+        button_month.setBackgroundResource(R.drawable.btn_stroke);
         adapter.getStatisticsTab().setTripsStatistics(getMainController().getStatisticsModel().getCo2_saved(), getMainController().getStatisticsModel().getDistance(), getMainController().getStatisticsModel().getAvg_speed(), getMainController().getStatisticsModel().getKcal());
     }
 
@@ -146,6 +157,12 @@ public class MainMenu extends AppMenu {
      */
     public void viewOneWeekStats(View view) {
         JSONObject lastWeekTrips = getMainController().getLastPeriodTrips(7);
+        Button button_day = (Button)findViewById(R.id.button3);
+        Button button_week = (Button)findViewById(R.id.button4);
+        Button button_month = (Button)findViewById(R.id.button5);
+        button_day.setBackgroundResource(R.drawable.btn_stroke);
+        button_week.setBackgroundResource(R.drawable.btn_stroke_statistics);
+        button_month.setBackgroundResource(R.drawable.btn_stroke);
         try {
             adapter.getStatisticsTab().setTripsStatistics(Integer.parseInt(lastWeekTrips.getString("co2Saved")), Double.parseDouble(lastWeekTrips.getString("distance")), Double.parseDouble(lastWeekTrips.getString("avgSpeed")), Integer.parseInt(lastWeekTrips.getString("calories")));
         } catch (JSONException e) {
@@ -160,6 +177,12 @@ public class MainMenu extends AppMenu {
      */
     public void viewOneMonthStatistics(View view){
         JSONObject lastMonthTrips = getMainController().getLastPeriodTrips(30);
+        Button button_day = (Button)findViewById(R.id.button3);
+        Button button_week = (Button)findViewById(R.id.button4);
+        Button button_month = (Button)findViewById(R.id.button5);
+        button_day.setBackgroundResource(R.drawable.btn_stroke);
+        button_week.setBackgroundResource(R.drawable.btn_stroke);
+        button_month.setBackgroundResource(R.drawable.btn_stroke_statistics);
         try {
             adapter.getStatisticsTab().setTripsStatistics(Integer.parseInt(lastMonthTrips.getString("co2Saved")), Double.parseDouble(lastMonthTrips.getString("distance")), Double.parseDouble(lastMonthTrips.getString("avgSpeed")), Integer.parseInt(lastMonthTrips.getString("calories")));
         } catch (JSONException e) {
@@ -201,6 +224,21 @@ public class MainMenu extends AppMenu {
         if(birthYear != null && birthYear != 0) {
             editText.setText(birthYear + "");
         }
+        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH ||
+                        actionId == EditorInfo.IME_ACTION_DONE ||
+                        actionId == EditorInfo.IME_ACTION_NEXT){
+                    Toast.makeText(getApplicationContext(), getString(R.string.birthdate_saved), Toast.LENGTH_SHORT).show();
+
+                    return false;
+
+                }
+                return false;
+            }
+
+        });
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -228,11 +266,28 @@ public class MainMenu extends AppMenu {
 
         final EditText editTextWeight = (EditText) findViewById(R.id.editTextWeight);
         if(editTextWeight == null) return;
-        editTextWeight.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(4,1)});
+        DecimalDigitsInputFilter decimalDigitsInputFilter = new DecimalDigitsInputFilter();
+        decimalDigitsInputFilter.setDigits(1);
+        editTextWeight.setFilters(new InputFilter[] {decimalDigitsInputFilter});
         final Float weight = getMainController().getUserModel().getWeight();
         if(weight != null && weight != 0) {
             editTextWeight.setText(weight + "");
         }
+        editTextWeight.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH ||
+                        actionId == EditorInfo.IME_ACTION_DONE ||
+                        actionId == EditorInfo.IME_ACTION_NEXT) {
+                    Toast.makeText(getApplicationContext(), getString(R.string.weight_saved), Toast.LENGTH_SHORT).show();
+
+                    return false;
+
+                }
+                return false;
+            }
+
+        });
         editTextWeight.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -247,7 +302,7 @@ public class MainMenu extends AppMenu {
             @Override
             public void afterTextChanged(Editable s) {
                 Editable editable = editTextWeight.getText();
-                if(editable.toString().isEmpty()){
+                if(editable.toString().isEmpty() || editable.toString().equals(".")){
                     getMainController().getUserModel().setWeight((float)0.0);
                 }else {
                     float newWeight = Float.parseFloat(editable.toString());
@@ -256,7 +311,7 @@ public class MainMenu extends AppMenu {
             }
         });
 
-        RadioGroup rg = (RadioGroup) findViewById(R.id.genderGrp);
+        final RadioGroup rg = (RadioGroup) findViewById(R.id.genderGrp);
         if(rg == null) return;
         if(getMainController().getUserModel().getGender() != null && getMainController().getUserModel().getGender().equals("male")){
             RadioButton male = (RadioButton) findViewById(R.id.male);
@@ -270,10 +325,20 @@ public class MainMenu extends AppMenu {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
                     case R.id.male:
-                        getMainController().getUserModel().setGender("male");
+                        if(getMainController().getUserModel().getGender().equals("male")){
+                            getMainController().getUserModel().setGender("");
+                        }else {
+                            getMainController().getUserModel().setGender("male");
+                        }
+                        getMainController().saveUserInformationToStorage();
                         break;
                     case R.id.female:
-                        getMainController().getUserModel().setGender("female");
+                        if(getMainController().getUserModel().getGender().equals("female")){
+                            getMainController().getUserModel().setGender("");
+                        }else {
+                            getMainController().getUserModel().setGender("female");
+                        }
+                        getMainController().saveUserInformationToStorage();
                         break;
                 }
             }

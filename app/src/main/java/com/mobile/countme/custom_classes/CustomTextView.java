@@ -1,4 +1,4 @@
-package com.mobile.countme.custom_views;
+package com.mobile.countme.custom_classes;
 
 import android.content.Context;
 import android.graphics.Typeface;
