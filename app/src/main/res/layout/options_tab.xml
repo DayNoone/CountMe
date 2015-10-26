@@ -95,7 +95,7 @@
         <com.mobile.countme.custom_classes.ToggleableRadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/Kvinne"
+            android:text="@string/Female"
             android:id="@+id/female"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#FFFFFF"

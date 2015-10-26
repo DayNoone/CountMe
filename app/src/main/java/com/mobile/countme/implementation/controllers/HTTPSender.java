@@ -302,6 +302,10 @@ public class HTTPSender {
                 obj.put("gender", gender);
             }
 
+            if(birthyear == null && gender == null){
+                return;
+            }
+
             HttpSenderThread thread = new HttpSenderThread(obj, SERVER_URL + "user/" + info.getUserID()+ "/?token=" + info.getToken(), info, HttpPostKind.UPDATEUSER);
             thread.start();
         } catch (JSONException e) {

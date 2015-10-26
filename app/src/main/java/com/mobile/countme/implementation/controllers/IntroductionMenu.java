@@ -95,6 +95,7 @@ public class IntroductionMenu extends AppMenu {
     }
 
     public void goToMainApp(View view) {
+        //TODO add a call to updateUser here when it works
         getMainController().saveUserInformationToStorage();
         Log.e("Test", getMainController().getUserModel().getGender());
         goTo(MainMenu.class);

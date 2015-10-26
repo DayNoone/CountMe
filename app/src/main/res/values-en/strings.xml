@@ -23,6 +23,7 @@
     <string name="intro_page5">Using this app will improve your biking experience!</string>
     <string name="birthdate_saved">Birthdate is now saved</string>
     <string name="weight_saved">Weight is now saved</string>
+    <string name="go_to_app">Go to app</string>
 
     <!-- Biking idle -->
     <string name="start_trip">START TRIP</string>
@@ -93,7 +94,7 @@
     <string name="profile_preferences">UserPrefsFile</string>
     <string name="Errors">Edit road faults: </string>
     <string name="InfoPickBirthDate">Submit birth year:</string>
-    <string name="Kvinne">Female</string>
+    <string name="Female">Female</string>
     <string name="Male">Male</string>
     <string name="PickBirthDate">YYYY</string>
     <string name="Time">Time:</string>

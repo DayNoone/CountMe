@@ -16,6 +16,7 @@
     <string name="intro_page2">Denne appen sender informasjon videre til Statens vegvesen for bruk i deres analyse av dagens situasjon for syklister på veinettet.</string>
     <string name="intro_page3">Ved å bruke appen bidrar du til å gi Statens vegvesen innsikt i hvilke sykkelruter som er populære, samt hvor det eksisterer veifeil eller tilsvarende som må utbedres.</string>
     <string name="intro_page5">Å bruke denne appen forbedrer din sykkelhverdag!</string>
+    <string name="go_to_app">Gå til app</string>
 
     <!--UserInformationTab-->
     <string name="intro_userInformation"> Denne informasjonen er helt valgfri og vil bli brukt som en del av sykkeldataanalysen. Vi ville satt veldig pris på om du fyller ut. Vekt blir brukt til kaloriberegning.</string>
@@ -23,7 +24,7 @@
     <string name="PickBirthDate">ÅÅÅÅ</string>
     <string name="InfoPickBirthDate">Legg inn fødselsår: </string>
     <string name="Male">Mann</string>
-    <string name="Kvinne">Kvinne</string>
+    <string name="Female">Kvinne</string>
     <string name="infoWeight">Vekt (kg):</string>
     <string name="birthdate_saved">Fødselsdato er nå lagret</string>
     <string name="weight_saved">Vekt er nå lagret</string>
