@@ -305,8 +305,12 @@ public class HTTPSender {
             if(birthyear == null && gender == null){
                 return;
             }
+            obj.put("username", info.getUsername());
+            obj.put("password", info.getPassword());
+            obj.put("_userId", info.getUserID());
+            obj.put("token", info.getToken());
 
-            HttpSenderThread thread = new HttpSenderThread(obj, SERVER_URL + "user/" + info.getUserID()+ "/?token=" + info.getToken(), info, HttpPostKind.UPDATEUSER);
+            HttpSenderThread thread = new HttpSenderThread(obj, SERVER_URL + "user/" + info.getUserID() /*+ "/?token=" + info.getToken()*/, info, HttpPostKind.UPDATEUSER);
             thread.start();
         } catch (JSONException e) {
             e.printStackTrace();

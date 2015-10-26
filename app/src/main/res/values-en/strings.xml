@@ -63,6 +63,7 @@
     <string name="weekly_display">1 week</string>
     <string name="monthhly_display">1 mo</string>
     <string name="zero_kmph"> 0.00 km/h</string>
+    <string name="kmph">km/t</string>
 
     <!-- Information -->
     <string name="information_title"><u>Information</u></string>

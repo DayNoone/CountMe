@@ -125,7 +125,5 @@ public class HttpSenderThread extends Thread {
         }
 
 
-        //If response is needed somewhere, figure out how to communicate with main thread.
-
     }
 }
