@@ -21,6 +21,7 @@ public class ErrorModel {
     private Bitmap photoTaken;
     private boolean editedWhenReported;
     private long timeStamp;
+    private boolean createdInIdle;
 
     private MainController mainController;
 
@@ -77,6 +78,10 @@ public class ErrorModel {
         this.editedWhenReported = editedWhenReported;
     }
 
+    public void setCreatedInIdle(boolean createdInIdle) {
+        this.createdInIdle = createdInIdle;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -95,6 +100,10 @@ public class ErrorModel {
 
     public long getTimeStamp() {
         return timeStamp;
+    }
+
+    public boolean isCreatedInIdle() {
+        return createdInIdle;
     }
 
     @Override

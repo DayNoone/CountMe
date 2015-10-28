@@ -29,4 +29,36 @@
         android:layout_marginTop="27dp"
         android:textColor="#FFFFFF" />
 
+    <RelativeLayout
+        android:id="@+id/relId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="80dp">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/button8"
+            android:onClick="sendErrorIdle"
+            android:background="@drawable/road_fault"
+            android:src="@drawable/btn_highlight"
+            android:layout_centerHorizontal="true"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/report_problem"
+            android:textSize="9.5dp"
+            android:id="@+id/textView7"
+            android:layout_marginTop="5dp"
+            android:layout_below="@id/button8"
+            android:gravity="center"
+            />
+
+    </RelativeLayout>
+
 </RelativeLayout>

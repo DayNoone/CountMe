@@ -141,11 +141,18 @@ public class IntroductionMenu extends AppMenu {
             public void afterTextChanged(Editable s) {
                 Editable editable = editText.getText();
                 if (!editable.toString().contains("Y")) {
+                    int oldBirthYear = getMainController().getUserModel().getBirthYear();
                     if(editable.toString().isEmpty()){
                         getMainController().getUserModel().setBirthYear(0);
-                    }else {
+                        if(oldBirthYear != 0){
+                            getMainController().saveUserInformationToStorage();
+                        }
+                    } else {
                         int newBirthYear = Integer.parseInt(editable.toString());
                         getMainController().getUserModel().setBirthYear(newBirthYear);
+                        if(oldBirthYear != newBirthYear){
+                            getMainController().saveUserInformationToStorage();
+                        }
                     }
                 }
             }
@@ -190,11 +197,18 @@ public class IntroductionMenu extends AppMenu {
             @Override
             public void afterTextChanged(Editable s) {
                 Editable editable = editTextWeight.getText();
+                float oldWeight = getMainController().getUserModel().getWeight();
                 if(editable.toString().isEmpty()){
                     getMainController().getUserModel().setWeight((float)0.0);
+                    if(oldWeight != 0){
+                        getMainController().saveUserInformationToStorage();
+                    }
                 }else {
                     float newWeight = Float.parseFloat(editable.toString());
                     getMainController().getUserModel().setWeight(newWeight);
+                    if(oldWeight != newWeight){
+                        getMainController().saveUserInformationToStorage();
+                    }
                 }
             }
         });

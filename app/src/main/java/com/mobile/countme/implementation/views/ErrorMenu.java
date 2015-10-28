@@ -15,6 +15,12 @@ import android.widget.Toast;
 
 import com.mobile.countme.R;
 import com.mobile.countme.framework.AppMenu;
+import com.mobile.countme.implementation.controllers.HTTPSender;
+import com.mobile.countme.implementation.controllers.MainMenu;
+import com.mobile.countme.implementation.models.ErrorModel;
+
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Created by Kristian on 16/09/2015.
@@ -38,7 +44,13 @@ public class ErrorMenu extends AppMenu {
     public void finishEditing(View view){
         getMainController().getErrorModel().setEditedWhenReported(false);
         Toast.makeText(getApplicationContext(), getString(R.string.error_saved), Toast.LENGTH_SHORT).show();
-        if(getMainController().isTripInitialized()){
+        if(getMainController().getErrorModel().isCreatedInIdle()){
+            Map<String,ErrorModel> errorSend = new TreeMap<String, ErrorModel>();
+            errorSend.put("Feilmelding1",getMainController().getErrorModel());
+            HTTPSender.sendErrors(errorSend);
+            goTo(MainMenu.class);
+        }
+        else if(getMainController().isTripInitialized()){
             goTo(BikingActive.class);
         }else {
             goTo(ResultMenu.class);
@@ -128,7 +140,13 @@ public class ErrorMenu extends AppMenu {
         super.onBackPressed();
         getMainController().getErrorModel().setEditedWhenReported(false);
         Toast.makeText(getApplicationContext(),getString(R.string.error_saved),Toast.LENGTH_SHORT).show();
-        if(getMainController().isTripInitialized()){
+        if(getMainController().getErrorModel().isCreatedInIdle()){
+            Map<String,ErrorModel> errorSend = new TreeMap<String, ErrorModel>();
+            errorSend.put("Feilmelding1",getMainController().getErrorModel());
+            HTTPSender.sendErrors(errorSend);
+            goTo(MainMenu.class);
+        }
+        else if(getMainController().isTripInitialized()){
             goTo(BikingActive.class);
         }else {
             goTo(ResultMenu.class);
