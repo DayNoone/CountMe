@@ -49,7 +49,7 @@ public class HTTPSender {
 
     //sendTrip method creates a json from an arraylist of locations, an arraylist of ints and a context
     //Then it uses delegation to send the json to the server via a specified url
-    public static void sendTrip(ArrayList<Location> trip, ArrayList<Integer> connectionTypes, AppMenu context) {
+    public static void sendTrip(ArrayList<Location> trip, ArrayList<Integer> connectionTypes, UserModel userModel, AppMenu context) {
         HTTPSender.context = context;
 
 
@@ -76,6 +76,8 @@ public class HTTPSender {
             sdf.setTimeZone(TimeZone.getTimeZone("CET"));
             jsonObject.put("startTime", sdf.format(new Date(trip.get(0).getTime())));
             jsonObject.put("endTime", sdf.format(new Date(trip.get(trip.size() - 1).getTime())));
+            jsonObject.put("gender", userModel.getGender());
+            jsonObject.put("birthyear", userModel.getBirthYear());
 
             JSONArray tripData = new JSONArray();
             JSONObject dataPoint;
@@ -285,39 +287,6 @@ public class HTTPSender {
 
     }
 
-    public static void updateUser(UserModel model){
-
-
-        try {
-
-            JSONObject obj = new JSONObject();
-            Integer birthyear = userModel.getBirthYear();
-            if(birthyear != null){
-                obj.put("birthyear", birthyear);
-
-            }
-
-            String gender = userModel.getGender();
-            if(gender != null){
-                obj.put("gender", gender);
-            }
-
-            if(birthyear == null && gender == null){
-                return;
-            }
-            obj.put("username", info.getUsername());
-            obj.put("password", info.getPassword());
-            obj.put("_userId", info.getUserID());
-            obj.put("token", info.getToken());
-
-            HttpSenderThread thread = new HttpSenderThread(obj, SERVER_URL + "user/" + info.getUserID() /*+ "/?token=" + info.getToken()*/, info, HttpPostKind.UPDATEUSER);
-            thread.start();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-
-    }
 
 
 }

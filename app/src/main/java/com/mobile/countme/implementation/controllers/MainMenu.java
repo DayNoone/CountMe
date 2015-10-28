@@ -125,9 +125,6 @@ public class MainMenu extends AppMenu {
     public void goToIntroduction(View view){
         goTo(IntroductionMenu.class);
     }
-    public void sendData(View view){
-        HTTPSender.updateUser(getMainController().userModel);
-    }
 
     public void startBiking(View view) {
         getMainController().resetTracker();

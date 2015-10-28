@@ -82,12 +82,6 @@ public class HttpSenderThread extends Thread {
 
 
                     Log.d("Create user response", json_string);
-                    break;
-                case UPDATEUSER:
-
-                    json_string = EntityUtils.toString(response.getEntity());
-                    //receivedObject = new JSONObject(json_string);
-                    Log.d("Update user response", json_string);
 
             }
         } catch (JSONException e) {

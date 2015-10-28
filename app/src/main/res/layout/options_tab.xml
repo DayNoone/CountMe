@@ -114,27 +114,7 @@
         android:layout_alignBaseline="@+id/editTextWeight"
         android:layout_marginLeft="65dp" />
 
-    <LinearLayout
-        android:id="@+id/buttnGrp"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/editTextWeight"
-        android:layout_gravity="center_horizontal"
-        android:alignmentMode="alignBounds"
-        >
-        <Button
-            android:layout_gravity="center_vertical"
-            android:layout_margin="30dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/save"
-            android:padding="6dp"
-            android:id="@+id/button5"
-            android:onClick="sendData"
-            android:layout_marginTop="40dp"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:background="@drawable/btn_stroke"/>
+
 
         <Button
 
@@ -146,10 +126,10 @@
             android:padding="6dp"
             android:id="@+id/button6"
             android:onClick="goToIntroduction"
+            android:layout_below="@+id/editTextWeight"
             android:layout_marginTop="40dp"
             android:layout_centerHorizontal="true"
             android:background="@drawable/btn_stroke"/>
-    </LinearLayout>
 
 
 

@@ -650,7 +650,7 @@ public class MainController {
      * Stops the GPS tracker
      */
     public void stopTracker() {
-        tracker.stopUsingGPS();
+        tracker.stopUsingGPS(userModel);
     }
 
     public void resetTracker() {
