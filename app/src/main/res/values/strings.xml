@@ -85,6 +85,7 @@
 
     <!--Error handler -->
     <string name="report_error">Beskriv problem:\n(bilde kan ikke legges til senere)</string>
+    <string name="report_errorIdle">Beskriv problem?</string>
     <string name="later">Senere</string>
     <string name="now">Nå</string>
 
