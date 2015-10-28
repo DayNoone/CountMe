@@ -94,7 +94,6 @@ public class MainMenu extends AppMenu {
         //Not functional ( view is not made yet)
         //((TextView) findViewById(R.id.start_tur)).setTypeface(Assets.getTypeface(this, Assets.baskerville_old_face_regular));
 
-        getMainController().setMainMenu(this);
     }
 
     @Override

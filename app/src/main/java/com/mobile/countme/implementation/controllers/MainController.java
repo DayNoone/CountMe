@@ -46,7 +46,6 @@ public class MainController {
 
     private AndroidFileIO fileIO;
     private AppMenu context;
-    private MainMenu mainMenu;
 
     //Format for timestamp
     private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-M-yyyy");
@@ -442,10 +441,6 @@ public class MainController {
 
     public Map<String, ErrorModel> getTripErrors() {
         return tripErrors;
-    }
-
-    public void setMainMenu(MainMenu mainMenu) {
-        this.mainMenu = mainMenu;
     }
 
     public void setBikingActive(BikingActive bikingActive) {
