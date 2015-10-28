@@ -1,5 +1,7 @@
 package com.mobile.countme.implementation.controllers;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -28,13 +30,17 @@ import com.mobile.countme.framework.AppMenu;
 import com.mobile.countme.framework.DecimalDigitsInputFilter;
 import com.mobile.countme.framework.MainViewPagerAdapter;
 import com.mobile.countme.framework.SlidingTabLayout;
+import com.mobile.countme.implementation.models.ErrorModel;
 import com.mobile.countme.implementation.models.UserModel;
 import com.mobile.countme.implementation.views.BikingActive;
+import com.mobile.countme.implementation.views.ErrorMenu;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Locale;
+import java.util.Map;
+import java.util.TreeMap;
 
 
 /**
@@ -89,7 +95,6 @@ public class MainMenu extends AppMenu {
         //Not functional ( view is not made yet)
         //((TextView) findViewById(R.id.start_tur)).setTypeface(Assets.getTypeface(this, Assets.baskerville_old_face_regular));
 
-        getMainController().setMainMenu(this);
     }
 
     @Override
@@ -251,11 +256,18 @@ public class MainMenu extends AppMenu {
             public void afterTextChanged(Editable s) {
                 Editable editable = editText.getText();
                 if (!editable.toString().contains("Y")) {
+                    int oldBirthYear = getMainController().getUserModel().getBirthYear();
                     if(editable.toString().isEmpty()){
                         getMainController().getUserModel().setBirthYear(0);
-                    }else {
+                        if(oldBirthYear != 0){
+                            getMainController().saveUserInformationToStorage();
+                        }
+                    } else {
                         int newBirthYear = Integer.parseInt(editable.toString());
                         getMainController().getUserModel().setBirthYear(newBirthYear);
+                        if(oldBirthYear != newBirthYear){
+                            getMainController().saveUserInformationToStorage();
+                        }
                     }
                 }
             }
@@ -278,6 +290,7 @@ public class MainMenu extends AppMenu {
                         actionId == EditorInfo.IME_ACTION_NEXT) {
                     Toast.makeText(getApplicationContext(), getString(R.string.weight_saved), Toast.LENGTH_SHORT).show();
 
+
                     return false;
 
                 }
@@ -299,11 +312,18 @@ public class MainMenu extends AppMenu {
             @Override
             public void afterTextChanged(Editable s) {
                 Editable editable = editTextWeight.getText();
-                if(editable.toString().isEmpty() || editable.toString().equals(".")){
+                float oldWeight = getMainController().getUserModel().getWeight();
+                if(editable.toString().isEmpty()){
                     getMainController().getUserModel().setWeight((float)0.0);
+                    if(oldWeight != 0){
+                        getMainController().saveUserInformationToStorage();
+                    }
                 }else {
                     float newWeight = Float.parseFloat(editable.toString());
                     getMainController().getUserModel().setWeight(newWeight);
+                    if(oldWeight != newWeight){
+                        getMainController().saveUserInformationToStorage();
+                    }
                 }
             }
         });
@@ -340,6 +360,42 @@ public class MainMenu extends AppMenu {
                 }
             }
         });
+    }
+
+    /**
+     * Error reporting
+     *
+     * @param view
+     */
+    public void sendErrorIdle(View view) {
+        final ErrorModel newErrorModel = new ErrorModel(getMainController());
+        newErrorModel.setName("Feilmelding " + getMainController().getErrorCount());
+        newErrorModel.setLatitude(getMainController().getTracker().getLatitude().toString());
+        newErrorModel.setLongitude(getMainController().getTracker().getLongitude().toString());
+        newErrorModel.setTimeStamp(getMainController().getTracker().getLocation() != null ? System.currentTimeMillis() : -1);
+        newErrorModel.setCreatedInIdle(true);
+        new AlertDialog.Builder(this)
+                .setMessage(R.string.report_errorIdle)
+                .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Map<String,ErrorModel> errorSend = new TreeMap<String, ErrorModel>();
+                        errorSend.put("Feilmelding1",newErrorModel);
+                        HTTPSender.sendErrors(errorSend);
+                        Toast.makeText(getApplicationContext(), getString(R.string.error_saved), Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        //Add description and/or take picture.
+                        newErrorModel.setEditedWhenReported(true);
+                        getMainController().addError(newErrorModel);
+                        getMainController().setErrorModel(newErrorModel);
+                        goTo(ErrorMenu.class);
+
+                    }
+                }).create().show();
     }
 
 
