@@ -38,7 +38,7 @@ public class StatisticsTab extends Fragment {
         Double transformedDistance = new BigDecimal(distance).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
         carDistance.setText(Double.toString(transformedDistance) + " km");
         Double transformedAvgSpeed = new BigDecimal(avg_speed).setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
-        avgSpeed.setText(Double.toString(transformedAvgSpeed) + " km/t");
+        avgSpeed.setText(Double.toString(transformedAvgSpeed) + " " + getString(R.string.kmph));
         kcal_display.setText(Integer.toString(kcal) + " kcal");
 
     }

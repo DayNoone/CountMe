@@ -33,10 +33,10 @@ public class EnvironmentTab extends Fragment{
         CustomTextView trainDistance = (CustomTextView) getView().findViewById(R.id.train_km);
         CustomTextView plainDistance = (CustomTextView) getView().findViewById(R.id.plain_km);
         co2_display.setText(Integer.toString(co2_savedToday) + " g");
-        carDistance.setText(Integer.toString(co2_carDistance) + " km med bil");
-        busDistance.setText(Integer.toString(co2_busDistance) + " km med buss");
-        trainDistance.setText(Integer.toString(co2_trainDistance) + " km med tog");
-        plainDistance.setText(Integer.toString(co2_plainDistance) + " km med fly");
+        carDistance.setText(Integer.toString(co2_carDistance) + " " + getString(R.string.environment_car));
+        busDistance.setText(Integer.toString(co2_busDistance) + " " + getString(R.string.environment_bus));
+        trainDistance.setText(Integer.toString(co2_trainDistance) + " " + getString(R.string.environment_train));
+        plainDistance.setText(Integer.toString(co2_plainDistance) + " " + getString(R.string.environment_airplane));
     }
 
 }

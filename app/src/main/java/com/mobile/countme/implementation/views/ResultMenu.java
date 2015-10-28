@@ -36,7 +36,7 @@ public class ResultMenu extends AppMenu {
         distance.setText(transformedDistance + " km");
         calories_display.setText(getMainController().getTripModel().getKcal() + " kcal");
         Double transformedAvgSpeed = new BigDecimal(getMainController().getTripModel().getAvg_speed()).setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
-        avgSpeed.setText(transformedAvgSpeed + " km/t");
+        avgSpeed.setText(transformedAvgSpeed + " " + getString(R.string.kmph));
         if(getMainController().isTripInitialized()) {
             time_used.setText(getMainController().getTimeInFormat(-1));
         }else{
