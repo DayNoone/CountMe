@@ -81,7 +81,7 @@ public class BikingActive extends AppMenu {
      */
     public void sendError(View view) {
         final ErrorModel newErrorModel = new ErrorModel(getMainController());
-        newErrorModel.setName("Feilmelding " + getMainController().getErrorCount());
+        newErrorModel.setName(getString(R.string.roadFault) + " " + getMainController().getErrorCount());
         newErrorModel.setLatitude(getMainController().getTracker().getLatitude().toString());
         newErrorModel.setLongitude(getMainController().getTracker().getLongitude().toString());
         newErrorModel.setTimeStamp(getMainController().getTracker().getLocation() != null ? System.currentTimeMillis() : -1);
@@ -147,7 +147,7 @@ public class BikingActive extends AppMenu {
             speed.setText(Double.toString(currentSpeedInKmH) + " " + getString(R.string.kmph));
 
             Double transformedDistance = new BigDecimal((getMainController().getTracker().getDistance() / 1000)).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
-            distance.setText(Double.toString(transformedDistance) + "km");
+            distance.setText(Double.toString(transformedDistance) + " km");
 
         }
     }

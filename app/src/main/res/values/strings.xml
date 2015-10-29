@@ -60,7 +60,7 @@
     <string name="map_description">Se reiserute</string>
     <string name="errorsList">Velg veiproblem</string>
     <string name="errorDialog">Veiproblemer</string>
-    <string name="roadFaults">Vei</string>
+    <string name="roadFault">Veiproblem</string>
 
     <!-- Environment -->
     <string name="environment_title"><u>CO&#8322; spart i dag</u></string>
@@ -90,8 +90,8 @@
     <string name="rewatch_intro">Se introduksjon om igjen</string>
 
     <!--Error handler -->
-    <string name="report_error">Beskriv problem:\n(bilde kan ikke legges til senere)</string>
-    <string name="report_errorIdle">Beskriv problem?</string>
+    <string name="report_error">Beskriv problem:\n(Bilde kan ikke legges til senere)</string>
+    <string name="report_errorIdle">Beskriv problem:</string>
     <string name="later">Senere</string>
     <string name="now">Nå</string>
 
@@ -99,7 +99,7 @@
     <string name="require_network_on_startup">Nettverk er nødvendig ved oppstart!</string>
 
     <!--Confirmation -->
-    <string name="stop_biking">Avslutt tur?\n Merk at nettverk må være påslått!</string>
+    <string name="stop_biking">Avslutt tur?\nMerk at nettverk må være påslått!</string>
     <string name="yes">Ja</string>
     <string name="no">Nei</string>
 
