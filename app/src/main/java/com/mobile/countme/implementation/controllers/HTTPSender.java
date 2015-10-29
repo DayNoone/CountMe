@@ -50,12 +50,16 @@ public class HTTPSender {
     //sendTrip method creates a json from an arraylist of locations, an arraylist of ints and a context
     //Then it uses delegation to send the json to the server via a specified url
     public static void sendTrip(ArrayList<Location> trip, ArrayList<Integer> connectionTypes, UserModel userModel, AppMenu context) {
+        Log.d("Sending trip", "birthyear = " + userModel.getBirthYear());
         HTTPSender.context = context;
 
 
         Log.d("SendTrip", "SendTrip started");
 
         GPSFilter.filterTrip(trip, connectionTypes);
+        if(trip.size() == 0){
+            return;
+        }
         JSONObject jsonObject = null;
         /*
         var json = {
@@ -76,9 +80,12 @@ public class HTTPSender {
             sdf.setTimeZone(TimeZone.getTimeZone("CET"));
             jsonObject.put("startTime", sdf.format(new Date(trip.get(0).getTime())));
             jsonObject.put("endTime", sdf.format(new Date(trip.get(trip.size() - 1).getTime())));
-            jsonObject.put("gender", userModel.getGender());
-            jsonObject.put("birthyear", userModel.getBirthYear());
-
+            if(!"".equals(userModel.getGender())) {
+                jsonObject.put("gender", userModel.getGender());
+            }
+            if( userModel.getBirthYear() != 0) {
+                jsonObject.put("birthyear", userModel.getBirthYear());
+            }
             JSONArray tripData = new JSONArray();
             JSONObject dataPoint;
             Location location;
