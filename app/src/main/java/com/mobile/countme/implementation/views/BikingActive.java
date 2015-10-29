@@ -66,7 +66,7 @@ public class BikingActive extends AppMenu {
         newErrorModel.setLongitude(getMainController().getTracker().getLongitude().toString());
         newErrorModel.setTimeStamp(getMainController().getTracker().getLocation() != null ? System.currentTimeMillis() : -1);
         new AlertDialog.Builder(this)
-                .setMessage(R.string.report_error)
+                .setMessage(getString(R.string.report_error))
                 .setNegativeButton(R.string.later, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

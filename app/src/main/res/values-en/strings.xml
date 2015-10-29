@@ -71,7 +71,8 @@
     <string name="rewatch_intro">Rewatch introduction</string>
 
     <!--Error handler -->
-    <string name="report_error">Describe problem:</string>
+    <string name="report_errorIdle">Describe problem?</string>
+    <string name="report_error">Describe problem: (picture cannot be added later)</string>
     <string name="later">Later</string>
     <string name="now">Now</string>
     <string name="take_picture">Take picture</string>

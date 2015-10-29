@@ -11,9 +11,11 @@ import java.util.ArrayList;
 public class GPSFilter {
 
     public static void filterTrip(ArrayList<Location> trip, ArrayList<Integer> modes) {
-        if(trip.size() < 2){
+        if (trip.size() < 2) {
             trip.clear();
-            modes.clear();
+            if (modes != null) {
+                modes.clear();
+            }
             return;
         }
 
@@ -37,7 +39,7 @@ public class GPSFilter {
 
 
         }
-        if(trip.size() < 2){
+        if (trip.size() < 2) {
             trip.clear();
             modes.clear();
             return;
@@ -52,7 +54,7 @@ public class GPSFilter {
             if (lengthSegment < 20.0f) {
                 accumulator += lengthSegment;
             }
-            if( accumulator > 100.0f){
+            if (accumulator > 100.0f) {
                 lastIndex = i - 1;
                 break;
             }
