@@ -59,7 +59,7 @@ public class GPSTracker extends Service implements LocationListener {
     private static final long MAX_MOVEMENT_TO_STOP = 100; // 100 meters
 
     // The time for when we stop tracking if there is minimal movement
-    private static final long TIME_LIMIT = 20 * 1000; // 10 minutes
+    private static final long TIME_LIMIT = 10*60 * 1000; // 10 minutes
 
     // Variable for keeping track of how long we have been waiting for the trip to get more than one data point
     private static long timeOfFirstCheck = 0;
