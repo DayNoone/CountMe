@@ -63,7 +63,7 @@ public class ResultMenu extends AppMenu {
         for(ErrorModel error : getMainController().getTripErrors().values()){
             items.add(error.getName());
         }
-        dropdown.setPrompt("Feilmeldinger");
+        dropdown.setPrompt(getString(R.string.errorDialog));
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.error_dropdownlist, items);
         dropdown.setAdapter(adapter);
         dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

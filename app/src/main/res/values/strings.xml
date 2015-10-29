@@ -55,11 +55,12 @@
     <!--Result Screen -->
     <string name="result_page">Resultat</string>
     <string name="mainScreen">Hovedside</string>
-    <string name="popupError">Feilmeldinger</string>
-    <string name="noErrorsReported">Ingen feilmeldinger</string>
+    <string name="popupError">Veiproblemer</string>
+    <string name="noErrorsReported">Ingen rapporterte veiproblemer</string>
     <string name="map_description">Se reiserute</string>
     <string name="errorsList">Velg veiproblem</string>
     <string name="errorDialog">Veiproblemer</string>
+    <string name="roadFaults">Vei</string>
 
     <!-- Environment -->
     <string name="environment_title"><u>CO&#8322; spart i dag</u></string>
@@ -85,7 +86,7 @@
 
     <!-- Information -->
     <string name="information_title"><u>Informasjon</u></string>
-    <string name="contact">Kontakt oss: DinSykkelvei@sykkelmail.no</string>
+    <string name="contact">Kontakt oss: DinSykkelvei@gmail.no</string>
     <string name="rewatch_intro">Se introduksjon om igjen</string>
 
     <!--Error handler -->
@@ -98,7 +99,7 @@
     <string name="require_network_on_startup">Nettverk er nødvendig ved oppstart!</string>
 
     <!--Confirmation -->
-    <string name="stop_biking">Avslutt tur?\nNettverk er nødvendig!</string>
+    <string name="stop_biking">Avslutt tur?\n Merk at nettverk må være påslått!</string>
     <string name="yes">Ja</string>
     <string name="no">Nei</string>
 
