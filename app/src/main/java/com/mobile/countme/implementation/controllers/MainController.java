@@ -249,17 +249,15 @@ public class MainController {
                             Log.d("Wait for click", "no connection, user has not clicked button, waiting");
                             userModel.wait();
                         }
-                    } catch (InterruptedException e) {
+                    }
+                    catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
             }
 
-        } catch (
-                JSONException e
-                )
-
-        {
+        }
+        catch (JSONException e){
             e.printStackTrace();
         }
 
