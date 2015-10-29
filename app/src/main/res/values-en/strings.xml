@@ -15,12 +15,15 @@
     <string name="no_progress">No Progress</string>
 
     <!-- Introduction pages -->
-    <string name="intro_page1">All usage of this app is anonymous. The first and last 100 meters of your path gets deleted to prevent identification.</string>
+    <string name="intro_page1">All usage of this app is anonymous. The first and last 100 meters of your path will be deleted to prevent identification.</string>
     <string name="intro_page2">This app sends information to the Norwegian Public Roads Administration to help them analyze today\'s bicycling situation.</string>
-    <string name="intro_userInformation">This information is completely optional. It will be used as part of the bicycling analysis. We would appreciate if you provide it.</string>
-    <string name="intro_page3">By using the app you contribute to providing them with insight to which biking routes are important, as well as where there are road faults or similar that nee to be fixed.</string>
-    <string name="intro_page4">By pressing the phone\'s </string>
+    <string name="intro_userInformation">This information is completely optional, and will be used as part of the bicycling analysis. We would appreciate if you provide it. Weight is only used for calorie calculations locally in the app.</string>
+    <string name="intro_page3">By using the app you contribute to providing them with insight to which biking routes are important, as well as where there are road faults or similar that need to be fixed.</string>
+    <string name="intro_page4">The language in the app can be changed by changing the language in the Android settings. </string>
     <string name="intro_page5">Using this app will improve your biking experience!</string>
+    <string name="birthdate_saved">Birthdate is now saved</string>
+    <string name="weight_saved">Weight is now saved</string>
+    <string name="go_to_app">Go to app</string>
 
     <!-- Biking idle -->
     <string name="start_trip">START TRIP</string>
@@ -28,23 +31,29 @@
     <!--Error Screen -->
     <string name="error_page">Error report</string>
     <string name="finished_editing">Ok</string>
+    <string name="photo_saved">Photo is now saved</string>
+    <string name="description_saved">Description is now saved</string>
+    <string name="error_saved">Road fault is now saved</string>
 
     <!--Result Screen -->
     <string name="result_page">Result</string>
     <string name="mainScreen">Mainscreen</string>
+    <string name="errorsList">Choose road fault</string>
+    <string name="errorDialog">Road faults</string>
+
 
     <!--OptionsTab-->
     <string name="OptionsTab">Options</string>
-    <string name="option_information">Anonymous data for analysis. Weight is for calorie calculation.</string>
+    <string name="option_information">Anonymous data for analysis. Weight is only used for calorie calculation locally.</string>
     <string name="save">Save</string>
 
     <!-- Environment -->
     <string name="environment_title">CO&#8322; saved today</string>
     <string name="environment_comparement">Which is the same as: </string>
-    <string name="environment_car">km with car</string>
-    <string name="environment_airplane">km with plane</string>
-    <string name="environment_train">km with train</string>
-    <string name="environment_bus">km med bus</string>
+    <string name="environment_car">km by car</string>
+    <string name="environment_airplane">km by plane</string>
+    <string name="environment_train">km by train</string>
+    <string name="environment_bus">km by bus</string>
 
     <!-- Statistics -->
     <string name="co2_spart">CO&#8322; saved:</string>
@@ -53,6 +62,8 @@
     <string name="daily_display">1 day</string>
     <string name="weekly_display">1 week</string>
     <string name="monthhly_display">1 mo</string>
+    <string name="zero_kmph"> 0.00 km/h</string>
+    <string name="kmph">km/h</string>
 
     <!-- Information -->
     <string name="information_title"><u>Information</u></string>
@@ -60,9 +71,13 @@
     <string name="rewatch_intro">Rewatch introduction</string>
 
     <!--Error handler -->
-    <string name="report_error">Describe problem:</string>
+    <string name="report_errorIdle">Describe problem?</string>
+    <string name="report_error">Describe problem: (picture cannot be added later)</string>
     <string name="later">Later</string>
     <string name="now">Now</string>
+    <string name="take_picture">Take picture</string>
+    <string name="description">Description</string>
+    <string name="add_description">Add description</string>
 
     <!--Error dialog for when network is not active on startup -->
     <string name="require_network_on_startup">Network connection is required on startup!</string>
@@ -73,7 +88,9 @@
     <string name="no">No</string>
 
     <!-- Biking active -->
+    <string name="location_dialog">Your GPS seems to be disabled, do you want to enable it?</string>
     <string name="biking_active"><u>Biking active</u></string>
+    <string name="require_network_stop_trip">You don\'t have network connection</string>
 
     <!--Profile strings-->
     <string name="isLoggedInn">isLoggedIn</string>
@@ -82,9 +99,9 @@
     <!--Consider making these strings unreadable-->
     <string name="statisticsData">statisticsData</string>
     <string name="profile_preferences">UserPrefsFile</string>
-    <string name="Errors">Errors:</string>
+    <string name="Errors">Edit road faults: </string>
     <string name="InfoPickBirthDate">Submit birth year:</string>
-    <string name="Kvinne">Female</string>
+    <string name="Female">Female</string>
     <string name="Male">Male</string>
     <string name="PickBirthDate">YYYY</string>
     <string name="Time">Time:</string>
@@ -93,7 +110,7 @@
     <string name="infoWeight">Weight (kg):</string>
     <string name="noErrorsReported">No Errors reported</string>
     <string name="popupError">Errors</string>
-    <string name="report_problem"><u>Error message</u></string>
+    <string name="report_problem">Report road fault</string>
     <string name="stats_header"><u>Statistics</u></string>
     <string name="userInfo">userInfo</string>
 

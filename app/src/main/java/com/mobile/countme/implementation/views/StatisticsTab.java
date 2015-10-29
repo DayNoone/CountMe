@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mobile.countme.R;
-import com.mobile.countme.custom_views.CustomTextView;
+import com.mobile.countme.custom_classes.CustomTextView;
 
 import java.math.BigDecimal;
 
@@ -38,7 +38,7 @@ public class StatisticsTab extends Fragment {
         Double transformedDistance = new BigDecimal(distance).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
         carDistance.setText(Double.toString(transformedDistance) + " km");
         Double transformedAvgSpeed = new BigDecimal(avg_speed).setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
-        avgSpeed.setText(Double.toString(transformedAvgSpeed) + " km/t");
+        avgSpeed.setText(Double.toString(transformedAvgSpeed) + " " + getString(R.string.kmph));
         kcal_display.setText(Integer.toString(kcal) + " kcal");
 
     }

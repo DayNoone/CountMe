@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.mobile.countme.custom_views.CustomTextView
+    <com.mobile.countme.custom_classes.CustomTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="30dp"
@@ -13,10 +13,10 @@
         android:id="@+id/UserInformationHeadLine"
         android:layout_gravity="center_horizontal"
         android:gravity="center"
-        android:layout_marginTop="93dp"
+        android:layout_marginTop="73dp"
         android:layout_centerHorizontal="true" />
 
-    <com.mobile.countme.custom_views.CustomTextView
+    <com.mobile.countme.custom_classes.CustomTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -44,10 +44,10 @@
         android:hint="@string/PickBirthDate"
         android:layout_centerVertical="true"
         android:layout_below="@+id/UserInformationHeadLine"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="50dp"
         android:background="@drawable/input_stroke" />
 
-    <com.mobile.countme.custom_views.CustomTextView
+    <com.mobile.countme.custom_classes.CustomTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -60,13 +60,14 @@
     <RadioGroup
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="260dp"
+        android:layout_marginTop="30dp"
         android:orientation="horizontal"
         android:layout_centerHorizontal="true"
+        android:layout_below="@id/editText"
         android:id="@+id/genderGrp"
         >
 
-        <RadioButton
+        <com.mobile.countme.custom_classes.ToggleableRadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/Male"
@@ -76,10 +77,10 @@
             android:id="@+id/male"
             />
 
-        <RadioButton
+        <com.mobile.countme.custom_classes.ToggleableRadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/Kvinne"
+            android:text="@string/Female"
             android:id="@+id/female"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#FFFFFF"
@@ -89,7 +90,7 @@
 
     </RadioGroup>
 
-    <com.mobile.countme.custom_views.CustomTextView
+    <com.mobile.countme.custom_classes.CustomTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.mobile.countme.custom_views.CustomTextView
+    <com.mobile.countme.custom_classes.CustomTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -17,7 +17,7 @@
         android:layout_centerHorizontal="true"
         android:gravity="center" />
 
-    <com.mobile.countme.custom_views.CustomTextView
+    <com.mobile.countme.custom_classes.CustomTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -31,7 +31,7 @@
         android:layout_centerHorizontal="true"
         android:gravity="center" />
 
-    <com.mobile.countme.custom_views.CustomTextView
+    <com.mobile.countme.custom_classes.CustomTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"

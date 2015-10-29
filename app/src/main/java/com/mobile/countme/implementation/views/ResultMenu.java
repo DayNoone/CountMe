@@ -8,7 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import com.mobile.countme.R;
-import com.mobile.countme.custom_views.CustomTextView;
+import com.mobile.countme.custom_classes.CustomTextView;
 import com.mobile.countme.framework.AppMenu;
 import com.mobile.countme.framework.MapsActivity;
 import com.mobile.countme.implementation.controllers.HTTPSender;
@@ -36,7 +36,7 @@ public class ResultMenu extends AppMenu {
         distance.setText(transformedDistance + " km");
         calories_display.setText(getMainController().getTripModel().getKcal() + " kcal");
         Double transformedAvgSpeed = new BigDecimal(getMainController().getTripModel().getAvg_speed()).setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
-        avgSpeed.setText(transformedAvgSpeed + " km/t");
+        avgSpeed.setText(transformedAvgSpeed + " " + getString(R.string.kmph));
         if(getMainController().isTripInitialized()) {
             time_used.setText(getMainController().getTimeInFormat(-1));
         }else{
@@ -59,7 +59,7 @@ public class ResultMenu extends AppMenu {
     private void initSpinner(){
         final Spinner dropdown = (Spinner)findViewById(R.id.spinnerErrors);
         ArrayList<String> items = new ArrayList<>();
-        items.add("Velg feilmelding");
+        items.add(getString(R.string.errorsList));
         for(ErrorModel error : getMainController().getTripErrors().values()){
             items.add(error.getName());
         }

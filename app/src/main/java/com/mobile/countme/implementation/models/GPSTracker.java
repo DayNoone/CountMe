@@ -157,12 +157,12 @@ public class GPSTracker extends Service implements LocationListener {
      * Stop using GPS listener
      * Calling this function will stop using GPS in your app
      */
-    public void stopUsingGPS() {
+    public void stopUsingGPS(UserModel userModel) {
         Log.d("Stopping GPS", "Stopping GPS");
         if (locationManager != null) {
             Log.d("Stopping GPS", "Locationmanager!=null");
             locationManager.removeUpdates(this);
-            HTTPSender.sendTrip(trip, connectionTypes, mContext);
+            HTTPSender.sendTrip(trip, connectionTypes, userModel, mContext);
             AppMenu.getMainController().getTripModel().setTrips(trip);
         }
     }

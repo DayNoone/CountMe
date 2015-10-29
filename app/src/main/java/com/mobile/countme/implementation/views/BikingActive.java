@@ -5,18 +5,15 @@ import android.content.DialogInterface;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.app.AlertDialog;
-import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.mobile.countme.R;
-import com.mobile.countme.custom_views.CustomTextView;
+import com.mobile.countme.custom_classes.CustomTextView;
 import com.mobile.countme.framework.AppMenu;
-import com.mobile.countme.framework.MapsActivity;
 import com.mobile.countme.implementation.models.ErrorModel;
 
 import java.math.BigDecimal;
-
-import static com.google.android.gms.internal.zzhu.runOnUiThread;
 
 /**
  * Created by Kristian on 16/09/2015.
@@ -38,12 +35,13 @@ public class BikingActive extends AppMenu {
         activeObject = this;
 
         new AlertDialog.Builder(this)
-                .setMessage(R.string.stop_biking)
-                .setNegativeButton(R.string.no, null)
-                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                .setMessage(getString(R.string.stop_biking))
+                .setNegativeButton(getString(R.string.no), null)
+                .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface arg0, int arg1) {
                         if(!BikingActive.activeObject.isConnected(BikingActive.activeObject)){
+                            Toast.makeText(getApplicationContext(),getString(R.string.require_network_stop_trip),Toast.LENGTH_SHORT).show();
                             return;
                         }
                         endTripAndReturn();
@@ -71,12 +69,12 @@ public class BikingActive extends AppMenu {
         newErrorModel.setLongitude(getMainController().getTracker().getLongitude().toString());
         newErrorModel.setTimeStamp(getMainController().getTracker().getLocation() != null ? System.currentTimeMillis() : -1);
         new AlertDialog.Builder(this)
-                .setMessage(R.string.report_error)
+                .setMessage(getString(R.string.report_error))
                 .setNegativeButton(R.string.later, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //Her må det sendes inn koordinater eller noe slikt, sånn at brukeren kan identifisere problemet etter turen, hvis han/hun vil legge til beskrivelse i ettertid.
                         getMainController().addError(newErrorModel);
+                        Toast.makeText(getApplicationContext(), getString(R.string.error_saved), Toast.LENGTH_SHORT).show();
                     }
                 })
                 .setPositiveButton(R.string.now, new DialogInterface.OnClickListener() {
@@ -129,7 +127,7 @@ public class BikingActive extends AppMenu {
         }
         if (getMainController().getTracker() != null && start_using_tracker) {
             Double currentSpeedInKmH = new BigDecimal(getMainController().getTracker().getCurrentSpeed() * 3.6).setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
-            speed.setText(Double.toString(currentSpeedInKmH) + " km/h");
+            speed.setText(Double.toString(currentSpeedInKmH) + " " + getString(R.string.kmph));
 
             Double transformedDistance = new BigDecimal((getMainController().getTracker().getDistance() / 1000)).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
             distance.setText(Double.toString(transformedDistance) + "km");

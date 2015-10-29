@@ -2,9 +2,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:clickable="true"
+    android:focusableInTouchMode="true">
 
-    <com.mobile.countme.custom_views.CustomTextView
+
+    <com.mobile.countme.custom_classes.CustomTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="30dp"
@@ -30,7 +33,7 @@
         android:layout_marginTop="25dp"
         android:background="@drawable/input_stroke" />
 
-    <com.mobile.countme.custom_views.CustomTextView
+    <com.mobile.countme.custom_classes.CustomTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -60,7 +63,7 @@
         android:layout_marginTop="60dp"
         android:background="@drawable/input_stroke" />
 
-    <com.mobile.countme.custom_views.CustomTextView
+    <com.mobile.countme.custom_classes.CustomTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -79,7 +82,7 @@
         android:id="@+id/genderGrp"
         >
 
-        <RadioButton
+        <com.mobile.countme.custom_classes.ToggleableRadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/Male"
@@ -89,10 +92,10 @@
             android:id="@+id/male"
             />
 
-        <RadioButton
+        <com.mobile.countme.custom_classes.ToggleableRadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/Kvinne"
+            android:text="@string/Female"
             android:id="@+id/female"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#FFFFFF"
@@ -102,7 +105,7 @@
 
     </RadioGroup>
 
-    <com.mobile.countme.custom_views.CustomTextView
+    <com.mobile.countme.custom_classes.CustomTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -111,27 +114,7 @@
         android:layout_alignBaseline="@+id/editTextWeight"
         android:layout_marginLeft="65dp" />
 
-    <LinearLayout
-        android:id="@+id/buttnGrp"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/editTextWeight"
-        android:layout_gravity="center_horizontal"
-        android:alignmentMode="alignBounds"
-        >
-        <Button
-            android:layout_gravity="center_vertical"
-            android:layout_margin="30dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/save"
-            android:padding="6dp"
-            android:id="@+id/button5"
-            android:onClick="sendData"
-            android:layout_marginTop="40dp"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:background="@drawable/btn_stroke"/>
+
 
         <Button
 
@@ -143,10 +126,10 @@
             android:padding="6dp"
             android:id="@+id/button6"
             android:onClick="goToIntroduction"
+            android:layout_below="@+id/editTextWeight"
             android:layout_marginTop="40dp"
             android:layout_centerHorizontal="true"
             android:background="@drawable/btn_stroke"/>
-    </LinearLayout>
 
 
 

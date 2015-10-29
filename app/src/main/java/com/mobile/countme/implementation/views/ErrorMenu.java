@@ -15,6 +15,12 @@ import android.widget.Toast;
 
 import com.mobile.countme.R;
 import com.mobile.countme.framework.AppMenu;
+import com.mobile.countme.implementation.controllers.HTTPSender;
+import com.mobile.countme.implementation.controllers.MainMenu;
+import com.mobile.countme.implementation.models.ErrorModel;
+
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Created by Kristian on 16/09/2015.
@@ -37,7 +43,14 @@ public class ErrorMenu extends AppMenu {
 
     public void finishEditing(View view){
         getMainController().getErrorModel().setEditedWhenReported(false);
-        if(getMainController().isTripInitialized()){
+        Toast.makeText(getApplicationContext(), getString(R.string.error_saved), Toast.LENGTH_SHORT).show();
+        if(getMainController().getErrorModel().isCreatedInIdle()){
+            Map<String,ErrorModel> errorSend = new TreeMap<String, ErrorModel>();
+            errorSend.put("Feilmelding1",getMainController().getErrorModel());
+            HTTPSender.sendErrors(errorSend);
+            goTo(MainMenu.class);
+        }
+        else if(getMainController().isTripInitialized()){
             goTo(BikingActive.class);
         }else {
             goTo(ResultMenu.class);
@@ -48,7 +61,7 @@ public class ErrorMenu extends AppMenu {
         //TODO: Pop up to add description.
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
-        alert.setTitle("Legg til beskrivelse");
+        alert.setTitle(getString(R.string.add_description));
 
 // Set an EditText view to get user input
         final EditText input = new EditText(this);
@@ -61,6 +74,7 @@ public class ErrorMenu extends AppMenu {
                 Editable editable = input.getText();
                 description = editable.toString();
                 getMainController().addDescription(description);
+                Toast.makeText(getApplicationContext(), getString(R.string.description_saved), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -90,6 +104,7 @@ public class ErrorMenu extends AppMenu {
             Bitmap bp = (Bitmap) data.getExtras().get("data");
             getMainController().addPhoto(bp);
             photoTaken.setImageBitmap(bp);
+            Toast.makeText(getApplicationContext(), getString(R.string.photo_saved), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -124,7 +139,14 @@ public class ErrorMenu extends AppMenu {
     public void onBackPressed() {
         super.onBackPressed();
         getMainController().getErrorModel().setEditedWhenReported(false);
-        if(getMainController().isTripInitialized()){
+        Toast.makeText(getApplicationContext(),getString(R.string.error_saved),Toast.LENGTH_SHORT).show();
+        if(getMainController().getErrorModel().isCreatedInIdle()){
+            Map<String,ErrorModel> errorSend = new TreeMap<String, ErrorModel>();
+            errorSend.put("Feilmelding1",getMainController().getErrorModel());
+            HTTPSender.sendErrors(errorSend);
+            goTo(MainMenu.class);
+        }
+        else if(getMainController().isTripInitialized()){
             goTo(BikingActive.class);
         }else {
             goTo(ResultMenu.class);
