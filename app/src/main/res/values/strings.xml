@@ -80,7 +80,7 @@
     <string name="daily_display">1 dag</string>
     <string name="weekly_display">1 uke</string>
     <string name="monthhly_display">1 mnd</string>
-    <string name="zero_kmph"> 0.00 km/t</string>
+    <string name="zero_kmph"> 0.0 km/t</string>
     <string name="kmph">km/t</string>
 
     <!-- Information -->
