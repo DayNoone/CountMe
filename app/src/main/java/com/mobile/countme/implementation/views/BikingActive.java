@@ -35,9 +35,9 @@ public class BikingActive extends AppMenu {
         activeObject = this;
 
         new AlertDialog.Builder(this)
-                .setMessage(R.string.stop_biking)
-                .setNegativeButton(R.string.no, null)
-                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                .setMessage(getString(R.string.stop_biking))
+                .setNegativeButton(getString(R.string.no), null)
+                .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface arg0, int arg1) {
                         if(!BikingActive.activeObject.isConnected(BikingActive.activeObject)){

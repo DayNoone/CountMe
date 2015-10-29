@@ -225,7 +225,7 @@ public class MainController {
                         runOnUiThread(new Runnable() {
                                           public void run() {
                                               AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                                              builder.setMessage(R.string.require_network_on_startup)
+                                              builder.setMessage(context.getString(R.string.require_network_on_startup))
                                                       .setCancelable(false)
                                                       .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                                           public void onClick(DialogInterface dialog, int id) {
@@ -356,7 +356,7 @@ public class MainController {
                             runOnUiThread(new Runnable() {
                                               public void run() {
                                                   AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                                                  builder.setMessage(R.string.require_network_on_startup)
+                                                  builder.setMessage(context.getString(R.string.require_network_on_startup))
                                                           .setCancelable(false)
                                                           .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                                               public void onClick(DialogInterface dialog, int id) {

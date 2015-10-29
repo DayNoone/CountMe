@@ -17,7 +17,7 @@
     <!-- Introduction pages -->
     <string name="intro_page1">All usage of this app is anonymous. The first and last 100 meters of your path gets deleted to prevent identification.</string>
     <string name="intro_page2">This app sends information to the Norwegian Public Roads Administration to help them analyze today\'s bicycling situation.</string>
-    <string name="intro_userInformation">This information is completely optional. It will be used as part of the bicycling analysis. We would appreciate if you provide it.</string>
+    <string name="intro_userInformation">This information is completely optional, and will be used as part of the bicycling analysis. We would appreciate if you provide it. Weight is only used for calorie calculations locally in the app.</string>
     <string name="intro_page3">By using the app you contribute to providing them with insight to which biking routes are important, as well as where there are road faults or similar that nee to be fixed.</string>
     <string name="intro_page4">By pressing the phone\'s </string>
     <string name="intro_page5">Using this app will improve your biking experience!</string>

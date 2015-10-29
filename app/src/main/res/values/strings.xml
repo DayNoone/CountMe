@@ -19,7 +19,7 @@
     <string name="go_to_app">Gå til app</string>
 
     <!--UserInformationTab-->
-    <string name="intro_userInformation"> Denne informasjonen er helt valgfri og vil bli brukt som en del av sykkeldataanalysen. Vi ville satt veldig pris på om du fyller ut. Vekt blir brukt til kaloriberegning.</string>
+    <string name="intro_userInformation"> Denne informasjonen er helt valgfri og vil bli brukt som en del av sykkeldataanalysen. Vi ville satt veldig pris på om du fyller ut. Vekt blir kun brukt til kaloriberegning lokalt i appen.</string>
     <string name="UserInformation">Brukerinformasjon</string>
     <string name="PickBirthDate">ÅÅÅÅ</string>
     <string name="InfoPickBirthDate">Legg inn fødselsår: </string>
@@ -33,7 +33,7 @@
 
     <!--OptionsTab-->
     <string name="OptionsTab">Instillinger</string>
-    <string name="option_information">Anonym data til analyse. Vekt er til kaloriberegning.</string>
+    <string name="option_information">Anonym data til analyse. Vekt er til kaloriberegning og brukes kun lokalt i appen.</string>
 
     <!--Load Screen-->
     <string name="no_progress">No Progress</string>
