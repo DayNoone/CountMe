@@ -274,7 +274,7 @@ public class GPSTracker extends Service implements LocationListener {
         if (trip.size() > 0) {
             return trip.get(trip.size() - 1).getSpeed();
         }
-        return -1;
+        return 0.0f;
     }
 
     public double getDistance() {
