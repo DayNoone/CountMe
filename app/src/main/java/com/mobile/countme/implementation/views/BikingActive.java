@@ -115,13 +115,12 @@ public class BikingActive extends AppMenu {
      * @param time_used
      * @param start_using_tracker
      */
-    public void updateView(String time_used, boolean start_using_tracker){
+    public void updateView(String time_used, boolean start_using_tracker) {
         getMainController().getTracker().checkIfNoLocationsReceived();
         if (getMainController().getTracker().isAutomaticallyStopped()) {
             //TODO We could add a Push notification here
             endTripAndReturn();
         }
-    public void updateView(String time_used, boolean start_using_tracker) {
         CustomTextView time = (CustomTextView) findViewById(R.id.tracking_time);
         CustomTextView speed = (CustomTextView) findViewById(R.id.current_speed);
         CustomTextView distance = (CustomTextView) findViewById(R.id.tripDistance);

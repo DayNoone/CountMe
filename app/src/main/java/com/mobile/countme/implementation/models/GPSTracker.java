@@ -61,6 +61,9 @@ public class GPSTracker extends Service implements LocationListener {
     // The time for when we stop tracking if there is minimal movement
     private static final long TIME_LIMIT = 10 * 60 * 1000; // 10 minutes
 
+    // Variable for keeping track of how long we have been waiting for the trip to get more than one data point
+    private static long timeOfFirstCheck = 0;
+
     // Declaring a Location Manager
     protected LocationManager locationManager;
 
@@ -245,27 +248,26 @@ public class GPSTracker extends Service implements LocationListener {
                 connectionTypes.add(-1);
             }
             if (trip.size() > 1) {
-
-                Log.e("GPSTracker", "It works");
                 float distanceTo = location.distanceTo(trip.get(trip.size() - 2));
                 //Checks if the distance between two points that are added with one second difference are more than X meters.
                 if (distanceTo < 20.0f) {
                     distance += location.distanceTo(trip.get(trip.size() - 2));
                 }
             }
-            if (!trip.isEmpty()) {
-                boolean tooLongWithoutMovement = true;
+            if (!trip.isEmpty() && location.getTime() - trip.get(0).getTime() <= TIME_LIMIT) {
+                boolean tooLongWithoutMovement = false;
                 int firstPointToDelete = 0;
                 for (int i = trip.size() - 1; i >= 0; i--) {
                     Location prevLocation = trip.get(i);
                     if (location.getTime() - prevLocation.getTime() > TIME_LIMIT) {
-                        tooLongWithoutMovement = false;
+                        if (location.distanceTo(prevLocation) > MAX_MOVEMENT_TO_STOP)
+                            tooLongWithoutMovement = false;
+                        else
+                            tooLongWithoutMovement = true;
                         break;
                     }
-                    if (location.distanceTo(prevLocation) > MAX_MOVEMENT_TO_STOP) {
-                        tooLongWithoutMovement = false;
+                    if (location.distanceTo(prevLocation) > MAX_MOVEMENT_TO_STOP)
                         break;
-                    }
                     firstPointToDelete = i;
                 }
                 if (tooLongWithoutMovement) {
@@ -280,8 +282,16 @@ public class GPSTracker extends Service implements LocationListener {
 
     public void checkIfNoLocationsReceived() {
         // No new locations received for 10 minutes, trip stopped
-        if (!trip.isEmpty() && trip.get(trip.size() - 1).getTime() < System.currentTimeMillis() - TIME_LIMIT)
+        if (!(trip.size() <= 1) && trip.get(trip.size() - 1).getTime() < System.currentTimeMillis() - TIME_LIMIT) {
             automaticallyStopped = true;
+        }
+        // Additional check because the timestamp of the first data point cannot be trusted
+        else if (!trip.isEmpty()) {
+            if (timeOfFirstCheck == 0)
+                timeOfFirstCheck = System.currentTimeMillis();
+            if (timeOfFirstCheck < System.currentTimeMillis() - TIME_LIMIT) {
+                automaticallyStopped = true; Log.e("GPSTracker", "stopped hEEEere"); }
+        }
     }
 
     @Override
