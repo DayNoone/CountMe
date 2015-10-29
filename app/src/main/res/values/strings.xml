@@ -102,6 +102,8 @@
     <string name="no">Nei</string>
 
     <!-- Biking active -->
+
+    <string name="location_dialog">Din GPS ser ut til å være avslått, vil du slå den på?</string>
     <string name="biking_active"><u>Sykling pågår</u></string>
     <string name="report_problem">Rapporter veiproblem</string>
     <string name="require_network_stop_trip">Du har ikke internettforbindelse</string>

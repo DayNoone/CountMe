@@ -84,6 +84,7 @@
     <string name="no">No</string>
 
     <!-- Biking active -->
+    <string name="location_dialog">Your GPS seems to be disabled, do you want to enable it?</string>
     <string name="biking_active"><u>Biking active</u></string>
     <string name="require_network_stop_trip">You don\'t have network connection</string>
 

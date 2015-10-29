@@ -50,7 +50,6 @@ public class HTTPSender {
     //sendTrip method creates a json from an arraylist of locations, an arraylist of ints and a context
     //Then it uses delegation to send the json to the server via a specified url
     public static void sendTrip(ArrayList<Location> trip, ArrayList<Integer> connectionTypes, UserModel userModel, AppMenu context) {
-        Log.d("Sending trip", "birthyear = " + userModel.getBirthYear());
         HTTPSender.context = context;
 
 
