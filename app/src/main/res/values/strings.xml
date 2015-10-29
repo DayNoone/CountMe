@@ -49,7 +49,7 @@
     <string name="add_description">Legg til beskrivelse</string>
     <string name="photo_saved">Bilde er nå lagret</string>
     <string name="description_saved">Beskrivelse er nå lagret</string>
-    <string name="error_saved">Vei problem er nå lagret</string>
+    <string name="error_saved">Veiproblem er nå lagret</string>
 
 
     <!--Result Screen -->
@@ -58,8 +58,8 @@
     <string name="popupError">Feilmeldinger</string>
     <string name="noErrorsReported">Ingen feilmeldinger</string>
     <string name="map_description">Se reiserute</string>
-    <string name="errorsList">Velg vei problem</string>
-    <string name="errorDialog">Vei problemer</string>
+    <string name="errorsList">Velg veiproblem</string>
+    <string name="errorDialog">Veiproblemer</string>
 
     <!-- Environment -->
     <string name="environment_title"><u>CO&#8322; spart i dag</u></string>
@@ -108,6 +108,8 @@
     <string name="biking_active"><u>Sykling pågår</u></string>
     <string name="report_problem">Rapporter veiproblem</string>
     <string name="require_network_stop_trip">Du har ikke internettforbindelse</string>
+    <string name="stopped_automatically">Turen ble avsluttet</string>
+    <string name="stopped_automatically_long">På grunn av liten aktivitet siste ti minutter.</string>
 
     <!--Profile strings-->
     <string name="isLoggedInn">isLoggedInn</string>

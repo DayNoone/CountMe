@@ -113,6 +113,9 @@
     <string name="report_problem">Report road fault</string>
     <string name="stats_header"><u>Statistics</u></string>
     <string name="userInfo">userInfo</string>
+    <string name="map_description">View trip</string>
+    <string name="stopped_automatically">The trip was stopped</string>
+    <string name="stopped_automatically_long">Because of little activity for the last ten minutes.</string>
 
 
 </resources>
