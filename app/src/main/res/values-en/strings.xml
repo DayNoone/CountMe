@@ -15,11 +15,11 @@
     <string name="no_progress">No Progress</string>
 
     <!-- Introduction pages -->
-    <string name="intro_page1">All usage of this app is anonymous. The first and last 100 meters of your path gets deleted to prevent identification.</string>
+    <string name="intro_page1">All usage of this app is anonymous. The first and last 100 meters of your path will be deleted to prevent identification.</string>
     <string name="intro_page2">This app sends information to the Norwegian Public Roads Administration to help them analyze today\'s bicycling situation.</string>
     <string name="intro_userInformation">This information is completely optional, and will be used as part of the bicycling analysis. We would appreciate if you provide it. Weight is only used for calorie calculations locally in the app.</string>
-    <string name="intro_page3">By using the app you contribute to providing them with insight to which biking routes are important, as well as where there are road faults or similar that nee to be fixed.</string>
-    <string name="intro_page4">By pressing the phone\'s </string>
+    <string name="intro_page3">By using the app you contribute to providing them with insight to which biking routes are important, as well as where there are road faults or similar that need to be fixed.</string>
+    <string name="intro_page4">The language in the app can be changed by changing the language in the Android settings. </string>
     <string name="intro_page5">Using this app will improve your biking experience!</string>
     <string name="birthdate_saved">Birthdate is now saved</string>
     <string name="weight_saved">Weight is now saved</string>
@@ -44,7 +44,7 @@
 
     <!--OptionsTab-->
     <string name="OptionsTab">Options</string>
-    <string name="option_information">Anonymous data for analysis. Weight is for calorie calculation.</string>
+    <string name="option_information">Anonymous data for analysis. Weight is only used for calorie calculation locally.</string>
     <string name="save">Save</string>
 
     <!-- Environment -->
@@ -74,6 +74,9 @@
     <string name="report_error">Describe problem:</string>
     <string name="later">Later</string>
     <string name="now">Now</string>
+    <string name="take_picture">Take picture</string>
+    <string name="description">Description</string>
+    <string name="add_description">Add description</string>
 
     <!--Error dialog for when network is not active on startup -->
     <string name="require_network_on_startup">Network connection is required on startup!</string>

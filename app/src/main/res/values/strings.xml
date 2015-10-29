@@ -28,12 +28,12 @@
     <string name="infoWeight">Vekt (kg):</string>
     <string name="birthdate_saved">Fødselsdato er nå lagret</string>
     <string name="weight_saved">Vekt er nå lagret</string>
-    <string name="intro_page4">Ved å trykke på mobilens <i>optionsknapp</i>, kan du velge språk. </string>
+    <string name="intro_page4">Språket i appen kan forandres ved å bytte språk i Android-instillingene. </string>
     <string name="save">Lagre</string>
 
     <!--OptionsTab-->
     <string name="OptionsTab">Instillinger</string>
-    <string name="option_information">Anonym data til analyse. Vekt er til kaloriberegning og brukes kun lokalt i appen.</string>
+    <string name="option_information">Anonym data til analyse. Vekt brukes kun til kaloriberegning lokalt.</string>
 
     <!--Load Screen-->
     <string name="no_progress">No Progress</string>
@@ -45,7 +45,8 @@
     <string name="error_page">Feilrapport</string>
     <string name="finished_editing">Ok</string>
     <string name="take_picture">Ta bilde</string>
-    <string name="Add_description">Beskrivelse</string>
+    <string name="description">Beskrivelse</string>
+    <string name="add_description">Legg til beskrivelse</string>
     <string name="photo_saved">Bilde er nå lagret</string>
     <string name="description_saved">Beskrivelse er nå lagret</string>
     <string name="error_saved">Vei problem er nå lagret</string>

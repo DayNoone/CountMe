@@ -61,7 +61,7 @@ public class ErrorMenu extends AppMenu {
         //TODO: Pop up to add description.
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
-        alert.setTitle("Legg til beskrivelse");
+        alert.setTitle(getString(R.string.add_description));
 
 // Set an EditText view to get user input
         final EditText input = new EditText(this);
