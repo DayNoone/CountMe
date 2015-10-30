@@ -50,19 +50,19 @@ public class GPSTracker extends Service implements LocationListener {
     private double distance; //distance
 
     // The minimum distance to change Updates in meters
-    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 1; // 5 meters
+    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 5; // 5 meters
 
     // The minimum time between updates in milliseconds
-    private static final long MIN_TIME_BW_UPDATES = 1000 * 1; // 1 second
+    private static final long MIN_TIME_BW_UPDATES = 1 * 1000; // 1 second
 
     // The maximum movement within 10 minutes for the tracking to stop automatically
     private static final long MAX_MOVEMENT_TO_STOP = 100; // 100 meters
 
     // The time for when we stop tracking if there is minimal movement
-    private static final long TIME_LIMIT = 10*60 * 1000; // 10 minutes
+    private static final long TIME_LIMIT = 10  * 1000; // 10 minutes
 
     // Variable for keeping track of how long we have been waiting for the trip to get more than one data point
-    private static long timeOfFirstCheck = 0;
+    private long timeOfFirstCheck = 0;
 
     // Declaring a Location Manager
     protected LocationManager locationManager;
@@ -92,7 +92,6 @@ public class GPSTracker extends Service implements LocationListener {
             }
             trip.add(temp);
         }
-        timeOfFirstCheck = 0;
     }
 
     public Location getLocation() {
