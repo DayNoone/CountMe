@@ -112,7 +112,7 @@
         android:text="@string/infoWeight"
         android:id="@+id/infoWeight"
         android:layout_alignBaseline="@+id/editTextWeight"
-        android:layout_marginLeft="65dp" />
+        android:layout_marginLeft="20dp" />
 
 
 

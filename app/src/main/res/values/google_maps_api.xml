@@ -13,6 +13,6 @@ https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend
     string in this file.
     -->
     <string name="google_maps_key" translatable="false" templateMergeStrategy="preserve">
-        AIzaSyCQskJJd84SgO9ZEA0vWLE5_PuXOntaZSk <!-- TODO: Register an apiKey under group mail , not my personal -->
+        AIzaSyCQskJJd84SgO9ZEA0vWLE5_PuXOntaZSk <!-- TODO: Register an apiKey un    der group mail , not my personal -->
     </string>
 </resources>
