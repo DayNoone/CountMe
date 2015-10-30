@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.1"
 
     defaultConfig {
-        applicationId "com.example.countme.countme"
+        applicationId "com.dinsykkelvei.countme.countme"
         minSdkVersion 18
         targetSdkVersion 22
         versionCode 1
