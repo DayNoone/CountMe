@@ -63,10 +63,17 @@ public class BikingActive extends AppMenu {
     }
 
     public void endTripNotification() {
+        Intent notificationIntent = new Intent(getApplicationContext(), ResultMenu.class);
+        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        PendingIntent notifyPIntent =
+                PendingIntent.getActivity(getApplicationContext(), 0, notificationIntent, 0);
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
                         .setSmallIcon(R.drawable.notification)
-                        .setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 })
+                        .setVibrate(new long[] { 1000, 1000 })
+                        .setAutoCancel(true)
+                        .setContentIntent(notifyPIntent)
                         .setContentTitle(getString(R.string.stopped_automatically))
                         .setContentText(getString(R.string.stopped_automatically_long));
         NotificationManager mNotificationManager =
