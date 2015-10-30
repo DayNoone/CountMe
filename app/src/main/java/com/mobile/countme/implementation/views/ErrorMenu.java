@@ -62,7 +62,6 @@ public class ErrorMenu extends AppMenu {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
         alert.setTitle(getString(R.string.add_description));
-       // alert.getContext().setTheme(R.style.PopupMenu);
 
 // Set an EditText view to get user input
         final EditText input = new EditText(this);
