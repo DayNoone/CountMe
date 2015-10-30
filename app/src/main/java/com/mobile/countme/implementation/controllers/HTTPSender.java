@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
 import java.util.TimeZone;
+import java.util.UUID;
 
 import static com.google.android.gms.internal.zzhu.runOnUiThread;
 
@@ -40,6 +41,7 @@ public class HTTPSender {
     static private UserModel userModel;
     private static boolean clicked;
     private static AppMenu context;
+    private static UUID tripID;
 
 
     public HTTPSender() {
@@ -55,7 +57,7 @@ public class HTTPSender {
 
         Log.d("SendTrip", "SendTrip started");
 
-        GPSFilter.filterTrip(trip, connectionTypes);
+//        GPSFilter.filterTrip(trip, connectionTypes);
         JSONObject jsonObject = null;
         /*
         var json = {
@@ -76,6 +78,9 @@ public class HTTPSender {
             sdf.setTimeZone(TimeZone.getTimeZone("CET"));
             jsonObject.put("startTime", sdf.format(new Date(trip.get(0).getTime())));
             jsonObject.put("endTime", sdf.format(new Date(trip.get(trip.size() - 1).getTime())));
+            tripID = UUID.randomUUID();
+            Log.e("huuheuhe",tripID.toString());
+            jsonObject.put("tripID", tripID.toString());
 
             JSONArray tripData = new JSONArray();
             JSONObject dataPoint;
@@ -158,7 +163,7 @@ public class HTTPSender {
 
 
         if (jsonObject != null) {
-            String sendURL = SERVER_URL + "user/" + info.getUserID() + "/trips/?token=" + info.getToken();
+            String sendURL = SERVER_URL + "user/" + info.getUserID() + "/trips/" + tripID + "/?token=" + info.getToken();
             HttpSenderThread thread = new HttpSenderThread(jsonObject, sendURL, info, HttpPostKind.TRIP);
             thread.start();
         }
