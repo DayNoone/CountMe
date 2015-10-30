@@ -1,10 +1,15 @@
 package com.mobile.countme.implementation.views;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.app.AlertDialog;
+import android.support.v4.app.NotificationCompat;
 import android.view.View;
 import android.widget.Toast;
 
@@ -44,14 +49,29 @@ public class BikingActive extends AppMenu {
                             Toast.makeText(getApplicationContext(),getString(R.string.require_network_stop_trip),Toast.LENGTH_SHORT).show();
                             return;
                         }
-
-                        getMainController().stopTracker();
-                        getMainController().addStatistics(getMainController().getTracker().getDistance());
-                        getMainController().stoptimertask();
-                        goTo(ResultMenu.class);
+                        endTripAndReturn();
 
                     }
                 }).create().show();
+    }
+
+    public void endTripAndReturn() {
+        getMainController().stopTracker();
+        getMainController().addStatistics(getMainController().getTracker().getDistance());
+        getMainController().stoptimertask();
+        goTo(ResultMenu.class);
+    }
+
+    public void endTripNotification() {
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(this)
+                        .setSmallIcon(R.drawable.notification)
+                        .setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 })
+                        .setContentTitle(getString(R.string.stopped_automatically))
+                        .setContentText(getString(R.string.stopped_automatically_long));
+        NotificationManager mNotificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        mNotificationManager.notify(0, mBuilder.build());
     }
 
     /**
@@ -61,7 +81,7 @@ public class BikingActive extends AppMenu {
      */
     public void sendError(View view) {
         final ErrorModel newErrorModel = new ErrorModel(getMainController());
-        newErrorModel.setName("Feilmelding " + getMainController().getErrorCount());
+        newErrorModel.setName(getString(R.string.roadFault) + " " + getMainController().getErrorCount());
         newErrorModel.setLatitude(getMainController().getTracker().getLatitude().toString());
         newErrorModel.setLongitude(getMainController().getTracker().getLongitude().toString());
         newErrorModel.setTimeStamp(getMainController().getTracker().getLocation() != null ? System.currentTimeMillis() : -1);
@@ -111,6 +131,11 @@ public class BikingActive extends AppMenu {
      * @param start_using_tracker
      */
     public void updateView(String time_used, boolean start_using_tracker) {
+        getMainController().getTracker().checkIfNoLocationsReceived();
+        if (getMainController().getTracker().isAutomaticallyStopped()) {
+            endTripNotification();
+            endTripAndReturn();
+        }
         CustomTextView time = (CustomTextView) findViewById(R.id.tracking_time);
         CustomTextView speed = (CustomTextView) findViewById(R.id.current_speed);
         CustomTextView distance = (CustomTextView) findViewById(R.id.tripDistance);
@@ -122,7 +147,7 @@ public class BikingActive extends AppMenu {
             speed.setText(Double.toString(currentSpeedInKmH) + " " + getString(R.string.kmph));
 
             Double transformedDistance = new BigDecimal((getMainController().getTracker().getDistance() / 1000)).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
-            distance.setText(Double.toString(transformedDistance) + "km");
+            distance.setText(Double.toString(transformedDistance) + " km");
 
         }
     }

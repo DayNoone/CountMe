@@ -29,7 +29,7 @@
     <string name="start_trip">START TRIP</string>
 
     <!--Error Screen -->
-    <string name="error_page">Error report</string>
+    <string name="error_page">Fault report</string>
     <string name="finished_editing">Ok</string>
     <string name="photo_saved">Photo is now saved</string>
     <string name="description_saved">Description is now saved</string>
@@ -67,12 +67,12 @@
 
     <!-- Information -->
     <string name="information_title"><u>Information</u></string>
-    <string name="contact">Contact us: DinSykkelvei@sykkelmail.no</string>
+    <string name="contact">Contact us: DinSykkelvei@gmail.no</string>
     <string name="rewatch_intro">Rewatch introduction</string>
 
     <!--Error handler -->
     <string name="report_errorIdle">Describe problem?</string>
-    <string name="report_error">Describe problem: (picture cannot be added later)</string>
+    <string name="report_error">Describe problem:\n(Picture cannot be added later)</string>
     <string name="later">Later</string>
     <string name="now">Now</string>
     <string name="take_picture">Take picture</string>
@@ -83,7 +83,7 @@
     <string name="require_network_on_startup">Network connection is required on startup!</string>
 
     <!--Confirmation -->
-    <string name="stop_biking">Stop trip?\nNetwork is required!</string>
+    <string name="stop_biking">Stop trip?\nPlease note that network must be enabled!</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
 
@@ -108,11 +108,14 @@
     <string name="UserInformation">User information</string>
     <string name="calories_burned">kcal burned:</string>
     <string name="infoWeight">Weight (kg):</string>
-    <string name="noErrorsReported">No Errors reported</string>
-    <string name="popupError">Errors</string>
+    <string name="noErrorsReported">No road faults reported</string>
+    <string name="popupError">Reported faults</string>
     <string name="report_problem">Report road fault</string>
     <string name="stats_header"><u>Statistics</u></string>
     <string name="userInfo">userInfo</string>
-
+    <string name="map_description">View trip</string>
+    <string name="stopped_automatically">The trip was stopped</string>
+    <string name="stopped_automatically_long">Because of little activity for the last ten minutes.</string>
+    <string name="roadFault">Road fault</string>
 
 </resources>
