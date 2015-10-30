@@ -1,10 +1,16 @@
 package com.mobile.countme.implementation.views;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.mobile.countme.R;
@@ -15,13 +21,22 @@ import com.mobile.countme.implementation.controllers.HTTPSender;
 import com.mobile.countme.implementation.controllers.MainMenu;
 import com.mobile.countme.implementation.models.ErrorModel;
 
+import org.json.JSONObject;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by Kristian on 16/09/2015.
  */
 public class ResultMenu extends AppMenu {
+
+    private JSONObject survey;
+    private int surveyCounter = 0;
+    private Timer surveyTimer;
+    private TimerTask surveyTimerTask;
 
     public void onCreate(Bundle savedInstanceBundle) {
         super.onCreate(savedInstanceBundle);
@@ -44,6 +59,7 @@ public class ResultMenu extends AppMenu {
         }
         getMainController().setTripInitialized(false);
         initSpinner();
+        initSurveyTimer();
     }
 
     public void goToMainMenu(View view){
@@ -73,7 +89,7 @@ public class ResultMenu extends AppMenu {
                                        int arg2, long arg3) {
                 // TODO Auto-generated method stub
                 String item = dropdown.getSelectedItem().toString();
-                if(getMainController().getTripErrors().containsKey(item)) {
+                if (getMainController().getTripErrors().containsKey(item)) {
                     getMainController().getTripErrors().get(item).setThisError();
                     goTo(ErrorMenu.class);
                 }
@@ -87,8 +103,84 @@ public class ResultMenu extends AppMenu {
         });
     }
 
+    /**
+     * Survey timer will check if you receive a survey within 10 seconds. If not, nothing will happen.
+     */
+    private void initSurveyTimer(){
+        surveyTimer = new Timer();
+        LayoutInflater li = LayoutInflater.from(this);
+        View promptsView = li.inflate(R.layout.survey, null);
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                this);
+
+        // set prompts.xml to alertdialog builder
+        alertDialogBuilder.setView(promptsView);
+
+        final EditText userInput = (EditText) promptsView
+                .findViewById(R.id.editTextDialogUserInput);
+
+        // set dialog message
+        alertDialogBuilder
+                .setCancelable(false)
+                .setPositiveButton("OK",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                // get user input and set it to result
+                                // edit text
+//                                result.setText(userInput.getText());
+                            }
+                        })
+                .setNegativeButton("Cancel",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        // show it
+        alertDialog.show();
+        surveyTimerTask = new TimerTask() {
+            @Override
+            public void run() {
+                surveyCounter++;
+                if(surveyCounter > 10){
+                    Log.e("ResultMenu", "timer timed out");
+                    if (surveyTimer != null) {
+                        surveyTimer.cancel();
+                        surveyTimer = null;
+                    }
+                    surveyCounter = 0;
+                }
+                if(HTTPSender.getSurvey() != null){
+                    survey = HTTPSender.getSurvey();
+//                    LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE );
+//                    new AlertDialog.Builder(getApplicationContext())
+//                            .setMessage(R.string.survey)
+//                            .setView(inflater.inflate(R.layout.survey, null))
+//                            .setPositiveButton(R.string.finished_editing, new DialogInterface.OnClickListener() {
+//
+//                                public void onClick(DialogInterface arg0, int arg1) {
+//
+//                                }
+//                            }).create().show();
+                    if (surveyTimer != null) {
+                        surveyTimer.cancel();
+                        surveyTimer = null;
+                    }
+                    surveyCounter = 0;
+                }
+            }
+        };
+    }
+
     @Override
     public void onBackPressed() {
 
     }
+
+
 }

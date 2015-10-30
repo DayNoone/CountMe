@@ -42,6 +42,7 @@ public class HTTPSender {
     private static boolean clicked;
     private static AppMenu context;
     private static UUID tripID;
+    private static JSONObject survey;
 
 
     public HTTPSender() {
@@ -166,6 +167,18 @@ public class HTTPSender {
             String sendURL = SERVER_URL + "user/" + info.getUserID() + "/trips/" + tripID + "/?token=" + info.getToken();
             HttpSenderThread thread = new HttpSenderThread(jsonObject, sendURL, info, HttpPostKind.TRIP);
             thread.start();
+//            while(true){
+//                if(thread.isSurveyReceived()) {
+//                    try {
+//                        survey = new JSONObject(thread.getSurvey());
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//                    thread.setSurveyReceived(false);
+//                    thread.setSurvey("");
+//                    break;
+//                }
+//            }
         }
     }
 
@@ -292,7 +305,13 @@ public class HTTPSender {
 
     }
 
+    public static void setSurvey(JSONObject survey) {
+        HTTPSender.survey = survey;
+    }
 
+    public static JSONObject getSurvey() {
+        return survey;
+    }
 }
 
 

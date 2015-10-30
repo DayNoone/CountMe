@@ -26,6 +26,8 @@ public class HttpSenderThread extends Thread {
     private String url;
     private LoginInfo info;
     private HttpPostKind postType;
+    private String survey = "";
+    private boolean surveyReceived;
 
     HttpSenderThread(JSONObject obj, String url, LoginInfo info, HttpPostKind postType) {
         this.obj = obj;
@@ -58,8 +60,12 @@ public class HttpSenderThread extends Thread {
             switch (postType) {
 
                 case TRIP:
-                    String json_string2 = EntityUtils.toString(response.getEntity());
-                    Log.d("Received tripresponse", json_string2);
+                    String responseTrip = EntityUtils.toString(response.getEntity());
+                    survey += responseTrip;
+                    Log.d("Received tripresponse", survey);
+                    if(responseTrip.equals(" }")){
+                        surveyReceived = true;
+                    }
                     break;
                 case ERROR:
                     String json_string1 = EntityUtils.toString(response.getEntity());
@@ -121,5 +127,21 @@ public class HttpSenderThread extends Thread {
 
         //If response is needed somewhere, figure out how to communicate with main thread.
 
+    }
+
+    public String getSurvey() {
+        return survey;
+    }
+
+    public void setSurvey(String survey) {
+        this.survey = survey;
+    }
+
+    public boolean isSurveyReceived() {
+        return surveyReceived;
+    }
+
+    public void setSurveyReceived(boolean surveyReceived) {
+        this.surveyReceived = surveyReceived;
     }
 }
