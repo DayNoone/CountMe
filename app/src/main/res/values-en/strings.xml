@@ -71,7 +71,7 @@
     <string name="rewatch_intro">Rewatch introduction</string>
 
     <!--Error handler -->
-    <string name="report_errorIdle">Describe problem?</string>
+    <string name="report_errorIdle">Describe problem:</string>
     <string name="report_error">Describe problem:\n(Picture cannot be added later)</string>
     <string name="later">Later</string>
     <string name="now">Now</string>
@@ -100,7 +100,7 @@
     <string name="statisticsData">statisticsData</string>
     <string name="profile_preferences">UserPrefsFile</string>
     <string name="Errors">Edit road faults: </string>
-    <string name="InfoPickBirthDate">Submit birth year:</string>
+    <string name="InfoPickBirthDate">Birth year:</string>
     <string name="Female">Female</string>
     <string name="Male">Male</string>
     <string name="PickBirthDate">YYYY</string>

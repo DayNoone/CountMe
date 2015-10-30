@@ -22,7 +22,7 @@
     <string name="intro_userInformation"> Denne informasjonen er helt valgfri og vil bli brukt som en del av sykkeldataanalysen. Vi ville satt veldig pris på om du fyller ut. Vekt blir kun brukt til kaloriberegning lokalt i appen.</string>
     <string name="UserInformation">Brukerinformasjon</string>
     <string name="PickBirthDate">ÅÅÅÅ</string>
-    <string name="InfoPickBirthDate">Legg inn fødselsår: </string>
+    <string name="InfoPickBirthDate">Fødselsår:</string>
     <string name="Male">Mann</string>
     <string name="Female">Kvinne</string>
     <string name="infoWeight">Vekt (kg):</string>
@@ -32,7 +32,7 @@
     <string name="save">Lagre</string>
 
     <!--OptionsTab-->
-    <string name="OptionsTab">Instillinger</string>
+    <string name="OptionsTab">Innstillinger</string>
     <string name="option_information">Anonym data til analyse. Vekt brukes kun til kaloriberegning lokalt.</string>
 
     <!--Load Screen-->
