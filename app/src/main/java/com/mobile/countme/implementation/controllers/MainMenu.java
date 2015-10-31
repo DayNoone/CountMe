@@ -415,7 +415,6 @@ public class MainMenu extends AppMenu {
                     public void onClick(DialogInterface arg0, int arg1) {
                         //Add description and/or take picture.
                         newErrorModel.setEditedWhenReported(true);
-                        getMainController().addError(newErrorModel);
                         getMainController().setErrorModel(newErrorModel);
                         goTo(ErrorMenu.class);
 
