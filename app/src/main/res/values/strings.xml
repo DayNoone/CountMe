@@ -58,6 +58,9 @@
     <string name="errorsList">Velg vei problem</string>
     <string name="errorDialog">Vei problemer</string>
     <string name="survey">Spørreundersøkelse</string>
+    <string name="cancel">Avbryt</string>
+    <string name="sendSurvey">Send</string>
+    <string name="linkSurvey">Link til spørreundersøkelse</string>
 
     <!-- Environment -->
     <string name="environment_title"><u>CO&#8322; spart i dag</u></string>

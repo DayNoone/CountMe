@@ -167,20 +167,43 @@ public class HTTPSender {
             String sendURL = SERVER_URL + "user/" + info.getUserID() + "/trips/" + tripID + "/?token=" + info.getToken();
             HttpSenderThread thread = new HttpSenderThread(jsonObject, sendURL, info, HttpPostKind.TRIP);
             thread.start();
-//            while(true){
-//                if(thread.isSurveyReceived()) {
-//                    try {
-//                        survey = new JSONObject(thread.getSurvey());
-//                    } catch (JSONException e) {
-//                        e.printStackTrace();
-//                    }
-//                    thread.setSurveyReceived(false);
-//                    thread.setSurvey("");
-//                    break;
-//                }
-//            }
         }
     }
+
+    //sendanswer method creates a jsonObject
+    //Then it uses delegation to send the jsonObject to the server via a specified url
+    public static void sendAnswer(String answer, String qid) {
+        Log.d("SendAnswer", "SendAnswer started");
+
+        JSONObject jsonanswer = null;
+        try {
+            jsonanswer = new JSONObject();
+            jsonanswer.put("_userId", info.getUserID());
+            synchronized (jsonanswer){
+                jsonanswer.put("answer", answer);
+                if (jsonanswer != null) {
+                    String sendURL = SERVER_URL + "user/" + info.getUserID() + "/answers/" + qid + "/?token=" + info.getToken();
+                    HttpSenderThread thread = new HttpSenderThread(jsonanswer, sendURL, info, HttpPostKind.ANSWER);
+                    thread.start();
+                    synchronized (thread) {
+                        try {
+                            thread.wait();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+
+            Log.d("SendErrors", "JSON created successfully");
+        }catch(JSONException e){
+            //dirty fix to checked exceptions
+            e.printStackTrace();
+        }
+
+
+    }
+
 
     //sendErrors method creates jsonObjects from an hashmap of trip errors
     //Then it uses delegation to send the jsonObejcts to the server via a specified url

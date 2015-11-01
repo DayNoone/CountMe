@@ -59,12 +59,17 @@ public class HttpSenderThread extends Thread {
             JSONObject receivedObject;
             switch (postType) {
 
+
+                case ANSWER:
+                    String json_string13 = EntityUtils.toString(response.getEntity());
+                    Log.d("Received answerresponse", json_string13);
+                    break;
                 case TRIP:
-                    String responseTrip = EntityUtils.toString(response.getEntity());
-                    survey += responseTrip;
-                    Log.d("Received tripresponse", survey);
-                    if(responseTrip.equals(" }")){
+                    survey = EntityUtils.toString(response.getEntity());
+                    if(survey != null){
                         surveyReceived = true;
+                        HTTPSender.setSurvey(new JSONObject(survey));
+                        Log.e("HTTPSender", survey);
                     }
                     break;
                 case ERROR:

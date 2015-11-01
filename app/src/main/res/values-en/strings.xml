@@ -39,6 +39,9 @@
     <string name="mainScreen">Mainscreen</string>
     <string name="errorsList">Choose road fault</string>
     <string name="errorDialog">Road faults</string>
+    <string name="survey">Survey</string>
+    <string name="cancel">Cancel</string>
+    <string name="linkSurvey">Link to survey</string>
 
 
     <!--OptionsTab-->
