@@ -177,6 +177,7 @@ public class ResultMenu extends AppMenu {
                             alertDialogBuilder.setMessage(survey.getString("question"));
                             break;
                         case "link":
+                            userInput.setVisibility(View.GONE);
                             final SpannableString s =
                                     new SpannableString(survey.getString("question"));
                             Linkify.addLinks(s, Linkify.ALL);
@@ -271,6 +272,7 @@ public class ResultMenu extends AppMenu {
 
                     if(survey.getString("type").equals("link")){
                         //Sets the link clickable.
+
                         ((TextView)alertDialog.findViewById(android.R.id.message)).setMovementMethod(LinkMovementMethod.getInstance());
                     }
                 } catch (JSONException e) {

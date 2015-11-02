@@ -80,7 +80,7 @@ public class HTTPSender {
             jsonObject.put("startTime", sdf.format(new Date(trip.get(0).getTime())));
             jsonObject.put("endTime", sdf.format(new Date(trip.get(trip.size() - 1).getTime())));
             tripID = UUID.randomUUID();
-            Log.e("huuheuhe",tripID.toString());
+            Log.e("huuheuhe", tripID.toString());
             jsonObject.put("tripID", tripID.toString());
 
             JSONArray tripData = new JSONArray();
@@ -164,8 +164,19 @@ public class HTTPSender {
 
 
         if (jsonObject != null) {
-            String sendURL = SERVER_URL + "user/" + info.getUserID() + "/trips/" + tripID + "/?token=" + info.getToken();
+            String sendURL = SERVER_URL + "user/" + info.getUserID() + "/trips/?token=" + info.getToken();
             HttpSenderThread thread = new HttpSenderThread(jsonObject, sendURL, info, HttpPostKind.TRIP);
+            thread.start();
+        }
+    }
+
+    public static void getPotensialSurvey(){
+        Log.e("huuheuhe",tripID.toString());
+
+        JSONObject jsonObject = new JSONObject();
+        if(jsonObject != null) {
+            String sendURL = SERVER_URL + "user/" + info.getUserID() + "/trips/" + tripID + "/?token=" + info.getToken();
+            HttpSenderThread thread = new HttpSenderThread(jsonObject, sendURL, info, HttpPostKind.SURVEY);
             thread.start();
         }
     }

@@ -4,6 +4,7 @@ import android.util.Log;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -28,6 +29,8 @@ public class HttpSenderThread extends Thread {
     private HttpPostKind postType;
     private String survey = "";
     private boolean surveyReceived;
+    private HttpGet get;
+    private HttpPost post;
 
     HttpSenderThread(JSONObject obj, String url, LoginInfo info, HttpPostKind postType) {
         this.obj = obj;
@@ -45,90 +48,107 @@ public class HttpSenderThread extends Thread {
     //sendJSON is a delegation method that sends a jsonObject to an url
     private void sendJSON() {
         Log.d("SendJSON", "SendJSON started");
-        HttpPost post = new HttpPost(url);
-        StringEntity string;
-        HttpResponse response;
-
-        try {
-            string = new StringEntity(obj.toString());
-            string.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
-            post.setEntity(string);
-            response = new DefaultHttpClient().execute(post);
-            Log.d("SendJSON", "JSON sent");
-            String json_string;
-            JSONObject receivedObject;
-            switch (postType) {
-
-
-                case ANSWER:
-                    String json_string13 = EntityUtils.toString(response.getEntity());
-                    Log.d("Received answerresponse", json_string13);
-                    break;
-                case TRIP:
-                    survey = EntityUtils.toString(response.getEntity());
-                    if(survey != null){
-                        surveyReceived = true;
-                        HTTPSender.setSurvey(new JSONObject(survey));
-                        Log.e("HTTPSender", survey);
-                    }
-                    break;
-                case ERROR:
-                    String json_string1 = EntityUtils.toString(response.getEntity());
-                    Log.d("Received errorresponse", json_string1);
-
-                    break;
-                case LOGIN:
-                    json_string = EntityUtils.toString(response.getEntity());
-                    receivedObject = new JSONObject(json_string);
-                    info.setUserID(receivedObject.getString("_id"));
-                    info.setToken(receivedObject.getString("token"));
-
-
-                    Log.d("Received loginresponse", receivedObject.toString());
-                    break;
-                case CREATEUSER:
-                    json_string = EntityUtils.toString(response.getEntity());
-                    receivedObject = new JSONObject(json_string);
-                    info.setUsername(receivedObject.getString("username"));
-
-
-                    Log.d("Create user response", receivedObject.toString());
-
+        if(postType == HttpPostKind.SURVEY){
+            get = new HttpGet(url);
+            try {
+               HttpResponse response = new DefaultHttpClient().execute(get);
+                survey = EntityUtils.toString(response.getEntity());
+                Log.e("HTTPSender", survey);
+                if(survey != null){
+                    surveyReceived = true;
+                    Log.e("HTTPSender", survey);
+                    HTTPSender.setSurvey(new JSONObject(survey));
+                    Log.e("HTTPSender", survey);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-        } catch (JSONException e) {
-            Log.d("Exception", "JSONException");
-            e.printStackTrace();
-        } catch (ClientProtocolException e) {
+        }else {
+            post = new HttpPost(url);
 
-            Log.d("Exception", "ClientProtoclException");
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
+            StringEntity string;
+            HttpResponse response;
 
-            Log.d("Exception", "UnsupportedEncodingException");
-            e.printStackTrace();
-        } catch (UnknownHostException e) {
-            Log.d("Exception", "UnknownHostException");
-            switch (postType) {
-                case LOGIN:
-                    info.resetLogin();
+            try {
+                string = new StringEntity(obj.toString());
+                string.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+                if (post != null) {
+                    post.setEntity(string);
+                }
+                response = new DefaultHttpClient().execute(post);
+                Log.d("SendJSON", "JSON sent");
+                String json_string;
+                JSONObject receivedObject;
+                switch (postType) {
+                    case ANSWER:
+                        String json_string13 = EntityUtils.toString(response.getEntity());
+                        Log.d("Received answerresponse", json_string13);
+                        break;
+                    case TRIP:
+                        String json_string12 = EntityUtils.toString(response.getEntity());
+                        Log.d("Received TRIP", json_string12);
+                        HTTPSender.getPotensialSurvey();
+                        break;
+                    case ERROR:
+                        String json_string1 = EntityUtils.toString(response.getEntity());
+                        Log.d("Received errorresponse", json_string1);
 
-                    break;
-                case CREATEUSER:
-                    info.resetInfo();
-                    break;
+                        break;
+                    case LOGIN:
+                        json_string = EntityUtils.toString(response.getEntity());
+                        receivedObject = new JSONObject(json_string);
+                        info.setUserID(receivedObject.getString("_id"));
+                        info.setToken(receivedObject.getString("token"));
 
+
+                        Log.d("Received loginresponse", receivedObject.toString());
+                        break;
+                    case CREATEUSER:
+                        json_string = EntityUtils.toString(response.getEntity());
+                        receivedObject = new JSONObject(json_string);
+                        info.setUsername(receivedObject.getString("username"));
+
+
+                        Log.d("Create user response", receivedObject.toString());
+
+                }
+            } catch (JSONException e) {
+                Log.d("Exception", "JSONException");
+                e.printStackTrace();
+            } catch (ClientProtocolException e) {
+
+                Log.d("Exception", "ClientProtoclException");
+                e.printStackTrace();
+            } catch (UnsupportedEncodingException e) {
+
+                Log.d("Exception", "UnsupportedEncodingException");
+                e.printStackTrace();
+            } catch (UnknownHostException e) {
+                Log.d("Exception", "UnknownHostException");
+                switch (postType) {
+                    case LOGIN:
+                        info.resetLogin();
+
+                        break;
+                    case CREATEUSER:
+                        info.resetInfo();
+                        break;
+
+                }
+
+                e.printStackTrace();
+            } catch (IOException e) {
+
+                Log.d("Exception", "IOException");
+                e.printStackTrace();
+            }
+            synchronized (this) {
+                this.notifyAll();
             }
 
-            e.printStackTrace();
-        } catch (IOException e) {
-
-            Log.d("Exception", "IOException");
-            e.printStackTrace();
         }
-        synchronized (this){
-            this.notifyAll();
-        }
-
 
         //If response is needed somewhere, figure out how to communicate with main thread.
 
