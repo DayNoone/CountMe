@@ -58,10 +58,10 @@ public class HTTPSender {
 
         Log.d("SendTrip", "SendTrip started");
 
-        GPSFilter.filterTrip(trip, connectionTypes);
-        if(trip.size() < 20){
-            return;
-        }
+//        GPSFilter.filterTrip(trip, connectionTypes);
+//        if(trip.size() < 20){
+//            return;
+//        }
         JSONObject jsonObject = null;
         /*
         var json = {
@@ -180,13 +180,14 @@ public class HTTPSender {
     }
 
     public static void getPotensialSurvey(){
-        Log.e("huuheuhe",tripID.toString());
 
-        JSONObject jsonObject = new JSONObject();
-        if(jsonObject != null) {
-            String sendURL = SERVER_URL + "user/" + info.getUserID() + "/trips/" + tripID + "/?token=" + info.getToken();
-            HttpSenderThread thread = new HttpSenderThread(jsonObject, sendURL, info, HttpPostKind.SURVEY);
-            thread.start();
+        if(context.getMainController().getUserModel().isReceiveSurveys()) {
+            JSONObject jsonObject = new JSONObject();
+            if (jsonObject != null) {
+                String sendURL = SERVER_URL + "user/" + info.getUserID() + "/trips/" + tripID + "/?token=" + info.getToken();
+                HttpSenderThread thread = new HttpSenderThread(jsonObject, sendURL, info, HttpPostKind.SURVEY);
+                thread.start();
+            }
         }
     }
 

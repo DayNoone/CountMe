@@ -15,6 +15,7 @@ public class UserModel extends AppMenu{
     private Calendar calendar = Calendar.getInstance();
     private String username;
     private String password;
+    private boolean receiveSurveys;
 
 
     public Float getWeight() {
@@ -27,6 +28,10 @@ public class UserModel extends AppMenu{
 
     public int getAge() {
         return calendar.get(Calendar.YEAR) - birthYear;
+    }
+
+    public boolean isReceiveSurveys() {
+        return receiveSurveys;
     }
 
     public void setBirthYear(Integer birthYear) {
@@ -59,5 +64,9 @@ public class UserModel extends AppMenu{
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void setReceiveSurveys(boolean receiveSurveys) {
+        this.receiveSurveys = receiveSurveys;
     }
 }

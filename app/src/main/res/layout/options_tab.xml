@@ -60,7 +60,7 @@
         android:hint="@string/PickBirthDate"
         android:layout_centerVertical="true"
         android:layout_below="@+id/UserInformationHeadLine"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="30dp"
         android:background="@drawable/input_stroke" />
 
     <com.mobile.countme.custom_classes.CustomTextView
@@ -76,7 +76,7 @@
     <RadioGroup
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="260dp"
+        android:layout_marginTop="230dp"
         android:orientation="horizontal"
         android:layout_centerHorizontal="true"
         android:id="@+id/genderGrp"
@@ -114,12 +114,10 @@
         android:layout_alignBaseline="@+id/editTextWeight"
         android:layout_marginLeft="20dp" />
 
-
-
         <Button
 
             android:layout_gravity="center_vertical"
-            android:layout_margin="30dp"
+            android:layout_margin="90dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/rewatch_intro"
@@ -127,11 +125,21 @@
             android:id="@+id/button6"
             android:onClick="goToIntroduction"
             android:layout_below="@+id/editTextWeight"
-            android:layout_marginTop="40dp"
             android:layout_centerHorizontal="true"
             android:background="@drawable/btn_stroke"/>
 
-
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/infoSurvey"
+        android:id="@+id/checkBoxSurvey"
+        android:textColor="#FFFFFF"
+        android:buttonTint="#FFFFFF"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_below="@+id/editTextWeight"
+        android:layout_marginTop="30dp"
+        android:layout_centerHorizontal="true"
+         />
 
 
 </RelativeLayout>

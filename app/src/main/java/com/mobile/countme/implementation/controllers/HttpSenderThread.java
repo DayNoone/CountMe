@@ -56,9 +56,8 @@ public class HttpSenderThread extends Thread {
                 Log.e("HTTPSender", survey);
                 if(survey != null){
                     surveyReceived = true;
-                    Log.e("HTTPSender", survey);
                     HTTPSender.setSurvey(new JSONObject(survey));
-                    Log.e("HTTPSender", survey);
+//                    Log.e("HTTPSender", survey);
                 }
             } catch (IOException e) {
                 e.printStackTrace();

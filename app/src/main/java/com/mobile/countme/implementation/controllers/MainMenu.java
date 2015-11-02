@@ -20,6 +20,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -150,7 +152,7 @@ public class MainMenu extends AppMenu {
         alert.show();
     }
     public void startBiking(View view) {
-        final LocationManager manager = (LocationManager) getSystemService( LOCATION_SERVICE );
+        final LocationManager manager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
         if ( !manager.isProviderEnabled( LocationManager.GPS_PROVIDER ) ) {
             buildAlertMessageNoGps();
@@ -383,6 +385,23 @@ public class MainMenu extends AppMenu {
                         getMainController().saveUserInformationToStorage();
                         break;
                 }
+            }
+        });
+
+        CheckBox checkBox = (CheckBox) findViewById(R.id.checkBoxSurvey);
+        if(checkBox == null) return;
+        if(getMainController().getUserModel().isReceiveSurveys()){
+            checkBox.setChecked(true);
+        }
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    getMainController().getUserModel().setReceiveSurveys(true);
+                }else{
+                    getMainController().getUserModel().setReceiveSurveys(false);
+                }
+                getMainController().saveUserInformationToStorage();
             }
         });
     }
