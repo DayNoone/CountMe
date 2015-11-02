@@ -35,9 +35,6 @@ public class LoadingScreen extends AppMenu {
         setMainController(new MainController(getFileIO(), this));
 
 
-//        // TODO: ALPHA CODE, REMOVE AT LAUNCH:
-//        // This code resets all the statistics.
-
         //After done loading
         new LoadViewTask().execute();
     }

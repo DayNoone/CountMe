@@ -56,10 +56,10 @@ public class GPSTracker extends Service implements LocationListener {
     private static final long MIN_TIME_BW_UPDATES = 1 * 1000; // 1 second
 
     // The maximum movement within 10 minutes for the tracking to stop automatically
-    private static final long MAX_MOVEMENT_TO_STOP = 100; // 100 meters
+    private static final long MAX_MOVEMENT_TO_STOP = 40; // 100 meters
 
     // The time for when we stop tracking if there is minimal movement
-    private static final long TIME_LIMIT = 10 * 60 * 1000; // 10 minutes
+    private static final long TIME_LIMIT = 1 * 60 * 1000; // 10 minutes
 
     // Variable for keeping track of how long we have been waiting for the trip to get more than one data point
     private long timeOfFirstCheck = 0;
@@ -281,10 +281,10 @@ public class GPSTracker extends Service implements LocationListener {
 
     public void checkIfNoLocationsReceived() {
         // No new locations received for 10 minutes, trip stopped
-        if (!(trip.size() <= 1) && trip.get(trip.size() - 1).getTime() < System.currentTimeMillis() - TIME_LIMIT)
+        if (trip.size() > 1 && trip.get(trip.size() - 1).getTime() < System.currentTimeMillis() - TIME_LIMIT)
             automaticallyStopped = true;
         // Additional check because the timestamp of the first data point cannot be trusted
-        else {
+        else if (trip.size() <= 1) {
             if (timeOfFirstCheck == 0)
                 timeOfFirstCheck = System.currentTimeMillis();
             if (timeOfFirstCheck < System.currentTimeMillis() - TIME_LIMIT)

@@ -43,7 +43,7 @@
 
     <!--Error Screen -->
     <string name="error_page">Feilrapport</string>
-    <string name="finished_editing">Ok</string>
+    <string name="finished_editing">OK</string>
     <string name="take_picture">Ta bilde</string>
     <string name="description">Beskrivelse</string>
     <string name="add_description">Legg til beskrivelse</string>
