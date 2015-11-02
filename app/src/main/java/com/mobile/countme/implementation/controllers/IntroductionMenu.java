@@ -12,6 +12,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -173,8 +175,8 @@ public class IntroductionMenu extends AppMenu {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH ||
                         actionId == EditorInfo.IME_ACTION_DONE ||
-                        actionId == EditorInfo.IME_ACTION_NEXT){
-                    Toast.makeText(getApplicationContext(), getString(R.string.birthdate_saved),Toast.LENGTH_SHORT).show();
+                        actionId == EditorInfo.IME_ACTION_NEXT) {
+                    Toast.makeText(getApplicationContext(), getString(R.string.birthdate_saved), Toast.LENGTH_SHORT).show();
 
                     return false;
 
@@ -198,15 +200,15 @@ public class IntroductionMenu extends AppMenu {
             public void afterTextChanged(Editable s) {
                 Editable editable = editTextWeight.getText();
                 float oldWeight = getMainController().getUserModel().getWeight();
-                if(editable.toString().isEmpty()){
-                    getMainController().getUserModel().setWeight((float)0.0);
-                    if(oldWeight != 0){
+                if (editable.toString().isEmpty()) {
+                    getMainController().getUserModel().setWeight((float) 0.0);
+                    if (oldWeight != 0) {
                         getMainController().saveUserInformationToStorage();
                     }
-                }else {
+                } else {
                     float newWeight = Float.parseFloat(editable.toString());
                     getMainController().getUserModel().setWeight(newWeight);
-                    if(oldWeight != newWeight){
+                    if (oldWeight != newWeight) {
                         getMainController().saveUserInformationToStorage();
                     }
                 }
@@ -227,22 +229,38 @@ public class IntroductionMenu extends AppMenu {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
                     case R.id.male:
-                        if(getMainController().getUserModel().getGender().equals("male")){
+                        if (getMainController().getUserModel().getGender().equals("male")) {
                             getMainController().getUserModel().setGender("");
-                        }else {
+                        } else {
                             getMainController().getUserModel().setGender("male");
                         }
                         getMainController().saveUserInformationToStorage();
                         break;
                     case R.id.female:
-                        if(getMainController().getUserModel().getGender().equals("female")){
+                        if (getMainController().getUserModel().getGender().equals("female")) {
                             getMainController().getUserModel().setGender("");
-                        }else {
+                        } else {
                             getMainController().getUserModel().setGender("female");
                         }
                         getMainController().saveUserInformationToStorage();
                         break;
                 }
+            }
+        });
+        CheckBox checkBox = (CheckBox) findViewById(R.id.checkBoxSurveyUser);
+        if(checkBox == null) return;
+        if(getMainController().getUserModel().isReceiveSurveys()){
+            checkBox.setChecked(true);
+        }
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    getMainController().getUserModel().setReceiveSurveys(true);
+                }else{
+                    getMainController().getUserModel().setReceiveSurveys(false);
+                }
+                getMainController().saveUserInformationToStorage();
             }
         });
     }

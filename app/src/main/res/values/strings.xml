@@ -26,6 +26,7 @@
     <string name="Male">Mann</string>
     <string name="Female">Kvinne</string>
     <string name="infoWeight">Vekt (kg):</string>
+    <string name="infoSurvey">Motta spørreundersøkelser</string>
     <string name="birthdate_saved">Fødselsdato er nå lagret</string>
     <string name="weight_saved">Vekt er nå lagret</string>
     <string name="intro_page4">Språket i appen kan forandres ved å bytte språk i Android-instillingene. </string>

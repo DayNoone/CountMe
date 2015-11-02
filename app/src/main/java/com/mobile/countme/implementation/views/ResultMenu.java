@@ -73,7 +73,9 @@ public class ResultMenu extends AppMenu {
         }
         getMainController().setTripInitialized(false);
         initSpinner();
-        initSurveyTimer();
+        if(getMainController().getUserModel().isReceiveSurveys()){
+            initSurveyTimer();
+        }
     }
 
     public void goToMainMenu(View view){

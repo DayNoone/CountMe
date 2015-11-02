@@ -214,6 +214,7 @@ public class MainController {
             userModel.setGender(userInformation.getString("Gender"));
             userModel.setBirthYear(Integer.parseInt(userInformation.getString("BirthDate")));
             userModel.setWeight(Float.parseFloat(userInformation.getString("Weight")));
+            userModel.setReceiveSurveys(Boolean.parseBoolean(userInformation.getString("ReceiveSurveys")));
             userModel.setUsername(userInformation.getString("Username"));
             userModel.setPassword(userInformation.getString("Password"));
             while (!HTTPSender.logIn(userModel)) {
@@ -287,8 +288,10 @@ public class MainController {
             userInfo.put("BirthDate", userModel.getBirthYear());
             userInfo.put("Gender", userModel.getGender());
             userInfo.put("Weight", userModel.getWeight());
+            userInfo.put("ReceiveSurveys", userModel.isReceiveSurveys());
             userInfo.put("Username", userModel.getUsername());
             userInfo.put("Password", userModel.getPassword());
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -340,6 +343,7 @@ public class MainController {
                 userInformation.put("BirthDate", 0);
                 userInformation.put("Gender", 0);
                 userInformation.put("Weight", 0.0);
+                userInformation.put("ReceiveSurveys", false);
                 String username = new UUID(System.currentTimeMillis(), System.nanoTime()).toString();
                 userModel.setUsername(username);
                 String password = new UUID(System.currentTimeMillis(), System.nanoTime()).toString();
