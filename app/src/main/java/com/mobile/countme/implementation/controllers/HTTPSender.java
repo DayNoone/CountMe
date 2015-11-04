@@ -86,7 +86,7 @@ public class HTTPSender {
                 jsonObject.put("gender", userModel.getGender());
             }
             if( userModel.getBirthYear() != 0) {
-                jsonObject.put("birthyear", userModel.getBirthYear());
+                jsonObject.put("age", userModel.getAge());
             }
             tripID = UUID.randomUUID();
             Log.e("huuheuhe", tripID.toString());
