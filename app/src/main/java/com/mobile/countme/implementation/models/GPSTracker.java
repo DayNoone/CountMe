@@ -253,7 +253,7 @@ public class GPSTracker extends Service implements LocationListener {
                     distance += location.distanceTo(trip.get(trip.size() - 2));
                 }
             }
-            if (!trip.isEmpty() && location.getTime() - trip.get(0).getTime() <= TIME_LIMIT) {
+            if (!trip.isEmpty() && location.getTime() - trip.get(0).getTime() > TIME_LIMIT) {
                 boolean tooLongWithoutMovement = false;
                 int firstPointToDelete = 0;
                 for (int i = trip.size() - 1; i >= 0; i--) {
