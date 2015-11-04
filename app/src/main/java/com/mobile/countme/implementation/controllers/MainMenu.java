@@ -238,6 +238,7 @@ public class MainMenu extends AppMenu {
      * Sets the statistics both in the models and the internal storage based on the newest trip.
      */
     public void setStatistics(){
+        if(getMainController().getEnvironmentModel() == null || getMainController().getStatisticsModel() == null) return;
         adapter.getEnvironmentTab().setEnvironmentGain(getMainController().getEnvironmentModel().getCo2_savedToday(), getMainController().getEnvironmentModel().getCo2_carDistance(), getMainController().getEnvironmentModel().getCo2_busDistance(), getMainController().getEnvironmentModel().getCo2_trainDistance(), getMainController().getEnvironmentModel().getCo2_plainDistance());
         adapter.getStatisticsTab().setTripsStatistics(getMainController().getStatisticsModel().getCo2_saved(), getMainController().getStatisticsModel().getDistance(), getMainController().getStatisticsModel().getAvg_speed(), getMainController().getStatisticsModel().getKcal());
         getMainController().saveTripsStatistics();

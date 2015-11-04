@@ -37,7 +37,7 @@
             android:layout_weight="0.7"
             android:textSize="24sp"
             android:background="@drawable/mapbtn_stroke"
-            android:text="BACK"
+            android:text="@string/back"
             android:onClick="goBack"
             />
 

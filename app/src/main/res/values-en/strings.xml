@@ -121,5 +121,6 @@
     <string name="stopped_automatically_long">Because of little activity for the last ten minutes.</string>
     <string name="roadFault">Road fault</string>
     <string name="infoSurvey">Receive surveys</string>
+    <string name="back">Back</string>
 
 </resources>
