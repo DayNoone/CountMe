@@ -39,6 +39,9 @@
     <!--Load Screen-->
     <string name="no_progress">No Progress</string>
 
+    <!--Map-->
+    <string name="back">Tilbake</string>
+
     <!-- Biking idle -->
     <string name="start_trip">START TUR</string>
 
