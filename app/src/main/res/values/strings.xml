@@ -26,6 +26,7 @@
     <string name="Male">Mann</string>
     <string name="Female">Kvinne</string>
     <string name="infoWeight">Vekt (kg):</string>
+    <string name="infoSurvey">Motta spørreundersøkelser</string>
     <string name="birthdate_saved">Fødselsdato er nå lagret</string>
     <string name="weight_saved">Vekt er nå lagret</string>
     <string name="intro_page4">Språket i appen kan forandres ved å bytte språk i Android-instillingene. </string>
@@ -61,6 +62,10 @@
     <string name="errorsList">Velg veiproblem</string>
     <string name="errorDialog">Veiproblemer</string>
     <string name="roadFault">Veiproblem</string>
+    <string name="survey">Spørreundersøkelse</string>
+    <string name="cancel">Avbryt</string>
+    <string name="sendSurvey">Send</string>
+    <string name="linkSurvey">Link til spørreundersøkelse</string>
 
     <!-- Environment -->
     <string name="environment_title"><u>CO&#8322; spart i dag</u></string>

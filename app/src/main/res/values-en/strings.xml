@@ -40,6 +40,9 @@
     <string name="mainScreen">Mainscreen</string>
     <string name="errorsList">Choose road fault</string>
     <string name="errorDialog">Road faults</string>
+    <string name="survey">Survey</string>
+    <string name="cancel">Cancel</string>
+    <string name="linkSurvey">Link to survey</string>
 
 
     <!--OptionsTab-->
@@ -117,5 +120,6 @@
     <string name="stopped_automatically">The trip was stopped</string>
     <string name="stopped_automatically_long">Because of little activity for the last ten minutes.</string>
     <string name="roadFault">Road fault</string>
+    <string name="infoSurvey">Receive surveys</string>
 
 </resources>

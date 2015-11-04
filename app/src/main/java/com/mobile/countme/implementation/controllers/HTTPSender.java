@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
 import java.util.TimeZone;
+import java.util.UUID;
 
 import static com.google.android.gms.internal.zzhu.runOnUiThread;
 
@@ -40,6 +41,8 @@ public class HTTPSender {
     static private UserModel userModel;
     private static boolean clicked;
     private static AppMenu context;
+    private static UUID tripID;
+    private static JSONObject survey;
 
 
     public HTTPSender() {
@@ -55,10 +58,10 @@ public class HTTPSender {
 
         Log.d("SendTrip", "SendTrip started");
 
-        GPSFilter.filterTrip(trip, connectionTypes);
-        if(trip.size() < 20){
-            return;
-        }
+//        GPSFilter.filterTrip(trip, connectionTypes);
+//        if(trip.size() < 20){
+//            return;
+//        }
         JSONObject jsonObject = null;
         /*
         var json = {
@@ -83,8 +86,12 @@ public class HTTPSender {
                 jsonObject.put("gender", userModel.getGender());
             }
             if( userModel.getBirthYear() != 0) {
-                jsonObject.put("birthyear", userModel.getBirthYear());
+                jsonObject.put("age", userModel.getAge());
             }
+            tripID = UUID.randomUUID();
+            Log.e("huuheuhe", tripID.toString());
+            jsonObject.put("tripID", tripID.toString());
+
             JSONArray tripData = new JSONArray();
             JSONObject dataPoint;
             Location location;
@@ -171,6 +178,53 @@ public class HTTPSender {
             thread.start();
         }
     }
+
+    public static void getPotensialSurvey(){
+
+        if(context.getMainController().getUserModel().isReceiveSurveys()) {
+            JSONObject jsonObject = new JSONObject();
+            if (jsonObject != null) {
+                String sendURL = SERVER_URL + "user/" + info.getUserID() + "/trips/" + tripID + "/?token=" + info.getToken();
+                HttpSenderThread thread = new HttpSenderThread(jsonObject, sendURL, info, HttpPostKind.SURVEY);
+                thread.start();
+            }
+        }
+    }
+
+    //sendanswer method creates a jsonObject
+    //Then it uses delegation to send the jsonObject to the server via a specified url
+    public static void sendAnswer(String answer, String qid) {
+        Log.d("SendAnswer", "SendAnswer started");
+
+        JSONObject jsonanswer = null;
+        try {
+            jsonanswer = new JSONObject();
+            jsonanswer.put("_userId", info.getUserID());
+            synchronized (jsonanswer){
+                jsonanswer.put("answer", answer);
+                if (jsonanswer != null) {
+                    String sendURL = SERVER_URL + "user/" + info.getUserID() + "/answers/" + qid + "/?token=" + info.getToken();
+                    HttpSenderThread thread = new HttpSenderThread(jsonanswer, sendURL, info, HttpPostKind.ANSWER);
+                    thread.start();
+                    synchronized (thread) {
+                        try {
+                            thread.wait();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+
+            Log.d("SendErrors", "JSON created successfully");
+        }catch(JSONException e){
+            //dirty fix to checked exceptions
+            e.printStackTrace();
+        }
+
+
+    }
+
 
     //sendErrors method creates jsonObjects from an hashmap of trip errors
     //Then it uses delegation to send the jsonObejcts to the server via a specified url
@@ -294,7 +348,13 @@ public class HTTPSender {
     }
 
 
+    public static void setSurvey(JSONObject survey) {
+        HTTPSender.survey = survey;
+    }
 
+    public static JSONObject getSurvey() {
+        return survey;
+    }
 }
 
 
