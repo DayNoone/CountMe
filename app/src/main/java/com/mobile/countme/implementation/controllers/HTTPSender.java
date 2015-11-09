@@ -58,10 +58,10 @@ public class HTTPSender {
 
         Log.d("SendTrip", "SendTrip started");
 
-//        GPSFilter.filterTrip(trip, connectionTypes);
-//        if(trip.size() < 20){
-//            return;
-//        }
+        GPSFilter.filterTrip(trip, connectionTypes);
+        if(trip.size() < 20){
+            return;
+        }
         JSONObject jsonObject = null;
         /*
         var json = {
