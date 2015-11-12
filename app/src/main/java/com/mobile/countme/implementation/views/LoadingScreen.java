@@ -23,11 +23,6 @@ public class LoadingScreen extends AppMenu {
     public void onCreate(Bundle savedInstanceBundle) {
         super.onCreate(savedInstanceBundle);
 
-        //TODO: ALPHA CODE, REMOVE AT LAUNCH:
-//        This clears the sharedPref for userPrefrences (clear username).
-//        SharedPreferences sharedPref = getSharedPreferences(getString(R.string.profile_preferences), Context.MODE_PRIVATE);
-//        sharedPref.edit().clear().commit();
-
         //Load things
         //Sets all the static classes for the application
         setAppAssets(new Assets(this));
@@ -48,26 +43,19 @@ public class LoadingScreen extends AppMenu {
         @Override
         protected Void doInBackground(Void... params) {
              /* This code creates/saves the user data and loads all the application assets
-              * The publish progress is set in 2 parts:
-              * "Saved Data", "Saved preferences" and "GUI?"
 .             */
             try {
                 //Get the current thread's token
                 synchronized (this) {
                     //IMPORTANT, needs to be done first
-//                getFileIO().getEnvironmentSaveFile();
-//                getFileIO().getTripsSaveFile();
                     //If the user already "logged" inn
                     SharedPreferences sharedPref = getSharedPreferences(getString(R.string.profile_preferences), Context.MODE_PRIVATE);
                     boolean isLoggedInn = sharedPref.getBoolean(getString(R.string.isLoggedInn), false);
                     if (!isLoggedInn) {
-                        Log.e("LoadScreen", "UserData Not present, creating new saveStatistics");
                         //ONLY DONE THE FIRST TIME THE APPLICATION IS CREATED
                         getMainController().createTripsStatistics();
                         getMainController().createUserInformation();
                     }
-
-                    //TODO: Testing code - Remove
 
                     //Loads the statistics from the phone internal storage
                     getMainController().loadEnvironmentalStatistics();

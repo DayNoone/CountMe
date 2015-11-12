@@ -115,30 +115,6 @@ public class MainController {
 
     }
 
-    //TODO: Testing code - Remove
-    public void addRandomShit() throws JSONException {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(context.getString(R.string.statisticsData), Context.MODE_PRIVATE);
-        String tripsString = sharedPreferences.getString(context.getString(R.string.statisticsData), null);
-        SharedPreferences.Editor prefEditor = sharedPreferences.edit();
-        JSONArray trips = new JSONArray(tripsString);
-        JSONObject dummyObjectLastWeek = new JSONObject();
-        JSONObject dummyObjectLastMonth = new JSONObject();
-        dummyObjectLastWeek.put("TimeStamp", "01-10-2015");
-        dummyObjectLastWeek.put("co2Saved", 1);
-        dummyObjectLastWeek.put("distance", 2.255512321);
-        dummyObjectLastWeek.put("avgSpeed", 1.32);
-        dummyObjectLastWeek.put("calories", 241);
-        dummyObjectLastMonth.put("TimeStamp", "08-09-2015");
-        dummyObjectLastMonth.put("co2Saved", 1);
-        dummyObjectLastMonth.put("distance", 1.2314123123123);
-        dummyObjectLastMonth.put("avgSpeed", 1.54);
-        dummyObjectLastMonth.put("calories", 23213);
-        trips.put(dummyObjectLastMonth);
-        trips.put(dummyObjectLastWeek);
-        prefEditor.putString(context.getString(R.string.statisticsData), trips.toString());
-        prefEditor.commit();
-    }
-
     /**
      * Returns a JSONObject that contains the summed values of the specified period.
      *
@@ -310,20 +286,6 @@ public class MainController {
                 trip.put("distance", 0);
                 trip.put("avgSpeed", 0);
                 trip.put("calories", 0);
-//                JSONObject dummyObjectLastWeek = new JSONObject();
-//                JSONObject dummyObjectLastMonth = new JSONObject();
-//                dummyObjectLastWeek.put("TimeStamp","19-10-2015");
-//                dummyObjectLastWeek.put("co2Saved",1);
-//                dummyObjectLastWeek.put("distance", 2.255512321);
-//                dummyObjectLastWeek.put("avgSpeed",1.32);
-//                dummyObjectLastWeek.put("calories", 241);
-//                dummyObjectLastMonth.put("TimeStamp", "08-09-2015");
-//                dummyObjectLastMonth.put("co2Saved", 1);
-//                dummyObjectLastMonth.put("distance",1.2314123123123);
-//                dummyObjectLastMonth.put("avgSpeed", 1.54);
-//                dummyObjectLastMonth.put("calories",23213);
-//                trips.put(dummyObjectLastMonth);
-//                trips.put(dummyObjectLastWeek);
                 trips.put(trip);
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -403,24 +365,6 @@ public class MainController {
         fileIO.writeUserInformationSaveFile(userInformation);
     }
 
-    /**
-     * Resets the trips statistics file. This should be done every day.
-     */
-    public void resetTripsStatistics() {
-        JSONObject trip = new JSONObject();
-        try {
-            trip.put("TimeStamp", simpleDateFormat.format(calendar.getTime()));
-            trip.put("co2Saved", 0);
-            trip.put("distance", 0);
-            trip.put("avgSpeed", 0);
-            trip.put("calories", 0);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        statisticsModel.resetStatistics();
-        fileIO.writeStatisticSaveFile(trip);
-    }
-
     public EnvironmentModel getEnvironmentModel() {
         return environmentModel;
     }
@@ -498,14 +442,6 @@ public class MainController {
     public void resetErrors() {
         tripErrors = new TreeMap<>();
         errorCount = 1;
-    }
-
-    public void setErrorClicked(boolean errorClicked) {
-        this.errorClicked = errorClicked;
-    }
-
-    public boolean isErrorClicked() {
-        return errorClicked;
     }
 
     public void setTime() {

@@ -119,18 +119,6 @@ public class AndroidFileIO {
 
         return userInformation;
     }
-//    //Only used once the first time the game starts up
-//    //If a file is already present it gives you the present file.
-//    public File getTripsSaveFile(){
-//        File file = new File(context.getFilesDir(), context.getString(R.string.tripsStatisticsData));
-//        if(!file.exists()){
-//            savedData = file;
-//            Log.e("FileIO", "TripStatisticsDataCreated");
-//        }else{
-//            Log.e("FileIO", "TripsStatisticsDataExists");
-//        }
-//        return savedData;
-//    }
 
     public void removeSaveFile(){
 

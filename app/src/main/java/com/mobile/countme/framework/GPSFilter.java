@@ -10,6 +10,11 @@ import java.util.ArrayList;
  */
 public class GPSFilter {
 
+    /**
+     * Filters the first and last 100 meters of the trip.
+     * @param trip
+     * @param modes
+     */
     public static void filterTrip(ArrayList<Location> trip, ArrayList<Integer> modes) {
         if (trip.size() < 2) {
             trip.clear();

@@ -94,6 +94,10 @@ public class GPSTracker extends Service implements LocationListener {
         }
     }
 
+    /**
+     * Returns the last known location
+     * @return
+     */
     public Location getLocation() {
         try {
             locationManager = (LocationManager) mContext

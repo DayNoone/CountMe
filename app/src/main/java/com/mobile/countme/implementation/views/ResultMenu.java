@@ -88,6 +88,9 @@ public class ResultMenu extends AppMenu {
         goTo(MapsActivity.class);
     }
 
+    /**
+     * Initializes the spinner containing all the reported road faults.
+     */
     private void initSpinner(){
         final Spinner dropdown = (Spinner)findViewById(R.id.spinnerErrors);
         ArrayList<String> items = new ArrayList<>();

@@ -26,6 +26,10 @@ public class UserModel extends AppMenu{
         this.weight = weight;
     }
 
+    /**
+     * Returns the age of the user based on their birth year
+     * @return
+     */
     public int getAge() {
         return calendar.get(Calendar.YEAR) - birthYear;
     }

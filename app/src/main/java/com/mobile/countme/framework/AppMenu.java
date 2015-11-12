@@ -18,7 +18,6 @@ public abstract class AppMenu extends AppCompatActivity {
     private static AndroidFileIO fileIO;
     private static MainController mainController;
 
-    protected boolean onCreateViewCalled = false;
 
     @Override
     public void onCreate(Bundle savedInstanceBundle){
@@ -34,6 +33,10 @@ public abstract class AppMenu extends AppCompatActivity {
         overridePendingTransition(0, 0);
     }
 
+    /**
+     * Sends the user to the specified screen.
+     * @param javaClass
+     */
     public void goTo(Class javaClass) {
         Intent intent = new Intent(this, javaClass);
         startActivity(intent);

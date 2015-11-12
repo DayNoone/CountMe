@@ -37,6 +37,10 @@ public class BikingActive extends AppMenu {
 
     public static boolean clicked;
 
+    /**
+     * Stops the trip
+     * @param view
+     */
     public void stopBiking(View view) {
         activeObject = this;
 
@@ -63,6 +67,9 @@ public class BikingActive extends AppMenu {
         goTo(ResultMenu.class);
     }
 
+    /**
+     * Notification to the user if their trip have been automatically stopped.
+     */
     public void endTripNotification() {
         Intent notificationIntent = new Intent(getApplicationContext(), ResultMenu.class);
         notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
@@ -160,6 +167,11 @@ public class BikingActive extends AppMenu {
         }
     }
 
+    /**
+     * Checks of the user has internet access.
+     * @param context
+     * @return
+     */
     public static boolean isConnected(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         return cm.getActiveNetworkInfo() != null;

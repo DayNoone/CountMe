@@ -32,14 +32,9 @@ import static com.google.android.gms.internal.zzhu.runOnUiThread;
 public class HTTPSender {
 
     private static final String SERVER_URL = "https://tf2.sintef.no:8084/smioTest/api/";
-    //private static final String USERID = "560946d9b2af57c413ac8427";
-    //private static final String TOKEN = "$2a$10$w1BPdOBqiuaYiKJ6a2qYdewOKOdk7fQ.LE3yjf6fvF5/YLtBi2Q8S";
-    //private static final String USERNAME = "sondre";
-    //private static final String PASSWORD = "dabchick402";
 
     static private LoginInfo info;
     static private UserModel userModel;
-    private static boolean clicked;
     private static AppMenu context;
     private static UUID tripID;
     private static JSONObject survey;
@@ -63,18 +58,6 @@ public class HTTPSender {
             return;
         }
         JSONObject jsonObject = null;
-        /*
-        var json = {
-            "_userId": [unik brukar-ID],
-            "startTime": [timestamp start],                      //"2014-02-13T15:00:00-0100";
-            "endTime": [timestamp slutt],     //"2014-02-14T16:25:43-0100";
-            "tripData": [dataPoints, feks arrayet de har],
-            "purpose": [sikkert irrelevant for dykk, kan berre vere ein tom string],
-            "OS": [Ext.os.name + " " + Ext.os.version]                        //OS Information
-        };
-
-
-         */
         try {
             jsonObject = new JSONObject();
             jsonObject.put("_userId", info.getUserID());
@@ -98,13 +81,6 @@ public class HTTPSender {
             for (int i = 0; i < trip.size(); i++) {
                 location = trip.get(i);
                 dataPoint = new JSONObject();
-                /*
-                                "lat":                  //item.get('Latitude'),
-                                "lon":                 //item.get('Longitude'),
-                                "time":                             //item.get('Timestamp'),
-                                "mode":                           //item.get('TravelMode'),
-                                "connection": //item.get('Connection'),
-                                */
 
 
                 dataPoint.put("lat", location.getLatitude());
@@ -145,14 +121,6 @@ public class HTTPSender {
 
 
                 }
-                /*
-                                "altitude":                       //item.get('Altitude'),
-                                "accuracy":      //item.get('Accuracy'),
-                                "altitudeAccuracy":       //item.get('AltitudeAccuracy'),
-                                "heading":                       //item.get('Heading'),
-                                "speed":                           //item.get('Speed')
-
-                 */
                 dataPoint.put("altitude", trip.get(i).getAltitude());
                 dataPoint.put("accuracy", trip.get(i).getAccuracy());
                 dataPoint.put("altitudeAccuracy", "");
@@ -167,7 +135,6 @@ public class HTTPSender {
             jsonObject.put("OS", versionName);
             Log.d("SendTrip", "JSON created successfully");
         } catch (Exception e) {
-            //dirty fix to checked exceptions
             e.printStackTrace();
         }
 
@@ -218,7 +185,6 @@ public class HTTPSender {
 
             Log.d("SendErrors", "JSON created successfully");
         }catch(JSONException e){
-            //dirty fix to checked exceptions
             e.printStackTrace();
         }
 
@@ -268,13 +234,17 @@ public class HTTPSender {
 
                 Log.d("SendErrors", "JSON created successfully");
             }catch(JSONException e){
-                //dirty fix to checked exceptions
                 e.printStackTrace();
             }
 
 
         }
 
+    /**
+     * Logs the user into the server
+     * @param model
+     * @return
+     */
     public static boolean logIn(UserModel model) {
         userModel = model;
         if (info == null) {
@@ -307,6 +277,11 @@ public class HTTPSender {
 
     }
 
+    /**
+     * Creates the user in the database
+     * @param model
+     * @return
+     */
     public static boolean createUser(UserModel model) {
         if (info == null) {
             info = new LoginInfo();
@@ -314,20 +289,9 @@ public class HTTPSender {
         JSONObject obj = null;
         try {
             obj = new JSONObject();
-/*              username:                         userStore.getAt(0).get('username'),
-               gender:                              userStore.getAt(0).get('gender'),
-               maritalstatus:    userStore.getAt(0).get('maritalstatus'),
-               occupation:                       userStore.getAt(0).get('occupation'),
-               birthyear:                           userStore.getAt(0).get('birthyear'),
-               subscription:      userStore.getAt(0).get('subscription'),
-               residence:                          userStore.getAt(0).get('residence'),
-               area:                                   userStore.getAt(0).get('area'),
-               numchildren:      userStore.getAt(0).get('numchildren')
-*/
             obj.put("username", model.getUsername());
             obj.put("password", model.getPassword());
             info.setPassword(model.getPassword());
-            //Potentially more things
         } catch (JSONException e) {
             e.printStackTrace();
         }

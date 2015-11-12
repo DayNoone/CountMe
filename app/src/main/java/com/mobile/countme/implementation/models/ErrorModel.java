@@ -49,9 +49,12 @@ public class ErrorModel {
         return photoTaken;
     }
 
+    /**
+     * Converts a bitmap to a Base 64 string for sending to server
+     * @return
+     */
     public String getPhotoTakenInBase64() {
         if(photoTaken == null) return null;
-        //TODO: Set size of picture - compress?
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         photoTaken.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
         byte[] byteArray = byteArrayOutputStream .toByteArray();

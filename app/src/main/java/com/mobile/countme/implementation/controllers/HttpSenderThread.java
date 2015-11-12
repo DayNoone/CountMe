@@ -57,7 +57,6 @@ public class HttpSenderThread extends Thread {
                 if(survey != null){
                     surveyReceived = true;
                     HTTPSender.setSurvey(new JSONObject(survey));
-//                    Log.e("HTTPSender", survey);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -149,23 +148,5 @@ public class HttpSenderThread extends Thread {
 
         }
 
-        //If response is needed somewhere, figure out how to communicate with main thread.
-
-    }
-
-    public String getSurvey() {
-        return survey;
-    }
-
-    public void setSurvey(String survey) {
-        this.survey = survey;
-    }
-
-    public boolean isSurveyReceived() {
-        return surveyReceived;
-    }
-
-    public void setSurveyReceived(boolean surveyReceived) {
-        this.surveyReceived = surveyReceived;
     }
 }

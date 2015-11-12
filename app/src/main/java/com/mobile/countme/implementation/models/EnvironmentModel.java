@@ -79,8 +79,4 @@ public class EnvironmentModel {
         this.co2_savedToday = co2_savedToday;
     }
 
-    public void resetStatistics(){
-        co2_carDistance = 0;
-        co2_savedToday = 0;
-    }
 }

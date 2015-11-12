@@ -41,6 +41,10 @@ public class ErrorMenu extends AppMenu {
         description = getMainController().getErrorModel().getDescription();
     }
 
+    /**
+     * When the user if finished editing an error.
+     * @param view
+     */
     public void finishEditing(View view){
         getMainController().getErrorModel().setEditedWhenReported(false);
         Toast.makeText(getApplicationContext(), getString(R.string.error_saved), Toast.LENGTH_SHORT).show();
@@ -58,7 +62,6 @@ public class ErrorMenu extends AppMenu {
     }
 
     public void createDescription(View view){
-        //TODO: Pop up to add description.
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
         alert.setTitle(getString(R.string.add_description));
@@ -97,7 +100,6 @@ public class ErrorMenu extends AppMenu {
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // TODO Auto-generated method stub
         super.onActivityResult(requestCode, resultCode, data);
 
         if(data != null) {

@@ -34,7 +34,6 @@ public class ToggleableRadioButton extends RadioButton {
     @Override
     public void toggle() {
         if(isChecked()) {
-//            AppMenu.getMainController().getUserModel().setGender("");
             Log.e("Toggle", "setGenderZero");
             if(getParent() instanceof RadioGroup) {
                 ((RadioGroup)getParent()).clearCheck();
