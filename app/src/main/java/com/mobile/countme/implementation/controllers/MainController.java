@@ -186,6 +186,70 @@ public class MainController {
     public void loadUserInformation() {
         JSONObject userInformation = fileIO.readUserInformation();
         Log.w("MainController", "user information: " + userInformation);
+        if(!userInformation.has("Username") || !userInformation.has("Password")) {
+            Log.e("MainController", "Username: " + userInformation.has("Username"));
+            try {
+                boolean created = false;
+                while (!created) {
+                    String username = new UUID(System.currentTimeMillis(), System.nanoTime()).toString();
+                    userModel.setUsername(username);
+                    String password = new UUID(System.currentTimeMillis(), System.nanoTime()).toString();
+                    userModel.setPassword(password);
+
+
+                    created = HTTPSender.createUser(userModel);
+                    if (!created) {
+                        clicked = false;
+                        new Thread() {
+                            public void run() {
+                                runOnUiThread(new Runnable() {
+                                                  public void run() {
+                                                      AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                                                      builder.setMessage(context.getString(R.string.require_network_on_startup))
+                                                              .setCancelable(false)
+                                                              .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                                                  public void onClick(DialogInterface dialog, int id) {
+                                                                      synchronized (userModel) {
+                                                                          MainController.clicked = true;
+                                                                          userModel.notify();
+                                                                      }
+                                                                  }
+                                                              });
+                                                      AlertDialog alert = builder.create();
+                                                      alert.show();
+                                                  }
+                                              }
+                                );
+                            }
+                        }.start();
+
+                        synchronized (userModel) {
+                            try {
+                                if (!clicked) {
+                                    Log.d("Wait for click", "no connection, user has not clicked button, waiting");
+                                    userModel.wait();
+                                }
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+
+
+                userInformation.put("Username", userModel.getUsername());
+                userInformation.put("Password", userModel.getPassword());
+            } catch (
+                    JSONException e
+                    )
+
+            {
+                e.printStackTrace();
+            }
+
+            fileIO.writeUserInformationSaveFile(userInformation);
+        }
+
         try {
             userModel.setGender(userInformation.getString("Gender"));
             userModel.setBirthYear(Integer.parseInt(userInformation.getString("BirthDate")));

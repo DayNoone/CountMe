@@ -23,6 +23,12 @@ public class LoadingScreen extends AppMenu {
     public void onCreate(Bundle savedInstanceBundle) {
         super.onCreate(savedInstanceBundle);
 
+
+        //TODO: ALPHA CODE, REMOVE AT LAUNCH:
+//        This clears the sharedPref for userPrefrences (clear username).
+//        SharedPreferences sharedPref = getSharedPreferences(getString(R.string.profile_preferences), Context.MODE_PRIVATE);
+//        sharedPref.edit().clear().commit();
+
         //Load things
         //Sets all the static classes for the application
         setAppAssets(new Assets(this));
