@@ -9,6 +9,7 @@ import android.util.Log;
 import com.mobile.countme.R;
 import com.mobile.countme.framework.AppMenu;
 import com.mobile.countme.implementation.AndroidFileIO;
+import com.mobile.countme.implementation.controllers.HTTPSender;
 import com.mobile.countme.implementation.controllers.MainController;
 import com.mobile.countme.implementation.controllers.IntroductionMenu;
 import com.mobile.countme.implementation.controllers.MainMenu;
@@ -67,6 +68,10 @@ public class LoadingScreen extends AppMenu {
                     getMainController().loadEnvironmentalStatistics();
                     getMainController().loadTripsStatistics();
                     getMainController().loadUserInformation();
+                    if(HTTPSender.info == null || !HTTPSender.info.isLoggedIn()){
+                        Log.e("LoadingScreen", "Did not log in the first time");
+                        getMainController().reCreateUserInformation();
+                    }
 
 
                 }

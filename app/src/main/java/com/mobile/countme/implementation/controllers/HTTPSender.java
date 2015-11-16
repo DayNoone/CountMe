@@ -33,7 +33,7 @@ public class HTTPSender {
 
     private static final String SERVER_URL = "https://tf2.sintef.no:8084/smioTest/api/";
 
-    static private LoginInfo info;
+    static public LoginInfo info;
     static private UserModel userModel;
     private static AppMenu context;
     private static UUID tripID;
