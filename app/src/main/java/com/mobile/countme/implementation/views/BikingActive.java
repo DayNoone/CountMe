@@ -147,10 +147,10 @@ public class BikingActive extends AppMenu {
      */
     public void updateView(String time_used, boolean start_using_tracker) {
         getMainController().getTracker().checkIfNoLocationsReceived();
-        if (getMainController().getTracker().isAutomaticallyStopped()) {
+        /* if (getMainController().getTracker().isAutomaticallyStopped()) {
             endTripNotification();
             endTripAndReturn();
-        }
+        } */
         CustomTextView time = (CustomTextView) findViewById(R.id.tracking_time);
         CustomTextView speed = (CustomTextView) findViewById(R.id.current_speed);
         CustomTextView distance = (CustomTextView) findViewById(R.id.tripDistance);
